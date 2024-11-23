@@ -1,5 +1,5 @@
 import { ytmp3 } from 'ruhend-scraper';
-import fetch from 'node-fetch'; // Si estás en un entorno Node.js
+import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) => {
     if (!m.quoted) {
@@ -29,25 +29,6 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
         let videoUrl = urls[0];
         let { title, audio, author, description, duration, views, upload, thumbnail } = await ytmp3(videoUrl);
 
-        // Enviar el archivo al usuario
-  /*       await conn.sendMessage(m.chat, { 
-            audio: { url: audio }, 
-            mimetype: "audio/mp3", 
-            fileName: title + '.mp3', 
-            quoted: m, 
-            contextInfo: {
-                'forwardingScore': 200,
-                'isForwarded': true,
-                externalAdReply: {
-                    showAdAttribution: false,
-                    title: `${title}`,
-                    body: `${author}`,
-                    mediaType: 2,
-                    sourceUrl: ' ',
-                    thumbnail: await (await fetch(thumbnail)).buffer()
-                }
-            }
-        }, { quoted: m }); */
        await conn.sendMessage(m.chat, { audio: { url: audio }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
 'forwardingScore': 200,
 'isForwarded': true,
@@ -58,7 +39,6 @@ body: `${author}`,
 mediaType: 2, 
 sourceUrl: ' ',
 thumbnail: await (await fetch(thumbnail)).buffer()}}}, { quoted: m })
-
         await m.react('✅');
     } catch (e) {
         console.error(e);
@@ -70,6 +50,5 @@ handler.help = ['Audio'];
 handler.tags = ['downloader'];
 handler.customPrefix = /^(Audio|audio)/;
 handler.command = new RegExp;
-// handler.limit = 1;
 
 export default handler;
