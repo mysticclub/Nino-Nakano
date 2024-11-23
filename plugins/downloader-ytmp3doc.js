@@ -31,7 +31,7 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
     await m.react('🕓');
     try {
         let videoUrl = urls[0];
-        let { title, audio, author, description, duration, views, upload, thumbnail } = await ytmp3(videoUrl);
+        let { title, description, viewH, duration, videoId } = await ytmp3(videoUrl);
 
        await conn.sendMessage(m.chat, { audio: { url: audio }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
 'forwardingScore': 200,
