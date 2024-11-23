@@ -30,7 +30,7 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
         let { title, audio, author, description, duration, views, upload, thumbnail } = await ytmp3(videoUrl);
 
         // Enviar el archivo al usuario
-        await conn.sendMessage(m.chat, { 
+  /*       await conn.sendMessage(m.chat, { 
             audio: { url: audio }, 
             mimetype: "audio/mp3", 
             fileName: title + '.mp3', 
@@ -47,7 +47,17 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
                     thumbnail: await (await fetch(thumbnail)).buffer()
                 }
             }
-        }, { quoted: m });
+        }, { quoted: m }); */
+       await conn.sendMessage(m.chat, { audio: { url: audio }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
+'forwardingScore': 200,
+'isForwarded': true,
+externalAdReply:{
+showAdAttribution: false,
+title: `${title}`,
+body: `${author}`,
+mediaType: 2, 
+sourceUrl: ' ',
+thumbnail: await (await fetch(thumbnail)).buffer()}}}, { quoted: m })
 
         await m.react('✅');
     } catch (e) {
