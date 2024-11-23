@@ -2,30 +2,30 @@ const handler = async (m, {conn, usedPrefix, command, args, isOwner, isAdmin, is
 
 const miniopcion = `🤍 *OPCIONES ON - OFF*
 
-| antidelete
-| antilink
-| antisticker
-| autobio
-| autobio
-| modoadmin
-| autogpt
-| autolevelup
-| autoread
-| autosticker
-| delete
-| detect
-| document
-| gconly
-| menu
-| nsfw
-| owneronly
-| pconly
-| public
-| self
-| simi
-| swonly
-| whitelistmycontacts
-| bienvenida
+ antidelete
+ antilink
+ antisticker
+ autobio
+ autobio
+ modoadmin
+ autogpt
+ autolevelup
+ autoread
+ autosticker
+ delete
+ detect
+ document
+ gconly
+ menu
+ nsfw
+ owneronly
+ pconly
+ public
+ self
+ simi
+ swonly
+ whitelistmycontacts
+ bienvenida
 
 *☕ Ejemplo:*
 ${usedPrefix}on bienvenida
