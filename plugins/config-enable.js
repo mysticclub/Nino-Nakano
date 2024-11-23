@@ -1,35 +1,35 @@
 const handler = async (m, {conn, usedPrefix, command, args, isOwner, isAdmin, isROwner}) => {
 
-const miniopcion = `🤍 *OPCIONES PARA GRUPOS*
+const miniopcion = `🤍 *OPCIONES ON - OFF*
 
-${usedPrefix + command} welcome
-${usedPrefix + command} detect
-${usedPrefix + command} antidelete
-${usedPrefix + command} antiBot
-${usedPrefix + command} antilink
-${usedPrefix + command} antilink2
-${usedPrefix + command} modohorny
-${usedPrefix + command} autolevelup
-${usedPrefix + command} autosticker
-${usedPrefix + command} reaction
-${usedPrefix + command} antitoxic
-${usedPrefix + command} audios
-${usedPrefix + command} modoadmin
-${usedPrefix + command} antifake
-${usedPrefix + command} antiperu
+| antidelete
+| antilink
+| antisticker
+| autobio
+| autobio
+| modoadmin
+| autogpt
+| autolevelup
+| autoread
+| autosticker
+| delete
+| detect
+| document
+| gconly
+| menu
+| nsfw
+| owneronly
+| pconly
+| public
+| self
+| simi
+| swonly
+| whitelistmycontacts
+| bienvenida
 
-🤍 *OPCIONES PARA MI PROPIETARIO*
-
-${usedPrefix + command} public
-${usedPrefix + command} status
-${usedPrefix + command} serbot
-${usedPrefix + command} restrict
-${usedPrefix + command} autoread
-${usedPrefix + command} antillamar
-${usedPrefix + command} antispam
-${usedPrefix + command} pconly
-${usedPrefix + command} gconly
-${usedPrefix + command} antiprivado`
+*☕ Ejemplo:*
+${usedPrefix}on bienvenida
+${usedPrefix}off bienvenida`
 
 const isEnable = /true|enable|(turn)?on|1/i.test(command);
 const chat = global.db.data.chats[m.chat];
