@@ -1,7 +1,7 @@
 {
-    "name": "Waguri-Ai",
-    "version": "8.0.0",
-    "description": "Waguri Ai By KenisawaDev",
+    "name": "Genesis-Ai",
+    "version": "2.0.0",
+    "description": "Genesis Ai By AngelitoDev",
     "main": "index.js",
     "type": "module",
     "directories": {
