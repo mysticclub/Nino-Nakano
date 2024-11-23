@@ -36,12 +36,11 @@ handler.register = true;
 export default handler; */
 
 import { ytmp3 } from 'ruhend-scraper';
-let limit = 200;
 
 let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) => {
     if (!m.quoted) return conn.reply(m.chat, `[ ✰ ] Etiqueta el mensaje que contenga el resultado de YouTube Play.`, m).then(_ => m.react('✖️'));
     if (!m.quoted.text.includes("*\`【 Y T - P L A Y 】\`*")) return conn.reply(m.chat, `[ ✰ ] Etiqueta el mensaje que contenga el resultado de YouTube Play.`, m).then(_ => m.react('✖️'));
-    let urls = m.quoted.text.match(new RegExp(/(?:https?:\/\/)?(?:youtu.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'));
+    let urls = m.quoted.text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'));
     if (!urls) return conn.reply(m.chat, `Resultado no Encontrado.`, m).then(_ => m.react('✖️'));
     if (urls.length < text) return conn.reply(m.chat, `Resultado no Encontrado.`, m).then(_ => m.react('✖️'));
     
@@ -51,10 +50,6 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
     try {
         let videoUrl = urls[0];
         let { title, audio, author, description, duration, views, upload, thumbnail } = await ytmp3(videoUrl);
-
-        // Validar tamaño del archivo
-        if (parseFloat(size) >= limit) {
-            return conn.reply(m.chat, `El archivo pesa más de ${limit} MB, se canceló la descarga.`, m).then(_ => m.react('✖️'));
         }
 
         // Enviar el archivo al usuario
