@@ -1,91 +1,58 @@
-import axios from 'axios';
-import yts from 'yt-search';
+/* 
+- YTMP3 By Angel-OFC 
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
+import { ytmp3 } from 'ruhend-scraper';
 import fetch from 'node-fetch';
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-
-  if (!text) throw m.reply(`Ejemplo de uso: ${usedPrefix + command} https://youtube.com/watch?v=kGobHQ7z8X4`);
-  
-    let results = await yts(text);
-    let tes = results.videos[0]
-    
-const baseUrl = 'https://cuka.rfivecode.com';
-const cukaDownloader = {
-  youtube: async (url, exct) => {
-    const format = [ 'mp3', 'mp4' ];
-    try {
-      const response = await fetch(`${baseUrl}/download`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-          body: JSON.stringify({ url, format: exct })
-      });
-
-      const data = await response.json();
-      return data;
-      console.log('Data:' + data);
-    } catch (error) {
-      return { success: false, message: error.message };
-      console.error('Error:', error);
+let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) => {
+    if (!m.quoted) {
+        return conn.reply(m.chat, `*\`Etiqueta el mensaje que contenga el resultado del Play.🤍\`*`, m, fake)
+            .then(_ => m.react('✖️'));
     }
-  },
-  tiktok: async (url) => {
-    try {
-      const response = await fetch(`${baseUrl}/tiktok/download`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-          body: JSON.stringify({ url })
-      });
 
-      const data = await response.json();
-      return data;
-      console.log('Data:' + data);
-    } catch (error) {
-      return { success: false, message: error.message };
-      console.error('Error:', error);
+    if (!m.quoted.text.includes("*\`【Y O U T U B E - P L A Y】\`*")) {
+        return conn.reply(m.chat, `*\`Etiqueta el mensaje que contenga el resultado del Play.🤍\`*`, m, fake)
+            .then(_ => m.react('✖️'));
     }
-  },
-  spotify: async (url) => {
-    try {
-      const response = await fetch(`${baseUrl}/spotify/download`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-          body: JSON.stringify({ url })
-      });
 
-      const data = await response.json();
-      return data;
-      console.log('Data:' + data);
-    } catch (error) {
-      return { success: false, message: error.message };
-      console.error('Error:', error);
+    let urls = m.quoted.text.match(new RegExp(/(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/, 'gi'));
+
+    if (!urls) {
+        return conn.reply(m.chat, `*\`Resultado no Encontrado.🤍\`*`, m, fake).then(_ => m.react('✖️'));
     }
-  }
-}
-await conn.sendMessage(m.chat, { react: { text: '🕒', key: m.key }})
-let dataos = await cukaDownloader.youtube(tes.url, "mp3")
-let { title, thumbnail, quality, downloadUrl } = dataos
- const getBuffer = async (url) => {
-  try {
-    const response = await fetch(url);
-    const buffer = await response.arrayBuffer();
-    return Buffer.from(buffer);
-  } catch (error) {
-    console.error("Error al obtener el buffer", error);
-    throw new Error("Error al obtener el buffer");
-  }
-}
-    let audiop = await getBuffer(downloadUrl)
-	await conn.sendMessage(m.chat, { document: audiop, caption: `\`✦ Pedido terminado\``, mimetype: 'audio/mpeg', fileName: `${title}` + `.mp3`}, {quoted: m })
-	await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key }})
-}
-handler.help = ['ytmp3','ytadoc'];
+
+    if (urls.length < parseInt(text)) {
+        return conn.reply(m.chat, `*\`Resultado no Encontrado.🤍\`*`, m, fake).then(_ => m.react('✖️'));
+    }
+
+    let user = global.db.data.users[m.sender];
+
+    await m.react('🕓');
+    try {
+        let videoUrl = urls[0];
+        let { title, audio, author, description, duration, views, upload, thumbnail } = await ytmp3(videoUrl);
+
+       await conn.sendMessage(m.chat, { audio: { url: audio }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
+'forwardingScore': 200,
+'isForwarded': true,
+externalAdReply:{
+showAdAttribution: false,
+title: `${title}`,
+body: `${author}`,
+mediaType: 2, 
+sourceUrl: ' ',
+thumbnail: await (await fetch(thumbnail)).buffer()}}}, { quoted: m })
+        await m.react('✅');
+    } catch (e) {
+        console.error(e);
+        await conn.reply(m.chat, `*\`Hubo un error al procesar la descarga.🤍\`*`, m, fake).then(_ => m.react('✖️'));
+    }
+};
+
+handler.help = ['Audio'];
 handler.tags = ['downloader'];
-handler.command = /^(ytmp3|ytadoc)$/i;
+handler.customPrefix = /^(Docmp3|docmp3)/;
+handler.command = new RegExp;
 
 export default handler;
