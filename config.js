@@ -35,6 +35,7 @@ global.dis = ':⁖֟⊱┈֟፝❥'
 
 //• ↳ ◜𝑰𝑴𝑨́𝑮𝑬𝑵𝑬𝑺◞ • 🌇
 global.logo7 = fs.readFileSync('./thumbnail.jpg')
+global.logo1 = fs.readFileSync('./src/logo1.png')
 
 //• ↳ ◜𝑳𝑰𝑵𝑲𝑺◞ • 🌿
 global.group = 'https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX'
