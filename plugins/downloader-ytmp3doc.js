@@ -31,18 +31,9 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
     await m.react('🕓');
     try {
         let videoUrl = urls[0];
-        let { title, description, viewH, duration, videoId } = await ytmp3(videoUrl);
+        let { title, description, viewH, duration, url } = await youtubedl(videoUrl);
 
-       await conn.sendMessage(m.chat, { audio: { url: audio }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
-'forwardingScore': 200,
-'isForwarded': true,
-externalAdReply:{
-showAdAttribution: false,
-title: `${title}`,
-body: `${author}`,
-mediaType: 2, 
-sourceUrl: ' ',
-thumbnail: await (await fetch(thumbnail)).buffer()}}}, { quoted: m })
+       await conn.sendMessage(m.chat, { document: { url: url }, caption: '*By: GenesisBot*', mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted: m })
         await m.react('✅');
     } catch (e) {
         console.error(e);
