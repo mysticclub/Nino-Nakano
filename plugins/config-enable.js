@@ -338,12 +338,7 @@ default:
 if (!/[01]/.test(command)) return await conn.reply(m.chat, miniopcion, m, rcanal);
 throw false;
 }
-await conn.sendButton(m.chat, `\`❱❱ 𝗚𝗘𝗡𝗘𝗦𝗜𝗦 • 𝗠𝗗 ❰❰\`
-
-*» 𝗢𝗣𝗖𝗜𝗢𝗡 |* ${type.toUpperCase()}
-*» 𝗘𝗦𝗧𝗔𝗗𝗢 |* ${isEnable ? 'ON' : 'OFF'}
-*» 𝗣𝗔𝗥𝗔 |*  ${isAll ? 'ESTE BOT' : isUser ? '' : 'ESTE CHAT'}`, wm, null, [[`${isEnable ? `ᴅᴇꜱᴀᴄᴛɪᴠᴀʀ ☁️` : `ᴀᴄᴛɪᴠᴀʀ ☁️`}`, `${isEnable ? `.off ${type}` : `.on ${type}`}`]], null, null, estilo)
-
+conn.sendMessage(m.chat, {text: `\`❱❱ 𝗚𝗘𝗡𝗘𝗦𝗜𝗦 • 𝗠𝗗 ❰❰\`\n\n*» 𝗢𝗣𝗖𝗜𝗢𝗡 |* _${type.toUpperCase()}_\n*» 𝗘𝗦𝗧𝗔𝗗𝗢 |* ${isEnable ? 'ON' : 'OFF'}\n*» 𝗣𝗔𝗥𝗔 |* ${isAll ? 'ESTE BOT' : isUser ? '' : 'ESTE CHAT'}\n> 𝙂𝙚𝙣𝙚𝙨𝙞𝙨𝘽𝙤𝙩:𝙂𝙚𝙣𝙚𝙨𝙞𝙨𝘽𝙤𝙩`}, {quoted: estilo});
 }
 handler.help = ['en', 'dis'].map((v) => v + 'able <option>');
 handler.tags = ['nable', 'owner'];
