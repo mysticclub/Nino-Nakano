@@ -11,7 +11,7 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
             .then(_ => m.react('✖️'));
     }
 
-    if (!m.quoted.text.includes("*\`【 Y T - P L A Y 】\`*")) {
+    if (!m.quoted.text.includes("*\`【 Y O U T U B E - P L A Y 】\`*")) {
         return conn.reply(m.chat, `*\`Etiqueta el mensaje que contenga el resultado del Play.🤍\`*`, m, fake)
             .then(_ => m.react('✖️'));
     }
