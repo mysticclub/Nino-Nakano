@@ -33,7 +33,7 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
         let videoUrl = urls[0];
         let { title, audio, author, description, duration, views, upload, thumbnail } = await ytmp3(videoUrl);
 
-       await conn.sendMessage(m.chat, { audio: { url: audio }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
+ /*      await conn.sendMessage(m.chat, { audio: { url: audio }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
 'forwardingScore': 200,
 'isForwarded': true,
 externalAdReply:{
@@ -42,7 +42,8 @@ title: `${title}`,
 body: `${author}`,
 mediaType: 2, 
 sourceUrl: ' ',
-thumbnail: await (await fetch(thumbnail)).buffer()}}}, { quoted: m })
+thumbnail: await (await fetch(thumbnail)).buffer()}}}, { quoted: m }) */
+await conn.sendMessage(m.chat, { document: { url: audio }, caption: '*By: GenesisBot*', mimetype: 'audio/mpeg', fileName: `${title}.mp3`}, { quoted: m })
         await m.react('✅');
     } catch (e) {
         console.error(e);
