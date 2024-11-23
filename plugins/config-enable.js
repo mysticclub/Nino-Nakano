@@ -38,30 +38,32 @@ const bot = global.db.data.settings[conn.user.jid] || {};
 const type = (args[0] || '').toLowerCase();
 let isAll = false; const isUser = false;
 switch (type) {
-    case 'bienvenida':
-      if (!m.isGroup) {
-        if (!isOwner) {
-          global.dfail('group', m, conn)
-          throw false
-        }
-      } else if (!isAdmin) {
-        global.dfail('admin', m, conn)
-        throw false
-      }
-      chat.bienvenida = isEnable
-      break
-    case 'welcome':
-      if (!m.isGroup) {
-        if (!isOwner) {
-          global.dfail('group', m, conn)
-          throw false
-        }
-      } else if (!isAdmin) {
-        global.dfail('rowner', m, conn)
-        throw false
-      }
-      chat.welcome = isEnable
-      break
+case 'bienvenida':
+if (!m.isGroup) {
+if (!isOwner) {
+global.dfail('group', m, conn)
+throw false
+}
+} else if (!isAdmin) {
+global.dfail('admin', m, conn)
+throw false
+}
+chat.bienvenida = isEnable
+break
+
+case 'welcome':
+if (!m.isGroup) {
+if (!isOwner) {
+global.dfail('group', m, conn)
+throw false
+}
+} else if (!isAdmin) {
+global.dfail('rowner', m, conn)
+throw false
+}
+chat.welcome = isEnable
+break
+
     case 'detect':
       if (!m.isGroup) {
         if (!isOwner) {
