@@ -56,9 +56,9 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
     }
 };
 
-handler.help = ['video'];
+handler.help = ['Docvideo'];
 handler.tags = ['downloader'];
-handler.customPrefix = /^(Video|video)/;
+handler.customPrefix = /^(Docvideo|docvideo)/;
 handler.command = new RegExp;
 
 export default handler;
