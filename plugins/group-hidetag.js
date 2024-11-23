@@ -1,48 +1,26 @@
+import MessageType from '@adiwajshing/baileys'
+import { generateWAMessageFromContent } from '@adiwajshing/baileys'
+
 let handler = async (m, { conn, text, participants }) => {
-	const fkontak = {
-		"key": {
-			"participants": "0@s.whatsapp.net",
-			"remoteJid": "status@broadcast",
-			"fromMe": false,
-			"id": "Halo"
-		},
-		"message": {
-			"contactMessage": {
-				"vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`
-			}
-		},
-		"participant": "0@s.whatsapp.net"
-	}
-
-/*conn.sendMessage(m.chat, {
- text: text, 
- mentions: 
- participants.map(a => a.id) 
- }, {
-  quoted: fkontak 
-  })*/
-let mem = m.isGroup ? await participants.map(a => a.id) : ""
-conn.sendMessage(m.chat, {
-	text: `@${m.chat}`,
-	contextInfo: {
-mentionedJid: mem, 
-		groupMentions: [
-			{
-				groupSubject: `everyone - [ *${text}* ] ||`,
-				groupJid: m.chat,
-			},
-		],
-	},
-});
+let users = participants.map(u => conn.decodeJid(u.id))
+let q = m.quoted ? m.quoted : m
+let c = m.quoted ? m.quoted : m.msg
+const msg = conn.cMod(m.chat,
+generateWAMessageFromContent(m.chat, {
+[c.toJSON ? q.mtype : 'extendedTextMessage']: c.toJSON ? c.toJSON() : {
+text: c || ''
 }
-
-handler.help = ['hidetag']
-handler.tags = ['group']
-handler.command = /^(hidetag|notify|everyone)$/i
-
+}, {
+userJid: conn.user.id
+}),
+text || q.text, conn.user.jid, { mentions: users }
+)
+await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
+}
+handler.help = ['n <mensaje>']
+handler.tags = ['grupo']
+handler.command = ['n', 'notify'] 
 handler.group = true
 handler.admin = true
 
 export default handler
-
-//xd
