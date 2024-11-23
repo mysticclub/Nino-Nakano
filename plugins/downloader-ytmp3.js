@@ -50,7 +50,7 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
     await m.react('🕓');
     try {
         let videoUrl = urls[0];
-        let { title, author, size, link: dl_url } = await ytmp3(videoUrl);
+        let { title, author, size, link: audio } = await ytmp3(videoUrl);
 
         // Validar tamaño del archivo
         if (parseFloat(size) >= limit) {
