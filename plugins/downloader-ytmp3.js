@@ -1,3 +1,7 @@
+/* 
+- YTMP3 By Angel-OFC 
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
 import { ytmp3 } from 'ruhend-scraper';
 import fetch from 'node-fetch';
 
