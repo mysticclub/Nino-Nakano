@@ -44,9 +44,9 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
     }
 };
 
-handler.help = ['Audio'];
+handler.help = ['Docmp3'];
 handler.tags = ['downloader'];
-handler.customPrefix = /^(Audio|audio)/;
+handler.customPrefix = /^(Docmp3|docmp3)/;
 handler.command = new RegExp();
 
 export default handler;
