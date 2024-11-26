@@ -39,7 +39,7 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
             mimetype: 'audio/mpeg', 
             fileName: `${title}.mp3`, 
             caption: `🎵 *Título:* ${title}\n👤 *Autor:* ${author}\n⏳ *Duración:* ${duration}\n👀 *Vistas:* ${views}`,
-            thumbnail: await fetch(thumbnail.url).then(res => res.buffer())
+            thumbnail: '${thumbnail}'
         }, { quoted: m });
 
         await m.react('✅');
