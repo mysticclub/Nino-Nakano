@@ -33,26 +33,17 @@ export async function before(m, { conn, groupMetadata }) {
     }
     fs.writeFileSync(filePath, buffer);
 
-    // Mensaje de bienvenida
-    if (m.messageStubType === 27) {
-      const welcomeMessage = `🎉 *¡Bienvenido!* 🎉\n👤 @${who.split`@`[0]} se unió al grupo *${groupMetadata.subject}*. 🎊`;
-      await conn.sendMessage(
-        m.chat,
-        { image: buffer, caption: welcomeMessage, mentions: [who] },
-        { quoted: m }
-      );
-    }
-
-    // Mensaje de despedida
-    if (m.messageStubType === 28 || m.messageStubType === 32) {
-      const byeMessage = `👋 *¡Adiós!* 👋\nEl usuario @${who.split`@`[0]} ha salido del grupo. 😢`;
-      await conn.sendMessage(
-        m.chat,
-        { image: buffer, caption: byeMessage, mentions: [who] },
-        { quoted: m }
-      );
-    }
-  } catch (err) {
-    console.error("Error al generar o enviar la tarjeta:", err);
+      if (chat.bienvenida && m.messageStubType == 27) {
+    let welcome = `*⭒─ׄ─ׅ─ׄ─⭒ \`ʙɪᴇɴᴠᴇɴɪᴅᴀ\` ⭒─ׄ─ׅ─ׄ─⭒*\n\n╭── ︿︿︿︿︿ *⭒   ⭒   ⭒   ⭒   ⭒   ⭒*\n┊:⁖֟⊱┈֟፝❥ *ᴡᴇʟᴄᴏᴍᴇ* :: @${m.messageStubParameters[0].split`@`[0]}\n┊:⁖֟⊱┈֟፝❥  ${groupMetadata.subject}\n╰─── ︶︶︶︶ ✰⃕  ⌇ *⭒ ⭒ ⭒*   ˚̩̥̩̥*̩̩͙✩`
+await conn.sendMini(m.chat, titulowm2, titu, welcome, img, img, canal, estilo)
   }
-}
+
+  if (chat.bienvenida && m.messageStubType == 28) {
+    let bye = `*⭒─ׄ─ׅ─ׄ─⭒ \`ᴀ ᴅ ɪ ᴏ ꜱ\` ⭒─ׄ─ׅ─ׄ─⭒*\n\n╭── ︿︿︿︿︿ *⭒   ⭒   ⭒   ⭒   ⭒   ⭒*\n┊:⁖֟⊱┈֟፝❥ *ʙ ʏ ᴇ* :: @${m.messageStubParameters[0].split`@`[0]}\n┊:⁖֟⊱┈֟፝❥   *ꜱ ᴀ ʏ ᴏ ɴ ᴀ ʀ ᴀ 👋*\n╰─── ︶︶︶︶ ✰⃕  ⌇ *⭒ ⭒ ⭒*   ˚̩̥̩̥*̩̩͙✩`
+await conn.sendMini(m.chat, titulowm2, titu, bye, img, img, canal, estilo)
+  }
+
+  if (chat.bienvenida && m.messageStubType == 32) {
+    let kick = `*⭒─ׄ─ׅ─ׄ─⭒ \`ᴀ ᴅ ɪ ᴏ ꜱ\` ⭒─ׄ─ׅ─ׄ─⭒*\n\n╭── ︿︿︿︿︿ *⭒   ⭒   ⭒   ⭒   ⭒   ⭒*\n┊:⁖֟⊱┈֟፝❥ *ʙ ʏ ᴇ* :: @${m.messageStubParameters[0].split`@`[0]}\n┊:⁖֟⊱┈֟፝❥   *ꜱ ᴀ ʏ ᴏ ɴ ᴀ ʀ ᴀ 👋*\n╰─── ︶︶︶︶ ✰⃕  ⌇ *⭒ ⭒ ⭒*   ˚̩̥̩̥*̩̩͙✩`
+await conn.sendMini(m.chat, titulowm2, titu, kick, img, img, canal, estilo)
+}}
