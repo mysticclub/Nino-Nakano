@@ -2,6 +2,7 @@ import canvacard from "canvacard";
 import fs from "fs";
 
 const handler = async (m, { conn }) => {
+  const sender = m.sender.split('@')[0];
   const who = m.mentionedJid && m.mentionedJid[0]
     ? m.mentionedJid[0]
     : m.fromMe
@@ -41,7 +42,7 @@ const handler = async (m, { conn }) => {
     }
 
     // Envía la imagen generada al chat
-    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*${who.split('@')[0]} 🐕 BIENVENIDO  🐕*', m);
+    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*@${sender} 🐕 BIENVENIDO  🐕*', m);
   } catch (err) {
     console.error("Error al generar la tarjeta:", err);
   }
