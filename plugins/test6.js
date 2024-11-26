@@ -87,7 +87,7 @@ const handler = async (m, { conn }) => {
     .setOpacityOverlay(0.5) // Ajusta la transparencia del overlay
     .setColorCircle('#FFFFFF')
     .setColorOverlay('rgba(255, 255, 255, 0.5)') // Overlay blanco semitransparente
-    .setTypeOverlay('GRADIENT'); // Configura el tipo de overlay como degradado (si lo soporta)
+    .setTypeOverlay('ROUND'); // Usamos tipo 'ROUND' o el tipo predeterminado
 
   // Genera la tarjeta
   try {
@@ -119,4 +119,3 @@ handler.tags = ['maker'];
 handler.command = /^(welcome|ingreso)$/i;
 
 export default handler;
-
