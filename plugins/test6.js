@@ -65,18 +65,25 @@ const handler = async (m, { conn }) => {
 
   // Obtén la URL del avatar del usuario o usa una predeterminada
   const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
-  const background = "https://th.bing.com/th/id/R.248b992f15fb255621fa51ee0ca0cecb?rik=K8hIsVFACWQ8%2fw&pid=ImgRaw&r=0"; // Fondo personalizado
 
   // Verifica o crea el directorio de salida
   if (!fs.existsSync('./output')) {
     fs.mkdirSync('./output', { recursive: true });
   }
 
+  // Ruta de la imagen de fondo
+  const background = "./assets/background.jpg"; // Imagen local como fondo
+
+  // Verifica que el archivo de fondo exista
+  if (!fs.existsSync(background)) {
+    return conn.sendMessage(m.chat, "❌ Error: La imagen de fondo no existe. Por favor, verifica el archivo.", m);
+  }
+
   // Configura la tarjeta
   try {
     const welcomeCard = await new canvafy.WelcomeLeave()
       .setAvatar(img) // Avatar del usuario
-      .setBackground("image", background) // Fondo personalizado
+      .setBackground("image", background) // Fondo desde un archivo local
       .setTitle("BIENVENIDO") // Título (menos de 20 caracteres)
       .setDescription("Lee las reglas del grupo.") // Descripción
       .setBorder("#2a2e35") // Borde de la tarjeta
@@ -107,5 +114,3 @@ handler.tags = ['maker'];
 handler.command = /^(welcome|ingreso)$/i;
 
 export default handler;
-
-
