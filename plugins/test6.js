@@ -1,4 +1,4 @@
-import canvacard from "canvacard";
+/* import canvacard from "canvacard";
 import fs from "fs";
 
 const handler = async (m, { conn }) => {
@@ -51,4 +51,60 @@ handler.help = ['welcome'];
 handler.tags = ['maker'];
 handler.command = /^(welcome|ingreso)$/i;
 
+export default handler; */
+
+import canvafy from "canvafy";
+import fs from "fs";
+
+const handler = async (m, { conn }) => {
+  const who = m.mentionedJid && m.mentionedJid[0]
+    ? m.mentionedJid[0]
+    : m.fromMe
+      ? conn.user.jid
+      : m.sender;
+
+  // Obtén la URL del avatar del usuario o usa una predeterminada
+  const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
+  const background = "https://th.bing.com/th/id/R.248b992f15fb255621fa51ee0ca0cecb?rik=K8hIsVFACWQ8%2fw&pid=ImgRaw&r=0"; // Fondo personalizado
+
+  // Verifica o crea el directorio de salida
+  if (!fs.existsSync('./output')) {
+    fs.mkdirSync('./output', { recursive: true });
+  }
+
+  // Configura la tarjeta
+  try {
+    const welcomeCard = await new canvafy.WelcomeLeave()
+      .setAvatar(img) // Avatar del usuario
+      .setBackground("image", background) // Fondo personalizado
+      .setTitle("NUEVO INGRESO AL GRUPO") // Título
+      .setDescription("Por favor leer las reglas del grupo") // Descripción
+      .setBorder("#2a2e35") // Borde de la tarjeta
+      .setAvatarBorder("#2a2e35") // Borde del avatar
+      .setOverlayOpacity(0.3) // Opacidad del overlay
+      .build();
+
+    const filePath = `./output/welcome-${who.split('@')[0]}.png`;
+
+    // Guarda la tarjeta en un archivo local
+    fs.writeFileSync(filePath, welcomeCard);
+
+    // Verifica que el archivo exista
+    if (!fs.existsSync(filePath)) {
+      throw new Error("La tarjeta no se generó correctamente.");
+    }
+
+    // Envía la imagen generada al chat
+    await conn.sendFile(m.chat, filePath, `welcome-${who.split('@')[0]}.png`, '*🐕 NUEVO INGRESO AL GRUPO 🐕*', m);
+  } catch (err) {
+    console.error("Error al generar la tarjeta:", err);
+    await conn.sendMessage(m.chat, `❌ Error al generar la tarjeta de bienvenida.\nDetalles: ${err.message}`, m);
+  }
+};
+
+handler.help = ['welcome'];
+handler.tags = ['maker'];
+handler.command = /^(welcome|ingreso)$/i;
+
 export default handler;
+
