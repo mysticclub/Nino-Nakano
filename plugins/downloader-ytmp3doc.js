@@ -2,7 +2,7 @@
 - YTMP3 By Angel-OFC 
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
-/* import { ytmp3 } from 'ruhend-scraper';
+import { ytmp3 } from 'ruhend-scraper';
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) => {
@@ -39,6 +39,7 @@ let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) =
             mimetype: 'audio/mpeg', 
             fileName: `${title}.mp3`, 
             caption: `🎵 *Título:* ${title}\n👤 *Autor:* ${author}\n⏳ *Duración:* ${duration}\n👀 *Vistas:* ${views}`,
+            thumbnail: await fetch(thumbnail.url).then(res => res.buffer())
         }, { quoted: m });
 
         await m.react('✅');
@@ -54,44 +55,4 @@ handler.customPrefix = /^(Docaudio|docaudio)/;
 
 handler.command = new RegExp;
 
-export default handler; */
-
-import fetch from 'node-fetch'
-
-let handler = async (m, { conn, args, usedPrefix, command }) => {
-  if (!args[0]) return conn.reply(m.chat, `*_Uso incorrecto_*\n\n*Ejemplo:*\n${usedPrefix + command} https://youtu.be/ejemplo`, m)
-  let youtubeLink = args[0]
-  console.log('URL to fetch:', youtubeLink)
-  await conn.reply(m.chat, '💙 𝘿𝙀𝙎𝘾𝘼𝙍𝙂𝘼𝙉𝘿𝙊', m)  
-  try {
-    if (typeof youtubeLink !== 'string' || !youtubeLink.startsWith('http')) {
-      throw new Error('URL inválida proporcionada')
-    }
-    const fetchUrl = `https://rembotapi.vercel.app/api/yt?url=${encodeURIComponent(youtubeLink)}`
-    console.log('Fetch URL:', fetchUrl)
-    const response = await fetch(fetchUrl)
-    const data = await response.json()
-    if (!data.status) {
-      return conn.reply(m.chat, `❌ _Error:_ ${data.message || 'No se encontró el video'}`, m)
-    }
-    const { title, audioUrl, thumbnail } = data.data
-    const caption = ` *📌 Titulo:* ${title}`
-    await conn.sendMessage(m.chat, {
-      document: { url: audioUrl },
-      mimetype: 'audio/mp3',
-      fileName: `${title}.mp3`,
-      caption: caption,
-      thumbnail: await fetch(thumbnail.url).then(res => res.buffer())
-    }, { quoted: m })
-  } catch (error) {
-    console.error('Error:', error)
-    conn.reply(m.chat, `❌ _Error:_ Ocurrió un problema al procesar la solicitud`, m)
-  }
-}
-
-handler.help = ['yt mp3 <url>']
-handler.tags = ['dl']
-handler.command = ['ytmp3doc', 'ytaudio']
-handler.register = true
-
-export default handler
+export default handler;
