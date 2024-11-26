@@ -65,7 +65,7 @@ const handler = async (m, { conn }) => {
 
   // Obtén la URL del avatar del usuario o usa una predeterminada
   const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
-  const background = "https://pomf2.lain.la/f/ndkt6rw7.jpg"; // Fondo personalizado
+  const background = "https://th.bing.com/th/id/R.248b992f15fb255621fa51ee0ca0cecb?rik=K8hIsVFACWQ8%2fw&pid=ImgRaw&r=0"; // Fondo personalizado
 
   // Verifica o crea el directorio de salida
   if (!fs.existsSync('./output')) {
@@ -77,8 +77,8 @@ const handler = async (m, { conn }) => {
     const welcomeCard = await new canvafy.WelcomeLeave()
       .setAvatar(img) // Avatar del usuario
       .setBackground("image", background) // Fondo personalizado
-      .setTitle("NUEVO INGRESO AL GRUPO") // Título
-      .setDescription("Por favor leer las reglas del grupo") // Descripción
+      .setTitle("BIENVENIDO") // Título (menos de 20 caracteres)
+      .setDescription("Lee las reglas del grupo.") // Descripción
       .setBorder("#2a2e35") // Borde de la tarjeta
       .setAvatarBorder("#2a2e35") // Borde del avatar
       .setOverlayOpacity(0.3) // Opacidad del overlay
@@ -107,4 +107,5 @@ handler.tags = ['maker'];
 handler.command = /^(welcome|ingreso)$/i;
 
 export default handler;
+
 
