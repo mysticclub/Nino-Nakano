@@ -8,7 +8,7 @@ import fs from 'fs'
 
 /*============= MAIN INFO =============*/
 global.owner = [['59168683798', 'AngelitoDev', true]]
-global.mods = []
+global.mods = [['5493435145765', 'maxzDev', true]]
 global.prems = []
 global.nomorbot = '5493816785382'
 global.nomorown = '5493865860050'
