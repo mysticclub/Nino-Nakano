@@ -72,7 +72,7 @@ const handler = async (m, { conn }) => {
   }
 
   // Ruta de la imagen de fondo
-  const background = "./assets/background.jpg"; // Imagen local como fondo
+  const background = "https://th.bing.com/th/id/R.248b992f15fb255621fa51ee0ca0cecb?rik=K8hIsVFACWQ8%2fw&pid=ImgRaw&r=0"; // Imagen local como fondo
 
   // Verifica que el archivo de fondo exista
   if (!fs.existsSync(background)) {
