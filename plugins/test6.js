@@ -104,7 +104,6 @@ const handler = async (m, { conn }) => {
     await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*🐕 NUEVO INGRESO AL GRUPO 🐕*', m);
   } catch (err) {
     console.error("Error al generar la tarjeta:", err);
-    await conn.sendMessage(m.chat, { text: "Ocurrió un error al generar la tarjeta." }, { quoted: m });
   }
 };
 
