@@ -1,19 +1,16 @@
-import {WAMessageStubType} from '@adiwajshing/baileys'
-import fetch from 'node-fetch'
+import { WAMessageStubType } from '@adiwajshing/baileys';
+import fetch from 'node-fetch';
 import canvacard from "canvacard";
 import fs from "fs";
 
-export async function before(m, {conn, participants, groupMetadata}) {
-  if (!m.messageStubType || !m.isGroup) return !0;
-const handler = async (m, { conn }) => {
-  const who = m.mentionedJid && m.mentionedJid[0]
-    ? m.mentionedJid[0]
-    : m.fromMe
-      ? conn.user.jid
-      : m.sender;
+export async function before(m, { conn, participants, groupMetadata }) {
+  if (!m.messageStubType || !m.isGroup) return true;
 
-  // Obtén la URL del avatar del usuario o usa una predeterminada
-  const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
+  const chat = global.db.data.chats[m.chat];
+  if (!chat.bienvenida) return true;
+
+  const who = m.messageStubParameters[0];
+  const pp = await conn.profilePictureUrl(who, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
   const background = "https://pomf2.lain.la/f/ndkt6rw7.jpg"; // Fondo personalizado
 
   // Verifica o crea el directorio de salida
@@ -23,41 +20,39 @@ const handler = async (m, { conn }) => {
 
   // Configura la tarjeta
   const welcomer = new canvacard.WelcomeLeave()
-    .setAvatar(img)
+    .setAvatar(pp)
     .setBackground('IMAGE', background)
     .setTitulo("NUEVO INGRESO AL GRUPO", '#FFFFFF')
     .setSubtitulo("Por favor leer las reglas del grupo", '#FFFFFF')
-    .setOpacityOverlay(0.5) // Ajusta la transparencia del overlay
+    .setOpacityOverlay(0.5)
     .setColorCircle('#FFFFFF')
-    .setColorOverlay('rgba(255, 255, 255, 0.5)'); // Overlay blanco semitransparente
+    .setColorOverlay('rgba(255, 255, 255, 0.5)');
 
-  // Genera la tarjeta
   try {
-    const buffer = await welcomer.build("Arial Bold"); // Cambia la fuente si es necesario
+    // Genera la tarjeta
+    const buffer = await welcomer.build("Arial Bold");
     const filePath = './output/WelcomeCard.png';
 
-    // Guarda la imagen localmente
+    // Guarda la imagen generada
     fs.writeFileSync(filePath, buffer);
 
     // Verifica que el archivo exista
     if (!fs.existsSync(filePath)) {
       throw new Error("La tarjeta no se generó correctamente.");
     }
-  let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://pomf2.lain.la/f/b03w5p5.jpg')
-  let img = await (await fetch(`${pp}`)).buffer()
-  let chat = global.db.data.chats[m.chat]
 
-  if (chat.bienvenida && m.messageStubType == 27) {
-    let welcome = `*⭒─ׄ─ׅ─ׄ─⭒ \`ʙɪᴇɴᴠᴇɴɪᴅᴀ\` ⭒─ׄ─ׅ─ׄ─⭒*\n\n╭── ︿︿︿︿︿ *⭒   ⭒   ⭒   ⭒   ⭒   ⭒*\n┊:⁖֟⊱┈֟፝❥ *ᴡᴇʟᴄᴏᴍᴇ* :: @${m.messageStubParameters[0].split`@`[0]}\n┊:⁖֟⊱┈֟፝❥  ${groupMetadata.subject}\n╰─── ︶︶︶︶ ✰⃕  ⌇ *⭒ ⭒ ⭒*   ˚̩̥̩̥*̩̩͙✩`
-await conn.sendMini(m.chat, titulowm2, titu, welcome, filePath, canal, estilo)
+    // Mensaje de bienvenida
+    if (m.messageStubType == 27) {
+      const welcome = `*⭒─ׄ─ׅ─ׄ─⭒ \`ʙɪᴇɴᴠᴇɴɪᴅᴀ\` ⭒─ׄ─ׅ─ׄ─⭒*\n\n╭── ︿︿︿︿︿ *⭒   ⭒   ⭒   ⭒   ⭒   ⭒*\n┊:⁖֟⊱┈֟፝❥ *ᴡᴇʟᴄᴏᴍᴇ* :: @${who.split`@`[0]}\n┊:⁖֟⊱┈֟፝❥  ${groupMetadata.subject}\n╰─── ︶︶︶︶ ✰⃕  ⌇ *⭒ ⭒ ⭒*   ˚̩̥̩̥*̩̩͙✩`;
+      await conn.sendMini(m.chat, "BIENVENIDO", "Nuevo miembro", welcome, filePath, filePath, "Canal", "Estilo");
+    }
+
+    // Mensaje de despedida
+    if (m.messageStubType == 28 || m.messageStubType == 32) {
+      const bye = `*⭒─ׄ─ׅ─ׄ─⭒ \`ᴀ ᴅ ɪ ᴏ ꜱ\` ⭒─ׄ─ׅ─ׄ─⭒*\n\n╭── ︿︿︿︿︿ *⭒   ⭒   ⭒   ⭒   ⭒   ⭒*\n┊:⁖֟⊱┈֟፝❥ *ʙ ʏ ᴇ* :: @${who.split`@`[0]}\n┊:⁖֟⊱┈֟፝❥   *ꜱ ᴀ ʏ ᴏ ɴ ᴀ ʀ ᴀ 👋*\n╰─── ︶︶︶︶ ✰⃕  ⌇ *⭒ ⭒ ⭒*   ˚̩̥̩̥*̩̩͙✩`;
+      await conn.sendMini(m.chat, "DESPEDIDA", "Miembro removido", bye, filePath, filePath, "Canal", "Estilo");
+    }
+  } catch (err) {
+    console.error("Error al generar la tarjeta:", err);
   }
-
-  if (chat.bienvenida && m.messageStubType == 28) {
-    let bye = `*⭒─ׄ─ׅ─ׄ─⭒ \`ᴀ ᴅ ɪ ᴏ ꜱ\` ⭒─ׄ─ׅ─ׄ─⭒*\n\n╭── ︿︿︿︿︿ *⭒   ⭒   ⭒   ⭒   ⭒   ⭒*\n┊:⁖֟⊱┈֟፝❥ *ʙ ʏ ᴇ* :: @${m.messageStubParameters[0].split`@`[0]}\n┊:⁖֟⊱┈֟፝❥   *ꜱ ᴀ ʏ ᴏ ɴ ᴀ ʀ ᴀ 👋*\n╰─── ︶︶︶︶ ✰⃕  ⌇ *⭒ ⭒ ⭒*   ˚̩̥̩̥*̩̩͙✩`
-await conn.sendMini(m.chat, titulowm2, titu, bye, img, img, canal, estilo)
-  }
-
-  if (chat.bienvenida && m.messageStubType == 32) {
-    let kick = `*⭒─ׄ─ׅ─ׄ─⭒ \`ᴀ ᴅ ɪ ᴏ ꜱ\` ⭒─ׄ─ׅ─ׄ─⭒*\n\n╭── ︿︿︿︿︿ *⭒   ⭒   ⭒   ⭒   ⭒   ⭒*\n┊:⁖֟⊱┈֟፝❥ *ʙ ʏ ᴇ* :: @${m.messageStubParameters[0].split`@`[0]}\n┊:⁖֟⊱┈֟፝❥   *ꜱ ᴀ ʏ ᴏ ɴ ᴀ ʀ ᴀ 👋*\n╰─── ︶︶︶︶ ✰⃕  ⌇ *⭒ ⭒ ⭒*   ˚̩̥̩̥*̩̩͙✩`
-await conn.sendMini(m.chat, titulowm2, titu, kick, img, img, canal, estilo)
-}}
+}
