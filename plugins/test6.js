@@ -41,7 +41,7 @@ const handler = async (m, { conn }) => {
     }
 
     // Envía la imagen generada al chat
-    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*🐕 NUEVO INGRESO AL GRUPO 🐕*', m);
+    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*${who.split('@')[0]} 🐕 BIENVENIDO  🐕*', m);
   } catch (err) {
     console.error("Error al generar la tarjeta:", err);
   }
