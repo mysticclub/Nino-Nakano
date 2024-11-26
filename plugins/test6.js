@@ -1,5 +1,5 @@
-const canvacard = require("canvacard");
-const fs = require("fs");
+import canvacard from "canvacard";
+import fs from "fs";
 
 const handler = async (m, { conn }) => {
   const who = m.mentionedJid && m.mentionedJid[0]
@@ -11,6 +11,11 @@ const handler = async (m, { conn }) => {
   // Obtén la URL del avatar del usuario o usa una predeterminada
   const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://cdn.discordapp.com/embed/avatars/0.png");
   const background = "https://i.imgur.com/5O7xmVe.png"; // Fondo personalizado
+
+  // Verifica o crea el directorio de salida
+  if (!fs.existsSync('./output')) {
+    fs.mkdirSync('./output', { recursive: true });
+  }
 
   // Configura la tarjeta
   const welcomer = new canvacard.WelcomeLeave()
@@ -25,11 +30,16 @@ const handler = async (m, { conn }) => {
 
   // Genera la tarjeta
   try {
-    const buffer = await welcomer.build("Cascadia Code PL, Noto Color Emoji");
+    const buffer = await welcomer.build("Arial"); // Cambia la fuente si es necesario
     const filePath = './output/GayCard.png';
 
     // Guarda la imagen localmente
     fs.writeFileSync(filePath, buffer);
+
+    // Verifica que el archivo exista
+    if (!fs.existsSync(filePath)) {
+      throw new Error("La tarjeta no se generó correctamente.");
+    }
 
     // Envía la imagen generada al chat
     await conn.sendFile(m.chat, filePath, 'GayCard.png', '*🏳️‍🌈 MIREN A ESTE GAY*', m);
