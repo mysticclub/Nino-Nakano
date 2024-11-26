@@ -41,7 +41,7 @@ const handler = async (m, { conn }) => {
     }
 
     // Envía la imagen generada al chat
-    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*🎉 NUEVO INGRESO AL GRUPO 🎉*', m);
+    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*🐕 NUEVO INGRESO AL GRUPO 🐕*', m);
 
     // Envía un audio adicional (opcional)
     const vn = './src/mp3/welcome.mp3'; // Cambia el archivo de audio si es necesario
