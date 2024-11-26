@@ -6,6 +6,7 @@ import fs from "fs";
     : m.fromMe
       ? conn.user.jid
       : m.sender;
+
   // Obtén la URL del avatar del usuario o usa una predeterminada
   const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
   const background = "https://pomf2.lain.la/f/ndkt6rw7.jpg"; // Fondo personalizado
