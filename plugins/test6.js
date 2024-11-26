@@ -90,7 +90,7 @@ const handler = async (m, { conn }) => {
 
   // Genera la tarjeta
   try {
-    const buffer = await welcomer.build("Arial"); // Cambia la fuente si es necesario
+    const buffer = await welcomer.build("Arial Bold"); // Cambia la fuente si es necesario
     const filePath = './output/WelcomeCard.png';
 
     // Guarda la imagen localmente
