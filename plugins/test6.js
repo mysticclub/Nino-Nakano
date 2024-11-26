@@ -1,6 +1,7 @@
 import canvacard from "canvacard";
 import fs from "fs";
 
+const handler = async (m, { conn }) => {
   const who = m.mentionedJid && m.mentionedJid[0]
     ? m.mentionedJid[0]
     : m.fromMe
