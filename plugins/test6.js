@@ -2,12 +2,13 @@ import canvacard from "canvacard";
 import fs from "fs";
 
 const handler = async (m, { conn }) => {
-  const sender = m.sender.split('@')[0];
-  const who = m.mentionedJid && m.mentionedJid[0]
-    ? m.mentionedJid[0]
-    : m.fromMe
-      ? conn.user.jid
-      : m.sender;
+      const user = global.db.data.users[m.sender];
+    const {money, joincount} = global.db.data.users[m.sender];
+    const {exp, limit, level, role} = global.db.data.users[m.sender];
+    const rtotalreg = Object.values(global.db.data.users).filter((user) => user.registered == true).length;
+    const more = String.fromCharCode(8206);
+    const readMore = more.repeat(850);
+    const taguser = '@' + m.sender.split('@s.whatsapp.net')[0];
 
   // Obtén la URL del avatar del usuario o usa una predeterminada
   const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
@@ -42,7 +43,7 @@ const handler = async (m, { conn }) => {
     }
 
     // Envía la imagen generada al chat
-    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*@${sender} 🐕 BIENVENIDO  🐕*', m);
+    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*@${m.sender.split`@`[0]} 🐕 BIENVENIDO  🐕*', m);
   } catch (err) {
     console.error("Error al generar la tarjeta:", err);
   }
