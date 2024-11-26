@@ -39,7 +39,7 @@ import fs from "fs";
     }
 
     // Envía la imagen generada al chat
-    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*🐕 BIENVENIDO  🐕*', m);
+    await conn.sendFile(m.chat, filePath, 'WelcomeCard.png', '*@${m.sender} 🐕 BIENVENIDO  🐕*', m);
   } catch (err) {
     console.error("Error al generar la tarjeta:", err);
   }
