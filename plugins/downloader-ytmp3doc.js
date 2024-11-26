@@ -2,7 +2,7 @@
 - YTMP3 By Angel-OFC 
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
-import { ytmp3 } from 'ruhend-scraper';
+/* import { ytmp3 } from 'ruhend-scraper';
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, isPrems, isOwner, usedPrefix, command }) => {
@@ -54,4 +54,4 @@ handler.customPrefix = /^(Docaudio|docaudio)/;
 
 handler.command = new RegExp;
 
-export default handler;
+export default handler; */
