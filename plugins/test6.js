@@ -25,7 +25,7 @@ const handler = async (m, { conn }) => {
     .setSubtitulo("Por favor leer las reglas del grupo", '#FFFFFF')
     .setOpacityOverlay(1)
     .setColorCircle('#FFFFFF')
-    .setColorOverlay('#5865F2')
+    .setColorOverlay('#ffffff')
     .setTypeOverlay('ROUNDED');
 
   // Genera la tarjeta
