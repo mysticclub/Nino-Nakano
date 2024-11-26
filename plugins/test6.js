@@ -65,7 +65,7 @@ const handler = async (m, { conn }) => {
 
   // Obtén la URL del avatar del usuario o usa una predeterminada
   const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
-  const background = "https://th.bing.com/th/id/R.248b992f15fb255621fa51ee0ca0cecb?rik=K8hIsVFACWQ8%2fw&pid=ImgRaw&r=0"; // Fondo personalizado
+  const background = "https://pomf2.lain.la/f/ndkt6rw7.jpg"; // Fondo personalizado
 
   // Verifica o crea el directorio de salida
   if (!fs.existsSync('./output')) {
