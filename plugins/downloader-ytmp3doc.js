@@ -62,13 +62,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   if (!args[0]) return conn.reply(m.chat, `*_Uso incorrecto_*\n\n*Ejemplo:*\n${usedPrefix + command} https://youtu.be/ejemplo`, m)
   let youtubeLink = args[0]
   console.log('URL to fetch:', youtubeLink)
-  await conn.loadingMsg(m.chat, '💙 𝘿𝙀𝙎𝘾𝘼𝙍𝙂𝘼𝙉𝘿𝙊', `✅ 𝘿𝙀𝙎𝘾𝘼𝙍𝙂𝘼 𝙀𝙓𝙄𝙏𝙊𝙎𝘼`, [
-    "▰▱▱▱▱ ᴄᴀʀɢᴀɴᴅᴏ ...",
-    "▰▰▱▱▱ ᴄᴀʀɢᴀɴᴅᴏ ...",
-    "▰▰▰▱▱ ᴄᴀʀɢᴀɴᴅᴏ ...",
-    "▰▰▰▰▱ ᴄᴀʀɢᴀɴᴅᴏ ...",
-    "▰▰▰▰▰ ᴄᴀʀɢᴀɴᴅᴏ ..."
-  ], m)  
+  await conn.reply(m.chat, '💙 𝘿𝙀𝙎𝘾𝘼𝙍𝙂𝘼𝙉𝘿𝙊', m)  
   try {
     if (typeof youtubeLink !== 'string' || !youtubeLink.startsWith('http')) {
       throw new Error('URL inválida proporcionada')
