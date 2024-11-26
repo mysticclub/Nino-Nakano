@@ -27,25 +27,28 @@ import canvafy from "canvafy";
 import fs from "fs";
 import fetch from "node-fetch";
 
-export async function before(m, { conn, participants, groupMetadata }) {
+export async function before(m, { conn, groupMetadata }) {
+  // Validaciones iniciales
   if (!m.messageStubType || !m.isGroup) return true;
 
-  const chat = global.db.data.chats[m.chat]; // Verifica si las bienvenidas/despedidas están activadas
-  if (!chat.bienvenida) return true;
+  const chat = global.db?.data?.chats[m.chat]; // Configuración del grupo
+  if (!chat?.bienvenida) return true;
 
   const user = m.messageStubParameters[0]; // Usuario afectado
-  const img = await conn.profilePictureUrl(user, 'image').catch(_ => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
   const groupName = groupMetadata.subject || "el grupo";
 
-  const background = "./assets/background.jpg"; // Ruta local del fondo
-  if (!fs.existsSync(background)) {
-    console.error("Error: La imagen de fondo no existe.");
-    return true;
+  // Obtiene la imagen del avatar o un respaldo predeterminado
+  const avatarUrl = await conn.profilePictureUrl(user, 'image').catch(() => "https://telegra.ph/file/24fa902ead26340f3df2c.png");
+
+  // Define el fondo (puede ser URL o local)
+  const backgroundUrl = "./assets/background.jpg";
+  if (!fs.existsSync(backgroundUrl)) {
+    console.error("Fondo no encontrado, usando predeterminado.");
   }
 
   let title, description;
 
-  // Determina el tipo de acción: entrada, salida o expulsión
+  // Detecta el evento (entrada, salida, expulsión)
   switch (m.messageStubType) {
     case WAMessageStubType.GROUP_PARTICIPANT_ADD:
       title = "BIENVENIDO";
@@ -59,28 +62,31 @@ export async function before(m, { conn, participants, groupMetadata }) {
       break;
 
     default:
-      return true;
+      return true; // Ignorar otros eventos
   }
 
   try {
-    // Genera la tarjeta de bienvenida/despedida
+    // Genera la tarjeta con Canvafy
     const welcomeCard = await new canvafy.WelcomeLeave()
-      .setAvatar(img) // Avatar del usuario
-      .setBackground("image", background) // Fondo local
-      .setTitle(title) // Título personalizado
-      .setDescription(description) // Mensaje personalizado
+      .setAvatar(avatarUrl) // Imagen del usuario
+      .setBackground("image", backgroundUrl) // Fondo
+      .setTitle(title) // Título
+      .setDescription(description) // Descripción
       .setBorder("#2a2e35") // Borde
       .setAvatarBorder("#2a2e35") // Borde del avatar
       .setOverlayOpacity(0.3) // Opacidad del overlay
       .build();
 
+    // Define la ruta de salida
     const filePath = `./output/welcome-${user.split('@')[0]}.png`;
-    fs.writeFileSync(filePath, welcomeCard); // Guarda la tarjeta localmente
+    fs.writeFileSync(filePath, welcomeCard); // Guarda la imagen localmente
 
-    // Envía la tarjeta al grupo
+    // Envía la imagen al grupo
     await conn.sendFile(m.chat, filePath, `welcome-${user.split('@')[0]}.png`, description, null, {
-      mentions: [user]
+      mentions: [user],
     });
+
+    console.log(`Tarjeta generada y enviada: ${filePath}`);
   } catch (err) {
     console.error("Error al generar la tarjeta:", err);
     await conn.sendMessage(m.chat, `❌ Error al generar la tarjeta.\nDetalles: ${err.message}`, null);
