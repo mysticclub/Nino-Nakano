@@ -61,8 +61,10 @@ export async function before(m, { conn, participants, groupMetadata }) {
       await conn.sendMini(m.chat, 'titulowm2', 'titu', text, filePath, filePath, 'canal', 'estilo');
     }
   } catch (err) {
-    // Si algo falla, se muestra un error en la consola
+    // Si algo falla, se muestra un error en la consola y también se envía al grupo
     console.error("Error en el flujo de bienvenida/despedida:", err);
-    await conn.sendMessage(m.chat, "¡Hubo un error al procesar el mensaje de bienvenida/despedida! Intenta nuevamente.", m);
+    
+    // Enviar el error al chat para informar a los miembros del grupo
+    await conn.sendMessage(m.chat, `¡Hubo un error al procesar el mensaje de bienvenida/despedida!\nError: ${err.message}`, m);
   }
 }
