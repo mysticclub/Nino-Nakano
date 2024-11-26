@@ -10,7 +10,7 @@ const handler = async (m, { conn }) => {
 
   // Obtén la URL del avatar del usuario o usa una predeterminada
   const img = await conn.profilePictureUrl(who, 'image').catch(_ => "https://cdn.discordapp.com/embed/avatars/0.png");
-  const background = "https://i.imgur.com/5O7xmVe.png"; // Fondo personalizado
+  const background = "https://pomf2.lain.la/f/j4lz7ccu.jpg"; // Fondo personalizado
 
   // Verifica o crea el directorio de salida
   if (!fs.existsSync('./output')) {
