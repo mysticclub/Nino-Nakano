@@ -22,6 +22,7 @@
         "axios": "^1.3.4",
         "@bochilteam/scraper-youtube": "^5.0.0",
         "aptoide-scraper": "github:DIEGO-OFC/dv-aptoide-scraper",
+        "neastooapi": "^0.1.13",
         "canvacard": "^6.0.3",
         "ruhend-scraper": "^8.0.2",
         "rahad-media-downloader": "^2.1.14",
