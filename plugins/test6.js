@@ -1,4 +1,4 @@
-/* import canvacard from "canvacard";
+import canvacard from "canvacard";
 import fs from "fs";
 
 const handler = async (m, { conn }) => {
@@ -21,7 +21,7 @@ const handler = async (m, { conn }) => {
   const welcomer = new canvacard.WelcomeLeave()
     .setAvatar(img)
     .setBackground('IMAGE', background)
-    .setTitulo("NUEVO INGRESO AL GRUPO", '#FFFFFF')
+    .setTitulo("NUEVO INGRESO", '#FFFFFF')
     .setSubtitulo("Por favor leer las reglas del grupo", '#FFFFFF')
     .setOpacityOverlay(0.5) // Ajusta la transparencia del overlay
     .setColorCircle('#FFFFFF')
@@ -51,9 +51,9 @@ handler.help = ['welcome'];
 handler.tags = ['maker'];
 handler.command = /^(welcome|ingreso)$/i;
 
-export default handler; */
+export default handler;
 
-import canvafy from "canvafy";
+/* import canvafy from "canvafy";
 import fs from "fs";
 
 const handler = async (m, { conn }) => {
@@ -113,4 +113,4 @@ handler.help = ['welcome'];
 handler.tags = ['maker'];
 handler.command = /^(welcome|ingreso)$/i;
 
-export default handler;
+export default handler; */
