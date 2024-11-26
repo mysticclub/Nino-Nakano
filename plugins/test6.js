@@ -86,8 +86,7 @@ const handler = async (m, { conn }) => {
     .setSubtitulo("Por favor leer las reglas del grupo", '#FFFFFF')
     .setOpacityOverlay(0.5) // Ajusta la transparencia del overlay
     .setColorCircle('#FFFFFF')
-    .setColorOverlay('rgba(255, 255, 255, 0.5)') // Overlay blanco semitransparente
-    .setTypeOverlay('ROUND'); // Usamos tipo 'ROUND' o el tipo predeterminado
+    .setColorOverlay('rgba(255, 255, 255, 0.5)'); // Overlay blanco semitransparente
 
   // Genera la tarjeta
   try {
