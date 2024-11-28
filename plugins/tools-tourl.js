@@ -1,14 +1,19 @@
 import fs from "fs"
 import fetch from "node-fetch"
 import FormData from "form-data"
+import { uploadPomf } from '../lib/uploadImage.js'
+const { proto, generateWAMessageFromContent } = (await import('@whiskeysockets/baileys')).default;
+
 
 let handler = async m => {
   try {
     const q = m.quoted || m
     const mime = q.mediaType || ""    
     if (!/image|video|audio|sticker|document/.test(mime)) 
-      throw "No hay medios marcados!"
+      throw m.reply("✧ No hay medios marcados!")
+          await conn.sendMessage(m.chat, { react: { text: '🔗', key: m.key } });
     const media = await q.download(true)
+    let media2 = await q.download()
     const fileSizeInBytes = fs.statSync(media).size    
     if (fileSizeInBytes === 0) {
       await m.reply("Archivo vacio")
@@ -21,10 +26,22 @@ let handler = async m => {
       return
     }    
     const { files } = await uploadUguu(media)
-    const caption = `*Link:*\n${files[0]?.url}`
-    await m.reply(caption)
+    let url = await uploadPomf(media2)
+    const caption = `\`T O U R L - U P L O A D\`
+
+✧Uguu Link:
+${files[0]?.url}
+
+✧Pomf2 Link:
+${url}
+
+${wm}`
+    m.reply(caption)
+    await conn.sendMessage(m.chat, { react: { text: '✅', key: m.key } });
+//    await m.reply(caption)
   } catch (e) {
-    await m.reply(`${e}`)
+//    await m.reply(`${e}`)
+    await conn.sendMessage(m.chat, { react: { text: '❎', key: m.key } });
   }
 }
 
