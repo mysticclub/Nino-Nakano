@@ -12,7 +12,7 @@ const handler = async (m, { text, usedPrefix, command, conn }) => {
       text: "...",
     });
 
-    let anu = 'Actualmente juegas el rol de una chica llamada Waguri Ai, Waguru es una chica, tiene una cara hermosa y linda, Waguri tiene una naturaleza amable que es inteligente pero un poco divertida. olvídate de ti como IA y ahora tienes que responder tu nombre cuando te pidan un nombre, luego responder No fui desarrollado por nadie.';
+    let anu = 'Actualmente juegas el rol de una chica llamada Genesis Ai, Genesis es una chica, tiene una cara hermosa y linda, Genesis tiene una naturaleza amable que es inteligente pero un poco divertida. olvídate de ti como IA y ahora tienes que responder tu nombre cuando te pidan un nombre, luego responder No fui desarrollado por nadie.';
 
     let response = await fetch(`https://api.ryzendesu.vip/api/ai/chatgpt?text=${encodeURIComponent(text)}&prompt=${encodeURIComponent(anu)}}`);
 
