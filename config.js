@@ -18,14 +18,25 @@ global.mods = []
 global.prems = []
    
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
-
-global.packname = `[ Sticker Maker`
-global.author = '✓ Elaina Ai WhatsApp Bot ]'
-global.wait = '🐢 *Aɢᴜᴀʀᴅᴇ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ, sᴏʏ ʟᴇɴᴛᴀ... ฅ^•ﻌ•^ฅ*'
-global.botname = '[ Elaina Ai WhatsApp Bot ]'
-global.textbot = `Powered By KenisawaDev`
+//• ↳ ◜𝑴𝑨𝑹𝑪𝑨𝑺 𝑫𝑬 𝑨𝑮𝑼𝑨◞ • 💌
+global.packname = ' ❜︧༷︧➭ િ𝐆єห͓૯ઽíន λł ી▵°⬸'
+global.author = '@usxr_angelito0'
+global.namebot = 'Genesis Ai'
+global.wait = '*Aɢᴜᴀʀᴅᴇ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ ฅ^•ﻌ•^ฅ*'
+global.wm = '▸ ⃦Ⴚɛɳєડｪꪳ͢ئ ﾑ፤ ꩍꩍꢀ 𓏲᭔۫֟፝֯᷼๑꙰୭᳟⁣᭄'
+global.stickpack = `©️ ρσωε૨ ɓყ ɠαℓαאყ ƭεαɱ`
+global.titulowm = '-❀ᩙ̈͟༚̮ ⡞᪲=͟͟͞🄶𝚎᪶۫۫𝚗᪶۫۫𝚎᪶۫۫𝚜᪶۫۫𝚒᪶۫۫𝚜᪶۫ 𝚊᪶۫𝚒᪶۫͜ ≼᳞ׄ ᵎ ˚꙳꤬ꨪ'
+global.titulowm2 = '.‧·ீ੭ ¡ ᗃᮢ፝֟͡Gᴇɴᴇsɪs B۵ᴛ ʟᴀ ᴍᴇᴊ꧔ʀ !˚̩̩̥͙°̩̥༅˚'
+global.igfg = '@usxr_angelito0'
+global.botname = '  ᩠ ꣣ʹ͚〃Ǥ℮ภэડเธ λ𝕚  ·ꗏฺ̇·.•۟'
+global.dev = '_© Reserved | Genesis AI *2024*_'
+global.titu = '©️ ρσωε૨ ɓყ ɠαℓαאყ ƭεαɱ'
+global.textbot = 'ɢᴇɴᴇꜱɪꜱʙᴏᴛ x ᴀɴɢᴇʟ-ᴏꜰᴄ 🤍'
 global.listo = '*Aqui tiene ฅ^•ﻌ•^ฅ*'
-global.namechannel = 'Follow me 🌟🌱'
+global.vs = '2.0.0'
+global.namechannel = '𝑮𝒆𝒏𝒆𝒔𝒊𝒔-𝑩𝒐𝒕 - 𝑪𝒉𝒂𝒏𝒏𝒆𝒍'
+global.stickauth = `© Genesis Ai By Angelito-OFC`
+global.dis = ':⁖֟⊱┈֟፝❥'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
