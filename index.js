@@ -19,7 +19,7 @@ import P from 'pino'
 import pino from 'pino'
 import {Boom} from '@hapi/boom'
 import Pino from 'pino'
-import {makeWASocket, protoType, serialize} from '../lib/simple.js'
+import {makeWASocket, protoType, serialize} from './lib/simple.js'
 import {Low, JSONFile} from 'lowdb'
 import store from '../lib/store.js'
 //const {proto} = (await import('@whiskeysockets/baileys')).default
