@@ -2,16 +2,14 @@
 	"name": "Génesis-Ai",
 	"version": "2.0.0",
 	"description": "WhatsApp Bot Multi Device",
-	"main": "main.js",
+	"main": "index.js",
 	"type": "module",
 	"directories": {
 		"lib": "lib",
 		"plugins": "plugins"
 	},
 	"scripts": {
-		"start": "node main.js",
-		"test": "node test.js",
-		"test2": "nodemon index.js"
+		"start": "node index.js"
 	},
 	"keywords": [
 		"termux-whatsapp-bot",
