@@ -172,7 +172,7 @@ if (!opts['test']) {
 }
 
 async function clearTmp() {
-  const tmp = [tmpdir(), join(__dirname, '../tmp')]
+  const tmp = [tmpdir(), join(__dirname, './tmp')]
   const filename = []
   tmp.forEach(dirname => readdirSync(dirname).forEach(file => filename.push(join(dirname, file))))
 
@@ -192,7 +192,7 @@ setInterval(async () => {
 
 function purgeSession() {
 let prekey = []
-let directorio = readdirSync("../sessions")
+let directorio = readdirSync("./sessions")
 let filesFolderPreKeys = directorio.filter(file => {
 return file.startsWith('pre-key-')
 })
