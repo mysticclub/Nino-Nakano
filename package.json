@@ -29,10 +29,10 @@
         },
         "repository": {
                 "type": "git",
-                "url": "git+https://github.com/StarlightsTeam/Ai-Hoshino.git"
+                "url": "git+https://github.com/Angelito-OFC/GenesisBot-MD.git"
         },
         "bugs": {
-                "url": "https://github.com/StarlightsTeam/Ai-Hoshino/issues"
+                "url": "https://github.com/Angelito-OFC/GenesisBot-MD/issues"
         },
         "license": "GPL-3.0-or-later",
         "dependencies": {
