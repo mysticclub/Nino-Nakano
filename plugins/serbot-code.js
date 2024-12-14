@@ -11,13 +11,12 @@ import moment from 'moment-timezone'
 import NodeCache from 'node-cache'
 import readline from 'readline'
 import qrcode from "qrcode"
-import crypto from 'crypto'
 import fs from "fs"
-import pino from 'pino';
-import * as ws from 'ws';
+import pino from 'pino'
+import * as ws from 'ws'
 const { CONNECTING } = ws
 import { Boom } from '@hapi/boom'
-import { makeWASocket } from './lib/simple.js';
+import { makeWASocket } from '../lib/simple.js'
 
 if (global.conns instanceof Array) console.log()
 else global.conns = []
@@ -30,14 +29,14 @@ let handler = async (m, { conn: _conn, args, usedPrefix, command, isOwner }) => 
 
   async function serbot() {
 
-  let authFolderB = crypto.randomBytes(10).toString('hex').slice(0, 8)
+  let authFolderB = m.sender.split('@')[0]
 
-    if (!fs.existsSync("./CrowJadiBot/"+ authFolderB)){
-        fs.mkdirSync("./CrowJadiBot/"+ authFolderB, { recursive: true });
+    if (!fs.existsSync("./serbot/"+ authFolderB)){
+        fs.mkdirSync("./serbot/"+ authFolderB, { recursive: true });
     }
-    args[0] ? fs.writeFileSync("./GokuJadiBot/" + authFolderB + "/creds.json", JSON.stringify(JSON.parse(Buffer.from(args[0], "base64").toString("utf-8")), null, '\t')) : ""
+    args[0] ? fs.writeFileSync("./serbot/" + authFolderB + "/creds.json", JSON.stringify(JSON.parse(Buffer.from(args[0], "base64").toString("utf-8")), null, '\t')) : ""
 
-const {state, saveState, saveCreds} = await useMultiFileAuthState(`./GokuJadiBot/${authFolderB}`)
+const {state, saveState, saveCreds} = await useMultiFileAuthState(`./serbot/${authFolderB}`)
 const msgRetryCounterMap = (MessageRetryMap) => { };
 const msgRetryCounterCache = new NodeCache()
 const {version} = await fetchLatestBaileysVersion();
@@ -87,15 +86,15 @@ if (methodCode && !conn.authState.creds.registered) {
         let codeBot = await conn.requestPairingCode(cleanedNumber);
         codeBot = codeBot?.match(/.{1,4}/g)?.join("-") || codeBot;
         let txt = ` –  *S E R B O T  -  S U B B O T*\n\n`
-            txt += `┌  👑  *Usa este Código para convertirte en un Sub Bot*\n`
-            txt += `│  🌠  Pasos\n`
-            txt += `│  🌠  *1* : Haga click en los 3 puntos\n`
-            txt += `│  🌠  *2* : Toque dispositivos vinculados\n`
-            txt += `│  🌠  *3* : Selecciona *Vincular con el número de teléfono*\n` 
-            txt += `└  🌠  *4* : Escriba el Codigo\n\n`
-            txt += `*👑Nota:* Este Código solo funciona en el número en el que se solicitó\n\n> *Sigan El Canal*https://whatsapp.com/channel/0029VakfOZfHFxP7rNrUQk2d`
-         await parent.reply(m.chat, txt, m, rcanal)
-         await parent.reply(m.chat, codeBot, m, rcanal)
+            txt += `┌  ✩  *Usa este Código para convertirte en un Sub Bot*\n`
+            txt += `│  ✩  Pasos\n`
+            txt += `│  ✩  *1* : Haga click en los 3 puntos\n`
+            txt += `│  ✩  *2* : Toque dispositivos vinculados\n`
+            txt += `│  ✩  *3* : Selecciona *Vincular con el número de teléfono*\n` 
+            txt += `└  ✩  *4* : Escriba el Codigo\n\n`
+            txt += `*Nota:* Este Código solo funciona en el número que lo solicito`
+         await parent.reply(m.chat, txt, m)
+         await parent.reply(m.chat, codeBot, m)
         rl.close()
     }, 3000)
 }
@@ -124,31 +123,36 @@ async function connectionUpdate(update) {
     if (connection == 'open') {
     conn.isInit = true
     global.conns.push(conn)
-    await parent.reply(m.chat, args[0] ? 'Conectado con exito' : '*Conectado exitosamente*, Sub Bot de (*CrowBot*👑)\n\n*Nota:* Esto es temporal\nSi el Bot principal se reinicia o se desactiva, todos los sub bots tambien lo haran\n\nEl número del bot puede cambiar, síguenos para que estés al tanto de los siguientes números:\n*-* https://whatsapp.com/channel/0029VakfOZfHFxP7rNrUQk2d', m, rcanal)
+    await parent.reply(m.chat, args[0] ? 'Conectado con exito' : 'Conectado exitosamente con WhatsApp\n\n*Nota:* Esto es temporal\nSi el Bot principal se reinicia o se desactiva, todos los sub bots tambien lo haran\n\nEl número del bot puede cambiar, guarda este enlace:\n*-* https://whatsapp.com/channel/0029Vak9Hmd1iUxdfDUdCK1w', m)
     await sleep(5000)
     if (args[0]) return
 
-                await parent.reply(conn.user.jid, `La siguiente vez que se apague el bot o se desconecte envía el siguiente mensaje para iniciar sesión sin utilizar otro código `, m, rcanal)
+                await parent.reply(conn.user.jid, `La siguiente vez que se conecte envía el siguiente mensaje para iniciar sesión sin utilizar otro código `, m)
 
-                await parent.sendMessage(conn.user.jid, {text : usedPrefix + command + " " + Buffer.from(fs.readFileSync("./CrowJadiBot/" + authFolderB + "/creds.json"), "utf-8").toString("base64")}, { quoted: m })
+                await parent.sendMessage(conn.user.jid, {text : usedPrefix + command + " " + Buffer.from(fs.readFileSync("./serbot/" + authFolderB + "/creds.json"), "utf-8").toString("base64")}, { quoted: m })
           }
 
   }
 
-  setInterval(async () => {
-    if (!conn.user) {
-      try { conn.ws.close() } catch { }
-      conn.ev.removeAllListeners()
-      let i = global.conns.indexOf(conn)
-      if (i < 0) return
-      delete global.conns[i]
-      global.conns.splice(i, 1)
-    }}, 60000)
+  const timeoutId = setTimeout(() => {
+        if (!conn.user) {
+            try {
+                conn.ws.close()
+            } catch {}
+            conn.ev.removeAllListeners()
+            let i = global.conns.indexOf(conn)
+            if (i >= 0) {
+                delete global.conns[i]
+                global.conns.splice(i, 1)
+            }
+            fs.rmdirSync(`./serbot/${authFolderB}`, { recursive: true })
+        }
+    }, 30000)
 
 let handler = await import('../handler.js')
 let creloadHandler = async function (restatConn) {
 try {
-const Handler = await import(`./handler.js?update=${Date.now()}`).catch(console.error)
+const Handler = await import(`../handler.js?update=${Date.now()}`).catch(console.error)
 if (Object.keys(Handler || {}).length) handler = Handler
 } catch (e) {
 console.error(e)
@@ -182,8 +186,8 @@ serbot()
 
 }
 handler.help = ['code']
-handler.tags = ['Jadibot']
-handler.command = ['code', 'crow--code', 'crow --code']
+handler.tags = ['serbot']
+handler.command = ['code', 'codebot']
 handler.rowner = false
 
 export default handler
