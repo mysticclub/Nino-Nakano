@@ -23,16 +23,16 @@
                 "MD",
                 "baileys-md"
         ],
-        "homepage": "https://github.com/Angelito-OFC/GenesisBot-MD",
+        "homepage": "https://github.com/Angelito-OFC/Genesis-AI",
         "author": {
                 "name": "Angelito-OFC"
         },
         "repository": {
                 "type": "git",
-                "url": "git+https://github.com/Angelito-OFC/GenesisBot-MD.git"
+                "url": "git+https://github.com/Angelito-OFC/Genesis-AI.git"
         },
         "bugs": {
-                "url": "https://github.com/Angelito-OFC/GenesisBot-MD/issues"
+                "url": "https://github.com/Angelito-OFC/Genesis-AI/issues"
         },
         "license": "GPL-3.0-or-later",
         "dependencies": {
