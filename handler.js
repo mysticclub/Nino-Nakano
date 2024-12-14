@@ -155,7 +155,7 @@ export async function handler(chatUpdate) {
         const isAdmin = isRAdmin || user?.admin == 'admin' || false
         const isBotAdmin = bot?.admin || false
 
-        const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), '../plugins')
+        const ___dirname = path.join(path.dirname(fileURLToPath(import.meta.url)), './plugins')
         for (let name in global.plugins) {
             let plugin = global.plugins[name]
             if (!plugin)
@@ -391,7 +391,7 @@ export async function handler(chatUpdate) {
         }
 
         try {
-      if (!opts['noprint']) await (await import(`../lib/print.js`)).default(m, this)
+      if (!opts['noprint']) await (await import(`./lib/print.js`)).default(m, this)
     } catch (e) {
       console.log(m, m.quoted, e)
     }
