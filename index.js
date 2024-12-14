@@ -1,5 +1,5 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '1'
-import '../system/settings.js'
+import './config.js'
 import {createRequire} from 'module'
 import path, {join, dirname} from 'path'
 import { setupMaster, fork } from 'cluster'
@@ -31,7 +31,7 @@ let __dirname = dirname(fileURLToPath(import.meta.url))
 let require = createRequire(__dirname)
 let { say } = cfonts
 
-say('Ai\nHoshino', {
+say('Genesis\nUltra', {
   font: 'chrome',
   align: 'center',
   gradient: ['red', 'magenta']
@@ -296,10 +296,10 @@ if (connection === 'close') {
 process.on('uncaughtException', console.error)
 
 let isInit = true;
-let handler = await import('../system/handler.js')
+let handler = await import('./handler.js')
 global.reloadHandler = async function(restatConn) {
   try {
-    const Handler = await import(`../system/handler.js?update=${Date.now()}`).catch(console.error);
+    const Handler = await import(`./handler.js?update=${Date.now()}`).catch(console.error);
     if (Object.keys(Handler || {}).length) handler = Handler
   } catch (e) {
     console.error(e);
