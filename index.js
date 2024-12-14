@@ -232,7 +232,7 @@ if (SBprekey.length === 0) return null
 }}
 
 function purgeOldFiles() {
-const directories = ['../sessions/', '../serbot/']
+const directories = ['./sessions/', '../serbot/']
 const oneHourAgo = Date.now() - (60 * 60 * 1000)
 directories.forEach(dir => {
 readdirSync(dir, (err, files) => {
@@ -264,7 +264,7 @@ async function connectionUpdate(update) {
   }
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode;
 if (reason == 405) {
-await fs.unlinkSync("../sessions/" + "creds.json")
+await fs.unlinkSync("./sessions/" + "creds.json")
 console.log(chalk.bold.redBright(`Conexión replazada, Por favor espere un momento me voy a reiniciar...\nSi aparecen error vuelve a iniciar con : npm start`)) 
 process.send('reset')}
 if (connection === 'close') {
