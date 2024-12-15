@@ -15,9 +15,15 @@ let handler = async (m, { conn }) => {
 
    let totalUsers = uniqueUsers.size
    let img = await (await fetch(`https://i.ibb.co/LSBGpg4/file.jpg`)).buffer()
-   let txt = '*`[ ✰ ] Total Sub-Bots`*' + ` » *${totalUsers || 0}*`
+  let message = users.map((v, index) => `
+*[ \`${index + 1}\` -  ${v.user.name || 'Sin Nombre'} ]*\n* *🤍 \` Link :\`* https://wa.me/${v.user.jid.replace(/[^0-9]/g , '')}\n`).join('\n\n')
 
-   await conn.reply(m.chat, txt, m, rcanal)
+  let replyMessage = message.length === 0 ? '' : message
+  global.totalUsers = users.length
+  let responseMessage = `*[ _Total Subbots Activos :_ \`${totalUsers || '0'}\` ]*\n\n${replyMessage.trim()}`.trim()
+
+await stars.sendFile(m.chat, img, 'thumbnail.jpg', responseMessage, m, null, fake, false, { mentions: stars.parseMention(responseMessage) })
+
 }
 
 handler.command = ['listjadibot', 'bots']
