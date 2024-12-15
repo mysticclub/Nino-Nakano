@@ -92,8 +92,7 @@ if (methodCode && !conn.authState.creds.registered) {
 \`3 ❥\` _Seleciona Vincular con codigo_
 \`4 ❥\` _Escribe El Codigo_
 
-> *:⁖֟⊱┈֟፝❥ Nota:* Este Codigo Solo Funciona Con Quien Lo Solicito ${m.sender.split('@')[0]}
-        `
+> *:⁖֟⊱┈֟፝❥ Nota:* Este Codigo Solo Funciona Con Quien Lo Solicito ${m.sender.split('@')[0]}`
          await parent.reply(m.chat, txt, m, rcanal)
          await parent.reply(m.chat, codeBot, m, rcanal)
         rl.close()
@@ -124,7 +123,11 @@ async function connectionUpdate(update) {
     if (connection == 'open') {
     conn.isInit = true
     global.conns.push(conn)
-    await parent.reply(m.chat, args[0] ? 'Conectado con exito' : 'Conectado exitosamente con Genesis! 🚀', m, rpl)
+    await parent.reply(m.chat, args[0] ? 'Conectado con exito' : '*`[ Conectado Exitosamente 🤍 ]`*
+> _Se intentara reconectar en caso de desconexion de sesion_
+> _Si quieres eliminr el subbot borra la sesion en dispositivos vinculados_
+> _El número del bot puede cambiar, guarda este enlace :_
+https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y', m)
     await sleep(5000)
     if (args[0]) return
 
