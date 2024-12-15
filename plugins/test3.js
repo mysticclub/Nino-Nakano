@@ -9,17 +9,11 @@ let handler = async (m, { conn, text, participants }) => {
 
     if (groupNoAdmins.length === 0) throw '*⚠️ No hay usuarios para eliminar.*'; // Verifica que haya usuarios para eliminar
 
-    // Usar el texto proporcionado en el comando o uno predeterminado
-    let pesan = text || 'Grupo limpiado por el bot';  // Mensaje por defecto
-
     // URL del sticker que se enviará
     const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL del sticker
 
-    // Enviar el sticker directamente desde la URL
-    await conn.sendMessage(m.chat, { sticker: { url: stickerUrl } });
-
-    // Enviar el mensaje
-    await conn.sendMessage(m.chat, { text: pesan });
+    // Enviar el sticker directamente desde la URL como respuesta al comando
+    await conn.sendMessage(m.chat, { sticker: { url: stickerUrl }, quoted: m });
 
     // Eliminar a cada miembro con un retraso de 2 segundos
     for (let userId of groupNoAdmins) {
@@ -27,7 +21,8 @@ let handler = async (m, { conn, text, participants }) => {
         await new Promise(resolve => setTimeout(resolve, 2000));  // Espera de 2 segundos entre eliminaciones
     }
 
-    m.reply('*[🌠] Eliminación Exitosa.*');
+    // No enviamos mensaje adicional después de la eliminación
+    // m.reply('*[🌠] Eliminación Exitosa.*');
 }
 
 handler.help = ['kickall', '-'].map(v => 'o' + v + ' @user');
