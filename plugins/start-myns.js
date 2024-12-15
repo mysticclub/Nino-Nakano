@@ -7,7 +7,7 @@ let handler = async function (m, { conn, text, usedPrefix }) {
   try {
     // Crear el captcha con el número de serie
     const captcha = await new canvafy.Captcha()
-      .setImage("https://cdn.discordapp.com/attachments/1087030211813593190/1110243947311288530/beeautiful-sunset-illustration-1212023.webp") // Establecer imagen de fondo
+      .setImage("https://pomf2.lain.la/f/k6uc5mt.jpg") // Establecer imagen de fondo
       .setCaptchaKey(canvafy.Util.captchaKey(15)) // Clave de captcha
       .build(); // Construir el captcha
 
