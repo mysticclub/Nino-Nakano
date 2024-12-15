@@ -110,7 +110,7 @@ const filterStrings = [
 ]
 
 console.info = () => {} 
-console.debug = () => {} 
+// console.debug = () => {} 
 ['log', 'warn', 'error'].forEach(methodName => redefineConsoleMethod(methodName, filterStrings))
 
 const logger = pino({
