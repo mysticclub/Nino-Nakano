@@ -20,7 +20,7 @@ let handler = async function (m, { conn }) {
 
     const security = await new canvafy.Security()
       .setAvatar(userAvatar) // Avatar del usuario
-      .setBackground("image", "https://pomf2.lain.la/f/ou87g8sr.jpg") // Fondo
+      .setBackground("image", "https://pomf2.lain.la/f/cy80v9q6.jpg") // Fondo
       .setCreatedTimestamp(Date.now()) // Fecha de creación
       .setSuspectTimestamp(31536000000) // Periodo de sospecha: 1 semana
       .setBorder("#f0f0f0") // Color del borde
