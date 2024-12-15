@@ -1,6 +1,6 @@
 /* 
 - Kickall By Angel-OFC  
-- elimina a todos de un grupo con un solo comando 
+- elimina todos de un grupo con un solo comando 
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
 import axios from 'axios';
