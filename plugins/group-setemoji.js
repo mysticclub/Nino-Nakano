@@ -16,10 +16,12 @@ let handler = async (m, { conn, isRowner }) => {
   }
 
   try {
-    global.customEmoji = emoji; // Guardar el emoji personalizado
+    // Guardar el emoji para el grupo
+    global.db.data.chats[m.chat].customEmoji = emoji;
+
     global.db.data.users[m.sender].lastmiming = new Date().getTime(); // Actualizar el tiempo del usuario
 
-    m.reply(`❄️ El emoji fue actualizado correctamente a: ${emoji}`);
+    m.reply(`❄️ El emoji del grupo ha sido actualizado correctamente a: ${emoji}`);
   } catch (error) {
     console.error(error);
     m.reply('✧ Hubo un error al intentar cambiar el emoji.');
