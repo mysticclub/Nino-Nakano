@@ -30,7 +30,7 @@ let handler = async (m, { conn }) => {
         }).build()
 
         // Enviar imagen generada
-        await conn.sendFile(m.chat, canvasRank.toBuffer(), 'rank.png', txt, m, null)
+        await conn.sendFile(m.chat, canvasRank.toBuffer(), 'rank.png', txt, m, null, fake)
         return
     }
 
@@ -57,7 +57,7 @@ let handler = async (m, { conn }) => {
         }).build()
 
         // Enviar imagen generada
-        await conn.sendFile(m.chat, canvasRank.toBuffer(), 'rank.png', txt, m, null)
+        await conn.sendFile(m.chat, canvasRank.toBuffer(), 'rank.png', txt, m, null, fake)
     }
 }
 
