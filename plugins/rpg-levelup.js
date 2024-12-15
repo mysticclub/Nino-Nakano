@@ -48,8 +48,8 @@ let handler = async (m, { conn }) => {
         const canvasRank = await new RankCardBuilder({
             currentLvl: user.level,
             currentRank: 0,
-            currentXP: user.exp,
-            requiredXP: xpRange(user.level, global.multiplier).max,
+            currentXP: user.exp - min,
+            requiredXP: xp,
             backgroundColor: { background: '#070d19', bubbles: '#0ca7ff' },
             avatarImgURL: 'https://telegra.ph/file/b97148e2154508f63d909.jpg',
             nicknameText: { content: name, font: 'Nunito', color: '#0CA7FF' },
