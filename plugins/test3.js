@@ -11,7 +11,6 @@ let handler = async (m, { conn, text }) => {
 
    let message = text.trim().split(' ').slice(1).join(' ');
 
-   // Validar entrada
    if (!m.mentionedJid || m.mentionedJid.length === 0) {
       return conn.reply(m.chat, '🤍 Debes etiquetar a alguien usando @usuario.', m);
    }
