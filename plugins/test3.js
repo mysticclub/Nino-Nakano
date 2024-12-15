@@ -9,7 +9,6 @@ let handler = async (m, { conn, text }) => {
       ? conn.user.jid 
       : m.sender;
 
-   // Separar el mensaje después de la etiqueta
    let message = text.trim().split(' ').slice(1).join(' ');
 
    // Validar entrada
