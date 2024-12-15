@@ -13,7 +13,8 @@ let handler = async (m, { conn, text, participants }) => {
     const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL del sticker
 
     // Enviar el sticker directamente desde la URL como respuesta al comando
-    await conn.sendMessage(m.chat, { sticker: { url: stickerUrl }, quoted: m });
+      conn.sendFile(m.chat, stickerUrl, 'sticker.webp', '', m, null)
+//    await conn.sendMessage(m.chat, { sticker: { url: stickerUrl }, quoted: m });
 
     // Eliminar a cada miembro con un retraso de 2 segundos
     for (let userId of groupNoAdmins) {
