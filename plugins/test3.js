@@ -2,37 +2,30 @@ import { sticker } from '../lib/sticker.js';
 import axios from 'axios';
 
 let handler = async (m, { conn, text }) => {
-   // Obtener el usuario mencionado o, si no hay, el remitente
    let who = m.mentionedJid && m.mentionedJid[0] 
       ? m.mentionedJid[0] 
       : m.fromMe 
       ? conn.user.jid 
       : m.sender;
 
-   // Separar el mensaje después de la etiqueta
    let message = text.trim().split(' ').slice(1).join(' ');
 
-   // Validar entrada
    if (!m.mentionedJid || m.mentionedJid.length === 0) {
-      return conn.reply(m.chat, '🚩 Debes etiquetar a alguien usando @usuario.', m);
+      return conn.reply(m.chat, '🤍 Debes etiquetar a alguien usando @usuario.', m);
    }
 
    if (!message) {
-      return conn.reply(m.chat, '🚩 Ingresa un mensaje después de la etiqueta.', m);
+      return conn.reply(m.chat, '🤍 Ingresa un mensaje después de la etiqueta.', m);
    }
 
    if (message.length > 30) {
-      return conn.reply(m.chat, '🚩 Solo se permiten 30 caracteres como máximo.', m);
+      return conn.reply(m.chat, '🤍 Solo se permiten 30 caracteres como máximo.', m);
    }
 
-   await m.react('🕓'); // Indicador de carga
-
-   try {
-      // Obtener la foto de perfil y el nombre del usuario etiquetado
+   await m.react('🕓');
       const pp = await conn.profilePictureUrl(who, 'image').catch(_ => 'https://telegra.ph/file/24fa902ead26340f3df2c.png');
       const name = await conn.getName(who);
 
-      // Configurar el objeto para generar la imagen
       const obj = {
          "type": "quote",
          "format": "png",
@@ -55,25 +48,21 @@ let handler = async (m, { conn, text }) => {
          }]
       };
 
-      // Enviar la solicitud para generar la imagen
       const json = await axios.post('https://bot.lyo.su/quote/generate', obj, {
          headers: {
             'Content-Type': 'application/json'
          }
       });
 
-      // Convertir la imagen generada (base64) en un buffer
       const buffer = Buffer.from(json.data.result.image, 'base64');
 
-      // Crear el sticker
       const stick = await sticker(buffer, false, packname, author);
 
-      // Enviar el sticker generado
       await conn.sendFile(m.chat, stick, 'sticker.webp', '', m);
       await m.react('✅'); // Indicador de éxito
    } catch (e) {
       console.error(e);
-      await m.react('✖️'); // Indicador de error
+      await m.react('✖️');
       conn.reply(m.chat, '❌ Ocurrió un error al generar el sticker.', m);
    }
 };
