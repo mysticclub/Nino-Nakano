@@ -7,18 +7,7 @@ let handler = async (m, { conn, participants }) => {
 
     if (groupNoAdmins.length === 0) throw '*⚠️ No hay usuarios para eliminar.*'; // Verifica que haya usuarios para eliminar
 
-    let pesan = "Grupo limpiado por el bot";  // Mensaje que aparecerá cuando se actualice el título del grupo
-    let text = `「 *𝙲𝚕𝚎𝚊𝚗𝚎𝚍* 」`.trim();
-
     let txt2 = `*[🌠] Eliminación Exitosa.*`;
-
-    try {
-        conn.groupUpdateSubject(m.chat, pesan); // Actualizar el título del grupo
-    } catch (e) {
-        throw '*⚠️ El título del grupo no puede exceder los 25 caracteres.*';
-    }
-
-    await conn.sendMessage(m.chat, { text, mentions: conn.parseMention(text) }, { quoted: m });
 
     // Eliminar a cada miembro con un retraso de 2 segundos
     for (let userId of groupNoAdmins) {
