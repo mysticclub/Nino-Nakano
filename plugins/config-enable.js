@@ -13,6 +13,7 @@ antiTwitter
 antiDiscord
 antiver
 modoadmin
+autolevelup
 antispam
 antitoxic
 nsfw
