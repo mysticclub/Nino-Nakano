@@ -22,7 +22,7 @@ let handler = async function (m, { conn }) {
       .setAvatar(userAvatar) // Avatar del usuario
       .setBackground("image", "https://pomf2.lain.la/f/ou87g8sr.jpg") // Fondo
       .setCreatedTimestamp(Date.now()) // Fecha de creación
-      .setSuspectTimestamp(604800000) // Periodo de sospecha: 1 semana
+      .setSuspectTimestamp(1000) // Periodo de sospecha: 1 semana
       .setBorder("#f0f0f0") // Color del borde
       .setLocale("es") // Idioma/país
       .setAvatarBorder("#f0f0f0") // Borde del avatar
