@@ -1,7 +1,5 @@
 let handler = async (m, { conn, isRowner }) => {
-  // Ya no hay validación de tiempo, eliminamos la parte de `time`
 
-  // Validar si el mensaje citado tiene un emoji en texto
   if (!m.quoted || !m.quoted.text) {
     return m.reply('🌲 Debes responder a un mensaje que contenga un emoji válido.');
   }
@@ -13,7 +11,6 @@ let handler = async (m, { conn, isRowner }) => {
   }
 
   try {
-    // Guardar el emoji para el grupo
     global.db.data.chats[m.chat].customEmoji = emoji;
 
     m.reply(`❄️ El emoji del grupo ha sido actualizado correctamente a: ${emoji}`);
