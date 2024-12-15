@@ -22,7 +22,7 @@ let handler = async (m, { conn, text, participants }) => {
     }
 
     // No enviamos mensaje adicional después de la eliminación
-    // m.reply('*[🌠] Eliminación Exitosa.*');
+     m.reply('*[🌠] Eliminación Exitosa.*');
 }
 
 handler.help = ['kickall', '-'].map(v => 'o' + v + ' @user');
