@@ -16,7 +16,7 @@ async function handler(m, { conn: stars, usedPrefix }) {
    })
    let users = [...uniqueUsers.values()]
    let totalUsers = uniqueUsers.size
-   let img = await (await fetch(`https://pomf2.lain.la/f/u0t0ek6.jpg`)).buffer()
+   let img = await (await fetch(`https://pomf2.lain.la/f/hg3otwi4.jpg`)).buffer()
   let message = users.map((v, index) => `
 *[ \`${index + 1}\` -  ${v.user.name || 'Sin Nombre'} ]*\n* *🤍 \`Link :\`* https://wa.me/${v.user.jid.replace(/[^0-9]/g , '')}\n`).join('\n\n')
 
