@@ -84,12 +84,18 @@ if (methodCode && !conn.authState.creds.registered) {
     setTimeout(async () => {
         let codeBot = await conn.requestPairingCode(cleanedNumber);
         codeBot = codeBot?.match(/.{1,4}/g)?.join("-") || codeBot;
-        let txt = ` \`\`\`- ${packname} -\`\`\`
-        *\`[ 🚀 ] Ingresa el siguiente código para convertirse en subbot\`*
-        > Nota: Solo funciona en el número dónde se ejecutó el comando; ${m.sender.split('@')[0]}
+        let txt = `*\`「🤍」 Serbot - Code 「🤍」\`*
+
+*\`[ Pasos : ]\`*
+\`1 ❥\` _Click en los 3 puntos_
+\`2 ❥\` _Toca en dispositivos vinculados_
+\`3 ❥\` _Seleciona Vincular con codigo_
+\`4 ❥\` _Escribe El Codigo_
+
+> *:⁖֟⊱┈֟፝❥ Nota:* Este Codigo Solo Funciona Con Quien Lo Solicito ${m.sender.split('@')[0]}
         `
-         await parent.reply(m.chat, txt, m, rpl)
-         await parent.reply(m.chat, codeBot, m, rpl)
+         await parent.reply(m.chat, txt, m, rcanal)
+         await parent.reply(m.chat, codeBot, m, rcanal)
         rl.close()
     }, 3000)
 }
