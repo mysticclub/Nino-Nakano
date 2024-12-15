@@ -154,7 +154,7 @@ if (!conn.authState.creds.registered) {
   if (conn.requestPairingCode) {
     let code = await conn.requestPairingCode(phoneNumber)
     code = code?.match(/.{1,4}/g)?.join("-") || code;
-    console.log(chalk.black.bgGreen.bold(`Su código es:`, code))
+    console.log(chalk.green(`Su código es:`, code))
   } else {
   }
 }
