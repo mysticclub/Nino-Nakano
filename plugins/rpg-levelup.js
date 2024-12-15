@@ -8,7 +8,6 @@ let handler = async (m, { conn }) => {
     let user = global.db.data.users[m.sender]
     let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 
-    // Verifica si puede subir de nivel
     if (!canLevelUp(user.level, user.exp, global.multiplier)) {
         let { min, xp, max } = xpRange(user.level, global.multiplier)
         let txt = ` –  *L E V E L U P  -  U S E R*\n\n`
