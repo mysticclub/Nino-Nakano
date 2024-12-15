@@ -24,7 +24,7 @@ let handler = async (m, { conn, isRowner }) => {
 const isEmoji = (text) => {
   const emojiRegex =
     /(?:\p{Emoji_Presentation}|\p{Extended_Pictographic}|\p{Emoji})/gu;
-  return emojiRegex.test(text) && text.length <= 2; // Permitir solo un emoji
+  return emojiRegex.test(text) && text.length <= 2;
 };
 
 handler.help = ['setemoji'];
