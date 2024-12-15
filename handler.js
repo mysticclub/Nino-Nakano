@@ -107,6 +107,8 @@ export async function handler(chatUpdate) {
                     chat.antiver = false
                 if (!('modoadmin' in chat))
                     chat.modoadmin = false
+                if (!('autolevelup' in chat))
+                    chat.autolevelup = true
                 if (!('antitoxic' in chat))
                     chat.antitoxic = false
                 if (!('antispam' in chat))
@@ -131,6 +133,7 @@ export async function handler(chatUpdate) {
                     antiDiscord: false,
                     antiver: true,
                     modoadmin: false,
+                    autolevelup: true,
                     antitoxic: false,
                     antispam: false,
                     onlyLatinos: false,
