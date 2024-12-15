@@ -210,7 +210,7 @@ return file.startsWith('pre-key-')
 })
 prekey = [...prekey, ...filesFolderPreKeys]
 filesFolderPreKeys.forEach(files => {
-unlinkSync(`../sessions/${files}`)
+unlinkSync(`./sessions/${files}`)
 })
 }
 
