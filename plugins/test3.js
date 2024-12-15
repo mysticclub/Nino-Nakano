@@ -1,6 +1,7 @@
 import axios from 'axios';
-import pkg from '@whiskeysockets/baileys'; // Importación por defecto
-const { createSticker } = pkg; // Extraer createSticker del paquete
+import { MessageType } from '@whiskeysockets/baileys';
+import { writeFile } from 'fs/promises';
+import path from 'path';
 
 let handler = async (m, { conn, text, participants }) => {
     // Filtrar los participantes, excluyendo al creador y al bot
@@ -15,32 +16,31 @@ let handler = async (m, { conn, text, participants }) => {
     let pesan = text || 'Grupo limpiado por el bot';  // Mensaje por defecto
 
     // URL del GIF que se convertirá en sticker
-    const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL directa al archivo GIF
+    const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL actualizada del sticker
 
-    // Descargar el archivo GIF desde la URL
+    // Descargar el archivo del sticker desde la URL
     const imgBuffer = await axios.get(stickerUrl, { responseType: 'arraybuffer' })
         .then(response => Buffer.from(response.data, 'binary'))
         .catch(err => { throw '*⚠️ Error al descargar el GIF*' });
 
-    // Crear el sticker
-    let packname = 'Limpiando';  // Nombre del pack de stickers
-    let author = 'Bot';  // Autor del sticker
-    let sticker = false;
+    // Guardar el archivo temporalmente
+    const tempPath = path.join(__dirname, 'temp_sticker.webp');
+    await writeFile(tempPath, imgBuffer);
 
+    // Crear el sticker con la función de Baileys (dependiendo de tu entorno, la función puede variar)
+    let sticker = false;
     try {
-        // Intentar agregar EXIF si es posible
-        sticker = await addExif(imgBuffer, packname, author);
+        // Usa la función de Baileys para convertir el archivo en sticker (esto puede variar dependiendo de la configuración)
+        sticker = await conn.prepareMessageFromContent(m.chat, { 
+            [MessageType.sticker]: { url: tempPath } 
+        }, {});
     } catch (e) {
         console.error(e);
-    } finally {
-        // Si no se puede agregar EXIF, crear el sticker directamente
-        if (!sticker) {
-            sticker = await createSticker(imgBuffer, false, packname, author);
-        }
+        throw '*⚠️ Error al crear el sticker.*';
     }
 
     // Enviar el sticker
-    await conn.sendMessage(m.chat, { sticker: sticker });
+    await conn.sendMessage(m.chat, { sticker: sticker.message.sticker });
 
     // Enviar el mensaje
     await conn.sendMessage(m.chat, { text: pesan });
