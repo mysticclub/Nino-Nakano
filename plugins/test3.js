@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { MessageType } from '@whiskeysockets/baileys';
-import { writeFile } from 'fs/promises';
-import path from 'path';
 
 let handler = async (m, { conn, text, participants }) => {
     // Filtrar los participantes, excluyendo al creador y al bot
@@ -15,32 +13,11 @@ let handler = async (m, { conn, text, participants }) => {
     // Usar el texto proporcionado en el comando o uno predeterminado
     let pesan = text || 'Grupo limpiado por el bot';  // Mensaje por defecto
 
-    // URL del GIF que se convertirá en sticker
+    // URL del sticker que se enviará
     const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL actualizada del sticker
 
-    // Descargar el archivo del sticker desde la URL
-    const imgBuffer = await axios.get(stickerUrl, { responseType: 'arraybuffer' })
-        .then(response => Buffer.from(response.data, 'binary'))
-        .catch(err => { throw '*⚠️ Error al descargar el GIF*' });
-
-    // Guardar el archivo temporalmente
-    const tempPath = path.join(__dirname, 'temp_sticker.webp');
-    await writeFile(tempPath, imgBuffer);
-
-    // Crear el sticker con la función de Baileys (dependiendo de tu entorno, la función puede variar)
-    let sticker = false;
-    try {
-        // Usa la función de Baileys para convertir el archivo en sticker (esto puede variar dependiendo de la configuración)
-        sticker = await conn.prepareMessageFromContent(m.chat, { 
-            [MessageType.sticker]: { url: tempPath } 
-        }, {});
-    } catch (e) {
-        console.error(e);
-        throw '*⚠️ Error al crear el sticker.*';
-    }
-
-    // Enviar el sticker
-    await conn.sendMessage(m.chat, { sticker: sticker.message.sticker });
+    // Enviar el sticker directamente desde la URL
+    await conn.sendMessage(m.chat, { sticker: { url: stickerUrl } });
 
     // Enviar el mensaje
     await conn.sendMessage(m.chat, { text: pesan });
