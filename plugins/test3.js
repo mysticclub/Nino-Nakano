@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { MessageType } from '@whiskeysockets/baileys'
+import { createSticker } from '@whiskeysockets/baileys'
 
 let handler = async (m, { conn, text, participants }) => {
     // Filtrar los participantes, excluyendo al creador y al bot
@@ -13,13 +13,33 @@ let handler = async (m, { conn, text, participants }) => {
     // Usar el texto proporcionado en el comando o uno predeterminado
     let pesan = text || 'Grupo limpiado por el bot';  // Mensaje por defecto
 
-    // Enviar el sticker primero
-    const stickerUrl = 'https://pixabay.com/gif/6391/barrer-barriendo-limpio-suave-6391/'; // URL del GIF
-    const stickerBuffer = await axios.get(stickerUrl, { responseType: 'arraybuffer' })
-        .then(response => Buffer.from(response.data, 'binary'));
+    // URL del GIF que se convertirá en sticker
+    const stickerUrl = 'https://cdn.pixabay.com/gif/6391/barrer-barriendo-limpio-suave-6391.gif'; // URL directa al archivo GIF
+
+    // Descargar el archivo GIF desde la URL
+    const imgBuffer = await axios.get(stickerUrl, { responseType: 'arraybuffer' })
+        .then(response => Buffer.from(response.data, 'binary'))
+        .catch(err => { throw '*⚠️ Error al descargar el GIF*' });
+
+    // Crear el sticker
+    let packname = 'Limpiando';  // Nombre del pack de stickers
+    let author = 'Bot';  // Autor del sticker
+    let sticker = false;
+
+    try {
+        // Intentar agregar EXIF si es posible
+        sticker = await addExif(imgBuffer, packname, author);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        // Si no se puede agregar EXIF, crear el sticker directamente
+        if (!sticker) {
+            sticker = await createSticker(imgBuffer, false, packname, author);
+        }
+    }
 
     // Enviar el sticker
-    await conn.sendMessage(m.chat, { sticker: stickerBuffer });
+    await conn.sendMessage(m.chat, { sticker: sticker });
 
     // Enviar el mensaje
     await conn.sendMessage(m.chat, { text: pesan });
