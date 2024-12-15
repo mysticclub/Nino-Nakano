@@ -20,11 +20,19 @@ const handler = async (m, { conn, args, text, usedPrefix, command }) => {
     let res = `https://mxmxk-helper.hf.space/brat?text=${encodeURIComponent(ps)}`;
 
     try {
-        // Descargar imagen desde la URL
+        // Descargar el archivo desde la URL
         const response = await axios.get(res, { responseType: 'arraybuffer' });
+        
+        // Validar el tipo de archivo
+        const contentType = response.headers['content-type'];
+        if (!['image/png', 'image/jpeg', 'image/jpg'].includes(contentType)) {
+            throw new Error('La URL no devolvió un archivo de imagen válido.');
+        }
+
+        // Crear un buffer de imagen
         const imageBuffer = Buffer.from(response.data);
 
-        // Crear sticker
+        // Crear el sticker
         const sticker = new WSF.Sticker(imageBuffer, {
             type: "full",
             pack: "Mi Pack",
@@ -36,7 +44,7 @@ const handler = async (m, { conn, args, text, usedPrefix, command }) => {
         await conn.sendFile(m.chat, stickerBuffer, 'sticker.webp', '', m);
     } catch (e) {
         console.error(e);
-        await m.reply("Ocurrió un error al generar el sticker. Inténtalo de nuevo.");
+        await m.reply(`Ocurrió un error: ${e.message}`);
     }
 };
 
@@ -46,6 +54,8 @@ handler.tags = ['sticker'];
 handler.command = /^(brat)$/i;
 
 export default handler;
+
+
 
 
 
