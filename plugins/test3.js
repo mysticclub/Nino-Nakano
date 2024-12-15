@@ -43,4 +43,4 @@ handler.tags = ['group'];
 handler.command = /^(tandai)$/i;
 handler.admin = true;
 handler.group = true;
-export default Handler;
+export default handler;
