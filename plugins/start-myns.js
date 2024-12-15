@@ -27,7 +27,7 @@ let handler = async function (m, { conn }) {
     .build();
 
   // Enviar la imagen junto con el texto del número de serie
-  await conn.sendFile(m.chat, canvasRank.toBuffer(), 'security.png', txt, m, null, fake)
+  await conn.sendFile(m.chat, securityImage.toBuffer(), 'security.png', txt, m, null, fake)
 /*  await conn.sendMessage(m.chat, { 
     text: `Número de serie: ${sn}`, 
     files: [{
