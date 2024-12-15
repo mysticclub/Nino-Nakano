@@ -4,21 +4,17 @@ import canvafy from 'canvafy' // Asegúrate de que tienes esta librería instala
 let handler = async function (m, { conn, text, usedPrefix }) {
   // Generación del número de serie
   let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
-  
-  // Obtener información del usuario usando m.sender
-  const user = await conn.getUser(m.sender); // O usa el método apropiado según tu entorno
-  
-  // Verificar si obtuviste correctamente el usuario
-  if (!user) {
-    return await conn.reply(m.chat, "No se pudo obtener la información del usuario.", m);
-  }
+
+  // Obtener el JID del usuario (en caso de mencionar a alguien o usar el propio usuario)
+  let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
+
+  // Obtener la foto de perfil del usuario
+  let userAvatar = await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'); // URL por defecto si no tiene foto
 
   // Crear la imagen de seguridad con canvafy
   const security = await new canvafy.Security()
-    .setAvatar(user.displayAvatarURL({extension:"png",forceStatic:true})) // Utilizamos la URL del avatar
+    .setAvatar(userAvatar) // Usamos la URL del avatar
     .setBackground("image", "https://cdn.discordapp.com/attachments/1087030211813593190/1110243947311288530/beeautiful-sunset-illustration-1212023.webp")
-    .setCreatedTimestamp(user.createdTimestamp) // Usamos el createdTimestamp del usuario
-    .setSuspectTimestamp(604800000) // 1 semana en milisegundos
     .setBorder("#f0f0f0")
     .setLocale("en")
     .setAvatarBorder("#f0f0f0")
