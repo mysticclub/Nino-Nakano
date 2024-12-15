@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { MessageType } from '@whiskeysockets/baileys';
 
 let handler = async (m, { conn, text, participants }) => {
     // Filtrar los participantes, excluyendo al creador y al bot
@@ -14,7 +13,7 @@ let handler = async (m, { conn, text, participants }) => {
     let pesan = text || 'Grupo limpiado por el bot';  // Mensaje por defecto
 
     // URL del sticker que se enviará
-    const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL actualizada del sticker
+    const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL del sticker
 
     // Enviar el sticker directamente desde la URL
     await conn.sendMessage(m.chat, { sticker: { url: stickerUrl } });
