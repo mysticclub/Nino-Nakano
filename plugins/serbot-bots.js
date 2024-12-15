@@ -14,6 +14,7 @@ let handler = async (m, { conn }) => {
    })
 
    let totalUsers = uniqueUsers.size
+   let img = await (await fetch(`https://i.ibb.co/LSBGpg4/file.jpg`)).buffer()
    let txt = '*`[ ✰ ] Total Sub-Bots`*' + ` » *${totalUsers || 0}*`
 
    await conn.reply(m.chat, txt, m, rcanal)
