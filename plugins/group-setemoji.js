@@ -1,3 +1,8 @@
+/* 
+- Setemoji By Angel-OFC 
+- edita el tagall con tu emoji favorito 
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
 let handler = async (m, { conn, isRowner }) => {
 
   if (!m.quoted || !m.quoted.text) {
