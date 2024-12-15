@@ -38,9 +38,9 @@ Handler.before = async function (m, { conn }) {
         m.reply(`👋 Nomor *${m.sender.split('@')[0]}* telah dikeluarkan dari grup setelah mengirim pesan terakhir😘.`);
     }
 };
-Handler.help = ['tandai @user'];
-Handler.tags = ['group'];
-Handler.command = /^(tandai)$/i;
-Handler.admin = true;
-Handler.group = true;
+handler.help = ['tandai @user'];
+handler.tags = ['group'];
+handler.command = /^(tandai)$/i;
+handler.admin = true;
+handler.group = true;
 export default Handler;
