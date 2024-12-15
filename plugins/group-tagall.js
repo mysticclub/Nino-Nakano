@@ -1,7 +1,8 @@
-const handler = async (m, {isOwner, isAdmin, conn, text, participants, args, command, usedPrefix}) => {
+const handler = async (m, { isOwner, isAdmin, conn, text, participants, args, command, usedPrefix }) => {
   if (usedPrefix == 'a' || usedPrefix == 'A') return;
 
-  const customEmoji = global.customEmoji || '🤍'; // Usar el emoji personalizado si está definido
+  // Obtener el emoji del grupo, si no está configurado, usar el emoji predeterminado
+  const customEmoji = global.db.data.chats[m.chat]?.customEmoji || '🤍'; // Emoji personalizado o predeterminado
   m.react(customEmoji);
 
   if (!(isAdmin || isOwner)) {
@@ -17,7 +18,7 @@ const handler = async (m, {isOwner, isAdmin, conn, text, participants, args, com
   }
   teks += `╰⸼ ┄ ┄ ┄ ─  ꒰  ׅ୭ *${vs}* ୧ ׅ ꒱  ┄  ─ ┄ ⸼`;
 
-  conn.sendMessage(m.chat, {text: teks, mentions: participants.map((a) => a.id)});
+  conn.sendMessage(m.chat, { text: teks, mentions: participants.map((a) => a.id) });
 };
 
 handler.help = ['todos <mensaje>'];
@@ -26,7 +27,6 @@ handler.command = /^(tagall|invocar|marcar|todos|invocación)$/i;
 handler.admin = true;
 handler.group = true;
 export default handler;
-
 
 /* const handler = async (m, {isOwner, isAdmin, conn, text, participants, args, command, usedPrefix}) => {
 
