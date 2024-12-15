@@ -1,16 +1,8 @@
 import fs from 'fs/promises';
 
-const botName = 'CrowBot'; // Nombre predeterminado del bot
-const authorizedNumber = '50557865603@s.whatsapp.net'; // Asegúrate de que el ID esté en el formato correcto
 let deletionLimit = 10; // Límite de eliminaciones
 
 let handler = async (m, { conn, args, participants }) => {
-    // Verificación del número autorizado
-    if (m.sender !== authorizedNumber) {
-        await conn.sendMessage(m.chat, { text: '*[ ‼️ ] El único autorizado para usar este comando es mi creador.*' }, { quoted: m });
-        return; // Salir de la función si no está autorizado
-    }
-
     // Filtrar los participantes, excluyendo al creador y al bot
     const groupAdmins = participants.filter(p => p.admin);
     const botId = conn.user.jid;
@@ -24,7 +16,7 @@ let handler = async (m, { conn, args, participants }) => {
     if (listUsers.length === 0) throw '*⚠️ No hay usuarios para eliminar.*';
 
     let pesan = args.join` `;
-    let text = `「 *𝙲𝚕𝚎𝚊𝚗𝚎𝚍 𝙱𝚢 - ${botName}* 」`.trim();
+    let text = `「 *𝙲𝚕𝚎𝚊𝚗𝚎𝚍* 」`.trim();
 
     let txt2 = `*[🌠] Eliminación Exitosa.*`;
 
@@ -57,7 +49,6 @@ handler.help = ['kickall', '-'].map(v => 'o' + v + ' @user');
 handler.tags = ['owner'];
 handler.command = /^(kickall)$/i;
 
-handler.owner = true;
 handler.group = true;
 handler.botAdmin = true;
 
