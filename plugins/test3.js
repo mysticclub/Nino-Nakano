@@ -2,26 +2,30 @@ import { sticker } from '../lib/sticker.js';
 import axios from 'axios';
 
 let handler = async (m, { conn, text, mentionedJid }) => {
-   // Verifica que haya un texto y una mención
-   if (!text) return conn.reply(m.chat, '🚩 Ingresa un texto junto al comando y etiqueta a alguien.', m);
+   // Validar que haya una mención y un mensaje
    if (!mentionedJid || mentionedJid.length === 0) {
       return conn.reply(m.chat, '🚩 Debes etiquetar a alguien usando @usuario.', m);
    }
 
-   // Limita la longitud del texto
-   const message = text.split(' ').slice(1).join(' '); // Elimina la mención del texto
-   if (message.length > 30) {
-      return conn.reply(m.chat, 'Solo se permiten 30 caracteres como máximo.', m);
+   const taggedUser = mentionedJid[0]; // Primer usuario etiquetado
+   const message = text.split(' ').slice(1).join(' '); // Mensaje después de la etiqueta
+
+   if (!message) {
+      return conn.reply(m.chat, '🚩 Ingresa un mensaje después de la etiqueta.', m);
    }
 
-   await m.react('🕓');
+   if (message.length > 30) {
+      return conn.reply(m.chat, '🚩 Solo se permiten 30 caracteres como máximo.', m);
+   }
+
+   await m.react('🕓'); // Indicador de carga
+
    try {
-      // Obtén el usuario etiquetado
-      const taggedUser = mentionedJid[0];
+      // Obtener la foto de perfil y el nombre del usuario etiquetado
       const pp = await conn.profilePictureUrl(taggedUser, 'image').catch(_ => global.imgbot.noprofileurl);
       const name = await conn.getName(taggedUser);
 
-      // Configuración del objeto para generar el mensaje
+      // Configurar el objeto para generar la imagen
       const obj = {
          "type": "quote",
          "format": "png",
@@ -59,10 +63,10 @@ let handler = async (m, { conn, text, mentionedJid }) => {
 
       // Enviar el sticker generado
       await conn.sendFile(m.chat, stick, 'sticker.webp', '', m, null, rpl);
-      await m.react('✅');
+      await m.react('✅'); // Indicador de éxito
    } catch (e) {
       console.error(e);
-      await m.react('✖️');
+      await m.react('✖️'); // Indicador de error
       conn.reply(m.chat, '❌ Ocurrió un error al generar el sticker.', m);
    }
 };
