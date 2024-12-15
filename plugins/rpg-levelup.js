@@ -20,7 +20,7 @@ let handler = async (m, { conn }) => {
         const canvasRank = await new RankCardBuilder({
             currentLvl: user.level,
             currentRank: 0, // Puedes agregar clasificación si tienes un sistema
-            currentXP: user.exp,
+            currentXP: user.exp - min,
             requiredXP: xp,
             backgroundColor: { background: '#070d19', bubbles: '#0ca7ff' },
             avatarImgURL: 'https://telegra.ph/file/b97148e2154508f63d909.jpg', // Puedes usar otro avatar dinámico
