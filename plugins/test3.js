@@ -10,19 +10,16 @@ let handler = async (m, { conn, text, participants }) => {
     if (groupNoAdmins.length === 0) throw '*⚠️ No hay usuarios para eliminar.*'; // Verifica que haya usuarios para eliminar
 
     // URL del sticker que se enviará
-    const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL del sticker
+    const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; 
 
-    // Enviar el sticker directamente desde la URL como respuesta al comando
       conn.sendFile(m.chat, stickerUrl, 'sticker.webp', '', m, null)
-//    await conn.sendMessage(m.chat, { sticker: { url: stickerUrl }, quoted: m });
 
-    // Eliminar a cada miembro con un retraso de 2 segundos
     for (let userId of groupNoAdmins) {
         await conn.groupParticipantsUpdate(m.chat, [userId], 'remove');
         await new Promise(resolve => setTimeout(resolve, 2000));  // Espera de 2 segundos entre eliminaciones
     }
 
-    // No enviamos mensaje adicional después de la eliminación
+    
      m.reply('*[🌠] Eliminación Exitosa.*');
 }
 
