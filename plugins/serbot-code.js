@@ -365,7 +365,7 @@ let handler = async (_0x2f812c, {
 };
 handler.help = ['jadibot', "serbot", "getcode", "rentbot"];
 handler.tags = ['jadibot'];
-handler.command = /^(jadibot|serbot|rentbot)/i;
+handler.command = /^(jadibot|getcode|rentbot)/i;
 handler.register = true;
 export default handler;
 function sleep(_0x2c7751) {
