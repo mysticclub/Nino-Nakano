@@ -19,8 +19,8 @@ let handler = async (m, { conn }) => {
 *[ \`${index + 1}\` -  ${v.user.name || 'Sin Nombre'} ]*\n* *🤍 \` Link :\`* https://wa.me/${v.user.jid.replace(/[^0-9]/g , '')}\n`).join('\n\n')
 
   let replyMessage = message.length === 0 ? '' : message
-  global.totalUsers = users.length
-  let responseMessage = `*[ _Total Subbots Activos :_ \`${totalUsers || '0'}\` ]*\n\n${replyMessage.trim()}`.trim()
+
+  let responseMessage = `*[ _Total Subbots Activos :_ \`${totalUsers || 0}\` ]*\n\n${replyMessage.trim()}`.trim()
 
 await stars.sendFile(m.chat, img, 'thumbnail.jpg', responseMessage, m, null, fake, false, { mentions: stars.parseMention(responseMessage) })
 
