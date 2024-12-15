@@ -6,6 +6,7 @@ import { RankCardBuilder } from 'discord-card-canvas'
 let handler = async (m, { conn }) => {
     let name = conn.getName(m.sender)
     let user = global.db.data.users[m.sender]
+    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
 
     // Verifica si puede subir de nivel
     if (!canLevelUp(user.level, user.exp, global.multiplier)) {
