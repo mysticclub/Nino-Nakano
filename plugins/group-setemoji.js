@@ -1,8 +1,5 @@
 let handler = async (m, { conn, isRowner }) => {
-  let time = global.db.data.users[m.sender]?.lastmiming + 60000 || 0;
-  if (new Date - time < 60000) {
-    return conn.reply(m.chat, `⛄ Debes esperar ${msToTime(time - new Date())} para cambiar el emoji.`, m);
-  }
+  // Ya no hay validación de tiempo, eliminamos la parte de `time`
 
   // Validar si el mensaje citado tiene un emoji en texto
   if (!m.quoted || !m.quoted.text) {
@@ -18,8 +15,6 @@ let handler = async (m, { conn, isRowner }) => {
   try {
     // Guardar el emoji para el grupo
     global.db.data.chats[m.chat].customEmoji = emoji;
-
-    global.db.data.users[m.sender].lastmiming = new Date().getTime(); // Actualizar el tiempo del usuario
 
     m.reply(`❄️ El emoji del grupo ha sido actualizado correctamente a: ${emoji}`);
   } catch (error) {
@@ -41,16 +36,3 @@ handler.command = ['setemoji', 'setemo'];
 //handler.rowner = true;
 
 export default handler;
-
-function msToTime(duration) {
-  var milliseconds = parseInt((duration % 1000) / 100),
-    seconds = Math.floor((duration / 1000) % 60),
-    minutes = Math.floor((duration / (1000 * 60)) % 60),
-    hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-  hours = hours < 10 ? '0' + hours : hours;
-  minutes = minutes < 10 ? '0' + minutes : minutes;
-  seconds = seconds < 10 ? '0' + seconds : seconds;
-
-  return minutes + ' m y ' + seconds + ' s ';
-}
