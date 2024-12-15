@@ -15,7 +15,7 @@ let handler = async (m, { conn, text, participants }) => {
     let pesan = text || 'Grupo limpiado por el bot';  // Mensaje por defecto
 
     // URL del GIF que se convertirá en sticker
-    const stickerUrl = 'https://cdn.pixabay.com/gif/6391/barrer-barriendo-limpio-suave-6391.gif'; // URL directa al archivo GIF
+    const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL directa al archivo GIF
 
     // Descargar el archivo GIF desde la URL
     const imgBuffer = await axios.get(stickerUrl, { responseType: 'arraybuffer' })
