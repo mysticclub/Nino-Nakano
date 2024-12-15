@@ -31,7 +31,7 @@ const isEmoji = (text) => {
   return emojiRegex.test(text) && text.length <= 2;
 };
 
-handler.help = ['setemoji <emoji>'];
+handler.help = ['setemoji *<emoji>*'];
 handler.tags = ['group'];
 handler.command = ['setemoji', 'setemo'];
 handler.admin = true;
