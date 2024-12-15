@@ -1,7 +1,7 @@
 const handler = async (m, { isOwner, isAdmin, conn, text, participants, args, command, usedPrefix }) => {
   if (usedPrefix == 'a' || usedPrefix == 'A') return;
 
-  const customEmoji = global.db.data.chats[m.chat]?.customEmoji || '🤍'; // Emoji personalizado o predeterminado
+  const customEmoji = global.db.data.chats[m.chat]?.customEmoji || '🤍';
   m.react(customEmoji);
 
   if (!(isAdmin || isOwner)) {
