@@ -51,25 +51,21 @@ let handler = async (m, { conn, text }) => {
          }]
       };
 
-      // Enviar la solicitud para generar la imagen
       const json = await axios.post('https://bot.lyo.su/quote/generate', obj, {
          headers: {
             'Content-Type': 'application/json'
          }
       });
 
-      // Convertir la imagen generada (base64) en un buffer
       const buffer = Buffer.from(json.data.result.image, 'base64');
 
-      // Crear el sticker
       const stick = await sticker(buffer, false, packname, author);
 
-      // Enviar el sticker generado
       await conn.sendFile(m.chat, stick, 'sticker.webp', '', m);
-      await m.react('✅'); // Indicador de éxito
+      await m.react('✅'); 
    } catch (e) {
       console.error(e);
-      await m.react('✖️'); // Indicador de error
+      await m.react('✖️');
       conn.reply(m.chat, '❌ Ocurrió un error al generar el sticker.', m);
    }
 };
