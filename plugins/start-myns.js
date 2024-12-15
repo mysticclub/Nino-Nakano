@@ -14,7 +14,7 @@ let handler = async function (m, { conn }) {
   // Crear la imagen con Canvafy según tus especificaciones
   const securityImage = await new canvafy.Security()
     .setAvatar(userAvatar) // Avatar del usuario
-    .setBackground("image", "https://cdn.discordapp.com/attachments/1087030211813593190/1110243947311288530/beeautiful-sunset-illustration-1212023.webp") // Fondo
+    .setBackground("image", "https://pomf2.lain.la/f/ou87g8sr.jpg") // Fondo
     .setCreatedTimestamp(Date.now()) // Fecha de creación
     .setSuspectTimestamp(604800000) // Periodo de sospecha: 1 semana (en milisegundos)
     .setBorder("#f0f0f0") // Color del borde
