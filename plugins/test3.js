@@ -29,7 +29,7 @@ let handler = async (m, { conn, text }) => {
 
    try {
       // Obtener la foto de perfil y el nombre del usuario etiquetado
-      const pp = await conn.profilePictureUrl(who, 'image').catch(_ => global.imgbot.noprofileurl);
+      const pp = await conn.profilePictureUrl(who, 'image').catch(_ => 'https://telegra.ph/file/24fa902ead26340f3df2c.png');
       const name = await conn.getName(who);
 
       // Configurar el objeto para generar la imagen
