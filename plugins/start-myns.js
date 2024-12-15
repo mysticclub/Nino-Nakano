@@ -11,10 +11,13 @@ let handler = async function (m, { conn, text, usedPrefix }) {
   // Obtener la foto de perfil del usuario
   let userAvatar = await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'); // URL por defecto si no tiene foto
 
+  // URL de la imagen de fondo
+  let backgroundImage = 'https://www.w3.org/2008/site/images/logo-w3c-mobile-lg'; // Imagen pública
+
   // Crear la imagen de seguridad con canvafy
   const security = await new canvafy.Security()
     .setAvatar(userAvatar) // Usamos la URL del avatar
-    .setBackground("image", "https://cdn.discordapp.com/attachments/1087030211813593190/1110243947311288530/beeautiful-sunset-illustration-1212023.webp")
+    .setBackground("image", backgroundImage) // Imagen de fondo pública
     .setBorder("#f0f0f0")
     .setLocale("en")
     .setAvatarBorder("#f0f0f0")
