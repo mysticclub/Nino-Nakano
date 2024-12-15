@@ -16,7 +16,7 @@ const {
   spawn,
   exec
 } = await import("child_process");
-import { makeWASocket } from '../lib/simple.js';
+import { makeWASocket } from './lib/simple.js';
 let rtx = '' + lenguajeGB.smsIniJadi();
 let rtx2 = '' + lenguajeGB.smsIniJadi2();
 if (global.conns instanceof Array) {
