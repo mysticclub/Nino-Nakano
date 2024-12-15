@@ -24,7 +24,7 @@ let handler = async function (m, { conn }) {
       .setCreatedTimestamp(Date.now()) // Fecha de creación
       .setSuspectTimestamp(604800000) // Periodo de sospecha: 1 semana
       .setBorder("#f0f0f0") // Color del borde
-      .setLocale("en") // Idioma/país
+      .setLocale("es") // Idioma/país
       .setAvatarBorder("#f0f0f0") // Borde del avatar
       .setOverlayOpacity(0.9) // Opacidad de la superposición
       .build();
