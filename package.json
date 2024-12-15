@@ -49,6 +49,7 @@
 		"ruhend-scraper": "^8.0.4",
 		"rahad-media-downloader": "^2.1.14",
 		"discord-card-canvas": "^2.0.0",
+		"canvafy": "^7.2.0",
 		"axios": "*",
 		"cfonts": "^3.2.0",
 		"chalk": "^5.3.0",
