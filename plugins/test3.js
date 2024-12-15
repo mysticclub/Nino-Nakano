@@ -2,7 +2,7 @@ import { sticker } from '../lib/sticker.js';
 import axios from 'axios';
 
 let handler = async (m, { conn, text }) => {
-   // Obtener el usuario mencionado o, si no hay, el remitente
+ 
    let who = m.mentionedJid && m.mentionedJid[0] 
       ? m.mentionedJid[0] 
       : m.fromMe 
