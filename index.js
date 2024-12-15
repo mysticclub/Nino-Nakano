@@ -299,11 +299,11 @@ let isInit = true;
 let handler = await import('./handler.js')
 global.reloadHandler = async function(restatConn) {
 /*  try {
-    const Handler = await import(`./handler.js?update=${Date.now()}`).catch(console.error); */
+    const Handler = await import(`./handler.js?update=${Date.now()}`).catch(console.error);
     if (Object.keys(Handler || {}).length) handler = Handler
   } catch (e) {
     console.error(e);
-  }
+  } */
   if (restatConn) {
     const oldChats = global.conn.chats
     try {
