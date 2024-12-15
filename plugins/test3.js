@@ -1,4 +1,4 @@
-const Handler = async function (m, { conn, isAdmin }) {
+const handler = async function (m, { conn, isAdmin }) {
     if (!m.isGroup) return m.reply('Perintah ini hanya dapat digunakan dalam grup.');
     if (!isAdmin) return m.reply('Perintah ini hanya dapat digunakan oleh admin grup.');
     let zand = m.mentionedJid && m.mentionedJid[0];
