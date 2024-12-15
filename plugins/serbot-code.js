@@ -103,7 +103,7 @@ let handler = async (m, { conn, args, usedPrefix, command, isOwner }) => {
         if (connection == 'open') {
         conn.isInit = true
         global.conns.push(conn)
-        await parentw.sendMessage(m.chat, {text : args[0] ? "Berhasil terhubung ✅" : "*Berhasil terhubung✅* Dalam beberapa detik, kami akan mengirimkan ID yang harus Anda gunakan untuk terhubung kembali... Kirimkan ini ke bot secara pribadi ketika bot terputus."}, { quoted: m })
+        await parentw.sendMessage(m.chat, {text : args[0] ? "Berhasl terhubung ✅" : "*Berhasil terhubung✅* Dalam beberapa detik, kami akan mengirimkan ID yang harus Anda gunakan untuk terhubung kembali... Kirimkan ini ke bot secara pribadi ketika bot terputus."}, { quoted: m })
         await sleep(5000)
         if (!args[0]) parentw.sendMessage(m.chat, {text : usedPrefix + command + " " + Buffer.from(fs.readFileSync("./jadibot/" + uniqid + "/creds.json"), "utf-8").toString("base64")}, { quoted: m })
         }
