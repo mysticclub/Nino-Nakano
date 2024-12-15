@@ -20,7 +20,6 @@ let handler = async (m, { conn, isRowner }) => {
   }
 };
 
-// Función para validar si un texto es un emoji
 const isEmoji = (text) => {
   const emojiRegex =
     /(?:\p{Emoji_Presentation}|\p{Extended_Pictographic}|\p{Emoji})/gu;
@@ -30,6 +29,5 @@ const isEmoji = (text) => {
 handler.help = ['setemoji'];
 handler.tags = ['main'];
 handler.command = ['setemoji', 'setemo'];
-//handler.rowner = true;
 
 export default handler;
