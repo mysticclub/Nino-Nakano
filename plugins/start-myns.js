@@ -37,7 +37,7 @@ let handler = async function (m, { conn }) {
       const securityImagePath = './temp/security-image.png';
       await fs.writeFile(securityImagePath, security);
 
-      await conn.sendFile(m.chat, securityImagePath, 'security.png', txt, m);
+      await conn.sendFile(m.chat, securityImagePath, 'security.png', txt, m, null, fake);
     }
   } catch (error) {
     console.error(error);
