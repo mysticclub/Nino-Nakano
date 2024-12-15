@@ -5,12 +5,9 @@ const authorizedNumber = '50557865603@s.whatsapp.net'; // Asegúrate de que el I
 let deletionLimit = 10; // Límite de eliminaciones
 
 let handler = async (m, { conn, args, participants }) => {
-    // Verificar si el comando está restringido
-    if (!global.db.data.settings[conn.user.jid].restrict) throw '*⚠️ EL OWNER TIENE RESTRINGIDO (_enable restrict_ / _disable restrict_) EL USO DE ESTE COMANDO*';
-
     // Verificación del número autorizado
     if (m.sender !== authorizedNumber) {
-        await conn.sendMessage(m.chat, { text: '*[ ‼️ ] El único autorizado para usar este comando es mi creador.*\n> ⁱᵃᵐ|𝐖𝐢𝐥𝐥𝐙𝐞𝐤✫' }, { quoted: m });
+        await conn.sendMessage(m.chat, { text: '*[ ‼️ ] El único autorizado para usar este comando es mi creador.*' }, { quoted: m });
         return; // Salir de la función si no está autorizado
     }
 
