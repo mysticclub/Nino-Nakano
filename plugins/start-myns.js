@@ -27,11 +27,9 @@ let handler = async function (m, { conn }) {
       .setOverlayOpacity(0.9)
       .build();
 
-    // Si security devuelve un buffer directamente
     if (Buffer.isBuffer(security)) {
       await conn.sendFile(m.chat, security, 'security.png', txt, m, null, fake);
     } else {
-      // Guardar en un archivo temporal
       const securityImagePath = './temp/security-image.png';
       await fs.writeFile(securityImagePath, security);
 
