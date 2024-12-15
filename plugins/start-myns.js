@@ -12,7 +12,7 @@ let handler = async function (m, { conn }) {
         ? conn.user.jid 
         : m.sender;
 
-    let txt = `*\`N Ú M E R O - S E R I A L\`*\n\n🤍 *${sn}*\n`;
+    let txt = `*\`N Ú M E R O - S E R I A L\`*\n\n🆔 *${sn}*\n`;
 
     let userAvatar = await conn.profilePictureUrl(who, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png');
 
