@@ -1,5 +1,5 @@
 import fs from 'fs';
-import axios from 'axios';
+import { createCanvas, loadImage } from 'canvas';
 import WSF from "wa-sticker-formatter";
 
 const handler = async (m, { conn, args, text, usedPrefix, command }) => {
@@ -17,20 +17,23 @@ const handler = async (m, { conn, args, text, usedPrefix, command }) => {
         return m.reply(`*• Ejemplo :* ${usedPrefix + command} *[texto]*`);
     }
 
-    let res = `https://mxmxk-helper.hf.space/brat?text=${encodeURIComponent(ps)}`;
-
     try {
-        // Descargar el archivo desde la URL
-        const response = await axios.get(res, { responseType: 'arraybuffer' });
-        
-        // Validar el tipo de archivo
-        const contentType = response.headers['content-type'];
-        if (!['image/png', 'image/jpeg', 'image/jpg'].includes(contentType)) {
-            throw new Error('La URL no devolvió un archivo de imagen válido.');
-        }
+        // Generar imagen usando Canvas
+        const canvas = createCanvas(500, 500);
+        const ctx = canvas.getContext('2d');
 
-        // Crear un buffer de imagen
-        const imageBuffer = Buffer.from(response.data);
+        // Fondo blanco
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Texto en negro
+        ctx.fillStyle = '#000000';
+        ctx.font = '30px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText(ps, canvas.width / 2, canvas.height / 2);
+
+        // Convertir el canvas en un buffer
+        const imageBuffer = canvas.toBuffer();
 
         // Crear el sticker
         const sticker = new WSF.Sticker(imageBuffer, {
@@ -54,7 +57,6 @@ handler.tags = ['sticker'];
 handler.command = /^(brat)$/i;
 
 export default handler;
-
 
 
 
