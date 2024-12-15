@@ -15,7 +15,7 @@ let handler = async (m, { conn, text, participants }) => {
 
     for (let userId of groupNoAdmins) {
         await conn.groupParticipantsUpdate(m.chat, [userId], 'remove');
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        await new Promise(resolve => setTimeout(resolve, 3000));
     }
 
     m.reply('*🤍 Eliminación Exitosa.*');
