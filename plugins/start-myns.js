@@ -1,7 +1,7 @@
 import { createHash } from 'crypto';
 import canvafy from 'canvafy';
 import fs from 'fs/promises';
-import { generateWAMessageFromContent, proto } from '@whiskeysockets/baileys'; // Import necesario
+import { generateWAMessageFromContent, proto } from '@whiskeysockets/baileys'; // Librería correcta
 
 let handler = async function (m, { conn }) {
   try {
@@ -51,22 +51,21 @@ let handler = async function (m, { conn }) {
 
     // Crear el mensaje con botón de copiar
     let buttonMessage = generateWAMessageFromContent(m.chat, {
-      viewOnceMessage: {
-        message: {
-          interactiveMessage: proto.Message.InteractiveMessage.create({
-            body: { text: textcaption },
-            nativeFlowMessage: {
-              buttons: [
-                {
-                  name: "cta_copy",
-                  buttonParamsJson: JSON.stringify({
-                    display_text: `${txtbutton}`,
-                    copy_code: `${txtcopy}`
-                  })
-                }
-              ]
+      interactiveMessage: {
+        body: { text: textcaption },
+        nativeFlowMessage: {
+          buttons: [
+            {
+              "buttonId": "cta_copy",
+              "buttonText": {
+                "displayText": `${txtbutton}`
+              },
+              "buttonParamsJson": JSON.stringify({
+                "display_text": `${txtbutton}`,
+                "copy_code": `${txtcopy}`
+              })
             }
-          })
+          ]
         }
       }
     }, { quoted: m });
