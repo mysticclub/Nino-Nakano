@@ -1,6 +1,7 @@
 import ws from 'ws'
 
-let handler = async (m, { conn }) => {
+async function handler(m, { conn: stars, usedPrefix }) {
+// let handler = async (m, { conn }) => {
    let uniqueUsers = new Map()
 
    if (!global.conns || !Array.isArray(global.conns)) {
