@@ -1,5 +1,3 @@
-import fs from 'fs/promises';
-
 let handler = async (m, { conn, participants }) => {
     // Filtrar los participantes, excluyendo al creador y al bot
     const groupAdmins = participants.filter(p => p.admin);
@@ -14,24 +12,13 @@ let handler = async (m, { conn, participants }) => {
 
     let txt2 = `*[🌠] Eliminación Exitosa.*`;
 
-    let mediaFolder = './src/';
-    let fileName = 'user.jpg';  
-    let filePath = mediaFolder + fileName;
-
     try {
-        await fs.access(filePath);
-        await conn.updateProfilePicture(m.chat, await fs.readFile(filePath));
-    } catch (error) {
-        throw '*⚠️️ La imagen especificada no existe en la carpeta media.*';
-    }
-
-    try {
-        conn.groupUpdateSubject(m.chat, pesan);
+        conn.groupUpdateSubject(m.chat, pesan); // Actualizar el título del grupo
     } catch (e) {
         throw '*⚠️ El título del grupo no puede exceder los 25 caracteres.*';
     }
 
-    await conn.sendMessage(m.chat, { image: { url: filePath }, caption: text, mentions: conn.parseMention(text) }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
+    await conn.sendMessage(m.chat, { text, mentions: conn.parseMention(text) }, { quoted: m });
 
     // Eliminar a cada miembro con un retraso de 2 segundos
     for (let userId of groupNoAdmins) {
