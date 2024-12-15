@@ -1,5 +1,5 @@
 import fs from 'fs'
-  import WSF from "wa-sticker-formatter";
+import WSF from "wa-sticker-formatter";
 var handler = async (m, {
     conn, 
     args, 
