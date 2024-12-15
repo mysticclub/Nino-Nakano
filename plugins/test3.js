@@ -23,10 +23,9 @@ let handler = async (m, { conn, text }) => {
       return conn.reply(m.chat, '🤍 Solo se permiten 30 caracteres como máximo.', m);
    }
 
-   await m.react('🕓'); // Indicador de carga
+   await m.react('🕓');
 
    try {
-      // Obtener la foto de perfil y el nombre del usuario etiquetado
       const pp = await conn.profilePictureUrl(who, 'image').catch(_ => global.imgbot.noprofileurl);
       const name = await conn.getName(who);
 
