@@ -9,6 +9,9 @@ let handler = async function (m, { conn }) {
   let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
 
   // Obtener la foto de perfil del usuario
+        let txt = ` –  *N U M E R O D E S E R I E*\n\n`
+            txt += `✩ ${sn}\n`
+
   let userAvatar = await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'); // Imagen predeterminada
 
   // Crear la imagen con Canvafy según tus especificaciones
@@ -24,13 +27,14 @@ let handler = async function (m, { conn }) {
     .build();
 
   // Enviar la imagen junto con el texto del número de serie
-  await conn.sendMessage(m.chat, { 
+  await conn.sendFile(m.chat, canvasRank.toBuffer(), 'security.png', txt, m, null, fake)
+/*  await conn.sendMessage(m.chat, { 
     text: `Número de serie: ${sn}`, 
     files: [{
       attachment: securityImage, // La imagen generada
       name: `security-${m.sender}.png`
     }] 
-  });
+  }); */
 }
 
 handler.help = ['sn']
