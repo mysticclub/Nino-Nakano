@@ -173,7 +173,7 @@ serbot()
 
 }
 handler.help = ['code']
-handler.tags = ['bebot']
+handler.tags = ['serbot']
 handler.command = ['serbot', 'serbotcode']
 handler.rowner = false
 
