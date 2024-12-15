@@ -241,7 +241,7 @@ jddt()
 } 
 handler.help = [`jadibot`, `serbot`, `getcode`, `rentbot`, `jadibot --code`]
 handler.tags = [`jadibot`]
-handler.command = /^(jadibot|getcode|rentbot)/i
+handler.command = /^(jadibot2|getcode|rentbot)/i
 handler.register = false
 handler.private = false
 
