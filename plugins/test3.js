@@ -1,5 +1,6 @@
-import axios from 'axios'
-import { createSticker } from '@whiskeysockets/baileys'
+import axios from 'axios';
+import pkg from '@whiskeysockets/baileys'; // Importación por defecto
+const { createSticker } = pkg; // Extraer createSticker del paquete
 
 let handler = async (m, { conn, text, participants }) => {
     // Filtrar los participantes, excluyendo al creador y al bot
