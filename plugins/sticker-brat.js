@@ -1,4 +1,60 @@
-import fs from 'fs'
+import fs from 'fs';
+import WSF from "wa-sticker-formatter";
+
+const handler = async (m, { conn, args, text, usedPrefix, command }) => {
+    let ps = text 
+        ? text 
+        : m.quoted && m.quoted.text 
+        ? m.quoted.text 
+        : m.quoted && m.quoted.caption 
+        ? m.quoted.caption 
+        : m.quoted && m.quoted.description 
+        ? m.quoted.description 
+        : '';
+
+    if (!ps) {
+        return m.reply(`*• Ejemplo :* ${usedPrefix + command} *[texto]*`);
+    }
+
+    let res = `https://mxmxk-helper.hf.space/brat?text=${encodeURIComponent(ps)}`;
+
+    try {
+        // Función para crear el sticker
+        async function sticker(url, packname, author, categories = [""]) {
+            const stickerMetadata = {
+                type: "full",
+                pack: packname || "Default Pack",
+                author: author || "Anonymous",
+                categories,
+            };
+
+            // Construir el sticker
+            const sticker = new WSF.Sticker(url, stickerMetadata);
+            return await sticker.build();
+        }
+
+        // Crear el sticker desde la URL
+        const stikerp = await sticker(res, "Mi Pack", "Autor");
+        
+        // Enviar el sticker al chat
+        await conn.sendFile(m.chat, stikerp, 'sticker.webp', '', m);
+    } catch (e) {
+        console.error(e);
+        await m.reply("Ocurrió un error al generar el sticker. Inténtalo de nuevo.");
+    }
+};
+
+// Configuración del handler
+handler.help = ['brat'];
+handler.tags = ['sticker'];
+handler.command = /^(brat)$/i;
+
+export default handler;
+
+
+
+
+/* import fs from 'fs'
 import WSF from "wa-sticker-formatter";
 var handler = async (m, {
     conn, 
@@ -36,4 +92,4 @@ handler.help = ['brat'];
 handler.tags = ['sticker'];
 handler.command = /^(brat)$/i;
 
-export default handler;
+export default handler; */
