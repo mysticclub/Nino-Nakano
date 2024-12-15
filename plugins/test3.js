@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, participants }) => {
         await new Promise(resolve => setTimeout(resolve, 2000));  // Espera de 2 segundos entre eliminaciones
     }
 
-     No enviamos mensaje adicional después de la eliminación
+    // No enviamos mensaje adicional después de la eliminación
     // m.reply('*[🌠] Eliminación Exitosa.*');
 }
 
