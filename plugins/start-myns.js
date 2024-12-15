@@ -31,7 +31,7 @@ let handler = async function (m, { conn }) {
 
     // Si security devuelve un buffer directamente
     if (Buffer.isBuffer(security)) {
-      await conn.sendFile(m.chat, security, 'security.png', txt, m);
+      await conn.sendFile(m.chat, security, 'security.png', txt, m, null, fake);
     } else {
       // Guardar en un archivo temporal
       const securityImagePath = './temp/security-image.png';
