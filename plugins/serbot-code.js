@@ -84,7 +84,7 @@ if (methodCode && !conn.authState.creds.registered) {
     setTimeout(async () => {
         let codeBot = await conn.requestPairingCode(cleanedNumber);
         codeBot = codeBot?.match(/.{1,4}/g)?.join("-") || codeBot;
-        let txt = ` \`\`\`- ${botName} -\`\`\`
+        let txt = ` \`\`\`- ${packname} -\`\`\`
         *\`[ 🚀 ] Ingresa el siguiente código para convertirse en subbot\`*
         > Nota: Solo funciona en el número dónde se ejecutó el comando; ${m.sender.split('@')[0]}
         `
