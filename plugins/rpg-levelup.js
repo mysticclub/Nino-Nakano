@@ -23,7 +23,7 @@ let handler = async (m, { conn }) => {
             currentXP: user.exp - min,
             requiredXP: xp,
             backgroundColor: { background: '#070d19', bubbles: '#0ca7ff' },
-            avatarImgURL: 'https://telegra.ph/file/b97148e2154508f63d909.jpg', // Puedes usar otro avatar dinámico
+            avatarImgURL: await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'), // Puedes usar otro avatar dinámico
             nicknameText: { content: name, font: 'Nunito', color: '#0CA7FF' },
             userStatus: 'online',
         }).build()
