@@ -1,4 +1,5 @@
 import fs from 'fs';
+import axios from 'axios';
 import WSF from "wa-sticker-formatter";
 
 const handler = async (m, { conn, args, text, usedPrefix, command }) => {
@@ -19,25 +20,20 @@ const handler = async (m, { conn, args, text, usedPrefix, command }) => {
     let res = `https://mxmxk-helper.hf.space/brat?text=${encodeURIComponent(ps)}`;
 
     try {
-        // Función para crear el sticker
-        async function sticker(url, packname, author, categories = [""]) {
-            const stickerMetadata = {
-                type: "full",
-                pack: packname || "Default Pack",
-                author: author || "Anonymous",
-                categories,
-            };
+        // Descargar imagen desde la URL
+        const response = await axios.get(res, { responseType: 'arraybuffer' });
+        const imageBuffer = Buffer.from(response.data);
 
-            // Construir el sticker
-            const sticker = new WSF.Sticker(url, stickerMetadata);
-            return await sticker.build();
-        }
+        // Crear sticker
+        const sticker = new WSF.Sticker(imageBuffer, {
+            type: "full",
+            pack: "Mi Pack",
+            author: "Autor",
+        });
+        const stickerBuffer = await sticker.build();
 
-        // Crear el sticker desde la URL
-        const stikerp = await sticker(res, "Mi Pack", "Autor");
-        
         // Enviar el sticker al chat
-        await conn.sendFile(m.chat, stikerp, 'sticker.webp', '', m);
+        await conn.sendFile(m.chat, stickerBuffer, 'sticker.webp', '', m);
     } catch (e) {
         console.error(e);
         await m.reply("Ocurrió un error al generar el sticker. Inténtalo de nuevo.");
@@ -50,7 +46,6 @@ handler.tags = ['sticker'];
 handler.command = /^(brat)$/i;
 
 export default handler;
-
 
 
 
