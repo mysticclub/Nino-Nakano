@@ -31,7 +31,6 @@ let handler = async (m, { conn }) => {
         return
     }
 
-    // Subir de nivel
     let before = user.level * 1
     while (canLevelUp(user.level, user.exp, global.multiplier)) user.level++
     if (before !== user.level) {
@@ -39,9 +38,9 @@ let handler = async (m, { conn }) => {
             txt += `✩ *Nombre* : ${name}\n`
             txt += `✩ *Nivel Anterior* : ${before}\n`
             txt += `✩ *Nivel Actual* : ${user.level}\n\n`
-            txt += `🤍 Cuanto más interactúes con *Ai Hoshino*, mayor será tu Nivel`
+            txt += `🤍 Cuanto más interactúes con *Ai Genesis*, mayor será tu Nivel`
 
-        // Generar tarjeta personalizada para el nuevo nivel
+
         const canvasRank = await new RankCardBuilder({
             currentLvl: user.level,
             currentRank: 0,
@@ -53,7 +52,6 @@ let handler = async (m, { conn }) => {
             userStatus: 'online',
         }).build()
 
-        // Enviar imagen generada
         await conn.sendFile(m.chat, canvasRank.toBuffer(), 'rank.png', txt, m, null, fake)
     }
 }
