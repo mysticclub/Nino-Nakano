@@ -2,7 +2,7 @@ const handler = async function (m, { conn, isAdmin }) {
     if (!m.isGroup) return m.reply('Perintah ini hanya dapat digunakan dalam grup.');
     if (!isAdmin) return m.reply('Perintah ini hanya dapat digunakan oleh admin grup.');
     let zand = m.mentionedJid && m.mentionedJid[0];
-    if (!zand) return m.reply('Tag nomor pengguna yang ingin ditandai menggunakan @ atau balas pesan pengguna.');
+    if (!zand) return m.reply('Etiqueta el número de usuario que deseas etiquetar usando @ o responde al mensaje del usuario.');
     const zand1 = await conn.groupMetadata(m.chat);
     const zand2 = zand1.participants.find((p) => p.id === zand)?.admin;
     if (zand2) return m.reply('Tidak dapat menandai atau mengeluarkan admin grup.');
@@ -14,17 +14,17 @@ const handler = async function (m, { conn, isAdmin }) {
     global.zand3[m.chat][zand] = { marks: zand4, zand5: false };
     let zand6 = zand.split('@')[0];
     if (zand4 >= 5) {
-        m.reply(`⚠️ Nomor *${zand6}* telah ditandai sebanyak 5 kali. Dalam 5 detik berikutnya, atau jika dia mengirim pesan, dia akan dikeluarkan😘.`);
+        m.reply(`⚠️ El número *${zand6}* ha sido etiquetado 5 veces. En los próximos 5 segundos, o si envía un mensaje, será expulsado😘.`);
         global.zand3[m.chat][zand].zand5 = true;
         setTimeout(() => {
             if (global.zand3[m.chat][zand]?.zand5) {
                 delete global.zand3[m.chat][zand];
                 conn.groupParticipantsUpdate(m.chat, [zand], 'remove');
-                m.reply(`👋 Nomor *${zand6}* telah dikeluarkan dari grup setelah masa siap kick😘.`);
+                m.reply(`👋 El número *${zand6}* ha sido eliminado del grupo después del período de inicio😘.`);
             }
         }, 5000);
     } else {
-        m.reply(`🔖 Nomor *${zand6}* telah ditandai sebanyak ${zand4} kali. Jika mencapai 5 tanda, dia akan berada dalam masa siap kick.😘`);
+        m.reply(`🔖 El número *${zand6}* ha sido etiquetado ${zand4} veces. Si alcanza las 5 marcas, estará en el período de patada lista.😘`);
     }
 };
 
@@ -35,7 +35,7 @@ handler.before = async function (m, { conn }) {
     if (zand8 && zand8.zand5) {
         delete zand7[m.sender];
         await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
-        m.reply(`👋 Nomor *${m.sender.split('@')[0]}* telah dikeluarkan dari grup setelah mengirim pesan terakhir😘.`);
+        m.reply(`👋 El número *${m.sender.split('@')[0]}* ha sido eliminado del grupo después de enviar el último mensaje😘.`);
     }
 };
 handler.help = ['tandai @user'];
