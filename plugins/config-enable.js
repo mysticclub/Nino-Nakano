@@ -181,7 +181,16 @@ global.dfail('admin', m, conn)
 throw false
 }}
 chat.modoadmin = isEnable          
-break    
+break 
+
+case 'autolevelup': case 'autonivel': case 'nivelautomatico':
+if (m.isGroup) {
+if (!(isAdmin || isOwner)) {
+global.dfail('admin', m, conn)
+throw false
+}}
+chat.autolevelup = isEnable          
+break   
 
       case 'nsfw':
       case 'modohorny':
