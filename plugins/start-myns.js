@@ -11,15 +11,16 @@ let handler = async function (m, { conn }) {
   // Obtener la foto de perfil del usuario
   let userAvatar = await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'); // Imagen predeterminada
 
-  // Crear la imagen con Canvafy
+  // Crear la imagen con Canvafy según tus especificaciones
   const securityImage = await new canvafy.Security()
     .setAvatar(userAvatar) // Avatar del usuario
-    .setBackground("image", "https://cdn.discordapp.com/attachments/1087030211813593190/1110243947311288530/beeautiful-sunset-illustration-1212023.webp") // Fondo personalizado
-    .setCreatedTimestamp(Date.now()) // Fecha actual como ejemplo
-    .setBorder("#f0f0f0")
-    .setLocale("en")
-    .setAvatarBorder("#f0f0f0")
-    .setOverlayOpacity(0.9)
+    .setBackground("image", "https://cdn.discordapp.com/attachments/1087030211813593190/1110243947311288530/beeautiful-sunset-illustration-1212023.webp") // Fondo
+    .setCreatedTimestamp(Date.now()) // Fecha de creación
+    .setSuspectTimestamp(604800000) // Periodo de sospecha: 1 semana (en milisegundos)
+    .setBorder("#f0f0f0") // Color del borde
+    .setLocale("en") // Idioma/país
+    .setAvatarBorder("#f0f0f0") // Borde del avatar
+    .setOverlayOpacity(0.9) // Opacidad de la superposición
     .build();
 
   // Enviar la imagen junto con el texto del número de serie
