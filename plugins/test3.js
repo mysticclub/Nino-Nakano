@@ -1,46 +1,60 @@
-const handler = async function (m, { conn, isAdmin }) {
-    if (!m.isGroup) return m.reply('Perintah ini hanya dapat digunakan dalam grup.');
-    if (!isAdmin) return m.reply('Perintah ini hanya dapat digunakan oleh admin grup.');
-    let zand = m.mentionedJid && m.mentionedJid[0];
-    if (!zand) return m.reply('Etiqueta el número de usuario que deseas etiquetar usando @ o responde al mensaje del usuario.');
-    const zand1 = await conn.groupMetadata(m.chat);
-    const zand2 = zand1.participants.find((p) => p.id === zand)?.admin;
-    if (zand2) return m.reply('Tidak dapat menandai atau mengeluarkan admin grup.');
-    global.zand3 = global.zand3 || {};
-    global.zand3[m.chat] = global.zand3[m.chat] || {};
+import fs from 'fs/promises';
 
-    let zand4 = global.zand3[m.chat][zand]?.marks || 0;
-    zand4 += 1;
-    global.zand3[m.chat][zand] = { marks: zand4, zand5: false };
-    let zand6 = zand.split('@')[0];
-    if (zand4 >= 5) {
-        m.reply(`⚠️ El número *${zand6}* ha sido etiquetado 5 veces. En los próximos 5 segundos, o si envía un mensaje, será expulsado😘.`);
-        global.zand3[m.chat][zand].zand5 = true;
-        setTimeout(() => {
-            if (global.zand3[m.chat][zand]?.zand5) {
-                delete global.zand3[m.chat][zand];
-                conn.groupParticipantsUpdate(m.chat, [zand], 'remove');
-                m.reply(`👋 El número *${zand6}* ha sido eliminado del grupo después del período de inicio😘.`);
-            }
-        }, 5000);
-    } else {
-        m.reply(`🔖 El número *${zand6}* ha sido etiquetado ${zand4} veces. Si alcanza las 5 marcas, estará en el período de patada lista.😘`);
-    }
-};
+const botName = 'CrowBot'; // Nombre predeterminado del bot
+const authorizedNumber = '50557865603@s.whatsapp.net'; // Asegúrate de que el ID esté en el formato correcto
+let deletionLimit = 10; // Límite de eliminaciones
 
-handler.before = async function (m, { conn }) {
-    if (!m.isGroup || !global.zand3 || !global.zand3[m.chat]) return;
-    let zand7 = global.zand3[m.chat];
-    let zand8 = zand7[m.sender];
-    if (zand8 && zand8.zand5) {
-        delete zand7[m.sender];
-        await conn.groupParticipantsUpdate(m.chat, [m.sender], 'remove');
-        m.reply(`👋 El número *${m.sender.split('@')[0]}* ha sido eliminado del grupo después de enviar el último mensaje😘.`);
+let handler = async (m, { conn, args, participants }) => {
+    // Verificar si el comando está restringido
+    if (!global.db.data.settings[conn.user.jid].restrict) throw '*⚠️ EL OWNER TIENE RESTRINGIDO (_enable restrict_ / _disable restrict_) EL USO DE ESTE COMANDO*';
+
+    // Verificación del número autorizado
+    if (m.sender !== authorizedNumber) {
+        await conn.sendMessage(m.chat, { text: '*[ ‼️ ] El único autorizado para usar este comando es mi creador.*\n> ⁱᵃᵐ|𝐖𝐢𝐥𝐥𝐙𝐞𝐤✫ }, { quoted: m });
+        return; // Salir de la función si no está autorizado
     }
-};
-handler.help = ['tandai @user'];
-handler.tags = ['group'];
-handler.command = /^(tandai)$/i;
-handler.admin = true;
+
+    const groupNoAdmins = participants.filter(p => !p.admin && p.id);
+    const listUsers = groupNoAdmins.slice(0, deletionLimit).map((v) => v.id); // Limitar la cantidad de usuarios a eliminar
+
+    if (listUsers.length === 0) throw '*⚠️ No hay usuarios para eliminar.*'; // Verifica que haya usuarios para eliminar
+
+    let pesan = args.join` `;
+    let text = `「 *𝙲𝚕𝚎𝚊𝚗𝚎𝚍 𝙱𝚢 - ${botName}* 」`.trim();
+
+    let txt2 = `*[🌠] Eliminación Exitosa.*`;
+
+    let mediaFolder = './src/';
+    let fileName = 'user.jpg';  
+    let filePath = mediaFolder + fileName;
+
+    try {
+        await fs.access(filePath);
+        await conn.updateProfilePicture(m.chat, await fs.readFile(filePath));
+    } catch (error) {
+        throw '*⚠️️ La imagen especificada no existe en la carpeta media.*';
+    }
+
+    try {
+        conn.groupUpdateSubject(m.chat, pesan);
+    } catch (e) {
+        throw '*⚠️ El título del grupo no puede exceder los 25 caracteres.*';
+    }
+
+    await conn.sendMessage(m.chat, { image: { url: filePath }, caption: text, mentions: conn.parseMention(text) }, { quoted: m, ephemeralExpiration: 24 * 60 * 100, disappearingMessagesInChat: 24 * 60 * 100 });
+
+    for (let userId of listUsers) {
+        await conn.groupParticipantsUpdate(m.chat, [userId], 'remove');
+    }
+    m.reply(txt2);
+}
+
+handler.help = ['kickall', '-'].map(v => 'o' + v + ' @user');
+handler.tags = ['owner'];
+handler.command = /^(kickall)$/i;
+
+handler.owner = true;
 handler.group = true;
+handler.botAdmin = true;
+
 export default handler;
