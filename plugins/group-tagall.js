@@ -26,7 +26,7 @@ const handler = async (m, { isOwner, isAdmin, conn, text, participants, args, co
 };
 
 handler.help = ['todos <mensaje>'];
-handler.tags = ['grupo'];
+handler.tags = ['group'];
 handler.command = /^(tagall|invocar|marcar|todos|invocación)$/i;
 handler.admin = true;
 handler.group = true;
