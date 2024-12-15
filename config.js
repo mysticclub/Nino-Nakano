@@ -57,7 +57,7 @@ global.miniurl = fs.readFileSync('./storage/img/miniurl.jpg')
 global.group = 'https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX'
 global.group2 = 'https://chat.whatsapp.com/Fn5Ipyxu6mE6qEQlwWZTwU'
 global.canal = 'https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y'
-global.github = 'https://github.com/Angelito-OFC/GenesisBot-MD' 
+global.github = 'https://github.com/Angelito-OFC/Genesis-AI' 
 global.instagram = 'https://www.instagram.com/usxr_angelito0' 
 global.whatsApp = 'https://wa.me/59168683798'
 
