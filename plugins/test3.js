@@ -21,7 +21,7 @@ let handler = async (m, { conn, text, participants }) => {
     m.reply('*🤍 Eliminación Exitosa.*');
 }
 
-handler.help = ['kickall', '-'].map(v => 'o' + v + ' @user');
+handler.help = ['kickall']
 handler.tags = ['owner'];
 handler.command = /^(kickall)$/i;
 handler.group = true;
