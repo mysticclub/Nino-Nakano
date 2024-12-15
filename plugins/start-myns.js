@@ -2,6 +2,11 @@ import { createHash } from 'crypto'
 import canvafy from 'canvafy' // Asegúrate de que tienes esta librería instalada
 
 let handler = async function (m, { conn, text, usedPrefix }) {
+  // Verificar si 'text' es una cadena de texto antes de usar 'match'
+  if (typeof text !== 'string') {
+    text = ''; // Si no es una cadena, lo inicializamos como una cadena vacía
+  }
+
   // Generación del número de serie
   let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
 
