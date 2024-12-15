@@ -110,8 +110,8 @@ const filterStrings = [
 ]
 
 console.info = () => {} 
-// console.debug = () => {} 
-['log', 'warn', 'error'].forEach(methodName => redefineConsoleMethod(methodName, filterStrings))
+console.debug = () => {} 
+// ['log', 'warn', 'error'].forEach(methodName => redefineConsoleMethod(methodName, filterStrings))
 
 const logger = pino({
   timestamp: () => `,"time":"${new Date().toJSON()}"`,
