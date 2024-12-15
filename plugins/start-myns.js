@@ -1,23 +1,26 @@
 import { createHash } from 'crypto';
-import canvafy from 'canvafy'; // Asegúrate de importar el paquete 'canvafy'
+import canvafy from 'canvafy'; // Asegúrate de importar la librería 'canvafy'
 
 let handler = async function (m, { conn, text, usedPrefix }) {
-  let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
+  let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6); // Generar el número de serie (SN)
 
   // Crear el captcha con el número de serie
   const captcha = await new canvafy.Captcha()
-    .setBackground("image", "https://cdn.discordapp.com/attachments/1087030211813593190/1110243947311288530/beeautiful-sunset-illustration-1212023.webp")
-    .setCaptchaKey(canvafy.Util.captchaKey(15)) // Usamos una clave de captcha generada
-    .setText(sn) // Agregar el número de serie como texto del captcha
-    .setBorder("#f0f0f0")
-    .setOverlayOpacity(0.7)
-    .setBottomText("Número de serie solicitado") // Mensaje de texto debajo del captcha
-    .build();
+    .setBackground("image", "https://cdn.discordapp.com/attachments/1087030211813593190/1110243947311288530/beeautiful-sunset-illustration-1212023.webp") // Fondo personalizado
+    .setCaptchaKey(canvafy.Util.captchaKey(15)) // Generador de clave de captcha
+    .setBorder("#f0f0f0") // Color de borde
+    .setOverlayOpacity(0.7) // Opacidad de la capa superpuesta
+    .setBottomText("Número de serie solicitado") // Texto debajo del captcha
+    .build(); // Construir el captcha
 
-  // Enviar el captcha generado al chat
-  await conn.reply(m.chat, `Aquí está tu número de serie: ${sn}`, m);
+  // Ahora, agregamos el número de serie (sn) como parte del mensaje del captcha, no dentro de `setText()`
+
+  // Enviar el número de serie al usuario
+  await conn.reply(m.chat, `Tu número de serie es: ${sn}`, m);
+
+  // Enviar el captcha generado como imagen adjunta
   await conn.sendMessage(m.chat, {
-    caption: `Aquí está tu captcha con el SN: ${sn}`, // Mensaje opcional adicional
+    caption: `Aquí está tu captcha con el SN: ${sn}`, // Mensaje de la imagen
     files: [{
       attachment: captcha,
       name: `captcha-${m.sender}.png`
@@ -25,21 +28,9 @@ let handler = async function (m, { conn, text, usedPrefix }) {
   });
 };
 
-handler.help = ['sn'];
+handler.help = ['sn']; // Comando para llamar al handler
 handler.tags = ['start'];
-handler.command = ['nserie', 'sn', 'mysn'];
+handler.command = ['nserie', 'sn', 'mysn']; // Comandos disponibles
 handler.register = true;
 
 export default handler;
-
-/* import { createHash } from 'crypto'
-
-let handler = async function (m, { conn, text, usedPrefix }) {
-let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6)
-await conn.reply(m.chat, `${sn}`, m, rcanal)
-}
-handler.help = ['sn']
-handler.tags = ['start']
-handler.command = ['nserie', 'sn', 'mysn'] 
-handler.register = true
-export default handler */
