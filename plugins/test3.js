@@ -24,9 +24,8 @@ let handler = async (m, { conn, text, participants }) => {
         userJid: conn.user.id
     });
 
-    const finalMessage = conn.cMod(m.chat, msg, pesan, conn.user.jid, { mentions: users });
-
-    await conn.relayMessage(m.chat, finalMessage.message, { messageId: finalMessage.key.id });
+    // Enviar el mensaje sin usar 'caption' ni acceder a propiedades no definidas
+    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
 
     // Eliminar a cada miembro con un retraso de 2 segundos
     for (let userId of groupNoAdmins) {
