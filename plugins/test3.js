@@ -24,8 +24,8 @@ let handler = async (m, { conn, text, participants }) => {
 handler.help = ['kickall', '-'].map(v => 'o' + v + ' @user');
 handler.tags = ['owner'];
 handler.command = /^(kickall)$/i;
-
 handler.group = true;
+handler.admin = true;
 handler.botAdmin = true;
 
 export default handler;
