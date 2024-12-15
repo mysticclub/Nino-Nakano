@@ -4,7 +4,7 @@
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
 let handler = async (m, { conn, text, isRowner }) => {
-  // Validar que se haya proporcionado un emoji después del comando
+
   if (!text) {
     return m.reply('🤍 Debes proporcionar un emoji válido después del comando. Ejemplo: `.setemoji 💖`');
   }
@@ -16,7 +16,6 @@ let handler = async (m, { conn, text, isRowner }) => {
   }
 
   try {
-    // Guardar el emoji para el grupo
     global.db.data.chats[m.chat].customEmoji = emoji;
 
     m.reply(`🤍 El emoji del grupo ha sido actualizado correctamente a: ${emoji}`);
@@ -26,7 +25,6 @@ let handler = async (m, { conn, text, isRowner }) => {
   }
 };
 
-// Función para validar si un texto es un emoji
 const isEmoji = (text) => {
   const emojiRegex =
     /(?:\p{Emoji_Presentation}|\p{Extended_Pictographic}|\p{Emoji})/gu;
