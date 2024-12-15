@@ -1,6 +1,7 @@
 import ws from 'ws'
 
-async function handler(m, { conn: stars, usedPrefix }) {
+let handler(m, { conn: stars, usedPrefix }) {
+// async function handler(m, { conn: stars, usedPrefix }) {
 // let handler = async (m, { conn }) => {
    let uniqueUsers = new Map()
 
