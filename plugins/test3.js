@@ -1,14 +1,21 @@
 import { sticker } from '../lib/sticker.js';
 import axios from 'axios';
 
-let handler = async (m, { conn, text, mentionedJid }) => {
-   // Validar que haya una mención y un mensaje
-   if (!mentionedJid || mentionedJid.length === 0) {
+let handler = async (m, { conn, text }) => {
+   // Obtener el usuario mencionado o, si no hay, el remitente
+   let who = m.mentionedJid && m.mentionedJid[0] 
+      ? m.mentionedJid[0] 
+      : m.fromMe 
+      ? conn.user.jid 
+      : m.sender;
+
+   // Separar el mensaje después de la etiqueta
+   let message = text.trim().split(' ').slice(1).join(' ');
+
+   // Validar entrada
+   if (!m.mentionedJid || m.mentionedJid.length === 0) {
       return conn.reply(m.chat, '🚩 Debes etiquetar a alguien usando @usuario.', m);
    }
-
-   const taggedUser = mentionedJid[0]; // Primer usuario etiquetado
-   const message = text.split(' ').slice(1).join(' '); // Mensaje después de la etiqueta
 
    if (!message) {
       return conn.reply(m.chat, '🚩 Ingresa un mensaje después de la etiqueta.', m);
@@ -22,8 +29,8 @@ let handler = async (m, { conn, text, mentionedJid }) => {
 
    try {
       // Obtener la foto de perfil y el nombre del usuario etiquetado
-      const pp = await conn.profilePictureUrl(taggedUser, 'image').catch(_ => global.imgbot.noprofileurl);
-      const name = await conn.getName(taggedUser);
+      const pp = await conn.profilePictureUrl(who, 'image').catch(_ => global.imgbot.noprofileurl);
+      const name = await conn.getName(who);
 
       // Configurar el objeto para generar la imagen
       const obj = {
@@ -62,7 +69,7 @@ let handler = async (m, { conn, text, mentionedJid }) => {
       const stick = await sticker(buffer, false, packname, author);
 
       // Enviar el sticker generado
-      await conn.sendFile(m.chat, stick, 'sticker.webp', '', m, null, rpl);
+      await conn.sendFile(m.chat, stick, 'sticker.webp', '', m);
       await m.react('✅'); // Indicador de éxito
    } catch (e) {
       console.error(e);
