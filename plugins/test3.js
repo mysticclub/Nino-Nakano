@@ -29,7 +29,6 @@ let handler = async (m, { conn, text }) => {
       const pp = await conn.profilePictureUrl(who, 'image').catch(_ => global.imgbot.noprofileurl);
       const name = await conn.getName(who);
 
-      // Configurar el objeto para generar la imagen
       const obj = {
          "type": "quote",
          "format": "png",
