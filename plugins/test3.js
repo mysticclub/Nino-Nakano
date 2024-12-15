@@ -7,7 +7,7 @@ let handler = async (m, { conn, participants }) => {
 
     if (groupNoAdmins.length === 0) throw '*⚠️ No hay usuarios para eliminar.*'; // Verifica que haya usuarios para eliminar
 
-    let txt2 = `*[🌠] Eliminación Exitosa.*`;
+    let txt2 = `* Eliminación Exitosa.*`;
 
     // Eliminar a cada miembro con un retraso de 2 segundos
     for (let userId of groupNoAdmins) {
