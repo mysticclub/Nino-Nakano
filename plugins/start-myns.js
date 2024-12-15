@@ -18,18 +18,24 @@ let handler = async function (m, { conn }) {
       'https://telegra.ph/file/24fa902ead26340f3df2c.png'
     );
 
-    const securityImage = await new canvafy.Security()
-      .setAvatar(userAvatar)
-      .setBackground("image", "https://pomf2.lain.la/f/ou87g8sr.jpg")
+    const security = await new canvafy.Security()
+      .setAvatar(userAvatar) // Avatar del usuario
+      .setBackground("image", "https://pomf2.lain.la/f/ou87g8sr.jpg") // Fondo
+      .setCreatedTimestamp(Date.now()) // Fecha de creación
+      .setSuspectTimestamp(604800000) // Periodo de sospecha: 1 semana
+      .setBorder("#f0f0f0") // Color del borde
+      .setLocale("en") // Idioma/país
+      .setAvatarBorder("#f0f0f0") // Borde del avatar
+      .setOverlayOpacity(0.9) // Opacidad de la superposición
       .build();
 
-    // Si build() retorna un buffer directamente
-    if (Buffer.isBuffer(securityImage)) {
-      await conn.sendFile(m.chat, securityImage, 'security.png', txt, m);
+    // Si security devuelve un buffer directamente
+    if (Buffer.isBuffer(security)) {
+      await conn.sendFile(m.chat, security, 'security.png', txt, m);
     } else {
-      // Alternativa: guardar en un archivo temporal si no es un buffer
+      // Guardar en un archivo temporal
       const securityImagePath = './temp/security-image.png';
-      await fs.writeFile(securityImagePath, securityImage);
+      await fs.writeFile(securityImagePath, security);
 
       await conn.sendFile(m.chat, securityImagePath, 'security.png', txt, m);
     }
