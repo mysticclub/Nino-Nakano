@@ -28,7 +28,7 @@ const handler = async function (m, { conn, isAdmin }) {
     }
 };
 
-Handler.before = async function (m, { conn }) {
+handler.before = async function (m, { conn }) {
     if (!m.isGroup || !global.zand3 || !global.zand3[m.chat]) return;
     let zand7 = global.zand3[m.chat];
     let zand8 = zand7[m.sender];
