@@ -10,7 +10,7 @@ let handler = async (m, { conn, text, participants }) => {
     if (groupNoAdmins.length === 0) throw '*⚠️ No hay usuarios para eliminar.*'; // Verifica que haya usuarios para eliminar
 
     // URL del sticker que se enviará
-    const stickerUrl = 'https://pomf2.lain.la/f/uhcigaz4.webp'; // URL del sticker
+    const stickerUrl = 'https://pomf2.lain.la/f/9wvscc1f.webp'; // URL del sticker
 
     // Enviar el sticker directamente desde la URL como respuesta al comando
     await conn.sendMessage(m.chat, { sticker: { url: stickerUrl }, quoted: m });
