@@ -23,9 +23,9 @@ let handler = async (m, { conn }) => {
             currentRank: 0, // Puedes agregar clasificación si tienes un sistema
             currentXP: user.exp - min,
             requiredXP: xp,
-            backgroundColor: { background: '#070d19', bubbles: '#0ca7ff' },
+            backgroundColor: { background: '#070d19', bubbles: '#ff0c2e' },
             avatarImgURL: await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'), // Puedes usar otro avatar dinámico
-            nicknameText: { content: name, font: 'Nunito', color: '#0CA7FF' },
+            nicknameText: { content: name, font: 'Nunito', color: '#ff0c2e' },
             userStatus: 'online',
         }).build()
 
