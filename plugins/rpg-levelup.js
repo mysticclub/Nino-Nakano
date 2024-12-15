@@ -16,19 +16,17 @@ let handler = async (m, { conn }) => {
             txt += `✩ *XP* : ${user.exp - min}/${xp}\n\n`
             txt += `Te falta *${max - user.exp}* de *💫 XP* para subir de nivel`
 
-        // Generar tarjeta personalizada
         const canvasRank = await new RankCardBuilder({
             currentLvl: user.level,
-            currentRank: 0, // Puedes agregar clasificación si tienes un sistema
+            currentRank: 0,
             currentXP: user.exp - min,
             requiredXP: xp,
             backgroundColor: { background: '#070d19', bubbles: '#0ca7ff' },
-            avatarImgURL: await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'), // Puedes usar otro avatar dinámico
+            avatarImgURL: await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'),
             nicknameText: { content: name, font: 'Nunito', color: '#0CA7FF' },
             userStatus: 'online',
         }).build()
 
-        // Enviar imagen generada
         await conn.sendFile(m.chat, canvasRank.toBuffer(), 'rank.png', txt, m, null, fake)
         return
     }
