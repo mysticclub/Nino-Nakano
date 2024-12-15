@@ -171,7 +171,7 @@ if (!opts['test']) {
   }
 }
 
-async function clearTmp() {
+/* async function clearTmp() {
   const tmp = [tmpdir(), join(__dirname, './tmp')]
   const filename = []
   tmp.forEach(dirname => readdirSync(dirname).forEach(file => filename.push(join(dirname, file))))
@@ -179,7 +179,7 @@ async function clearTmp() {
 
   return filename.map(file => {
     const stats = statSync(file)
-    if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 1)) return unlinkSync(file)
+    if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 3)) return unlinkSync(file)
     return false
   })
 }
@@ -187,12 +187,24 @@ async function clearTmp() {
 setInterval(async () => {
 	await clearTmp()
 	console.log(chalk.cyan(`Se limpio la carpeta tmp`))
-}, 60000)
+}, 60000) */
+
+
+async function clearTmp() {
+  const tmp = [tmpdir(), join(__dirname, './tmp')]
+  const filename = []
+  tmp.forEach(dirname => readdirSync(dirname).forEach(file => filename.push(join(dirname, file))))
+  return filename.map(file => {
+    const stats = statSync(file)
+    if (stats.isFile() && (Date.now() - stats.mtimeMs >= 1000 * 60 * 3)) return unlinkSync(file) // 3 minutes
+    return false
+  })
+}
 
 
 function purgeSession() {
 let prekey = []
-let directorio = readdirSync("../sessions")
+let directorio = readdirSync("./sessions")
 let filesFolderPreKeys = directorio.filter(file => {
 return file.startsWith('pre-key-')
 })
