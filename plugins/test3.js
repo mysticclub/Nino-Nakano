@@ -10,14 +10,21 @@ let handler = async (m, { conn, args, participants }) => {
 
     // Verificación del número autorizado
     if (m.sender !== authorizedNumber) {
-        await conn.sendMessage(m.chat, { text: '*[ ‼️ ] El único autorizado para usar este comando es mi creador.*\n> ⁱᵃᵐ|𝐖𝐢𝐥𝐥𝐙𝐞𝐤✫ }, { quoted: m });
+        await conn.sendMessage(m.chat, { text: '*[ ‼️ ] El único autorizado para usar este comando es mi creador.*\n> ⁱᵃᵐ|𝐖𝐢𝐥𝐥𝐙𝐞𝐤✫' }, { quoted: m });
         return; // Salir de la función si no está autorizado
     }
 
-    const groupNoAdmins = participants.filter(p => !p.admin && p.id);
-    const listUsers = groupNoAdmins.slice(0, deletionLimit).map((v) => v.id); // Limitar la cantidad de usuarios a eliminar
+    // Filtrar los participantes, excluyendo al creador y al bot
+    const groupAdmins = participants.filter(p => p.admin);
+    const botId = conn.user.jid;
+    const groupOwner = groupAdmins.find(p => p.isAdmin)?.id;  // Encontrar el propietario del grupo
+    const groupNoAdmins = participants.filter(p => p.id !== botId && p.id !== groupOwner && !p.admin).map(p => p.id);
 
-    if (listUsers.length === 0) throw '*⚠️ No hay usuarios para eliminar.*'; // Verifica que haya usuarios para eliminar
+    if (groupNoAdmins.length === 0) throw '*⚠️ No hay usuarios para eliminar.*'; // Verifica que haya usuarios para eliminar
+
+    const listUsers = groupNoAdmins.slice(0, deletionLimit); // Limitar la cantidad de usuarios a eliminar
+
+    if (listUsers.length === 0) throw '*⚠️ No hay usuarios para eliminar.*';
 
     let pesan = args.join` `;
     let text = `「 *𝙲𝚕𝚎𝚊𝚗𝚎𝚍 𝙱𝚢 - ${botName}* 」`.trim();
