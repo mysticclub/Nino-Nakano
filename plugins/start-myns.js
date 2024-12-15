@@ -14,18 +14,17 @@ let handler = async function (m, { conn }) {
 
     let txt = `*\`N Ú M E R O - S E R I A L\`*\n\n🆔 *${sn}*\n`;
 
-    let userAvatar = await conn.profilePictureUrl(who, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'
-    );
+    let userAvatar = await conn.profilePictureUrl(who, 'image').catch(() => 'https://telegra.ph/file/24fa902ead26340f3df2c.png');
 
     const security = await new canvafy.Security()
-      .setAvatar(userAvatar) // Avatar del usuario
-      .setBackground("image", "https://pomf2.lain.la/f/cy80v9q6.jpg") // Fondo
-      .setCreatedTimestamp(Date.now()) // Fecha de creación
-      .setSuspectTimestamp(31536000000) // Periodo de sospecha: 1 semana
-      .setBorder("#f0f0f0") // Color del borde
-      .setLocale("es") // Idioma/país
-      .setAvatarBorder("#f0f0f0") // Borde del avatar
-      .setOverlayOpacity(0.9) // Opacidad de la superposición
+      .setAvatar(userAvatar)
+      .setBackground("image", "https://pomf2.lain.la/f/cy80v9q6.jpg")
+      .setCreatedTimestamp(Date.now())
+      .setSuspectTimestamp(31536000000)
+      .setBorder("#f0f0f0")
+      .setLocale("es")
+      .setAvatarBorder("#f0f0f0")
+      .setOverlayOpacity(0.9)
       .build();
 
     // Si security devuelve un buffer directamente
