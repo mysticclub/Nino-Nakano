@@ -29,6 +29,8 @@ const handler = async (m, {conn, args, groupMetadata, participants, usedPrefix, 
       break;
   }
 };
+handler.help = ['listanum', 'kicknum']
+handler.tags = ['group'];
 handler.command = /^(listanum|kicknum|listnum)$/i;
 handler.group = handler.botAdmin = handler.admin = true;
 handler.fail = null;
