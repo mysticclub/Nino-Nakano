@@ -123,7 +123,7 @@ async function connectionUpdate(update) {
     if (connection == 'open') {
     conn.isInit = true
     global.conns.push(conn)
-    await parent.reply(m.chat, args[0] ? 'Conectado con exito' : '*`[ Conectado Exitosamente 🤍 ]`*
+    await parent.reply(m.chat, args[0] ? 'Conectado con exito' : '*\`[ Conectado Exitosamente 🤍 ]\`*
 > _Se intentara reconectar en caso de desconexion de sesion_
 > _Si quieres eliminr el subbot borra la sesion en dispositivos vinculados_
 > _El número del bot puede cambiar, guarda este enlace :_
