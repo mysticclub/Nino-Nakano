@@ -1,42 +1,36 @@
-import fs from 'fs';
-import path from 'path';
-
 let handler = async (m, { conn, isRowner }) => {
   let time = global.db.data.users[m.sender]?.lastmiming + 60000 || 0;
   if (new Date - time < 60000) {
     return conn.reply(m.chat, `⛄ Debes esperar ${msToTime(time - new Date())} para cambiar el emoji.`, m);
   }
 
-  // Validar que el mensaje citado exista y tenga un archivo descargable
-  if (!m.quoted || !m.quoted.download) {
-    return m.reply('🌲 Debes responder a un mensaje con un archivo válido (imagen o emoji).');
+  // Validar si el mensaje citado tiene un emoji en texto
+  if (!m.quoted || !m.quoted.text) {
+    return m.reply('🌲 Debes responder a un mensaje que contenga un emoji válido.');
+  }
+
+  const emoji = m.quoted.text.trim();
+
+  if (!isEmoji(emoji)) {
+    return m.reply('🌲 El contenido citado no es un emoji válido. Por favor, responde a un mensaje que contenga solo un emoji.');
   }
 
   try {
-    const mime = m.quoted.mimetype || '';
-    if (!mime.startsWith('image/')) {
-      return m.reply('🌲 El archivo citado no es una imagen. Por favor, responde a un archivo de tipo imagen.');
-    }
-
-    const media = await m.quoted.download(); // Intentar descargar el archivo
-
-    if (!media || !isEmojiValid(media)) {
-      return m.reply('🌲 El archivo descargado no es válido. Asegúrate de responder a un archivo correcto.');
-    }
-
-    global.customEmoji = media; // Guardar el emoji personalizado
+    global.customEmoji = emoji; // Guardar el emoji personalizado
     global.db.data.users[m.sender].lastmiming = new Date().getTime(); // Actualizar el tiempo del usuario
 
-    m.reply('❄️ El emoji fue actualizado correctamente.');
+    m.reply(`❄️ El emoji fue actualizado correctamente a: ${emoji}`);
   } catch (error) {
     console.error(error);
     m.reply('✧ Hubo un error al intentar cambiar el emoji.');
   }
 };
 
-// Función para validar si el archivo es un emoji o imagen válido
-const isEmojiValid = (buffer) => {
-  return buffer.length > 0; // Verificar que el archivo no esté vacío
+// Función para validar si un texto es un emoji
+const isEmoji = (text) => {
+  const emojiRegex =
+    /(?:\p{Emoji_Presentation}|\p{Extended_Pictographic}|\p{Emoji})/gu;
+  return emojiRegex.test(text) && text.length <= 2; // Permitir solo un emoji
 };
 
 handler.help = ['setemoji'];
