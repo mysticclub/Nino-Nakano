@@ -19,7 +19,7 @@ let handler = async (m, { conn }) => {
         const canvasRank = await new RankCardBuilder({
             currentLvl: user.level,
             currentRank: 0,
-            currentXP: user.exp - min,
+            currentXP: user.exp,
             requiredXP: xp,
             backgroundColor: { background: '#070d19', bubbles: '#0ca7ff' },
             avatarImgURL: await conn.profilePictureUrl(who, 'image').catch((_) => 'https://telegra.ph/file/24fa902ead26340f3df2c.png'),
