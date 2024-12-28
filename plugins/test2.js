@@ -17,5 +17,5 @@ conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: wm, buttons: [
   headerType: 1,
 }, { quoted: m })
 }
-handler.command = ['test']
+handler.command = ['tes']
 export default handler
