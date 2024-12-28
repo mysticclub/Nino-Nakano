@@ -7,7 +7,7 @@ conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: wm, buttons: [
       displayText: 'test' 
     }
   }, {
-    buttonId: ".play", 
+    buttonId: ".s", 
     buttonText: {
       displayText: "Hola"
     }
