@@ -39,7 +39,6 @@
 		"@bochilteam/scraper": "^4.2.4",
 		"@whiskeysockets/baileys": "github:ds6/bails",
 		"@ibaraki-douji/pixivts": "^2.4.1",
-		"@StarlightsTeam/Scraper": "github:StarlightsTeam/StarlightsTeam-Scraper",
 		"awesome-phonenumber": "^6.7.8",
 		"fluid-spotify.js": "*",
 		"aptoide-scraper": "github:DIEGO-OFC/dv-aptoide-scraper",
