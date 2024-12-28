@@ -1,6 +1,6 @@
 let handler = async (m, { conn, args, usedPrefix, command }) => {
 let txt = `Nose?`
-conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: wm, buttons: [
+conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: packname, buttons: [
   {
     buttonId: ".menu", 
     buttonText: { 
