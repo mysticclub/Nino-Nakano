@@ -1,4 +1,4 @@
-import fetch from 'node-fetch'
+/* import fetch from 'node-fetch'
 import yts from 'yt-search'
 import axios from 'axios';
 
@@ -111,4 +111,4 @@ function eYear(txt) {
         return L
     }
     return txt
-}
+} */
