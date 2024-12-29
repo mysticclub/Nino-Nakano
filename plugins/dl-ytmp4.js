@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text }) => {
   if (!text) {
-    return m.reply("❀ Por favor, ingresa una URL válida de YouTube.")
+    return m.reply("🤍 Por favor, ingresa una URL válida de YouTube.")
   }
     await m.react('🕓')
 
