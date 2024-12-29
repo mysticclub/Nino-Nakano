@@ -17,11 +17,10 @@ let handler = async (m, { conn, args }) => {
     txt += `• *\`Canal:\`* ${video.author.name || 'Desconocido'}\n`;
     txt += `• *\`Url:\`* _https://youtu.be/${video.videoId}_\n\n`;
 
-    // Enviar mensaje con la imagen, texto y botones
     await conn.sendMessage(m.chat, {
-      image: img, // Imagen del video
-      caption: txt, // Texto descriptivo
-      footer: 'Selecciona una opción', // Pie de mensaje
+      image: img,
+      caption: txt,
+      footer: 'Selecciona una opción',
       buttons: [
         {
           buttonId: `.ytmp3 https://youtu.be/${video.videoId}`,
@@ -37,7 +36,7 @@ let handler = async (m, { conn, args }) => {
         },
       ],
       viewOnce: true,
-      headerType: 4, // Mensaje con imagen
+      headerType: 4,
     }, { quoted: m });
 
     await m.react('✅');
@@ -54,7 +53,6 @@ handler.command = ['play'];
 
 export default handler;
 
-// Funciones auxiliares
 async function search(query, options = {}) {
   let search = await yts.search({ query, hl: "es", gl: "ES", ...options });
   return search.videos;
