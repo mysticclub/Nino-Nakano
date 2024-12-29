@@ -35,8 +35,7 @@ conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: 'Selecciona una o
   image: img,
   viewOnce: true,
   headerType: 1,
-}, { quoted: m })
-}
+}, { quoted: m });
 
 
 
