@@ -1,58 +1,67 @@
+/*
+ • Fitur By Anomaki Team
+ • Created : Nazand Code
+ • contributor by : han (scrape)
+ • Smule downloader
+ • Jangan Hapus Wm
+ • https://whatsapp.com/channel/0029Vaio4dYC1FuGr5kxfy2l
+ 
+   note : lengah dikit 418
+*/
+
 import axios from 'axios';
 import * as cheerio from 'cheerio';
 import FormData from 'form-data';
-
-const descargadorSmule = async (url) => {
+const smuleDownloader = async (url) => {
     try {
         const formData = new FormData();
         formData.append('smule_url', url);
-        formData.append('smule_download', 'Descargar');
+        formData.append('smule_download', 'Download');
         const response = await axios.post('https://smuledownloader.online/', formData, {
             headers: {
                 ...formData.getHeaders(),
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, como Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
                 'Referer': 'https://smuledownloader.online/',
             }
         });
-
         const $ = cheerio.load(response.data);
-        const titulo = $('.centerr h4').text().trim();
-        const imagen = $('.centerr img').attr('src');
-        const enlaceDescarga = $('.centerr table tbody tr td a').attr('href');
-        const tamaño = $('.centerr table tbody tr td').eq(0).text().trim();
-        const calidad = $('.centerr table tbody tr td').eq(1).text().trim();
-        const formato = $('.centerr table tbody tr td').eq(2).text().trim();
+        const title = $('.centerr h4').text().trim();
+        const image = $('.centerr img').attr('src');
+        const downloadLink = $('.centerr table tbody tr td a').attr('href');
+        const size = $('.centerr table tbody tr td').eq(0).text().trim();
+        const quality = $('.centerr table tbody tr td').eq(1).text().trim();
+        const format = $('.centerr table tbody tr td').eq(2).text().trim();
 
-        if (!titulo || !enlaceDescarga) {
-            throw new Error('Error al procesar la información.');
+        if (!title || !downloadLink) {
+            throw new Error('err.');
         }
-
         return {
-            titulo,
-            imagen,
-            enlaceDescarga,
-            tamaño,
-            calidad,
-            formato,
+            title,
+            image,
+            downloadLink,
+            size,
+            quality,
+            format,
         };
     } catch (error) {
         throw new Error(`${error.message}`);
     }
 };
-
-const handler = async (m, { conn, args }) => {
+const handler = async (m, {
+    conn,
+    args
+}) => {
     if (!args[0]) {
         return conn.sendMessage(m.chat, {
-            text: "¡URL no válida!"
+            text: "url gk valid!"
         }, {
             quoted: m
         });
     }
-
     try {
-        const resultado = await descargadorSmule(args[0]);
+        const result = await smuleDownloader(args[0]);
         await conn.sendMessage(m.chat, {
-            text: `📌 *Título:* ${resultado.titulo}\n💾 *Tamaño:* ${resultado.tamaño}\n📈 *Calidad:* ${resultado.calidad}\n🎶 *Formato:* ${resultado.formato}\n🔗 *Enlace de descarga:* ${resultado.enlaceDescarga}`,
+            text: `📌 *Title:* ${result.title}\n💾 *Size:* ${result.size}\n📈 *Quality:* ${result.quality}\n🎶 *Format:* ${result.format}\n🔗 *Download Link:* ${result.downloadLink}`,
         }, {
             quoted: m
         });
@@ -64,8 +73,7 @@ const handler = async (m, { conn, args }) => {
         });
     }
 };
-
 handler.command = ['smule'];
-handler.tags = ['descargador'];
+handler.tags = ['downloader'];
 handler.help = ['smule url'];
 export default handler;
