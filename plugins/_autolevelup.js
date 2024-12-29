@@ -1,4 +1,4 @@
-/*import { canLevelUp, xpRange } from '../lib/levelling.js'
+import { canLevelUp, xpRange } from '../lib/levelling.js'
 import { levelup } from '../lib/canvas.js'
 import can from 'knights-canvas'
 
@@ -55,4 +55,3 @@ handler.tags = ['rg']
 handler.command = ['nivel', 'lvl', 'levelup', 'level']
 
 export default handler
-*/
