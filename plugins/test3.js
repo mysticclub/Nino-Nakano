@@ -17,7 +17,7 @@ let handler = async (m, { conn, args }) => {
     txt += `• *\`Canal:\`* ${video.author.name || 'Desconocido'}\n`;
     txt += `• *\`Url:\`* _https://youtu.be/${video.videoId}_\n\n`;
 
-conn.sendMessage(m.chat, { image: img, { text: txt, caption: "1234", footer: 'Selecciona una opción', buttons: [
+conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: 'Selecciona una opción', buttons: [
   {
     buttonId: "A", 
     buttonText: { 
