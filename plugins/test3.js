@@ -24,13 +24,13 @@ let handler = async (m, { conn, args }) => {
       footer: 'Selecciona una opción', // Pie de mensaje
       buttons: [
         {
-          buttonId: `.audio ${video.url}`,
+          buttonId: `.ytmp3 ${video.url}`,
           buttonText: {
             displayText: '🎵 Audio',
           },
         },
         {
-          buttonId: `.video ${video.url}`,
+          buttonId: `.ytmp4 ${video.url}`,
           buttonText: {
             displayText: '🎥 Video',
           },
