@@ -36,6 +36,7 @@ let handler = async (m, { conn, args }) => {
           },
         },
       ],
+      viewOnce: true,
       headerType: 4, // Mensaje con imagen
     }, { quoted: m });
 
