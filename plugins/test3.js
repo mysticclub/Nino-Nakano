@@ -16,7 +16,6 @@ let handler = async (m, { conn, args }) => {
     txt += `• *\`Publicado:\`* ${eYear(video.ago)}\n`;
     txt += `• *\`Canal:\`* ${video.author.name || 'Desconocido'}\n`;
     txt += `• *\`Url:\`* _https://youtu.be/${video.videoId}_\n\n`;
-  //  txt += `Selecciona una opción:\n`;
 
     // Enviar mensaje con botones
 conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: 'Selecciona una opción', buttons: [
@@ -36,26 +35,6 @@ conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: 'Selecciona una o
   viewOnce: true,
   headerType: 4,
 }, { quoted: m });
-
-
-
-
- /*   await conn.sendMessage(m.chat, {
-      text: txt,
-      footer: 'Selecciona una opción',
-      buttons: [
-        {
-          buttonId: `.video ${video.url}`,
-          buttonText: { displayText: '🎥 Video' },
-        },
-        {
-          buttonId: `.audio ${video.url}`,
-          buttonText: { displayText: '🎵 Audio' },
-        },
-      ],
-      image: img,
-      headerType: 4, // Mensaje con imagen
-    }, { quoted: m }); */
 
     await m.react('✅');
   } catch (e) {
