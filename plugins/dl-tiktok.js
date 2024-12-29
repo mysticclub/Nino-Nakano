@@ -26,14 +26,7 @@ await m.react('🕓');
        
 let txt = '';
 txt += `*\`[ TIKTOK DOWNLOAD ]\`*\n\n`;
-txt += `> 🤍 *\`» Título :\`* ${title || '❌'}\n`;
-/* txt += `> 🤍 *\`» Autor :\`* ${author || '❌'}\n`;
-txt += `> 🤍 *\`» Duracion :\`* ${duration || '❌'}\n`;
-txt += `> 🤍 *\`» Visitas :\`* ${views || '❌'}\n`;
-txt += `> 🤍 *\`» Likes :\`* ${like || '❌'}\n`; 
-txt += `> 🤍 *\`» Comentarios :\`* ${comment || '❌'}\n`;
-txt += `> 🤍 *\`» Share :\`* ${share || '❌'}\n`;
-txt += `> 🤍 *\`» Publicado :\`* ${published || '❌'}\n\n`; /*
+txt += `> 🤍 *\`» Título :\`* ${title || '❌'}\n`; 
 
 //VIDEO TIKTOK
         await conn.sendFile(m.chat, video, 'tiktok.mp4', txt, m, null, rcanal);
