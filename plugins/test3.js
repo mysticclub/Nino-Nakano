@@ -19,7 +19,29 @@ let handler = async (m, { conn, args }) => {
     txt += `Selecciona una opción:\n`;
 
     // Enviar mensaje con botones
-    await conn.sendMessage(m.chat, {
+conn.sendMessage(m.chat, { text: txt, caption: "1234", footer: 'Selecciona una opción', buttons: [
+  {
+    buttonId: "A", 
+    buttonText: { 
+      displayText: 'Audio' 
+    }
+  }, {
+    buttonId: "V", 
+    buttonText: {
+      displayText: "Video"
+    }
+  }
+],
+  image: img,
+  viewOnce: true,
+  headerType: 1,
+}, { quoted: m })
+}
+
+
+
+
+ /*   await conn.sendMessage(m.chat, {
       text: txt,
       footer: 'Selecciona una opción',
       buttons: [
@@ -34,7 +56,7 @@ let handler = async (m, { conn, args }) => {
       ],
       image: img,
       headerType: 4, // Mensaje con imagen
-    }, { quoted: m });
+    }, { quoted: m }); */
 
     await m.react('✅');
   } catch (e) {
