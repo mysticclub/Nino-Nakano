@@ -51,6 +51,7 @@
 "canvafy": "^7.2.0",
 "axios": "*",
 "cfonts": "^3.2.0",
+"boxen": "^7.1.1",
 "chalk": "^5.3.0",
 "cheerio": "npm:cheerio@1.0.0-rc.12",
 "acrcloud": "*",
