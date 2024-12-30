@@ -37,21 +37,21 @@ const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 //let require = createRequire(megu)
 let { say } = cfonts
 
-console.log(chalk.bold.redBright(`\n💥 Iniciando Megumin Bot - MD\n`))
+console.log(chalk.bold.redBright(`\n🤍 Iniciando Génesis Ultra\n`))
 
-say('Megumin-Bot', {
+say('Genesis', {
 font: 'block',
 align: 'center',
 colors: ['white']
 })
 
-say(`Multi Device`, {
+say(`Ultra Bot`, {
 font: 'chrome',
 align: 'center',
 colors: ['red']
 })
 
-say(`Developed By • David-Chian`, {
+say(`Developed By • Angel-OFC`, {
 font: 'console',
 align: 'center',
 colors: ['yellow']
