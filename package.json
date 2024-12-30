@@ -59,6 +59,7 @@
 "fluent-ffmpeg": "^2.1.2",
 "formdata-node": "*",
 "google-it": "*",
+"mongoose": "^6.6.5",
 "node-webpmux": "*",
 "human-readable": "*",
 "jsdom": "*",
