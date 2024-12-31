@@ -186,8 +186,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
               return body.replace(/%cmd/g, menu.prefix ? help : '%_p' + help)
                 .replace(/%iscorazones/g, menu.corazones ? '◜🪙◞' : '')
                 .replace(/%isPremium/g, menu.premium ? '◜🎫◞' : '')
-/*                .replace(/%iscorazones/g, menu.corazones ? corazones : '')
-                .replace(/%isPremium/g, menu.premium ? lprem : '') /*
+//                .replace(/%iscorazones/g, menu.corazones ? corazones :
+//                .replace(/%isPremium/g, menu.premium ? lprem : '') 
                 .trim()
             }).join('\n')
           }),
