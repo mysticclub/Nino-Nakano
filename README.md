@@ -1,11 +1,11 @@
 ## 【 **`G E N E S I S - AI`** 】
- <p align="center">⛄ WhatsApp Bot Node-Js. 🎄</p>
-</p>
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Oswald&weight=300&size=37&duration=3000&pause=100&color=000000&background=601D6E00&center=true&vCenter=true&repeat=true&random=FALSO&width=660&height=90&lines=Angel-OFC+lanzó+la mejor+versión;De+Genesis Ultra - 2.0.0;Con+nuevos+comandos+y+mejoras;Genesis-Ultra+El+Mejor Bot+De+WhatsApp" alt="Typing SVG"/></a>
+![img](https://i.ibb.co/1djcb0T/file.jpg)
 
-![Genesis](https://pomf2.lain.la/f/5o7q0pqg.jpg)
-<div align="center">
-<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Oswald&weight=300&size=37&duration=3000&pause=100&color=000000&background=601D6E00&center=true&vCenter=true&repeat=true&random=FALSO&width=660&height=90&lines=Angel-OFC+lanzó+la mejor+versión;De+Genesis AI - 2.0.0;Con+nuevos+comandos+y+mejoras;Genesis-AI+El+Mejor Bot+De+WhatsApp" alt="Typing SVG"/></a>
-</div>
+[![GROUP OFFICIAL](https://img.shields.io/badge/WhatsApp%20grupo-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX) [![GROUP OFFICIAL](https://img.shields.io/badge/WhatsApp%20channel-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y)
+
+![img](https://i.ibb.co/mhB98TL/file.jpg)
+
 
 <a href="https://api.whatsapp.com/send/?phone=+59897246324&text=Hola 👋 soporte de Génesis Bot &type=phone_number&app_absent=0" target="blank"><img src="https://img.shields.io/badge/Whatsapp-30302f?style=flat&logo=whatsapp" /></a>
  <a href="http://www.instagram.com/usxr_angelito0" target="blank"><img src="https://img.shields.io/badge/Instagram-30302f?style=flat&logo=instagram" /></a>
@@ -35,11 +35,7 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 
 </details>
 
-### <img src="https://i.pinimg.com/originals/19/80/6e/19806e91932e6054965fc83b85241270.gif" alt="Prueba La Bot Aqui" width="42" height="42"> **`Prueba La Bot Aqui`**
-
-> Si Deseas Probar La Bot Antes De Instalarlo, Click Abajo.🟢
-
-[![Click Aquí](https://img.shields.io/badge/Grupo-Genesis-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX)
+### <img src="https://i.pinimg.com/originals/19/80/6e/19806e91932e6054965fc83b85241270.gif" alt="Prueba La Bot Aqui" width="42" height="42"> **`Instala Genesis Aqui`**
 
 ### **`TK HOST 📲`**
 <a href="https://dash.tk-joanhost.com"><img src="https://i.ibb.co/pr8TnWJ/SAVE-20240915-183758.jpg" height="125px"></a>
@@ -47,7 +43,8 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 - **Dashboard:** [`Aquí`](https://dash.tk-joanhost.com)
 - **Panel:** [`Aquí`](https://panel.tk-joanhost.com)
 - **Canal de WhatsApp:** [`Aquí`](https://whatsapp.com/channel/0029VaoZXbk6RGJNYQVP8r27)
-- **Texto:** `Genesis Ai diponible aqui`
+- **Texto:** `Genesis Ultra (Bot-Oficial)`
+- [x] **Configuración** <details><summary>**Ajustes del Servidor - Genesis-Ultra**</summary><img src="https://i.ibb.co/w6MC5Q4/file.jpg"></details>
 
 ### **`🎇 Hosting Py:`**
 <a href="https://dahs.hostingpy.shop/"><img src="https://files.catbox.moe/lr92z2.jpg" height="130px"></a>
@@ -65,17 +62,13 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 > **Si planeas instalar o extraer el bot, recuerda que su venta está estrictamente prohibida bajo cualquier circunstancia. El uso del bot con fines de venta constituye una violación de los términos de nuestro repositorio y se tomarán las medidas necesarias contra quienes incumplan estas condiciones.**
 
 ***
-### 💥 AGRADECIMIENTOS 
-
-<a href="https://github.com/StarlightsTeam"><img src="https://github.com/StarlightsTeam.png" width="100" height="100" alt="StarlightsTeam"/></a>
-
 ### ☁️ COLABORADORES
 
 <a href="https://github.com/MauroAzcurra"><img src="https://github.com/MauroAzcurra.png" width="100" height="100" alt="MauroAzcurra"/></a>
 
 ### **`🤍 CREADOR`**
 <a
-href="https://github.com/Angelito-OFC"><img src="https://github.com/Angelito-OFC.png" width="130" height="130" alt="Angelito"/></a>
+href="https://github.com/Izumi-kzx"><img src="https://github.com/Izumi-kzx.png" width="130" height="130" alt="Angelito"/></a>
 
 > Copyright (c) 2024 **[Angelito-OFC](https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y)**.
 
