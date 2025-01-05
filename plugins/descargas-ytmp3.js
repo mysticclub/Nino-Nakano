@@ -16,7 +16,7 @@ https://whatsapp.com/channel/0029Vanjyqb2f3ERifCpGT0W
 // *[ ❀ YTMP3 ]*
 import fetch from 'node-fetch'
 
-let HS = async (m, { conn, text }) => {
+let handler = async (m, { conn, text }) => {
 if (!text) return conn.reply(m.chat, `☁️ Ingresa un link de youtube`, m)
 await m.react('🕓')
 
@@ -33,6 +33,6 @@ await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: `${title}.mp3
 console.error(error)
 }}
 
-HS.command = ['ytmp3']
+handler.command = ['ytmp3']
 
-export default HS
+export default handler
