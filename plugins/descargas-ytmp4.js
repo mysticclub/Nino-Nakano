@@ -32,6 +32,8 @@ await conn.sendMessage(m.chat, { video: { url: dl_url }, fileName: `${json.data.
 console.error(error)
 }}
 
-handler.command = ['ytmp4']
+handler.help = ['ytmp4 *<url>*'];
+handler.tags = ['dl'];
+handler.command = ['ytmp4'];
 
 export default handler
