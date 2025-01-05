@@ -33,6 +33,8 @@ await conn.sendMessage(m.chat, { audio: { url: dl_url }, fileName: `${title}.mp3
 console.error(error)
 }}
 
-handler.command = ['ytmp3']
+handler.help = ['ytmp3 *<url>*'];
+handler.tags = ['dl'];
+handler.command = ['ytmp3'];
 
 export default handler
