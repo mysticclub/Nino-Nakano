@@ -1,36 +1,37 @@
-import fetch from 'node-fetch'
+/* 
+*❀ By Jtxs*
+[ Canal Principal ] :
+https://whatsapp.com/channel/0029VaeQcFXEFeXtNMHk0D0n
+
+[ Canal Rikka Takanashi Bot ] :
+https://whatsapp.com/channel/0029VaksDf4I1rcsIO6Rip2X
+
+[ Canal StarlightsTeam] :
+https://whatsapp.com/channel/0029VaBfsIwGk1FyaqFcK91S
+
+[ HasumiBot FreeCodes ] :
+https://whatsapp.com/channel/0029Vanjyqb2f3ERifCpGT0W
+*/
+
+// *[ ❀ YTMP4 ]*
+import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
-  if (!text) {
-    return m.reply("🤍 Por favor, ingresa una URL válida de YouTube.")
-  }
-    await m.react('🕓')
+if (!text) return conn.reply(m.chat, `❀ Ingresa un link de youtube`, m)
+await m.react('🕓')
 
-  let ytUrlRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
-  if (!ytUrlRegex.test(text)) {
-    return m.reply("❀ La URL ingresada no es válida. Asegúrate de que sea un enlace de YouTube.")
-  }
+try {
+let api = await fetch(`https://restapi.apibotwa.biz.id/api/ytmp4?url=${text}`)
+let json = await api.json()
+let title = json.data.metadata.title
+let dl_url = json.data.download.url
+await m.react('✅')
+await conn.sendMessage(m.chat, { video: { url: dl_url }, fileName: `${json.data.filename}.mp4`, mimetype: "video/mp4" }, { quoted: m })
 
-  try {
-    let api = await fetch(`https://api.giftedtech.my.id/api/download/dlmp4?apikey=gifted&url=${text}`)
-    let json = await api.json()
-    let { quality, title, download_url } = json.result
+} catch (error) {
+console.error(error)
+}}
 
-    await m.react('✅')
-    await conn.sendMessage(m.chat, { 
-      video: { url: download_url }, 
-      caption: `_${title}_`, 
-      mimetype: 'video/mp4', 
-      fileName: `${title}.mp4` 
-    }, { quoted: m })
-  } catch (error) {
-    console.error(error)
-    m.reply("❀ Hubo un error al procesar la URL. Inténtalo nuevamente.")
-  }
-}
-
-handler.help = ['ytmp4 *<link yt>*']
-handler.tags = ['dl']
-handler.command = ['ytmp4', 'ytv', 'fgmp4']
+handler.command = ['ytmp4']
 
 export default handler
