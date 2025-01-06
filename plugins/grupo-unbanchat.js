@@ -6,6 +6,9 @@ global.db.data.chats[m.chat].isBanned = false
 handler.help = ['unbanchat']
 handler.tags = ['owner']
 handler.command = /^(unbanchat|ubnc)$/i
-handler.owner = true
+handler.command = ['banchat']
+handler.botAdmin = true
+handler.admin = true 
+handler.group = true
 
 export default handler
