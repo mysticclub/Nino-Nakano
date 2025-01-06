@@ -8,6 +8,8 @@ handler.help = ['unbanchat']
 handler.tags = ['owner']
 handler.command = /^unbanchat$/i
 
-handler.owner = true
+handler.botAdmin = true
+handler.admin = true 
+handler.group = true
 
 export default handler
