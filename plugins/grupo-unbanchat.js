@@ -1,14 +1,11 @@
-let handler = async (m, { conn }) => {
-if (!(m.chat in global.db.data.chats)) return conn.reply(m.chat, '🍭 *¡ESTE CHAT NO ESTÁ REGISTRADO!*', m, fake)
-let chat = global.db.data.chats[m.chat]
-if (!chat.isBanned) return conn.reply(m.chat, '🤍 *¡GENESIS-BOT NO ESTÁ BANEADA EN ESTE CHAT!*', m, fake)
-chat.isBanned = false
-await conn.reply(m.chat, '🤍 *¡GENESIS-BOT YA FUÉ DESBANEADA EN ESTE CHAT!*', m, fake)
+let handler = async (m, { conn, isAdmin, isROwner} ) => {
+    if (!(isAdmin || isROwner)) return dfail('admin', m, conn)
+    global.db.data.chats[m.chat].isBanned = false
+    await conn.reply(m.chat, '☁️ Bot activo en este grupo.', m, rcanal)
+    await m.react('✅')
 }
-handler.help = ['unbanchat'];
-handler.tags = ['mods'];
-handler.command = ['unbanchat','desbanearchat','desbanchat']
-handler.mods = true 
-//handler.group = true
-
+handler.help = ['desbanearbot']
+handler.tags = ['group']
+handler.command = ['desbanearbot', 'unbanchat']
+handler.group = true 
 export default handler
