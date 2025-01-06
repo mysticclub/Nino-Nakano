@@ -24,7 +24,7 @@ if (!text) return conn.reply(m.chat, `❀ Ingresa un link de youtube`, m)
 try {
 let api = await fetch(`https://axeel.my.id/api/download/audio?url=${text}`)
 let json = await api.json()
-let { title, views, likes, description, author } = json.metadata
+let { title, views, likes, description, author, thumbnail } = json.metadata
 let HS = `- *Titulo :* ${title}
 - *Descripcion :* ${description}
 - *Visitas :* ${views}
