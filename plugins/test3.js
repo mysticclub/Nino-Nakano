@@ -82,6 +82,6 @@ const handler = async (m, { conn }) => {
     }
 };
 
-handler.command = ["test"];
+handler.command = ["tes"];
 
 export default handler;
