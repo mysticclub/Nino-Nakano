@@ -35,7 +35,6 @@ async function handler(m, { text, conn, botname }) {
     }
 
     await m.react('🕓'); // Reacción cuando está procesando
-    conn.sendMessage(m.chat, { text: 'Espera un momento...' }, { quoted: m });
 
     try {
         const data = await dansyaytdl(text);
