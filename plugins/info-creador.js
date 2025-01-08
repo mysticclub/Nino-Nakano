@@ -3,35 +3,36 @@ import fetch from 'node-fetch';
 let handler = async (m, { conn, usedPrefix, text, args, command }) => {
    await m.react('🎉');
 
-    let fkontak = { 
-        "key": { 
-            "participants": "0@s.whatsapp.net", 
-            "remoteJid": "status@broadcast", 
-            "fromMe": false, 
-            "id": "Halo" 
-        }, 
-        "message": { 
-            "contactMessage": { 
-                "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` 
-            }
-        }, 
-        "participant": "0@s.whatsapp.net" 
-    };
-
     let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
     let name = await conn.getName(who);
     let edtr = `@${m.sender.split`@`[0]}`;
     let username = conn.getName(m.sender);
 
     // VCARD
-    let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:WhatsApp;  ૈANGELITO 🍃\nNICKNAME:👤 іzᥙmі.kz᥊\nORG: ૈіzᥙmі.kz᥊ ᰔᩚ\nTITLE:soft\nitem1.TEL;waid=59897246324:+598 97 246 324\nitem1.X-ABLabel:📞 WhatsApp Owner\nitem2.URL:https://github.com/Angelito-OFC\nitem2.X-ABLabel:💬 More\nitem3.EMAIL;type=INTERNET: agasistencia2@gmail.com\nitem3.X-ABLabel:💌 Correo soporte\nitem4.ADR:;;🇦🇷 Argentina;;;;\nitem4.X-ABADR:💬 More\nitem4.X-ABLabel: Localización 🫧\nBDAY;value=date:🤍 09-12-2007\nEND:VCARD`;
+    let list = [{
+        displayName: "Izumi.kzx ☁️",
+        vcard: `BEGIN:VCARD\nVERSION:3.0\nFN: Izumi-kzx\nitem1.TEL;waid=59897246324:59897246324\nitem1.X-ABLabel:Número\nitem2.EMAIL;type=INTERNET: agasistencia2@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://instagram.com/angelito.kzx\nitem3.X-ABLabel:Internet\nitem4.ADR:;; Argentina;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`,
+    }];
 
-    const tag_own = await conn.sendMessage(m.chat, { 
-        contacts: { 
-            displayName: "Creador",
-            contacts: [{ vcard }] 
+    await conn.sendMessage(m.chat, {
+        contacts: {
+            displayName: `${list.length} Contacto`,
+            contacts: list
+        },
+        contextInfo: {
+            externalAdReply: {
+                showAdAttribution: true,
+                title: 'Sock Bot',
+                body: 'No spam please',
+                thumbnailUrl: 'https://telegra.ph/file/c4da9410b052a114912e5.jpg',
+                sourceUrl: null,
+                mediaType: 1,
+                renderLargerThumbnail: true
+            }
         }
-    }, { quoted: estilo });
+    }, {
+        quoted: m
+    });
 
     let txt = `👋 *Hola \`${username}\` este es*\n*el contacto de mi creador*`;
 
@@ -57,3 +58,36 @@ handler.tags = ['main'];
 handler.command = /^(owner|creator|creador|dueño)$/i;
 
 export default handler;
+
+
+
+/*Don't delete Whatermark*/
+//Case Code by Carlos<>
+case 'creador':
+case "owner": {
+    let list = [{
+        displayName: "Escobar E",
+        vcard: `BEGIN:VCARD\nVERSION:3.0\nFN:Escobar E\nitem1.TEL;waid=593991398786:593991398786\nitem1.X-ABLabel:Número\nitem2.EMAIL;type=INTERNET:carlos.e.escobarmc@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://instagram.com/c4rl0s_9e\nitem3.X-ABLabel:Internet\nitem4.ADR:;;Babahoyo, Los Rios. Ecuador;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`,
+    }];
+
+    await sock.sendMessage(m.cht, {
+        contacts: {
+            displayName: `${list.length} Contacto`,
+            contacts: list
+        },
+        contextInfo: {
+            externalAdReply: {
+                showAdAttribution: true,
+                title: 'Sock Bot',
+                body: 'No spam please',
+                thumbnailUrl: 'https://telegra.ph/file/c4da9410b052a114912e5.jpg',
+                sourceUrl: null,
+                mediaType: 1,
+                renderLargerThumbnail: true
+            }
+        }
+    }, {
+        quoted: m
+    });
+}
+break;
