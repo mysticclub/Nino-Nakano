@@ -19,38 +19,36 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
     };
 
     let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
-    let name = await conn.getName(who);
-    let edtr = `@${m.sender.split`@`[0]}`;
-    let username = conn.getName(m.sender);
+    let username = await conn.getName(who);  // Obtener el nombre correctamente
 
-    // VCARD
+    // VCARD (Este es el vCard del creador, asegúrate de que todos los campos sean correctos)
     let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:WhatsApp;  ૈANGELITO 🍃\nNICKNAME:👤 іzᥙmі.kz᥊\nORG: ૈіzᥙmі.kz᥊ ᰔᩚ\nTITLE:soft\nitem1.TEL;waid=59897246324:+598 97 246 324\nitem1.X-ABLabel:📞 WhatsApp Owner\nitem2.URL:https://github.com/Angelito-OFC\nitem2.X-ABLabel:💬 More\nitem3.EMAIL;type=INTERNET: agasistencia2@gmail.com\nitem3.X-ABLabel:💌 Correo soporte\nitem4.ADR:;;🇦🇷 Argentina;;;;\nitem4.X-ABADR:💬 More\nitem4.X-ABLabel: Localización 🫧\nBDAY;value=date:🤍 09-12-2007\nEND:VCARD`;
 
-  /*  const tag_own = await conn.sendMessage(m.chat, { 
-        contacts: { 
-            displayName: "Creador",
-            contacts: [{ vcard }] 
+    // Definir las variables que faltaban: dev y channels
+    let dev = "Soy el creador de este bot";
+    let channels = "https://github.com/Angelito-OFC"; // Puedes poner cualquier enlace válido aquí
+
+    // Enviar mensaje con el vCard del creador y detalles adicionales
+    await conn.sendMessage(m.chat, {
+        contextInfo: {
+            externalAdReply: {
+                title: 'ᥣᥣᥲmᥲ - ᥲі ⍴᥆ᥕᥱr ᑲᥡ mᥱ𝗍ᥲ',
+                body: dev,
+                thumbnailUrl: 'https://files.catbox.moe/j791b7.jpeg',
+                sourceUrl: channels,
+                mediaType: 1,
+                renderLargerThumbnail: true
+            },
+            contacts: { 
+                displayName: "Creador",
+                contacts: [{ vcard }] 
+            }
         }
-    }, { quoted: estilo }); */
-await conn.sendMessage(m.chat, {
-    contextInfo: {
-        externalAdReply: {
-            title: 'ᥣᥣᥲmᥲ - ᥲі ⍴᥆ᥕᥱr ᑲᥡ mᥱ𝗍ᥲ',
-            body: dev,
-            thumbnailUrl: 'https://files.catbox.moe/j791b7.jpeg',
-            sourceUrl: channels,
-            mediaType: 1,
-            renderLargerThumbnail: true
-        },
-        contacts: { 
-            displayName: "Creador",
-            contacts: [{ vcard }] 
-        }
-    }
-}, { quoted: m });
+    }, { quoted: m });
 
     let txt = `👋 *Hola \`${username}\` este es*\n*el contacto de mi creador*`;
 
+    // Enviar mensaje de texto con botones
     await conn.sendMessage(m.chat, {
         text: txt,
         footer: '© ᥴrᥱᥲძ᥆r ᥆𝖿іᥴіᥲᥣ іzᥙmі.kz᥊',
