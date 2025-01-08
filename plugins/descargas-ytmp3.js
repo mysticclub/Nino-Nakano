@@ -28,7 +28,7 @@ async function dansyaytdl(link) {
     }
 }
 
-async function handler(m, { text, conn, botname }) {
+async function handler(m, { text, conn }) {
     if (!text) {
         await m.react('❌'); // Reacciona si falta el texto
         return conn.sendMessage(m.chat, { text: '[ Ejemplo ] :\n> *.ytmp3 <enlace de YouTube>*' }, { quoted: m });
@@ -45,14 +45,8 @@ async function handler(m, { text, conn, botname }) {
             throw new Error('No se encontró un enlace MP3.');
         }
 
-        const ytc = `*[ YOUTUBE AUDIO DOWNLOADER ]*
-🎵 *Título*: ${data.title || 'Desconocido'}
-🎵 *Descripción*: ${data.description || 'No disponible'}
-🎵 *Vistas*: ${data.views || 'No disponible'}
-© ${botname}`;
-
-        await conn.sendMessage(m.chat, { audio: { url: data.mp3 }, mimetype: 'audio/mpeg', caption: ytc }, { quoted: m });
-        await m.react('✅'); // Reacciona al completar con éxito
+        await conn.sendMessage(m.chat, { audio: { url: data.mp3 }, mimetype: 'audio/mpeg' }, { quoted: m });
+        await m.react('🐱'); // Reacciona al completar con éxito
     } catch (e) {
         await m.react('❌'); // Reacciona si ocurre un error
         conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
