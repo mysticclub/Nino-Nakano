@@ -30,24 +30,24 @@ async function dansyaytdl(link) {
 
 async function handler(m, { text, conn }) {
     if (!text) {
-        await m.react('❌'); // Reacciona si falta el texto
+        await m.react('❌');
         return conn.sendMessage(m.chat, { text: '[ Ejemplo ] :\n> *.ytmp3 <enlace de YouTube>*' }, { quoted: m });
     }
 
-    await m.react('🕓'); // Reacciona indicando que está procesando
+    await m.react('🕓');
 
     try {
         const data = await dansyaytdl(text);
 
         if (!data.mp3) {
-            await m.react('⚠️'); // Reacciona si no encuentra el MP3
+            await m.react('⚠️');
             throw new Error('No se encontró un enlace MP3.');
         }
 
         await conn.sendMessage(m.chat, { audio: { url: data.mp3 }, mimetype: 'audio/mpeg' }, { quoted: m });
-        await m.react('✅'); // Reacciona al completar con éxito
+        await m.react('✅');
     } catch (e) {
-        await m.react('❌'); // Reacciona si ocurre un error
+        await m.react('❌');
         conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
     }
 }
