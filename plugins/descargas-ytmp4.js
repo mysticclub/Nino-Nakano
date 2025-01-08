@@ -30,17 +30,17 @@ async function dansyaytdl(link) {
 
 async function handler(m, { text, conn, botname }) {
     if (!text) {
-        await m.react('❌'); // Reacción si no se proporciona el texto
+        await m.react('❌');
         return conn.sendMessage(m.chat, { text: '[ Ejemplo ] :\n> *.ytmp4 <enlace de YouTube>*' }, { quoted: m });
     }
 
-    await m.react('🕓'); // Reacción cuando está procesando
+    await m.react('🕓');
 
     try {
         const data = await dansyaytdl(text);
 
         if (!data.mp4) {
-            await m.react('⚠️'); // Reacción si no se encuentra el MP4
+            await m.react('⚠️');
             throw new Error('No se encontró un enlace MP4.');
         }
 
@@ -48,15 +48,15 @@ async function handler(m, { text, conn, botname }) {
 *Vistas:* ${data.views || 'No disponible'}`;
 
         await conn.sendMessage(m.chat, { video: { url: data.mp4 }, caption: ytc }, { quoted: m });
-        await m.react('✅'); // Reacción al completar con éxito
+        await m.react('✅');
     } catch (e) {
-        await m.react('❌'); // Reacción si ocurre un error
+        await m.react('❌');
         conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
     }
 }
 
-handler.help = ['ytmp4'];
-handler.tags = ['downloader'];
+handler.help = ['ytmp4 *<url>*'];
+handler.tags = ['dl'];
 handler.command = ['ytmp4'];
 
 export default handler;
