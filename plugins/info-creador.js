@@ -63,7 +63,7 @@ export default handler;
 
 /*Don't delete Whatermark*/
 //Case Code by Carlos<>
-case 'creador':
+/* case 'creador':
 case "owner": {
     let list = [{
         displayName: "Escobar E",
@@ -90,4 +90,4 @@ case "owner": {
         quoted: m
     });
 }
-break;
+break; */
