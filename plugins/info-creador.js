@@ -24,7 +24,7 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
                 showAdAttribution: true,
                 title: botname,
                 body: dev,
-                thumbnailUrl: 'https://files.catbox.moe/v591ox.jpeg',
+                thumbnailUrl: 'https://files.catbox.moe/2ptp68.jpeg',
                 sourceUrl: canal,
                 mediaType: 1,
                 renderLargerThumbnail: true
