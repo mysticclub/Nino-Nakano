@@ -30,15 +30,18 @@ async function dansyaytdl(link) {
 
 async function handler(m, { text, conn, botname }) {
     if (!text) {
+        await m.react('❌'); // Reacciona si falta el texto
         return conn.sendMessage(m.chat, { text: '[ Ejemplo ] :\n> *.ytmp3 <enlace de YouTube>*' }, { quoted: m });
     }
 
+    await m.react('🕓'); // Reacciona indicando que está procesando
     conn.sendMessage(m.chat, { text: 'Espera un momento...' }, { quoted: m });
 
     try {
         const data = await dansyaytdl(text);
 
         if (!data.mp3) {
+            await m.react('⚠️'); // Reacciona si no encuentra el MP3
             throw new Error('No se encontró un enlace MP3.');
         }
 
@@ -49,7 +52,9 @@ async function handler(m, { text, conn, botname }) {
 © ${botname}`;
 
         await conn.sendMessage(m.chat, { audio: { url: data.mp3 }, mimetype: 'audio/mpeg', caption: ytc }, { quoted: m });
+        await m.react('✅'); // Reacciona al completar con éxito
     } catch (e) {
+        await m.react('❌'); // Reacciona si ocurre un error
         conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
     }
 }
