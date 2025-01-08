@@ -22,10 +22,10 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
         contextInfo: {
             externalAdReply: {
                 showAdAttribution: true,
-                title: 'Sock Bot',
-                body: 'No spam please',
-                thumbnailUrl: 'https://telegra.ph/file/c4da9410b052a114912e5.jpg',
-                sourceUrl: null,
+                title: botname,
+                body: dev,
+                thumbnailUrl: 'https://files.catbox.moe/v591ox.jpeg',
+                sourceUrl: canal,
                 mediaType: 1,
                 renderLargerThumbnail: true
             }
