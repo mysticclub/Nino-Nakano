@@ -33,7 +33,6 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
         }
     }, { quoted: estilo }); */
 await conn.sendMessage(m.chat, {
-    text: responseMessage,
     contextInfo: {
         externalAdReply: {
             title: 'ᥣᥣᥲmᥲ - ᥲі ⍴᥆ᥕᥱr ᑲᥡ mᥱ𝗍ᥲ',
@@ -43,7 +42,6 @@ await conn.sendMessage(m.chat, {
             mediaType: 1,
             renderLargerThumbnail: true
         },
-        // Agregar el contacto de "Creador"
         contacts: { 
             displayName: "Creador",
             contacts: [{ vcard }] 
