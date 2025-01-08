@@ -35,7 +35,6 @@ async function handler(m, { text, conn }) {
     }
 
     await m.react('🕓'); // Reacciona indicando que está procesando
-    conn.sendMessage(m.chat, { text: 'Espera un momento...' }, { quoted: m });
 
     try {
         const data = await dansyaytdl(text);
@@ -46,7 +45,7 @@ async function handler(m, { text, conn }) {
         }
 
         await conn.sendMessage(m.chat, { audio: { url: data.mp3 }, mimetype: 'audio/mpeg' }, { quoted: m });
-        await m.react('🐱'); // Reacciona al completar con éxito
+        await m.react('✅'); // Reacciona al completar con éxito
     } catch (e) {
         await m.react('❌'); // Reacciona si ocurre un error
         conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
