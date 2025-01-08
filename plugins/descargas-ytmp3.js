@@ -52,7 +52,7 @@ async function handler(m, { text, conn }) {
     }
 }
 
-handler.help = ['ytmp3'];
+handler.help = ['ytmp3 *<url>*'];
 handler.tags = ['downloader'];
 handler.command = ['ytmp3'];
 
