@@ -10,9 +10,14 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
     let dev = "Soy el creador de este bot";
     let channels = "https://github.com/Angelito-OFC"; // Enlace del canal o fuente
 
-    // Obtener el nombre del contacto mencionado o del remitente
-    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
+    // Asegurarnos de que 'm.mentionedJid' no sea undefined ni null
+    let who = (m.mentionedJid && m.mentionedJid[0]) || m.sender;
     let username = await conn.getName(who);
+
+    // Asegurarnos de que el nombre esté correctamente definido
+    if (!username) {
+        username = "Usuario desconocido";
+    }
 
     // Enviar mensaje con el vCard del creador y detalles adicionales
     await conn.sendMessage(m.chat, {
