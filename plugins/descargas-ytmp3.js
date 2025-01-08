@@ -45,7 +45,7 @@ async function handler(m, { text, conn }) {
         }
 
         await conn.sendMessage(m.chat, { audio: { url: data.mp3 }, mimetype: 'audio/mpeg' }, { quoted: m });
-        await m.react('🎧');
+        await m.react('✅');
     } catch (e) {
         await m.react('❌');
         conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
