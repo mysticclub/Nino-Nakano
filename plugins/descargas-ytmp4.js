@@ -1,38 +1,51 @@
-/* 
+import axios from 'axios';
 
-*❀ By JTxs*
+async function dansyaytdl(link) {
+    try {
+        const response = await axios.get('https://y2ts.us.kg/token');
+        const token = response.data.token;
+        const url = `https://y2ts.us.kg/youtube?url=${link}`;
+        const headers = {
+            'Authorization-Token': token,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
+            'Content-Type': 'application/json',
+        };
 
-[ Canal Principal ] :
-https://whatsapp.com/channel/0029VaeQcFXEFeXtNMHk0D0n*/
-import fetch from 'node-fetch'
+        const videoResponse = await axios.get(url, { headers });
 
-let handler = async (m, { conn, command, text, usedPrefix }) => {
-    if (!text) {
-        await m.react('✖️');
-        return conn.reply(m.chat, `☁️ Ingresa un link de youtube`, m, fake);
+        if (videoResponse.data.status) {
+            return videoResponse.data.result || '';
+        } else {
+            throw new Error('Status is false, no result found.');
+        }
+    } catch (error) {
+        throw new Error(error.message || 'Error occurred while fetching video data.');
     }
+}
+
+async function handler(m, { text, conn, botname }) {
+    if (!text) {
+        return conn.sendMessage(m.chat, { text: ' [ Example ] :*\n> *.ytmp4 <link youtube>*' }, { quoted: m });
+    }
+    conn.sendMessage(m.chat, { text: 'tunggu sebentar ya...' }, { quoted: m });
 
     try {
-        await m.react('🕒');
+        const data = await dansyaytdl(text);
+        const hasilnya = data.mp4;
+        const ytc = `*[ YOUTUBE DOWNLOADER ]*
+🔥 *Title*: ${data.title || ''}
+🔥 *Description*: ${data.description || ''}
+🔥 *Views*: ${data.views || ''}
+© ${botname}`;
 
-        let api = await fetch(`https://axeel.my.id/api/download/video?url=${text}`);
-        let json = await api.json();
-        let { title, views, likes, description, author } = json.metadata;
-        let txt = `• *Titulo :* ${title}
-• *Autor :* ${author}
-• *Tamaño :* ${json.downloads.size}`;
-
-        await conn.sendMessage(m.chat, { video: { url: json.downloads.url }, caption: txt }, { quoted: m });
-        await m.react('✅');
-    } catch (error) {
-        console.error(error);
-        await m.react('❌');
-        conn.reply(m.chat, `☁️ Hubo un error al procesar tu solicitud. Inténtalo de nuevo más tarde.`, m);
+        await conn.sendMessage(m.chat, { video: { url: hasilnya }, caption: ytc }, { quoted: m });
+    } catch (e) {
+        conn.sendMessage(m.chat, { text: '*Terjadi error :* ' + e.message }, { quoted: m });
     }
-};
+}
 
-handler.help = ['ytmp4 *<url>*'];
-handler.tags = ['dl'];
-handler.command = /^(ytmp4)$/i;
+handler.help = ['ytmp4'];
+handler.tags = ['downloader'];
+handler.command = ['tes'];
 
 export default handler;
