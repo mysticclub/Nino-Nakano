@@ -42,10 +42,8 @@ async function handler(m, { text, conn, botname }) {
             throw new Error('No se encontró un enlace MP4.');
         }
 
-        const ytc = `*[ YOUTUBE DOWNLOADER ]*
-🔥 *Título*: ${data.title || 'Desconocido'}
-🔥 *Descripción*: ${data.description || 'No disponible'}
-🔥 *Vistas*: ${data.views || 'No disponible'}`;
+        const ytc = `*Título:* ${data.title || 'Desconocido'}
+*Vistas:* ${data.views || 'No disponible'}`;
 
         await conn.sendMessage(m.chat, { video: { url: data.mp4 }, caption: ytc }, { quoted: m });
     } catch (e) {
