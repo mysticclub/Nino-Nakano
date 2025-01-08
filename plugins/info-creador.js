@@ -26,12 +26,30 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
     // VCARD
     let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:WhatsApp;  ૈANGELITO 🍃\nNICKNAME:👤 іzᥙmі.kz᥊\nORG: ૈіzᥙmі.kz᥊ ᰔᩚ\nTITLE:soft\nitem1.TEL;waid=59897246324:+598 97 246 324\nitem1.X-ABLabel:📞 WhatsApp Owner\nitem2.URL:https://github.com/Angelito-OFC\nitem2.X-ABLabel:💬 More\nitem3.EMAIL;type=INTERNET: agasistencia2@gmail.com\nitem3.X-ABLabel:💌 Correo soporte\nitem4.ADR:;;🇦🇷 Argentina;;;;\nitem4.X-ABADR:💬 More\nitem4.X-ABLabel: Localización 🫧\nBDAY;value=date:🤍 09-12-2007\nEND:VCARD`;
 
-    const tag_own = await conn.sendMessage(m.chat, { 
+  /*  const tag_own = await conn.sendMessage(m.chat, { 
         contacts: { 
             displayName: "Creador",
             contacts: [{ vcard }] 
         }
-    }, { quoted: estilo });
+    }, { quoted: estilo }); */
+await conn.sendMessage(m.chat, {
+    text: responseMessage,
+    contextInfo: {
+        externalAdReply: {
+            title: 'ᥣᥣᥲmᥲ - ᥲі ⍴᥆ᥕᥱr ᑲᥡ mᥱ𝗍ᥲ',
+            body: dev,
+            thumbnailUrl: 'https://files.catbox.moe/j791b7.jpeg',
+            sourceUrl: channels,
+            mediaType: 1,
+            renderLargerThumbnail: true
+        },
+        // Agregar el contacto de "Creador"
+        contacts: { 
+            displayName: "Creador",
+            contacts: [{ vcard }] 
+        }
+    }
+}, { quoted: m });
 
     let txt = `👋 *Hola \`${username}\` este es*\n*el contacto de mi creador*`;
 
