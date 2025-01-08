@@ -1,11 +1,7 @@
-// YOUTUBE DOWNLOAD MP4
-// Fitur by nano gembul
-// https://whatsapp.com/channel/0029VagvXerC1FuF4KH1yd1F
 import axios from 'axios';
 
 async function dansyaytdl(link) {
     try {
-        // Obtener token desde el servicio
         const response = await axios.get('https://y2ts.us.kg/token');
         const token = response.data?.token;
 
@@ -13,7 +9,6 @@ async function dansyaytdl(link) {
             throw new Error('No se pudo obtener el token.');
         }
 
-        // Construir la URL para la solicitud de descarga
         const url = `https://y2ts.us.kg/youtube?url=${encodeURIComponent(link)}`;
         const headers = {
             'Authorization-Token': token,
@@ -21,7 +16,6 @@ async function dansyaytdl(link) {
             'Content-Type': 'application/json',
         };
 
-        // Hacer la solicitud al servicio
         const videoResponse = await axios.get(url, { headers });
 
         if (videoResponse.data?.status) {
@@ -36,7 +30,7 @@ async function dansyaytdl(link) {
 
 async function handler(m, { text, conn, botname }) {
     if (!text) {
-        return conn.sendMessage(m.chat, { text: ' [ Ejemplo ] :*\n> *.ytmp4 <enlace de YouTube>*' }, { quoted: m });
+        return conn.sendMessage(m.chat, { text: '[ Ejemplo ] :\n> *.ytmp4 <enlace de YouTube>*' }, { quoted: m });
     }
 
     conn.sendMessage(m.chat, { text: 'Espera un momento...' }, { quoted: m });
@@ -62,6 +56,6 @@ async function handler(m, { text, conn, botname }) {
 
 handler.help = ['ytmp4'];
 handler.tags = ['downloader'];
-handler.command = ['ytmp4']; // Cambié el comando para ser más relevante
+handler.command = ['ytmp4'];
 
 export default handler;
