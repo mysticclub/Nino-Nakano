@@ -55,6 +55,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     "sticker": "🖼️ 「 *`STICKER`* 」 🖼️",
     "dl": "📥 「 *`DOWNLOADER`* 」 📥",
     "ai": "🧠 「 *`INTELIGENCIAS`* 」 🧠",
+    "serbot": "🤖 「 *`JADI-BOT`* 」 🤖",
     "tools": "🛠️ 「 *`TOOLS`* 」 🛠️",
     "anonymous": "🙈 「 *`ANONYMOUS`* 」 🙈",
     "confesar": "🤫 「 *`CONFESIONES`* 」 🤫",
