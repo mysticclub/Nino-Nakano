@@ -3,30 +3,16 @@ import fetch from 'node-fetch';
 let handler = async (m, { conn, usedPrefix, text, args, command }) => {
    await m.react('🎉');
 
-    let fkontak = { 
-        "key": { 
-            "participants": "0@s.whatsapp.net", 
-            "remoteJid": "status@broadcast", 
-            "fromMe": false, 
-            "id": "Halo" 
-        }, 
-        "message": { 
-            "contactMessage": { 
-                "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` 
-            }
-        }, 
-        "participant": "0@s.whatsapp.net" 
-    };
-
-    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
-    let username = await conn.getName(who);  // Obtener el nombre correctamente
-
-    // VCARD (Este es el vCard del creador, asegúrate de que todos los campos sean correctos)
+    // Información de contacto (vCard)
     let vcard = `BEGIN:VCARD\nVERSION:3.0\nN:WhatsApp;  ૈANGELITO 🍃\nNICKNAME:👤 іzᥙmі.kz᥊\nORG: ૈіzᥙmі.kz᥊ ᰔᩚ\nTITLE:soft\nitem1.TEL;waid=59897246324:+598 97 246 324\nitem1.X-ABLabel:📞 WhatsApp Owner\nitem2.URL:https://github.com/Angelito-OFC\nitem2.X-ABLabel:💬 More\nitem3.EMAIL;type=INTERNET: agasistencia2@gmail.com\nitem3.X-ABLabel:💌 Correo soporte\nitem4.ADR:;;🇦🇷 Argentina;;;;\nitem4.X-ABADR:💬 More\nitem4.X-ABLabel: Localización 🫧\nBDAY;value=date:🤍 09-12-2007\nEND:VCARD`;
 
-    // Definir las variables que faltaban: dev y channels
+    // Definir las variables 'dev' y 'channels'
     let dev = "Soy el creador de este bot";
-    let channels = "https://github.com/Angelito-OFC"; // Puedes poner cualquier enlace válido aquí
+    let channels = "https://github.com/Angelito-OFC"; // Enlace del canal o fuente
+
+    // Obtener el nombre del contacto mencionado o del remitente
+    let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
+    let username = await conn.getName(who);
 
     // Enviar mensaje con el vCard del creador y detalles adicionales
     await conn.sendMessage(m.chat, {
@@ -46,9 +32,10 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
         }
     }, { quoted: m });
 
+    // Texto que se enviará junto con el mensaje
     let txt = `👋 *Hola \`${username}\` este es*\n*el contacto de mi creador*`;
 
-    // Enviar mensaje de texto con botones
+    // Enviar mensaje con botones y pie de página
     await conn.sendMessage(m.chat, {
         text: txt,
         footer: '© ᥴrᥱᥲძ᥆r ᥆𝖿іᥴіᥲᥣ іzᥙmі.kz᥊',
