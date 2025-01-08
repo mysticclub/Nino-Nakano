@@ -45,8 +45,7 @@ async function handler(m, { text, conn, botname }) {
         const ytc = `*[ YOUTUBE DOWNLOADER ]*
 🔥 *Título*: ${data.title || 'Desconocido'}
 🔥 *Descripción*: ${data.description || 'No disponible'}
-🔥 *Vistas*: ${data.views || 'No disponible'}
-© ${botname}`;
+🔥 *Vistas*: ${data.views || 'No disponible'}`;
 
         await conn.sendMessage(m.chat, { video: { url: data.mp4 }, caption: ytc }, { quoted: m });
     } catch (e) {
