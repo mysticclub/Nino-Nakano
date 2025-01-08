@@ -79,5 +79,7 @@ await _envio.sendFile(m.chat, img, 'thumbnail.jpg', responseMessage, m, null, fa
 break   
 }}
 
+handler.help = ['deletesesion', 'deletebot', 'deletesession', 'deletesession', 'stop', 'pausarai', 'pausarbot', 'bots', 'sockets', 'socket'];
+handler.tags = ['serbot'];
 handler.command = ['deletesesion', 'deletebot', 'deletesession', 'deletesession', 'stop', 'pausarai', 'pausarbot', 'bots', 'sockets', 'socket']
 export default handler
