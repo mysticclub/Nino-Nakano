@@ -48,7 +48,7 @@ async function handler(m, { text, conn, botname }) {
 *Vistas:* ${data.views || 'No disponible'}`;
 
         await conn.sendMessage(m.chat, { video: { url: data.mp4 }, caption: ytc }, { quoted: m });
-        await m.react('✅');
+        await m.react('🎧');
     } catch (e) {
         await m.react('❌');
         conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
