@@ -1,59 +1,30 @@
-import axios from 'axios';
+import fetch from 'node-fetch';
 
-async function dansyaytdl(link) {
+let HS = async (m, { conn, text }) => {
+    if (!text) return conn.reply(m.chat, `🐉 Por favor, envia un link de Youtube para descargar su audio.`, m);
+
     try {
-        const response = await axios.get('https://y2ts.us.kg/token');
-        const token = response.data?.token;
+        await conn.reply(m.chat, `《⏳》Descargando su audio, por favor espera un momento...`, m);
 
-        if (!token) {
-            throw new Error('No se pudo obtener el token.');
-        }
+        let api = await fetch(`https://restapi.apibotwa.biz.id/api/ytmp3?url=${text}`);
+        let json = await api.json();
+        let title = json.result.metadata.title;
+        let dl_url = json.result.download.url;
 
-        const url = `https://y2ts.us.kg/youtube?url=${encodeURIComponent(link)}`;
-        const headers = {
-            'Authorization-Token': token,
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
-            'Content-Type': 'application/json',
-        };
+        await conn.sendMessage(m.chat, { 
+            audio: { url: dl_url }, 
+            fileName: `${title}.mp3`, 
+            mimetype: 'audio/mp4' 
+        }, { quoted: m });
 
-        const videoResponse = await axios.get(url, { headers });
+        await conn.reply(m.chat, `《✅》Su audio fue enviado con éxito. ¡Disfrútalo!`, m);
 
-        if (videoResponse.data?.status) {
-            return videoResponse.data.result || {};
-        } else {
-            throw new Error('La solicitud fue rechazada. Verifica el enlace.');
-        }
     } catch (error) {
-        throw new Error(error.message || 'Error al obtener datos del audio.');
+        console.error(error);
+        conn.reply(m.chat, `《❌》Ocurrió un error al intentar descargar el audio. Por favor, verifica el enlace e inténtalo nuevamente.`, m);
     }
-}
+};
 
-async function handler(m, { text, conn }) {
-    if (!text) {
-        await m.react('❌');
-        return conn.sendMessage(m.chat, { text: '[ Ejemplo ] :\n> *.ytmp3 <enlace de YouTube>*' }, { quoted: m });
-    }
+HS.command = ['ytmp3', 'fgmp3', 'yta'];
 
-    await m.react('🕓');
-
-    try {
-        const data = await dansyaytdl(text);
-
-        if (!data.mp3) {
-            await m.react('⚠️');
-            throw new Error('No se encontró un enlace MP3.');
-        }
-
-        await conn.sendMessage(m.chat, { audio: { url: data.mp3 }, mimetype: 'audio/mpeg' }, { quoted: m });
-        await m.react('✅');
-    } catch (e) {
-        await m.react('❌');
-        conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
-    }
-}
-
-handler.help = ['ytmp3 *<url>*'];
-handler.tags = ['dl'];
-handler.command = ['ytmp3'];
-
-export default handler;
+export default HS;
