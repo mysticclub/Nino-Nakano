@@ -45,6 +45,8 @@ await conn.sendFile(m.chat, media.download_url, 'HasumiBotFreeCodes.mp4', `✰ $
 console.error(error)
 }}
 
+handler.help = ['pinterestdl *<url>*']
+handler.tags = ['dl']
 handler.command = /^(pinterestdl)$/i
 
 export default handler
