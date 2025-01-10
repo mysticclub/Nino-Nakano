@@ -37,7 +37,7 @@ let handler = async (_0x10bd40, {
   } = await _0x36ae01.get("https://www.pinterest.com/resource/BaseSearchResource/get/?source_url=%2Fsearch%2Fpins%2F%3Fq%3D" + _0x27db11 + "&data=%7B%22options%22%3A%7B%22isPrefetch%22%3Afalse%2C%22query%22%3A%22" + _0x27db11 + "%22%2C%22scope%22%3A%22pins%22%2C%22no_fetch_context_on_resource%22%3Afalse%7D%2C%22context%22%3A%7B%7D%7D&_=1619980301559");
   let _0x5f34cb = _0x4fc489.resource_response.data.results.map(_0x33ba1c => _0x33ba1c.images.orig.url);
   _0x2af019(_0x5f34cb);
-  let _0x3b2637 = _0x5f34cb.splice(0, 5);
+  let _0x3b2637 = _0x5f34cb.splice(0, 10);
   let _0x2913ed = 1;
   for (let _0x47c48a of _0x3b2637) {
     _0x51323f.push({
