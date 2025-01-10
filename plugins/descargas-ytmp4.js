@@ -49,5 +49,7 @@ let handler = async (m, { conn, text }) => {
   }
 };
 
+handler.help = ['ytmp4 *<url>*']
+handler.tags = ['dl']
 handler.command = ['ytmp4'];
 export default handler;
