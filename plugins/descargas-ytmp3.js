@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-let HS = async (m, { conn, text }) => {
+let handler = async (m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, `🐉 Por favor, envia un link de Youtube para descargar su audio.`, m);
 
     try {
@@ -25,6 +25,6 @@ let HS = async (m, { conn, text }) => {
     }
 };
 
-HS.command = ['ytmp3', 'fgmp3', 'yta'];
+handler.command = ['ytmp3', 'fgmp3', 'yta'];
 
-export default HS;
+export default handler;
