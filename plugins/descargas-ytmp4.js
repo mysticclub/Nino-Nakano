@@ -6,7 +6,7 @@ let handler = async (m, { conn, text }) => {
   }
 
   try {
-    await m.react('⏳'); // Reacción de "procesando"
+    await m.react('🕒'); // Reacción de "procesando"
 
     let api = await fetch(`https://restapi.apibotwa.biz.id/api/ytmp4?url=${encodeURIComponent(text)}`);
     let json = await api.json();
