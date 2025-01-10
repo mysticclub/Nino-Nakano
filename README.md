@@ -12,11 +12,11 @@
 <a href="https://www.threads.net/@angelito.kzx" target="blank"><img src="https://img.shields.io/badge/Threads-30302f?style=flat&logo=threads" /></a>
 <a href="https://x.com/usxr_angelito0" target="blank"><img src="https://img.shields.io/badge/Twitter-30302f?style=flat&logo=x" /></a>
 
-<a href="https://github.com/Izumi-kzx/Genesis-Ai/watchers"><img title="espectadores" src="https://img.shields.io/github/watchers/Izumi-kzx/Genesis-Ai?label=Espectadores&style=social"></a>
+<a href="https://github.com/Izumi-kzx/Genesis-AI/watchers"><img title="espectadores" src="https://img.shields.io/github/watchers/Izumi-kzx/Genesis-AI?label=Espectadores&style=social"></a>
 </p>
 
 </p>
-<p align="center"><img src="https://profile-counter.glitch.me/{Genesis-Ai}/count.svg" alt="Izumi-kzx:: Visitor's Count" /></p>
+<p align="center"><img src="https://profile-counter.glitch.me/{Genesis-AI}/count.svg" alt="Izumi-kzx:: Visitor's Count" /></p>
 
 </p>
 
