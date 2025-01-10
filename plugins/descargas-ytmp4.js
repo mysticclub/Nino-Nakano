@@ -43,5 +43,5 @@ let HS = async (m, { conn, text }) => {
   }
 };
 
-HS.command = ['ytmp6'];
+HS.command = ['ytmp4'];
 export default HS;
