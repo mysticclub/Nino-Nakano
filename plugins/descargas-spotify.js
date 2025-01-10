@@ -1,34 +1,44 @@
-import fetch from 'node-fetch';
+/* 
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) {
-        return conn.reply(m.chat, '❀ Ingresa el link de una cancion de spotify', m)
-await m.react('🕓');
-    }
+*❀ By JTxs*
 
-    try {
-        let api = await fetch(`https://api.giftedtech.my.id/api/download/spotifydl?apikey=gifted&url=${text}`)
-        let json = await api.json()
-        let { quality, title, duration, thumbnail, download_url: dl_url } = json.result
+[ Canal Principal ] :
+https://whatsapp.com/channel/0029VaeQcFXEFeXtNMHk0D0n
 
-        let songInfo = `- *Titulo :* ${title}
-- *Calidad :* ${quality}
-- *Duracion :* ${duration}`
+[ Canal Rikka Takanashi Bot ] :
+https://whatsapp.com/channel/0029VaksDf4I1rcsIO6Rip2X
 
-        await m.react('✅');
-        await conn.sendFile(m.chat, thumbnail, 'SpotifyThumbnail.jpg', songInfo, m)
-        await conn.sendMessage(m.chat, { 
-            audio: { url: dl_url }, 
-            fileName: `${title}.mp3`, 
-            mimetype: 'audio/mp4' 
-        }, { quoted: m })
-    } catch (error) {
-        console.error(error)
-    }
-}
+[ Canal StarlightsTeam] :
+https://whatsapp.com/channel/0029VaBfsIwGk1FyaqFcK91S
 
-handler.help = ['spotify *<url>*']
-handler.tags = ['dl']
-handler.command = ['spotify']
+[ HasumiBot FreeCodes ] :
+https://whatsapp.com/channel/0029Vanjyqb2f3ERifCpGT0W
+*/
 
-export default handler;
+// *[ ❀ SPOTIFY PLAY ]*
+import fetch from 'node-fetch'
+
+let handler = async (m, { conn, command, text, usedPrefix }) => {
+if (!text) return conn.reply(m.chat, `❀ Ingresa el texto de lo que quieras buscar`, m)
+
+try {
+let apiSearch = await fetch(`https://api.vreden.web.id/api/spotifysearch?query=${text}`)
+let jsonSearch = await apiSearch.json()
+let { popularity, url } = jsonSearch.result[0]
+let apiDL = await fetch(`https://api.vreden.web.id/api/spotify?url=${url}`)
+let jsonDL = await apiDL.json()
+let { title, artists, cover, music } = jsonDL.result.result
+let HS = `- *Titulo :* ${title}
+- *autor :* ${artists}
+- *Popularidad :* ${popularity}
+- *Link :* ${url}
+`
+await conn.sendFile(m.chat, cover, 'HasumiBotFreeCodes.jpg', HS, m)
+await conn.sendFile(m.chat, music, 'HasumiBotFreeCodes.mp4', null, m)
+} catch (error) {
+console.error(error)
+}}
+
+handler.command = /^(spotify)$/i
+
+export default handler
