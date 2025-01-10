@@ -7,13 +7,13 @@ let handler = async (m, { conn, text }) => {
   }
 
   try {
-    await m.react('🕒'); // Reacción de "procesando"
+    await m.react('🕒');
 
     let api = await fetch(`https://restapi.apibotwa.biz.id/api/ytmp4?url=${encodeURIComponent(text)}`);
     let json = await api.json();
 
     if (!json || !json.data || !json.data.download || !json.data.download.url) {
-      await m.react('❌'); // Reacción de error
+      await m.react('❌');
       return conn.reply(
         m.chat,
         `❌ No se pudo obtener el enlace de descarga. Verifica el enlace y vuelve a intentarlo.`,
@@ -36,11 +36,11 @@ let handler = async (m, { conn, text }) => {
       { quoted: m }
     );
 
-    await m.react('✅'); // Reacción de éxito
+    await m.react('✅');
 
   } catch (error) {
     console.error(error);
-    await m.react('❌'); // Reacción de error general
+    await m.react('❌');
     await conn.reply(
       m.chat,
       `❌ Ocurrió un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.`,
