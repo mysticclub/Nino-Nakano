@@ -1,62 +1,47 @@
-import axios from 'axios';
+import fetch from 'node-fetch';
 
-async function dansyaytdl(link) {
-    try {
-        const response = await axios.get('https://y2ts.us.kg/token');
-        const token = response.data?.token;
+let HS = async (m, { conn, text }) => {
+  if (!text) return conn.reply(m.chat, `🦁 Ingresa un enlace de YouTube.`, m);
 
-        if (!token) {
-            throw new Error('No se pudo obtener el token.');
-        }
+  try {
 
-        const url = `https://y2ts.us.kg/youtube?url=${encodeURIComponent(link)}`;
-        const headers = {
-            'Authorization-Token': token,
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
-            'Content-Type': 'application/json',
-        };
+    await conn.reply(m.chat, `⏳ Descargando el video... Por favor, espera.`, m);
 
-        const videoResponse = await axios.get(url, { headers });
 
-        if (videoResponse.data?.status) {
-            return videoResponse.data.result || {};
-        } else {
-            throw new Error('La solicitud fue rechazada. Verifica el enlace.');
-        }
-    } catch (error) {
-        throw new Error(error.message || 'Error al obtener datos del video.');
-    }
-}
+    let api = await fetch(`https://restapi.apibotwa.biz.id/api/ytmp4?url=${encodeURIComponent(text)}`);
+    let json = await api.json();
 
-async function handler(m, { text, conn, botname }) {
-    if (!text) {
-        await m.react('❌');
-        return conn.sendMessage(m.chat, { text: '[ Ejemplo ] :\n> *.ytmp4 <enlace de YouTube>*' }, { quoted: m });
+    if (!json || !json.data || !json.data.download || !json.data.download.url) {
+      return conn.reply(m.chat, `❌ No se pudo obtener el enlace de descarga. Verifica el enlace y vuelve a intentarlo.`, m);
     }
 
-    await m.react('🕓');
+    let title = json.data.metadata.title || "Sin título";
+    let dl_url = json.data.download.url;
+    let fileName = json.data.filename || "video";
 
-    try {
-        const data = await dansyaytdl(text);
 
-        if (!data.mp4) {
-            await m.react('⚠️');
-            throw new Error('No se encontró un enlace MP4.');
-        }
+    await conn.reply(m.chat, `📤 Enviando el video...`, m);
 
-        const ytc = `*Título:* ${data.title || 'Desconocido'}
-*Vistas:* ${data.views || 'No disponible'}`;
 
-        await conn.sendMessage(m.chat, { video: { url: data.mp4 }, caption: ytc }, { quoted: m });
-        await m.react('✅');
-    } catch (e) {
-        await m.react('❌');
-        conn.sendMessage(m.chat, { text: '*Error:* ' + e.message }, { quoted: m });
-    }
-}
+    await conn.sendMessage(
+      m.chat,
+      {
+        video: { url: dl_url },
+        caption: `🎥 *Título*: ${title}`,
+        fileName: `${fileName}.mp4`,
+        mimetype: "video/mp4",
+      },
+      { quoted: m }
+    );
 
-handler.help = ['ytmp4 *<url>*'];
-handler.tags = ['dl'];
-handler.command = ['ytmp4'];
 
-export default handler;
+    await conn.reply(m.chat, `✅ Video enviado correctamente.`, m);
+
+  } catch (error) {
+    console.error(error);
+    await conn.reply(m.chat, `❌ Ocurrió un error al procesar tu solicitud. Por favor, intenta nuevamente más tarde.`, m);
+  }
+};
+
+HS.command = ['ytmp6'];
+export default HS;
