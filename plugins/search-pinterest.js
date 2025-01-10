@@ -90,7 +90,7 @@ let handler = async (_0x10bd40, {
     'messageId': _0x1ca5c6.key.id
   });
 };
-handler.help = ["pinterest"];
+handler.help = ["pinterest *<texto>*"];
 handler.tags = ["search"];
 handler.command = /^(pinterest)$/i;
 export default handler;
