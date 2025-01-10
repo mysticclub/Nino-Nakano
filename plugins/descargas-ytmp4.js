@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-let HS = async (m, { conn, text }) => {
+let handler = async (m, { conn, text }) => {
   if (!text) return conn.reply(m.chat, `🦁 Ingresa un enlace de YouTube.`, m);
 
   try {
@@ -43,5 +43,5 @@ let HS = async (m, { conn, text }) => {
   }
 };
 
-HS.command = ['ytmp4'];
-export default HS;
+handler.command = ['ytmp4'];
+export default handler;
