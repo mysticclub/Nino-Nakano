@@ -16,7 +16,7 @@
 </p>
 
 </p>
-<p align="center"><img src="https://profile-counter.glitch.me/{SonGOKU}/count.svg" alt="YerTX2:: Visitor's Count" /></p>
+<p align="center"><img src="https://profile-counter.glitch.me/{Genesis-Ai}/count.svg" alt="Izumi-kzx:: Visitor's Count" /></p>
 
 </p>
 
