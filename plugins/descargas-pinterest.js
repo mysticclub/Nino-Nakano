@@ -18,7 +18,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
 if (!text) {
-return conn.reply(m.chat, '❀ Ingresa el link de un video/imagen de pinterest', m)
+return conn.reply(m.chat, '☁️ Ingresa el link de un video/imagen de pinterest', m, fake)
 }
 
 try {
