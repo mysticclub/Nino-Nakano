@@ -1,3 +1,4 @@
+
 import fs from 'fs';
 import FormData from 'form-data';
 import axios from 'axios';
@@ -28,13 +29,7 @@ let handler = async (m, { conn }) => {
 
     if (response.status === 200) {
       let baseUrl = response.data.trim();
-      let fullUrl = baseUrl.includes(`.${extension}`) ? baseUrl : `${baseUrl}.${extension}`;
-
-      // Forzar extensión ".jpg" si es necesario
-      if (extension === 'jpeg') {
-        fullUrl = fullUrl.replace('.jpeg', '.jpg');
-        filename = filename.replace('.jpeg', '.jpg');
-      }
+      let fullUrl = baseUrl.includes(`.${extension}`) ? baseUrl : `${baseUrl}.${extension}`; // Asegura la extensión correcta
 
       let txt = `*乂 C A T B O X  -  U P L O A D E R*\n\n`;
       txt += `  *» Titulo* : ${filename}\n`;
