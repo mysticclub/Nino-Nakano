@@ -413,7 +413,6 @@ if (err) throw err
 } }) }) }) })
 }
 
-
 setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return
   const a = await clearTmp()
