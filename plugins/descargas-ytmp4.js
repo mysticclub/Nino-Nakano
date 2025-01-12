@@ -1,53 +1,57 @@
-//Los que no dejan creditos se la comen 🗣🗣
+// YOUTUBE DOWNLOAD MP4
+// Fitur by nano gembul
+// https://whatsapp.com/channel/0029VagvXerC1FuF4KH1yd1F
+import axios from 'axios';
 
-/* 
+async function dansyaytdl(link) {
+    try {
+        const response = await axios.get('https://y2ts.us.kg/token');
+        const token = response.data.token;
+        const url = `https://y2ts.us.kg/youtube?url=${link}`;
+        const headers = {
+            'Authorization-Token': token,
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36',
+            'Content-Type': 'application/json',
+        };
 
-*❀ By JTxs*
+        const videoResponse = await axios.get(url, { headers });
 
-[ Canal Principal ] :
-https://whatsapp.com/channel/0029VaeQcFXEFeXtNMHk0D0n
+        if (videoResponse.data.status) {
+            return videoResponse.data.result || '';
+        } else {
+            throw new Error('Status is false, no result found.');
+        }
+    } catch (error) {
+        throw new Error(error.message || 'Error occurred while fetching video data.');
+    }
+}
 
-[ Canal Rikka Takanashi Bot ] :
-https://whatsapp.com/channel/0029VaksDf4I1rcsIO6Rip2X
+async function handler(m, { text, conn, botname }) {
+    if (!text) {
+        return conn.sendMessage(m.chat, { text: ' [ Example ] :*\n> *.ytmp4 <link youtube>*' }, { quoted: m });
+    }
+    conn.sendMessage(m.chat, { text: 'tunggu sebentar ya...' }, { quoted: m });
 
-[ Canal StarlightsTeam] :
-https://whatsapp.com/channel/0029VaBfsIwGk1FyaqFcK91S
+    try {
+        const data = await dansyaytdl(text);
+        const hasilnya = data.mp4;
+        const ytc = `*[ YOUTUBE DOWNLOADER ]*
+🔥 *Title*: ${data.title || ''}
+🔥 *Description*: ${data.description || ''}
+🔥 *Views*: ${data.views || ''}
+© ${botname}`;
 
-[ HasumiBot FreeCodes ] :
-https://whatsapp.com/channel/0029Vanjyqb2f3ERifCpGT0W
-*/
+        await conn.sendMessage(m.chat, { video: { url: hasilnya }, caption: ytc }, { quoted: m });
+    } catch (e) {
+        conn.sendMessage(m.chat, { text: '*Terjadi error :* ' + e.message }, { quoted: m });
+    }
+}
 
-// *[ ❀ YTMP4 ]*
-import fetch from 'node-fetch'
+handler.help = ['ytmp4'];
+handler.tags = ['downloader'];
+handler.command = ['tes'];
 
-let handler = async (m, { conn, command, text, usedPrefix }) => {
-if (!text) return conn.reply(m.chat, `❀ Ingresa un link de youtube`, m)
-
-try {
-let api = await fetch(`https://delirius-apiofc.vercel.app/download/ytmp4?url=${text}`)
-let json = await api.json()
-let { title, author, image:img, id, views, likes, comments, duration, download } = json.data
-let HS = `- *Titulo :* ${title}
-- *Autor :* ${author}
-- *Visitas :* ${views}
-- *Likes :* ${likes}
-- *Comentarios :* ${comments}
-
-*[ INFO ARCHIVO AUDIO ]*
-
-- *Tamaño :* ${download.size}
-- *Calidad :* ${download.quality}`
-await conn.sendFile(m.chat, img, 'HasumiBotFreeCodes.jpg', HS, m)
-await await conn.sendMessage(m.chat, { video: { url: download.url }, fileName: `${title}.mp4`, mimetype: 'video/mp4', caption: `` }, { quoted: m })
-} catch (error) {
-console.error(error)
-}}
-
-handler.help = ['ytmp4 *<url>*']
-handler.tags = ['dl']
-handler.command = /^(ytmp4)$/i
-
-export default handler
+export default handler;
 
 
 
