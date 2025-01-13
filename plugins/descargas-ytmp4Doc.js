@@ -50,7 +50,7 @@ if(!isLimit) conn.sendFile(m.chat, dl_url, title + '.mp4', `
 }
 handler.help = ['ytmp4 <link yt>']
 handler.tags = ['dl'] 
-handler.command = ['ytmp4', 'fgmp4']
+handler.command = ['ytmp4doc', 'fgmp4']
 handler.diamond = false
 
 export default handler
