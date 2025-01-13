@@ -98,7 +98,8 @@
 "archiver": "^7.0.1",
 "https": "^1.0.0",
 "mime-types": "^2.1.35",
-"api-dylux": "^1.7.2",
+"api-dylux": "^1.8.3",
+"ytdl-core": "^4.11.5",
 "yargs": "^17.3.1" 
 },
 "optionalDependencies": {
