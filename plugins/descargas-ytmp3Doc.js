@@ -1,76 +1,73 @@
-import ytdl from 'ytdl-core'
-import fs from 'fs'
-import { pipeline } from 'stream'
-import { promisify } from 'util'
-import os from 'os'
 import fg from 'api-dylux'
-import fetch from 'node-fetch'
+import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
+import yts from 'yt-search'
+import fetch from 'node-fetch' 
+let limit = 100
+
 let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, command }) => {
-  if (!args || !args[0]) throw `✳️ ejemplo:\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`
-  if (!args[0].match(/youtu/gi)) throw `❎ no es un link('YouTube')}`
-   m.react(rwait)
- let chat = global.db.data.chats[m.chat]
- let q = '128kbps'
+if (!args || !args[0]) conn.reply(m.chat, `*🚩 Escribe la URL de un video de YouTube que deseas descargar.*`,  m, fake,)
+if (!args[0].match(/youtu/gi)) return conn.reply(m.chat, `Verifica que la *URL* sea de YouTube`, m).then(_ => m.react('✖️'))
+let q = '128kbps'
 
- try {
+await m.react('🕓')
+try {
+const yt = await fg.yta(args[0])
+let { title, dl_url, size } = yt
+let vid = (await yts(text)).all[0]
+let { thumbnail, url } = vid
 
-                //let res = await fetch(global.API('fgmods', '/api/downloader/yta', { url: args[0], quality: q}, 'apikey'))
-                //let yt = await res.json()
-                const yt = await fg.yta(args[0]) 
-                let { title, dl_url, quality, size, sizeB } = yt
+if (size.split('MB')[0] >= limit) return conn.reply(m.chat,`El archivo pesa mas de ${limit} MB, se canceló la Descarga.`, m).then(_ => m.react('✖️'))
 
-                conn.sendFile(m.chat, dl_url, title + '.mp3', `
- ≡  *FG YTDL*
-  
-▢ *📌 título* : ${title}
-▢ *⚖️ peso* : ${size}
-`.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: chat.useDocument })
-                m.react(done)
-         } catch {
-  try {
+await conn.sendMessage(m.chat, {
+        text: `  🍭 *Título ∙* ${title}\n\n⚖️ *Tamaño ∙* ${size}\n\n*↻ Espera @${m.sender.split`@`[0]}, soy lenta. . .* .`,
+        contextInfo: { 
+          mentionedJid: [m.sender],
+        }
+      }, { quoted: m })
+await conn.sendMessage(m.chat, { audio: { url: dl_url }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
+'forwardingScore': 200,
+'isForwarded': true,
+externalAdReply:{
+showAdAttribution: false,
+title: `${title}`,
+body: `${vid.author.name}`,
+mediaType: 2, 
+sourceUrl: `${url}`,
+thumbnail: await (await fetch(vid.thumbnail)).buffer()}}}, { quoted: m })
+await m.react('✅')
+} catch {
+try {
+let yt = await fg.ytmp3(args[0])
+let { title, size, dl_url } = yt
+let vid = (await yts(text)).all[0]
+let { thumbnail, url } = vid
 
-        const { title, dl_url } = await ytmp3(args[0]);
+if (size.split('MB')[0] >= limit) return conn.reply(m.chat,`El archivo pesa mas de ${limit} MB, se canceló la Descarga.`,  m, fake,).then(_ => m.react('✖️'))
 
-                conn.sendFile(m.chat, dl_url, title + '.mp3', `
- ≡  *FG YTDL 2*
-  
-▢ *📌 titulo* : ${title}
-`.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: chat.useDocument })
-                m.react('✅')
-        } catch {
-                        await m.reply(`❎ error`)
-} 
-}
-
-}
-handler.help = ['ytmp3 <url>']
-handler.tags = ['dl']
-handler.command = ['ytmp3doc', 'fgmp3doc'] 
-handler.diamond = false
-
+await conn.sendMessage(m.chat, {
+        text: `  🍭 *Título ∙* ${title}\n\n⚖️ *Tamaño ∙* ${size}\n\n*↻ Espera @${m.sender.split`@`[0]}, soy lenta. . .* .`,
+        contextInfo: { 
+          mentionedJid: [m.sender],
+        }
+      }, { quoted: m })
+await conn.sendMessage(m.chat, { audio: { url: dl_url }, mimetype: "audio/mp4", fileName: title + '.mp3', quoted: m, contextInfo: {
+'forwardingScore': 200,
+'isForwarded': true,
+externalAdReply:{
+showAdAttribution: false,
+title: `${title}`,
+body: `${vid.author.name}`,
+mediaType: 2, 
+sourceUrl: `${url}`,
+thumbnail: await (await fetch(vid.thumbnail)).buffer()}}}, { quoted: m })
+await m.react('✅')
+} catch {
+await conn.reply(m.chat, `*☓ Ocurrió un error inesperado*`,  m, fake,).then(_ => m.react('✖️'))
+console.error(error)
+}}}
+handler.help = ['ytmp3 <url yt>']
+handler.tags = ['downloader']
+handler.command = /^(fgmp3|dlmp3|getaud|yt(a|mp3))$/i
+handler.star = 2
+handler.register = true 
 export default handler
-
-const streamPipeline = promisify(pipeline);
-
-async function ytmp3(url) {
-    const videoInfo = await ytdl.getInfo(url);
-    const { videoDetails } = videoInfo;
-    const { title, thumbnails, lengthSeconds, viewCount, uploadDate } = videoDetails;
-    const thumbnail = thumbnails[0].url;
-
-    const audioStream = ytdl(url, { filter: 'audioonly', quality: 'highestaudio' });
-    const tmpDir = os.tmpdir();
-    const audioFilePath = `${tmpDir}/${title}.mp3`;
-
-    await streamPipeline(audioStream, fs.createWriteStream(audioFilePath));
-
-    return {
-        title,
-        views: viewCount,
-        publish: uploadDate,
-        duration: lengthSeconds,
-        quality: '128kbps',
-        thumb: thumbnail,
-        dl_url: audioFilePath
-    };
-}
