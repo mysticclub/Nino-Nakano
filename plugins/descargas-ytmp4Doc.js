@@ -37,9 +37,9 @@ let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) =
 if(!isLimit) conn.sendFile(m.chat, dl_url, title + '.mp4', `
  ≡  *FG YTDL 2*
   
-▢ *📌${mssg.title}* : ${title}
-*🎞️${mssg.quality}:* ${quality}
-▢ *⚖️${mssg.size}* : ${size}
+▢ *📌 Titulo* : ${title}
+*🎞️ Calidad:* ${quality}
+▢ *⚖️ Peso* : ${size}
 `.trim(), m, false, { asDocument: chat.useDocument })
                 m.react(done)
 
