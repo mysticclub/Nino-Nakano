@@ -67,7 +67,7 @@ console.error(error)
 }}}
 handler.help = ['ytmp3 <url yt>']
 handler.tags = ['downloader']
-handler.command = /^(fgmp3|dlmp3|getaud|yt(a|mp3))$/i
+handler.command = /^(ytmp3doc|dlmp3|getaud|yt(a|mp3))$/i
 handler.star = 2
 handler.register = true 
 export default handler
