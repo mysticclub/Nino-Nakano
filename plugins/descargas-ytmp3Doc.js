@@ -6,7 +6,7 @@ import os from 'os'
 import fg from 'api-dylux'
 import fetch from 'node-fetch'
 let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, command }) => {
-  if (!args || !args[0]) throw `✳️ ${mssg.example} :\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`
+  if (!args || !args[0]) throw `✳️ ejemplo:\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`
   if (!args[0].match(/youtu/gi)) throw `❎ ${mssg.noLink('YouTube')}`
    m.react(rwait)
  let chat = global.db.data.chats[m.chat]
@@ -22,8 +22,8 @@ let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, comman
                 conn.sendFile(m.chat, dl_url, title + '.mp3', `
  ≡  *FG YTDL*
   
-▢ *📌${mssg.title}* : ${title}
-▢ *⚖️${mssg.size}* : ${size}
+▢ *📌 título* : ${title}
+▢ *⚖️ peso* : ${size}
 `.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: chat.useDocument })
                 m.react(done)
          } catch {
@@ -34,7 +34,7 @@ let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, comman
                 conn.sendFile(m.chat, dl_url, title + '.mp3', `
  ≡  *FG YTDL 2*
   
-▢ *📌${mssg.title}* : ${title}
+▢ *📌 titulo* : ${title}
 `.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: chat.useDocument })
                 m.react(done)
         } catch {
