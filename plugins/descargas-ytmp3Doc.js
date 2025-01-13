@@ -7,7 +7,7 @@ import fg from 'api-dylux'
 import fetch from 'node-fetch'
 let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, command }) => {
   if (!args || !args[0]) throw `✳️ ejemplo:\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`
-  if (!args[0].match(/youtu/gi)) throw `❎ ${mssg.noLink('YouTube')}`
+  if (!args[0].match(/youtu/gi)) throw `❎ no es un link('YouTube')}`
    m.react(rwait)
  let chat = global.db.data.chats[m.chat]
  let q = '128kbps'
