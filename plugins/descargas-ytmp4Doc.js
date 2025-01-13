@@ -44,7 +44,7 @@ if(!isLimit) conn.sendFile(m.chat, dl_url, title + '.mp4', `
                 m.react(done)
 
         } catch {
-                await m.reply(`❎ ${mssg.error}`)
+                await m.reply(`❎ error`)
         }
                 } 
 }
