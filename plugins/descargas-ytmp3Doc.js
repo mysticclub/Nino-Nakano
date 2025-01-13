@@ -36,7 +36,7 @@ let handler = async (m, { conn, text, args, isPrems, isOwner, usedPrefix, comman
   
 ▢ *📌 titulo* : ${title}
 `.trim(), m, false, { mimetype: 'audio/mpeg', asDocument: chat.useDocument })
-                m.react(done)
+                m.react('✅')
         } catch {
                         await m.reply(`❎ error`)
 } 
