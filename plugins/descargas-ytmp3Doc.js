@@ -34,7 +34,7 @@ conn.sendMessage(m.chat, {
         mimetype: "audio/mpeg",
         fileName: ytData.title,
         caption: "> descargue el documento para escuchar la música\n\n> *Presione el botón Descargar arriba.*",
-        jpegThumbnail: ${ytData.thumbnail},
+        jpegThumbnail: 'ytData.thumbnail',
       }, { quoted: m });
 
 
