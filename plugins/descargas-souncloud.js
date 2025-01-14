@@ -23,7 +23,7 @@ let txt = `*\`S O U N C L O U D\`*\n\n`;
     txt += `*Url* : ${url}\n\n`;
     txt += `> *${dev}*`
 
-await conn.sendFile(m.chat, image, 'thumbnail.jpg', txt, m, null, fake);
+await conn.sendFile(m.chat, image, 'thumbnail.jpg', txt, m);
 await conn.sendMessage(m.chat, { audio: audio, fileName: `${json[0].title}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })
 
 await m.react('✅');
