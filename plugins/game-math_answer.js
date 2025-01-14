@@ -9,7 +9,7 @@ const handler = async (m, {conn}) => {
     const math = global.math[id][1];
     if (m.text == math.result) {
       conn.reply(m.chat, `🌵 Respuesta correcta.\n🎁 Premio: *${math.bonus} Galletas*`, m, rcanal);
-      global.db.data.users[m.sender].cookies += math.bonus;
+      global.db.data.users[m.sender].corazones += math.bonus;
       clearTimeout(global.math[id][3]);
       delete global.math[id];
     } else {
