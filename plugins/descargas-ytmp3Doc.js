@@ -1,7 +1,7 @@
 /*
   * ©kyzryzz.t.me
-  * Created by 𝘒𝘺𝘻𝘙𝘺𝘻𝘻 𝘟𝘋
-  * ai model furina
+  * Creado por 𝘒𝘺𝘻𝘙𝘺𝘻𝘻 𝘟𝘋
+  * Modelo de IA Furina
 
 https://whatsapp.com/channel/0029VaRI1OB2P59cTdJKZh3q
 
@@ -15,17 +15,17 @@ let handler = async (m, { conn, args, text, command }) => {
 
     let result = aiList[chat];
     if (!result) {
-        return m.reply(`[❗] Penggunaan: /${command} furina|halo`);
+        return m.reply(`[❗] Uso correcto: /${command} furina|halo`);
     }
 
     try {
         if (!teks) {
-            return m.reply("[❗] Silakan masukkan pesan yang ingin dikirim.");
+            return m.reply("[❗] Por favor, ingrese el mensaje que desea enviar.");
         }
 
         let aiThumb = await conn.profilePictureUrl(result, "image");
         await conn.sendMessage(result, { text: teks });
-        m.reply("[✅] Pesan berhasil diteruskan. Mohon tunggu balasan.");
+        m.reply("[✅] El mensaje se ha enviado correctamente. Espere la respuesta.");
 
         if (global.responseListener) {
             conn.ev.off('messages.upsert', global.responseListener);
@@ -37,14 +37,14 @@ let handler = async (m, { conn, args, text, command }) => {
                 await conn.sendMessage(
                     m.chat,
                     {
-                        text: `> Balasan dari AI - ${chat.toUpperCase()}:\n\n${response}`,
+                        text: `> Respuesta de la IA - ${chat.toUpperCase()}:\n\n${response}`,
                         contextInfo: {
                             mentionedJid: [m.sender],
                             isForrwarded: true, 
                             businessMessageForwardInfo: { businessOwnerJid: result },
                             externalAdReply: {
                                 title: chat.toUpperCase(),
-                                body: "Powered By Kyzryzz",
+                                body: "Desarrollado por Kyzryzz",
                                 thumbnailUrl: aiThumb,
                                 renderLargerThumbnail: false
                             }
@@ -57,7 +57,7 @@ let handler = async (m, { conn, args, text, command }) => {
 
         conn.ev.on('messages.upsert', global.responseListener);
     } catch (e) {
-        return m.reply(`[❗] Terjadi kesalahan: ${e.message}`);
+        return m.reply(`[❗] Ocurrió un error: ${e.message}`);
     }
 };
 
