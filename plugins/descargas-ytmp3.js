@@ -49,6 +49,15 @@ let handler = async (m, { conn, text }) => {
 
     await m.react('✅');
 
+} catch (error) {
+        console.error(error);
+        await m.react('❌');
+        conn.reply(
+            m.chat,
+            `Ocurrió un error al intentar descargar el audio.`,
+            m
+        );
+    }
 };
 
 handler.help = ['ytmp3 *<url>*'];
