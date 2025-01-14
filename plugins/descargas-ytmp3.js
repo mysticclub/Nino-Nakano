@@ -3,11 +3,9 @@ import fetch from 'node-fetch';
 let handler = async (m, { conn, text }) => {
   if (!text) throw 'Por favor, proporciona una URL de YouTube';
 
-  // Validar si es una URL válida de YouTube
   const ytRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
   if (!ytRegex.test(text)) throw 'La URL proporcionada no es válida. Asegúrate de que sea un enlace de YouTube';
 
-  // Obtener información del video usando la API de YouTube
   let videoId = text.split('v=')[1]?.split('&')[0] || text.split('/').pop();
   let apiURL = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
 
@@ -16,20 +14,18 @@ let handler = async (m, { conn, text }) => {
   
   let videoData = await response.json();
   
-  // Construir datos para enviar
   let ytData = {
     url: text,
     title: videoData.title || 'Sin título',
     thumbnail: videoData.thumbnail_url || `https://img.youtube.com/vi/${videoId}/0.jpg`
   };
 
-  // Enviar el mensaje con la miniatura y título
-  await conn.sendMessage(m.chat, { 
+
+ /* await conn.sendMessage(m.chat, { 
     image: { url: ytData.thumbnail }, 
     caption: ytData.title 
-  }, { quoted: m });
+  }, { quoted: m }); */
 
-  // Enviar el archivo de audio
   return conn.sendMessage(m.chat, {
     audio: {
       url: `https://kepolu-ytdl.hf.space/yt/dl?url=${ytData.url}&type=audio`
@@ -38,7 +34,7 @@ let handler = async (m, { conn, text }) => {
     contextInfo: {
       externalAdReply: {
         title: ytData.title,
-        body: 'PLAY AUDIO',
+        body: 'Genesis Ai By Izumi-kzx',
         mediaType: 2,
         mediaUrl: ytData.url,
         thumbnailUrl: ytData.thumbnail,
@@ -51,8 +47,8 @@ let handler = async (m, { conn, text }) => {
   }, { quoted: m });
 };
 
-handler.help = ['playyt'];
-handler.command = ['playyt'];
+handler.help = ['ytmp3 *<url>*'];
+handler.command = ['ytmp3'];
 handler.tags = ['downloader'];
 export default handler;
 
