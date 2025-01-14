@@ -17,7 +17,7 @@ const handler = async (m, {conn, text, command, usedPrefix, args}) => {
   }
   const textm = text.toLowerCase();
   if (textm == astro) {
-    global.db.data.users[m.sender].cookies += 10;
+    global.db.data.users[m.sender].corazones += 10;
     m.reply(`*🌵 Empate!*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +10 Galletas*`);
   } else if (text == 'papel') {
     if (astro == 'piedra') {
