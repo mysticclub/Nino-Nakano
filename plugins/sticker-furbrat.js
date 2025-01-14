@@ -10,7 +10,7 @@ const handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
     const url = await sticker(null, API, global.sticker2, global.sticker1);
 
-    await conn.sendFile(m.chat, url, 'sticker.webp', `${text}`, m);
+    await conn.sendFile(m.chat, url, 'sticker.webp', `${text}`, fkontak);
   } catch (err) {
     m.reply(`☁️ Ocurrió un error: ${err.message || "Intenta de nuevo más tarde."}`);
   }
