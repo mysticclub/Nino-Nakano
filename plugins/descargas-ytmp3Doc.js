@@ -61,6 +61,6 @@ conn.sendMessage(m.chat, {
 };
 
 handler.help = ['playyt'];
-handler.command = ['playyt'];
+handler.command = ['ytdoc'];
 handler.tags = ['downloader'];
 export default handler;
