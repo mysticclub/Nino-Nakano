@@ -16,7 +16,7 @@ const handler = async (m, { conn, args, text, usedPrefix, command }) => {
   }
 };
 
-handler.help = ['furbrat <texto>'];
+handler.help = ['furbrat *<texto>*'];
 handler.tags = ['sticker'];
 handler.command = /^(furbrat)$/i;
 handler.limit = true;
