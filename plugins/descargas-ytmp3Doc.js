@@ -1,68 +1,76 @@
 /*
-  * ©kyzryzz.t.me
-  * Creado por 𝘒𝘺𝘻𝘙𝘺𝘻𝘻 𝘟𝘋
-  * Modelo de IA Furina
-
-https://whatsapp.com/channel/0029VaRI1OB2P59cTdJKZh3q
-
-# TITENONO LEK KO HAPUS😂
+* [ emoji symbols ]
+* created By Kyzryzz
+* #thanks to Kaviaann's Scrape
+* myWeem:v https://link.kyzuuryz.xyz/furinnCH
 */
-let handler = async (m, { conn, args, text, command }) => {
-    let [chat, teks] = text.split('|');
-    const aiList = {
-        'izumi': "59168683798@s.whatsapp.net"
-    };
 
-    let result = aiList[chat];
-    if (!result) {
-        return m.reply(`[❗] Uso correcto: /${command} furina|halo`);
-    }
+import axios from 'axios';
+import cheerio from 'cheerio';
 
-    try {
-        if (!teks) {
-            return m.reply("[❗] Por favor, ingrese el mensaje que desea enviar.");
-        }
-
-        let aiThumb = await conn.profilePictureUrl(result, "image");
-        await conn.sendMessage(result, { text: teks });
-        m.reply("[✅] El mensaje se ha enviado correctamente. Espere la respuesta.");
-
-        if (global.responseListener) {
-            conn.ev.off('messages.upsert', global.responseListener);
-        }
-
-        global.responseListener = async (msg) => {
-            if (msg.messages[0].key.remoteJid === result && msg.messages[0].message?.conversation) {
-                const response = msg.messages[0].message.conversation;
-                await conn.sendMessage(
-                    m.chat,
-                    {
-                        text: `> Respuesta de la IA - ${chat.toUpperCase()}:\n\n${response}`,
-                        contextInfo: {
-                            mentionedJid: [m.sender],
-                            isForrwarded: true, 
-                            businessMessageForwardInfo: { businessOwnerJid: result },
-                            externalAdReply: {
-                                title: chat.toUpperCase(),
-                                body: "Desarrollado por Kyzryzz",
-                                thumbnailUrl: aiThumb,
-                                renderLargerThumbnail: false
-                            }
-                        }
-                    },
-                    { quoted: m }
-                );
-            }
-        };
-
-        conn.ev.on('messages.upsert', global.responseListener);
-    } catch (e) {
-        return m.reply(`[❗] Ocurrió un error: ${e.message}`);
-    }
+let handler = async (m, { conn, text, command }) => {
+if (!text) return m.reply("[❗] Input Query\nEx: /${command} car") 
+ 
+    let emot = await simbol(text);
+    const p = emot.symbols;
+    shuffleArray(p);
+    let pus = p.slice(0, 50);
+    let woi = [];
+    pus.forEach(pus => {
+        woi.push(pus);
+    });
+    conn.reply(m.chat, woi.join(' '), m);
 };
 
-handler.help = ['aimodel', 'ai-model'];
-handler.command = /^(aimodel|model|ai-model)$/i;
-handler.tags = ['ai'];
+handler.help = ['emoji', 'emot'];
+handler.command = /^(emoji|emot)$/i;
+handler.tags = ['tools', 'search'];
 
 export default handler;
+
+/**
+ * Scraped By Kaviaann
+ * Protected By MIT LICENSE
+ * Whoever caught removing wm will be sued
+ * @description Any Request? Send Form : https://docs.google.com/forms/d/1pjcUwKnQJ92gcxGMj3ZnbHcWGOj7INIglYnM0LMmspI
+ * @author Kaviaann 2025
+ * @copyright https://whatsapp.com/channel/0029Vac0YNgAjPXNKPXCvE2e
+ */
+async function simbol(query) {
+    try {
+        const r = await axios.get(
+            `https://emojidb.org/${query.toLowerCase().trim().split(" ").join("-")}-emojis`,
+            {
+                headers: {
+                    pragma: "no-cache",
+                    priority: "u=0, i",
+                    "sec-ch-ua": '"Google Chrome";v="131", "Chromium";v="131", "Not_A Brand";v="24"',
+                    "sec-ch-ua-mobile": "?0",
+                    "sec-ch-ua-platform": '"Windows"',
+                    "sec-fetch-dest": "document",
+                    "sec-fetch-mode": "navigate",
+                    "sec-fetch-site": "none",
+                    "sec-fetch-user": "?1",
+                    "upgrade-insecure-requests": "1",
+                    "user-agent":
+                        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+                },
+            }
+        );
+        const $ = cheerio.load(r.data);
+        const d = $("div.emoji-list > div.emoji-ctn")
+            .map((i, el) => $(el).find("div.emoji").text().trim())
+            .get();
+        if (!d.length) throw new Error(`Symbols is empty!`);
+        return { query, total: d.length, symbols: d };
+    } catch (e) {
+        throw new Error(`Error in simbol function: ${e}`);
+    }
+}
+
+async function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
