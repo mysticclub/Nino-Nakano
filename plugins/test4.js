@@ -40,19 +40,23 @@ let handler = async (m, { conn, isRowner }) => {
         return m.reply('Por favor, proporciona un nuevo nombre para el bot.');
     }
 
-    // Actualizar el nombre en las variables globales
-    global.botname = newName;
-    global.packname = newName;
-    global.wm = newName;
-    global.namebot = newName;
-    global.titulowm = newName;
-    global.titulowm2 = newName;
+    // Verifica si el bot es un subbot y actualiza el nombre solo en los subbots
+    if (global.conn.user.jid !== conn.user.jid) {
+        // Actualizar el nombre en las variables globales solo para subbots
+        global.botname = newName;
+        global.packname = newName;
+        global.wm = newName;
+        global.namebot = newName;
+        global.titulowm = newName;
+        global.titulowm2 = newName;
 
-    m.reply(`El nombre del bot ha sido actualizado a: ${newName}!`);
+        m.reply(`El nombre del subbot ha sido actualizado a: ${newName}!`);
+    }
 };
 
 handler.help = ['setname'];
 handler.tags = ['banner'];
 handler.command = ['setname'];
+handler.rowner = true;
 
 export default handler;
