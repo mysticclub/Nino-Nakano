@@ -8,7 +8,7 @@ const handler = async (m, { conn, args, text, usedPrefix, command }) => {
     const randomStyle = Math.floor(Math.random() * 7);
     const API = `https://fastrestapis.fasturl.link/tool/furbrat?text=${encodeURIComponent(text)}&style=${randomStyle}&mode=center`;
 
-    const url = await sticker(null, API, global.packname || "ғᴜʀɪɴᴀ ᴀɪ", global.author || "ɴᴀᴍᴀ ʙᴀᴘᴀᴋ ᴋᴀʟɪᴀɴ");
+    const url = await sticker(null, API, global.sticker2, global.sticker2);
 
     await conn.sendFile(m.chat, url, 'sticker.webp', `${text}`, m);
   } catch (err) {
