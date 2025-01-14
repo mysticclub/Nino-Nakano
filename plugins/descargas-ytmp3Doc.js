@@ -1,10 +1,3 @@
-/*
-* [ emoji symbols ]
-* created By Kyzryzz
-* #thanks to Kaviaann's Scrape
-* myWeem:v https://link.kyzuuryz.xyz/furinnCH
-*/
-
 import axios from 'axios';
 import cheerio from 'cheerio';
 
