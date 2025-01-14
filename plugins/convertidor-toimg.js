@@ -22,6 +22,5 @@ handler.help = ['toimg']
 handler.tags = ['transformador']
 handler.command = ['toimg', 'jpg', 'jpge', 'png']
 
-handler.cookies = 2
 
 export default handler
