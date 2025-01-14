@@ -8,6 +8,11 @@ let handler = async (m, { conn, isRowner }) => {
   
    
     global.botname = newName;  
+    global.packname = newName; 
+    global.wm = newName; 
+    global.namebot = newName; 
+    global.titulowm = newName; 
+    global.titulowm2 = newName; 
   
     
     m.reply(`ยกEl nombre del bot ha sido actualizado a: ${newName}!`);
