@@ -46,7 +46,9 @@ let handler = async (m, { conn, text }) => {
       }
     }
   }, { quoted: m });
+
     await m.react('✅');
+
 };
 
 handler.help = ['ytmp3 *<url>*'];
