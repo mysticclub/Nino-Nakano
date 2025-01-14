@@ -1,7 +1,6 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
-  // Validación inicial fuera del try-catch
   if (!text) {
     await m.react('❌');
     throw '☁️ Ingresa un enlace de YouTube.';
@@ -60,7 +59,7 @@ let handler = async (m, { conn, text }) => {
 
 handler.help = ['ytmp3 *<url>*'];
 handler.command = ['ytmp3'];
-handler.tags = ['downloader'];
+handler.tags = ['dl'];
 export default handler;
 
 
