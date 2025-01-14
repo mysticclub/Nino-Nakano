@@ -23,8 +23,8 @@ let amountTaken = Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minA
 let randomOption = Math.floor(Math.random() * 3)
 switch (randomOption) {
 case 0:
-users[senderId].cookies += amountTaken
-users[randomUserId].cookies -= amountTaken
+users[senderId].corazones += amountTaken
+users[randomUserId].corazones -= amountTaken
 conn.sendMessage(m.chat, {
 text: `🚩¡Lograste cometer tu crimen con exito!, acabas de robar *${amountTaken} 🤍 corazones* a @${randomUserId.split("@")[0]}\n\nSe suman *+${amountTaken} 🤍 corazones* a ${senderName}.`,
 contextInfo: { 
