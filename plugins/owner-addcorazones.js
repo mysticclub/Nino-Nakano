@@ -11,7 +11,7 @@ let handler = async (m, { conn, text }) => {
     if (!txt) return m.reply('⚠️️ Ingrese la cantidad de *Galletas* que quiere añadir')
     if (isNaN(txt)) return m.reply('⚠️ *sólo números*')
     let dmt = parseInt(txt)
-    let cookies = dmt
+    let corazones = dmt
     let pjk = Math.ceil(dmt * impts)
     cookies += pjk
     if (cookies < 1) return m.reply('⚠️️ Mínimo es  *1*')
