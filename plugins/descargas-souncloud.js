@@ -17,13 +17,13 @@ let { link: dl_url, quality, image } = json2;
 
 let audio = await getBuffer(dl_url);
 
-let txt = `*\`- S O U N C L O U D - M U S I C -\`*\n\n`;
+let txt = `*\`S O U N C L O U D \`*\n\n`;
     txt += `*Título* : ${json[0].title}\n`;
     txt += `*Calidad* : ${quality}\n`;
     txt += `*Url* : ${url}\n\n`;
     txt += `> *${dev}*`
 
-await conn.sendFile(m.chat, image, 'thumbnail.jpg', txt, m, null, rcanal);
+await conn.sendFile(m.chat, image, 'thumbnail.jpg', txt, m, null, fake);
 await conn.sendMessage(m.chat, { audio: audio, fileName: `${json[0].title}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })
 
 await m.react('✅');
