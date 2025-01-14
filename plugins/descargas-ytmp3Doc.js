@@ -30,7 +30,7 @@ let handler = async (m, { conn, text }) => {
   }, { quoted: m }); */
 
 conn.sendMessage(m.chat, {
-        document: { url: https://kepolu-ytdl.hf.space/yt/dl?url=${ytData.url}&type=audio },
+        document: { url: `https://kepolu-ytdl.hf.space/yt/dl?url=${ytData.url}&type=audio` },
         mimetype: "audio/mpeg",
         fileName: ytData.title,
         caption: "> descargue el documento para escuchar la música\n\n> *Presione el botón Descargar arriba.*",
