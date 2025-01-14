@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
   if (!text) {
-    await m.react('❌');
+    await m.react('✖️');
     throw '☁️ Ingresa un enlace de YouTube.';
   }
 
