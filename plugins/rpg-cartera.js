@@ -5,7 +5,7 @@ if (!(who in global.db.data.users)) return conn.reply(m.chat, '🍭 El usuario n
 const name = conn.getName(who);
 let txt = `*🌴 Balance de ${name}*
 
-	➺ *Galletas* : ${global.db.data.users[who].corazones} 
+	➺ *Corazones* : ${global.db.data.users[who].corazones} 
 	➺ *Banco* : ${global.db.data.users[who].bank} 
 	➺ *Experiencia* : ${global.db.data.users[who].exp}
 
@@ -13,7 +13,7 @@ let txt = `*🌴 Balance de ${name}*
 await conn.reply(m.chat, txt, m, rcanal)
 }
 
-handler.help = ['cookies']
+handler.help = ['corazones']
 handler.tags = ['rpg']
 handler.command = ['wallet', 'cartera', 'cookies', 'bal', 'galletas']
 handler.register = true 
