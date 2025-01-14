@@ -21,14 +21,6 @@ handler.tags = ['tools', 'search'];
 
 export default handler;
 
-/**
- * Scraped By Kaviaann
- * Protected By MIT LICENSE
- * Whoever caught removing wm will be sued
- * @description Any Request? Send Form : https://docs.google.com/forms/d/1pjcUwKnQJ92gcxGMj3ZnbHcWGOj7INIglYnM0LMmspI
- * @author Kaviaann 2025
- * @copyright https://whatsapp.com/channel/0029Vac0YNgAjPXNKPXCvE2e
- */
 async function simbol(query) {
     try {
         const r = await axios.get(
