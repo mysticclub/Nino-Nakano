@@ -12,7 +12,7 @@ m.reply(`🍟 Ya has cometido un Crimen recientemente, espera ⏱️ *${tiempo2}
 return
 }
 cooldowns[m.sender] = Date.now()
-let senderCookies = users[senderId].corazones || 0
+let sendercorazones = users[senderId].corazones || 0
 let randomUserId = Object.keys(users)[Math.floor(Math.random() * Object.keys(users).length)]
 while (randomUserId === senderId) {
 randomUserId = Object.keys(users)[Math.floor(Math.random() * Object.keys(users).length)]}
