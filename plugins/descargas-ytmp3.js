@@ -5,6 +5,7 @@ let handler = async (m, { conn, text }) => {
 
   const ytRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
   if (!ytRegex.test(text)) throw '☁️ Ingresa un enlace de YouTube.';
+    await m.react('🕒');
 
   let videoId = text.split('v=')[1]?.split('&')[0] || text.split('/').pop();
   let apiURL = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
@@ -45,6 +46,7 @@ let handler = async (m, { conn, text }) => {
       }
     }
   }, { quoted: m });
+    await m.react('✅');
 };
 
 handler.help = ['ytmp3 *<url>*'];
