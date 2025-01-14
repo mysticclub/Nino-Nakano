@@ -21,15 +21,15 @@ const handler = async (m, {conn, text, command, usedPrefix, args}) => {
     m.reply(`*🌵 Empate!*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +10 Galletas*`);
   } else if (text == 'papel') {
     if (astro == 'piedra') {
-      global.db.data.users[m.sender].cookies += 50;
+      global.db.data.users[m.sender].corazones += 50;
       m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
     } else {
-      global.db.data.users[m.sender].Cookies -= 30;
+      global.db.data.users[m.sender].corazones -= 30;
       m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
     }
   } else if (text == 'tijera') {
     if (astro == 'papel') {
-      global.db.data.users[m.sender].cookies += 50;
+      global.db.data.users[m.sender].corazones += 50;
       m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
     } else {
       global.db.data.users[m.sender].Cookies -= 30;
@@ -37,26 +37,26 @@ const handler = async (m, {conn, text, command, usedPrefix, args}) => {
     }
   } else if (textm == 'tijera') {
     if (astro == 'papel') {
-      global.db.data.users[m.sender].cookies += 50;
+      global.db.data.users[m.sender].corazones += 50;
       m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
     } else {
-      global.db.data.users[m.sender].cookies -= 30;
+      global.db.data.users[m.sender].corazones -= 30;
       m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
     }
   } else if (textm == 'papel') {
     if (astro == 'piedra') {
-      global.db.data.users[m.sender].cookies += 50;
+      global.db.data.users[m.sender].corazones += 50;
       m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
     } else {
-      global.db.data.users[m.sender].cookies -= 30;
+      global.db.data.users[m.sender].corazones -= 30;
       m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
     }
   } else if (textm == 'piedra') {
     if (astro == 'tijera') {
-      global.db.data.users[m.sender].cookies += 50;
+      global.db.data.users[m.sender].corazones += 50;
       m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
     } else {
-      global.db.data.users[m.sender].cookies -= 30;
+      global.db.data.users[m.sender].corazones -= 30;
       m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
     }
   }
