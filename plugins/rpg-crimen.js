@@ -16,7 +16,7 @@ let sendercorazones = users[senderId].corazones || 0
 let randomUserId = Object.keys(users)[Math.floor(Math.random() * Object.keys(users).length)]
 while (randomUserId === senderId) {
 randomUserId = Object.keys(users)[Math.floor(Math.random() * Object.keys(users).length)]}
-let randomUserCookies = users[randomUserId].cookies || 0
+let randomUsercorazones = users[randomUserId].cookies || 0
 let minAmount = 15
 let maxAmount = 50
 let amountTaken = Math.floor(Math.random() * (maxAmount - minAmount + 1)) + minAmount
