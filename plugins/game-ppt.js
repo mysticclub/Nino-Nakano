@@ -18,46 +18,46 @@ const handler = async (m, {conn, text, command, usedPrefix, args}) => {
   const textm = text.toLowerCase();
   if (textm == astro) {
     global.db.data.users[m.sender].corazones += 10;
-    m.reply(`*🌵 Empate!*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +10 Galletas*`);
+    m.reply(`*🌵 Empate!*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +10 corazones*`);
   } else if (text == 'papel') {
     if (astro == 'piedra') {
       global.db.data.users[m.sender].corazones += 50;
-      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
+      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 corazones*`);
     } else {
       global.db.data.users[m.sender].corazones -= 30;
-      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
+      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 corazones*`);
     }
   } else if (text == 'tijera') {
     if (astro == 'papel') {
       global.db.data.users[m.sender].corazones += 50;
-      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
+      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 corazones*`);
     } else {
       global.db.data.users[m.sender].Cookies -= 30;
-      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
+      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 corazones*`);
     }
   } else if (textm == 'tijera') {
     if (astro == 'papel') {
       global.db.data.users[m.sender].corazones += 50;
-      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
+      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 corazones*`);
     } else {
       global.db.data.users[m.sender].corazones -= 30;
-      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
+      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 corazones*`);
     }
   } else if (textm == 'papel') {
     if (astro == 'piedra') {
       global.db.data.users[m.sender].corazones += 50;
-      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
+      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 corazones*`);
     } else {
       global.db.data.users[m.sender].corazones -= 30;
-      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
+      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 corazones*`);
     }
   } else if (textm == 'piedra') {
     if (astro == 'tijera') {
       global.db.data.users[m.sender].corazones += 50;
-      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 Galletas*`);
+      m.reply(`*🥳 Tú ganas! 🎉*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*🎁 Premio +50 corazones*`);
     } else {
       global.db.data.users[m.sender].corazones -= 30;
-      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 Galletas*`);
+      m.reply(`*🌵 ¡Tú pierdes! 🌵*\n\n*🚩 Tu: ${textm}*\n*🌸 El Bot: ${astro}*\n*❌ Premio -30 corazones*`);
     }
   }
   global.db.data.users[m.sender].wait = new Date * 1;
