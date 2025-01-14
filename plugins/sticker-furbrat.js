@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 import { sticker } from '../lib/sticker.js';
 
 const handler = async (m, { conn, args, text, usedPrefix, command }) => {
-  if (!text) throw `[❗] ¡Ingresa el texto!\nEjemplo: ${usedPrefix + command} hola, soy furbrat`;
+  if (!text) throw `☁️ ¡Ingresa el texto!\nEjemplo: ${usedPrefix + command} hola, soy Izumi-kzx`;
 
   try {
     const randomStyle = Math.floor(Math.random() * 7);
@@ -12,7 +12,7 @@ const handler = async (m, { conn, args, text, usedPrefix, command }) => {
 
     await conn.sendFile(m.chat, url, 'sticker.webp', `${text}`, m);
   } catch (err) {
-    m.reply(`[❗] Ocurrió un error: ${err.message || "Intenta de nuevo más tarde."}`);
+    m.reply(`☁️ Ocurrió un error: ${err.message || "Intenta de nuevo más tarde."}`);
   }
 };
 
