@@ -23,7 +23,7 @@ count = count ? /all/i.test(count) ? Math.floor(global.db.data.users[m.sender].l
 count = Math.max(1, count)
 if (args.length < 1) return conn.reply(m.chat, '🚩 Ingresa la cantidad de ' + `🤍 *corazones*` + ' que deseas aportar contra' + ` *Genesis-Ai*` + `\n\n` + '`Ejemplo:`\n' + `> *${usedPrefix + command}* 100`, m, rcanal)
 if (user.corazones >= count * 1) {
-user.cookies -= count * 1
+user.corazones -= count * 1
 if (Aku > Kamu) {
 conn.reply(m.chat, '`🍟 Veamos que numeros tienen!`\n\n'+ `➠ *Genesis* : ${Aku}\n➠ *${username}* : ${Kamu}\n\n> ${username}, *PERDISTE* ${formatNumber(count)} 🤍 corazones.`.trim(), m, rcanal)
 } else if (Aku < Kamu) {
