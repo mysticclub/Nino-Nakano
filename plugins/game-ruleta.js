@@ -18,16 +18,16 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
   let args = text.trim().split(" ")
   if (args.length !== 2) return conn.reply(m.chat, `🚩 Formato incorrecto. Debes ingresar una cantidad de *🤍 corazones* y apostar a un color, por ejemplo: *${usedPrefix + command} 20 black*`, m, rcanal)
 
-  let cookies = parseInt(args[0])
+  let corazones = parseInt(args[0])
   let color = args[1].toLowerCase()
 
-  if (isNaN(cookies) || cookies <= 0) return conn.reply(m.chat, `🚩 Por favor, ingresa una cantidad válida para la apuesta.`, m, rcanal)
+  if (isNaN(corazones) || cookies <= 0) return conn.reply(m.chat, `🚩 Por favor, ingresa una cantidad válida para la apuesta.`, m, rcanal)
 
-  if (cookies > 50) return conn.reply(m.chat, "🚩 La cantidad máxima de apuesta es de 50 *🤍 corazones*.", m, rcanal)
+  if (corazones > 50) return conn.reply(m.chat, "🚩 La cantidad máxima de apuesta es de 50 *🤍 corazones*.", m, rcanal)
 
   if (!(color === 'black' || color === 'red')) return conn.reply(m.chat, "🚩 Debes apostar a un color válido: *black* o *red*.", m, rcanal)
 
-  if (cookies > users.cookies) return conn.reply(m.chat, "🚩 No tienes suficientes *🍪 Cookies* para realizar esa apuesta.", m, rcanal)
+  if (corazones > users.cookies) return conn.reply(m.chat, "🚩 No tienes suficientes *🍪 Cookies* para realizar esa apuesta.", m, rcanal)
 
   await conn.reply(m.chat, `🚩 Apostaste ${cookies} *🤍 corazones* al color ${color}. Espera *⏱ 10 segundos* para conocer el resultado.`, m, rcanal)
 
