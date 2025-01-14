@@ -13,21 +13,21 @@ let handler = async (m, { conn, text }) => {
     let dmt = parseInt(txt)
     let corazones = dmt
     let pjk = Math.ceil(dmt * impts)
-    cookies += pjk
+    corazones += pjk
     if (cookies < 1) return m.reply('⚠️️ Mínimo es  *1*')
     let users = global.db.data.users
-   users[who].cookies += dmt
+   users[who].corazones += dmt
 
-    await conn.reply(m.chat, `⊜ *🍪 AÑADIDO*
+    await conn.reply(m.chat, `⊜ *🤍 AÑADIDO*
 ┏━━━━━━━━━━━⬣
 ┃⋄ *Total:* ${dmt}
 ┗━━━━━━━━━━━⬣`, m, rcanal)
-   conn.fakeReply(m.chat, `⊜ *_Recibiste_* \n\n *_+${dmt} Galletas 🍪_*`, who, m.text)
+   conn.fakeReply(m.chat, `⊜ *_Recibiste_* \n\n *_+${dmt} corazones 🤍_*`, who, m.text)
 }
 
-handler.help = ['addcookies *<@user>*']
+handler.help = ['addcorazones *<@user>*']
 handler.tags = ['owner']
-handler.command = ['addcookies', 'addcookie', 'addgalletas'] 
+handler.command = ['addcorazones'] 
 handler.rowner = true
 
 export default handler
