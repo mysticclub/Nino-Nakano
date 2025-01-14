@@ -1,6 +1,73 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
+  if (!text) {
+    await m.react('✖️'); // Reacción en caso de error
+    throw 'Por favor, proporciona una URL de YouTube';
+  }
+
+  const ytRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
+  if (!ytRegex.test(text)) {
+    await m.react('✖️'); // Reacción en caso de enlace inválido
+    throw '☁️ Ingresa un enlace de YouTube.';
+  }
+
+  let videoId = text.split('v=')[1]?.split('&')[0] || text.split('/').pop();
+  let apiURL = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
+
+  let response = await fetch(apiURL);
+  if (!response.ok) {
+    await m.react('✖️'); // Reacción en caso de fallo de la API
+    throw 'No se pudo obtener información del video. Verifica la URL proporcionada.';
+  }
+
+  let videoData = await response.json();
+
+  let ytData = {
+    url: text,
+    title: videoData.title || 'Sin título',
+    thumbnail: videoData.thumbnail_url || `https://img.youtube.com/vi/${videoId}/0.jpg`
+  };
+
+  await m.react('🕒'); // Reacción cuando empieza a descargar
+
+  try {
+    await conn.sendMessage(m.chat, {
+      audio: {
+        url: `https://kepolu-ytdl.hf.space/yt/dl?url=${ytData.url}&type=audio`
+      },
+      mimetype: 'audio/mpeg',
+      contextInfo: {
+        externalAdReply: {
+          title: ytData.title,
+          body: 'Genesis Ai By Izumi-kzx',
+          mediaType: 2,
+          mediaUrl: ytData.url,
+          thumbnailUrl: ytData.thumbnail,
+          sourceUrl: ytData.url,
+          containsAutoReply: true,
+          renderLargerThumbnail: true,
+          showAdAttribution: false,
+        }
+      }
+    }, { quoted: m });
+
+    await m.react('✔️'); // Reacción exitosa
+  } catch (e) {
+    await m.react('✖️'); // Reacción en caso de fallo al enviar el mensaje
+    throw 'Hubo un error al enviar el audio. Intenta nuevamente.';
+  }
+};
+
+handler.help = ['ytmp3 *<url>*'];
+handler.command = ['ytmp3'];
+handler.tags = ['downloader'];
+export default handler;
+
+
+/* import fetch from 'node-fetch';
+
+let handler = async (m, { conn, text }) => {
   if (!text) throw 'Por favor, proporciona una URL de YouTube';
 
   const ytRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
@@ -50,7 +117,7 @@ let handler = async (m, { conn, text }) => {
 handler.help = ['ytmp3 *<url>*'];
 handler.command = ['ytmp3'];
 handler.tags = ['downloader'];
-export default handler;
+export default handler; */
 
 
 
