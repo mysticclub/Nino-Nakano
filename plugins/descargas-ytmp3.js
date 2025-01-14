@@ -52,7 +52,7 @@ let handler = async (m, { conn, text }) => {
       }
     }, { quoted: m });
 
-    await m.react('✔️'); // Reacción exitosa
+    await m.react('✅'); // Reacción exitosa
   } catch (e) {
     await m.react('✖️'); // Reacción en caso de fallo al enviar el mensaje
     throw 'Hubo un error al enviar el audio. Intenta nuevamente.';
