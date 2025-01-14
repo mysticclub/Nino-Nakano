@@ -29,8 +29,17 @@ let handler = async (m, { conn, text }) => {
     caption: ytData.title 
   }, { quoted: m });
 
+conn.sendMessage(m.chat, {
+        document: { url: https://kepolu-ytdl.hf.space/yt/dl?url=${ytData.url}&type=audio },
+        mimetype: "audio/mpeg",
+        fileName: ytData.title,
+        caption: "> descargue el documento para escuchar la música\n\n> *Presione el botón Descargar arriba.*",
+        jpegThumbnail: await conn.resize(mp3.ytData.thumbnail, 400, 400),
+      }, { quoted: m });
+
+
   // Enviar el archivo de audio
-  return conn.sendMessage(m.chat, {
+/*  return conn.sendMessage(m.chat, {
     audio: {
       url: `https://kepolu-ytdl.hf.space/yt/dl?url=${ytData.url}&type=audio`
     },
@@ -48,7 +57,7 @@ let handler = async (m, { conn, text }) => {
         showAdAttribution: false,
       }
     }
-  }, { quoted: m });
+  }, { quoted: m }); */
 };
 
 handler.help = ['playyt'];
