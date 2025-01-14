@@ -5,7 +5,7 @@ if (!(who in global.db.data.users)) return conn.reply(m.chat, '🍭 El usuario n
 const name = conn.getName(who);
 let txt = `*🌴 Balance de ${name}*
 
-	➺ *Galletas* : ${global.db.data.users[who].cookies} 
+	➺ *Galletas* : ${global.db.data.users[who].corazones} 
 	➺ *Banco* : ${global.db.data.users[who].bank} 
 	➺ *Experiencia* : ${global.db.data.users[who].exp}
 
