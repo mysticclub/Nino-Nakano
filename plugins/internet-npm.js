@@ -45,5 +45,5 @@ handler.help = ['npmjs *<texto>*']
 handler.tags = ['internet']
 handler.command = ['npmjs']
 handler.register = true
-handler.cookies = 1
+
 export default handler
