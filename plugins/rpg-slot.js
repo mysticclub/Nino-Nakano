@@ -37,7 +37,7 @@ if (c == emojis.length) c = 0;
 let end;
 if (a == b && b == c) {
 end = `Acabas de ganar   *${apuesta} 🤍 corazones.*`
-users.cookies += apuesta
+users.corazones += apuesta
 } else if (a == b || a == c || b == c) {
 end = `Casi lo logras sigue intentando :) \nTen *1 🤍 corazones.*`
 users.corazones += 1
