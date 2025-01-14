@@ -10,7 +10,7 @@ https://whatsapp.com/channel/0029VaRI1OB2P59cTdJKZh3q
 let handler = async (m, { conn, args, text, command }) => {
     let [chat, teks] = text.split('|');
     const aiList = {
-        'furina': "62856586301697@s.whatsapp.net"
+        'izumi': "59168683798@s.whatsapp.net"
     };
 
     let result = aiList[chat];
