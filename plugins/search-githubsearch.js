@@ -64,7 +64,7 @@ ${userInfo}
 ${userRepos}
     `;
     
-    conn.reply(message.chat, result, message, null, fake);
+    conn.reply(message.chat, result, message);
 };
 
 handler.help = ['githubsearch *<texto>*'];
