@@ -2,7 +2,7 @@ import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
   try {
-    if (!text) throw 'Por favor, proporciona una URL de YouTube';
+    if (!text) throw '☁️ Ingresa un enlace de YouTube.';
 
     const ytRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
     if (!ytRegex.test(text)) throw '☁️ Ingresa un enlace de YouTube.';
