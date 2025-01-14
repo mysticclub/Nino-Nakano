@@ -24,10 +24,10 @@ let handler = async (m, { conn, text }) => {
   };
 
   // Enviar el mensaje con la miniatura y título
-//  await conn.sendMessage(m.chat, { 
+/*  await conn.sendMessage(m.chat, { 
     image: { url: ytData.thumbnail }, 
     caption: ytData.title 
-  }, { quoted: m });
+  }, { quoted: m }); */
 
 conn.sendMessage(m.chat, {
         document: { url: https://kepolu-ytdl.hf.space/yt/dl?url=${ytData.url}&type=audio },
