@@ -1,4 +1,4 @@
-const items = ['cookies', 'exp'];
+const items = ['corazones', 'exp'];
 const confirmation = {};
 
 async function handler(m, { conn, args, usedPrefix, command }) {
@@ -11,7 +11,7 @@ async function handler(m, { conn, args, usedPrefix, command }) {
 *┃🚩 Ejemplo:* ${usedPrefix + command} exp 65 @${m.sender.split('@')[0]}
 ┣❣◤▬▭▬▭▬ ◆ ▬▭▬▭▬ ◤❢
 *┃◉ 🪴 Articulos Transferibles.*
-┃▢ *Galletas* = cookies
+┃▢ *corazones* = corazones
 ┃▢ *Experiencia* = exp
 *┗━┅┉┅┄┈┄⟞⟨⟠⟩⟝┄┈┄┉┉┉━┛*
 `.trim();
