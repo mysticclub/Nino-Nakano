@@ -7,7 +7,7 @@ let handler = async (m, { conn, text }) => {
     const ytRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
     if (!ytRegex.test(text)) throw '☁️ Ingresa un enlace de YouTube.';
 
-    await m.react('🕒'); // Reacción de "procesando"
+    await m.react('🕒');
 
     let videoId = text.split('v=')[1]?.split('&')[0] || text.split('/').pop();
     let apiURL = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
@@ -43,10 +43,10 @@ let handler = async (m, { conn, text }) => {
       }
     }, { quoted: m });
 
-    await m.react('✅'); // Reacción exitosa
+    await m.react('✅');
   } catch (error) {
     console.error(error);
-    await m.react('❌'); // Reacción en caso de error
+    await m.react('❌');
     conn.reply(m.chat, 'Ocurrió un error al intentar descargar el audio.', m);
   }
 };
