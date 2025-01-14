@@ -1,7 +1,5 @@
-//play
-//https://whatsapp.com/channel/0029VaJYWMb7oQhareT7F40V
-//Selasa, 14 Januari 2025, 19:43
-import yts from 'yt-search';
+
+/* import yts from 'yt-search';
 
 let handler = async (m, {conn, text}) => {
 if (!text) throw 'Masukkan judul'
@@ -33,7 +31,7 @@ showAdAttribution: false,
 handler.help = ['play']
  handler.command = ['playyt']
 handler.tags = ['downloader']
-export default handler
+export default handler */
 
 
 
