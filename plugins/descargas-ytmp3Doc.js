@@ -13,9 +13,9 @@ let handler = async (m, { conn, text }) => {
 
   let response = await fetch(apiURL);
   if (!response.ok) throw 'No se pudo obtener información del video. Verifica la URL proporcionada.';
-  
+
   let videoData = await response.json();
-  
+
   // Construir datos para enviar
   let ytData = {
     url: text,
@@ -23,19 +23,35 @@ let handler = async (m, { conn, text }) => {
     thumbnail: videoData.thumbnail_url || `https://img.youtube.com/vi/${videoId}/0.jpg`
   };
 
-  // Descargar y enviar el archivo de audio como documento
+  // Enviar el mensaje con la miniatura y título
+  await conn.sendMessage(m.chat, { 
+    image: { url: ytData.thumbnail }, 
+    caption: ytData.title 
+  }, { quoted: m });
+
+  // Enviar el archivo de audio
   return conn.sendMessage(m.chat, {
-    document: { 
+    audio: {
       url: `https://kepolu-ytdl.hf.space/yt/dl?url=${ytData.url}&type=audio`
     },
-    mimetype: "audio/mpeg",
-    fileName: `${ytData.title} | YouTube Audio`,
-    caption: "> Descargue el documento para escuchar la música\n\n> *Presione el botón Descargar arriba.*",
-    jpegThumbnail: await conn.resize(ytData.thumbnail, 400, 400),
+    mimetype: 'audio/mpeg',
+    contextInfo: {
+      externalAdReply: {
+        title: ytData.title,
+        body: 'PLAY AUDIO',
+        mediaType: 2,
+        mediaUrl: ytData.url,
+        thumbnailUrl: ytData.thumbnail,
+        sourceUrl: ytData.url,
+        containsAutoReply: true,
+        renderLargerThumbnail: true,
+        showAdAttribution: false,
+      }
+    }
   }, { quoted: m });
 };
 
 handler.help = ['playyt'];
-handler.command = ['ytmp3doc'];
+handler.command = ['playyt'];
 handler.tags = ['downloader'];
 export default handler;
