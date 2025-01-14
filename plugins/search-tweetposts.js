@@ -64,6 +64,5 @@ handler.help = ['tweetposts *<texto>*']
 handler.tags = ['search']
 handler.command = ['tweetposts']
 handler.register = true
-handler.cookies = 1
 
 export default handler;
