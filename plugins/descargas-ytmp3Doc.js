@@ -12,14 +12,14 @@ console.log(data)
   let cap = `*\`[ TIKTOK CALIDAD NORMAL ]\`*`
   let capp = `*\`[ TIKTOK CALIDAD HD ]\`*`
   await m.react('🕓');
-  await conn.sendMessage(m.chat, {
+/*  await conn.sendMessage(m.chat, {
                     video: {
                         url: data.server1.url
                     },
                     caption: cap
                 }, {
                     quoted: m
-                })
+                }) */
 await conn.sendMessage(m.chat, {
                     video: {
                         url: data.serverHD.url
