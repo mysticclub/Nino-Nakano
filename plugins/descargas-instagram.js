@@ -2,7 +2,7 @@ import axios from 'axios'
 
 let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     if (!args[0]) {
-        await m.react('✖️') // Reacción de error por falta de enlace
+        await m.react('✖️')
         return conn.reply(m.chat, `❀ Ingresa un link de Instagram`, m)
     }
 
