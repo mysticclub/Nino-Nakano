@@ -3,7 +3,7 @@ import fetch from "node-fetch"
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   if (!args[0]) {
     await m.react('✖️')
-    return m.reply("ingresa el link de un video de Vimeo")
+    return m.reply("☁️ ingresa el link de un video de Vimeo")
   }
 
   try {
