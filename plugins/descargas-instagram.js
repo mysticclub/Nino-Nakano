@@ -3,12 +3,12 @@ import axios from 'axios'
 let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     if (!args[0]) {
         await m.react('✖️')
-        return conn.reply(m.chat, `❀ Ingresa un link de Instagram`, m)
+        return conn.reply(m.chat, `☁️ Ingresa un link de Instagram`, m, fake)
     }
 
     if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(p|tv|reel)\\/([a-zA-Z0-9_-]+)(\\/)?(\\?.*)?$'))) {
         await m.react('✖️')
-        return conn.reply(m.chat, `❀ Verifica que sea un link de Instagram`, m)
+        return conn.reply(m.chat, `☁️ Verifica que sea un link de Instagram`, m)
     }
 
     try {
@@ -20,7 +20,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
                     m.chat, 
                     { 
                         image: { url: a.url }, 
-                        caption: '❀ Aquí tienes la imagen descargada desde Instagram.' 
+                        caption: '> [ I G - D O W N L O A D ]\n' 
                     }, 
                     { quoted: m }
                 )
@@ -29,7 +29,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
                     m.chat, 
                     { 
                         video: { url: a.url }, 
-                        caption: '❀ Aquí tienes el video descargado desde Instagram.' 
+                        caption: '> [ I G - D O W N L O A D ]\n' 
                     }, 
                     { quoted: m }
                 )
