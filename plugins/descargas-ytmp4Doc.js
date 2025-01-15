@@ -23,6 +23,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   }
 }
 
+handler.help = ['vimeo *<url>*'];
+handler.tags = ['dl'];
 handler.command = ['vimeo']
 
 export default handler
