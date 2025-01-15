@@ -7,7 +7,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     }
 
     if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(p|tv|reel)\\/([a-zA-Z0-9_-]+)(\\/)?(\\?.*)?$'))) {
-        await m.react('✖️') // Reacción de error por enlace inválido
+        await m.react('✖️')
         return conn.reply(m.chat, `❀ Verifica que sea un link de Instagram`, m)
     }
 
