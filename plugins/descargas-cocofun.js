@@ -26,6 +26,8 @@ let handler = async (m, { text, conn, args, usedPrefix, command }) => {
     }
 }
 
+handler.help = ['cocofundl *<url>*'];
+handler.tags = ['dl'];
 handler.command = ['cocofundl']
 
 export default handler
