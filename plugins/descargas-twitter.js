@@ -1,4 +1,4 @@
-import fetch from "node-fetch"
+/* import fetch from "node-fetch"
 
 let handler = async (m, { text, conn, args, usedPrefix, command }) => {
   if (!args[0]) {
@@ -27,7 +27,7 @@ let handler = async (m, { text, conn, args, usedPrefix, command }) => {
 
 handler.command = ['x']
 
-export default handler
+export default handler */
 
 
 
@@ -35,7 +35,7 @@ export default handler
 - Twitter Downloader By Angel-OFC 
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
-/* import axios from 'axios';
+ import axios from 'axios';
 let enviando = false;
 
 const handler = async (m, {conn, text, usedPrefix, command, args}) => {
@@ -81,4 +81,4 @@ const handler = async (m, {conn, text, usedPrefix, command, args}) => {
 handler.help = ['twitter *<url>*']
 handler.tags = ['dl']
 handler.command = /^(x|twt|twitter(dl)?)$/i
-export default handler; */
+export default handler;
