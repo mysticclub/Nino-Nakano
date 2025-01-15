@@ -12,14 +12,14 @@ console.log(data)
   let cap = `*\`[ TIKTOK CALIDAD NORMAL ]\`*`
   let capp = `*\`[ TIKTOK CALIDAD HD ]\`*`
   await m.react('🕓');
-/*  await conn.sendMessage(m.chat, {
+  await conn.sendMessage(m.chat, {
                     video: {
                         url: data.server1.url
                     },
                     caption: cap
                 }, {
                     quoted: m
-                }) */
+                })
 await conn.sendMessage(m.chat, {
                     video: {
                         url: data.serverHD.url
@@ -33,10 +33,9 @@ await m.react('✅')
     await m.react('✖️')
   }
 }
-handler.help = ['tiktok2 *<link>*']
-handler.corazones = 2
+handler.help = ['tiktokhd *<url>*']
 handler.tags = ['dl']
-handler.command = /^(tiktok2)$/i;
+handler.command = /^(tiktokhd)$/i;
 
 export default handler
 
