@@ -61,26 +61,6 @@ await conn.sendMessage(m.chat, {
   viewOnce: true,
   headerType: 4,
 }, { quoted: m });
-    /*    await conn.sendMessage(m.chat, {
-          video: { url: videoInfo.nowm },
-          caption: message,
-          footer: dev,
-          buttons: [
-            {
-              buttonId: `.tiktokmp3 ${text}`,
-              buttonText: {
-                displayText: 'Audio 🎧',
-              },
-            {
-          buttonId: `.tiktokhd ${text}`,
-          buttonText: {
-            displayText: 'Calidad HD',
-              },
-              },
-          ],
-          viewOnce: true,
-          headerType: 4,
-        }, { quoted: m }); */
       } else {
         conn.reply(m.chat, "No se pudo obtener el video sin marca de agua.", m);
       }
