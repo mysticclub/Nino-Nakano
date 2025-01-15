@@ -48,9 +48,14 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             {
               buttonId: `.tiktokmp3 ${text}`,
               buttonText: {
-                displayText: 'Descargar Audio 🎧',
+                displayText: 'Audio 🎧',
               },
-            },
+            {
+          buttonId: `.tiktokhd ${text}`,
+          buttonText: {
+            displayText: 'Calidad HD',
+              },
+              },
           ],
           viewOnce: true,
           headerType: 4,
