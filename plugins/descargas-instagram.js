@@ -63,7 +63,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     try {
         await m.react('🕑')
         let response = await axios.get(`https://apidl.asepharyana.cloud/api/downloader/igdl?url=${args[0]}`)
-        let { title, data } = response.data
+        let { title } = response.data
 
         for (let a of data) {
             if (a.url.includes('jpg') || a.url.includes('png') || a.url.includes('jpeg') || a.url.includes('webp') || a.url.includes('heic') || a.url.includes('tiff') || a.url.includes('bmp')) {
