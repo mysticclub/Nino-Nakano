@@ -3,7 +3,7 @@ import axios from 'axios'
 let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     if (!args[0]) {
         await m.react('✖️')
-        return conn.reply(m.chat, `🫰 Ingresa un link de Instagram`, m, fake)
+        return conn.reply(m.chat, `☁️ Ingresa un link de Instagram`, m, fake)
     }
 
     if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(p|tv|reel)\\/([a-zA-Z0-9_-]+)(\\/)?(\\?.*)?$'))) {
