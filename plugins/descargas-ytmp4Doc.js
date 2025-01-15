@@ -20,6 +20,8 @@ let handler = async (m, { text, conn, args, usedPrefix, command }) => {
     }
 }
 
-handler.command = ['videydl']
+handler.help = ['videydl *<url>*'];
+handler.tags = ['dl'];
+handler.command = ['videydl'];
 
 export default handler
