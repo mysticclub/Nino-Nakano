@@ -13,5 +13,5 @@ await conn.sendFile(m.chat, vid, 'HasumiBotFreeCodes.mp4', title, m)
 } catch (error) {
 console.error(error)
 }}
-er.command = ['vimeo']
+handler.command = ['vimeo']
 export default handler
