@@ -1,24 +1,33 @@
 import fetch from "node-fetch"
- 
+
 let handler = async (m, { text, conn, args, usedPrefix, command }) => {
-  if (!args[0]) return m.reply("ingresa un link de twitter")
- 
+  if (!args[0]) {
+    await m.react('✖️')
+    return m.reply("ingresa un link de twitter")
+  }
+
   try {
+    await m.react('🕒')
+
     let api = await fetch(`https://api.agatz.xyz/api/twitter?url=${args[0]}`)
     let json = await api.json()
     let { desc, thumb, video_sd, video_hd, audio } = json.data
- 
+
     await conn.sendFile(m.chat, thumb, 'imagen.jpg', desc, m)
+    await m.react('✅')
+
     await conn.sendFile(m.chat, video_hd || video_sd, 'video.mp4', desc, m)
+    await m.react('✅')
+
   } catch (error) {
     console.error(error)
+    await m.react('❌')
   }
 }
- 
-handler.command = ['twitter']
- 
-export default handler
 
+handler.command = ['x']
+
+export default handler
 
 
 
