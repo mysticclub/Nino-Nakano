@@ -1,8 +1,32 @@
+import fetch from "node-fetch"
+ 
+let handler = async (m, { text, conn, args, usedPrefix, command }) => {
+  if (!args[0]) return m.reply("ingresa un link de twitter")
+ 
+  try {
+    let api = await fetch(`https://api.agatz.xyz/api/twitter?url=${args[0]}`)
+    let json = await api.json()
+    let { desc, thumb, video_sd, video_hd, audio } = json.data
+ 
+    await conn.sendFile(m.chat, thumb, 'imagen.jpg', desc, m)
+    await conn.sendFile(m.chat, video_hd || video_sd, 'video.mp4', desc, m)
+  } catch (error) {
+    console.error(error)
+  }
+}
+ 
+handler.command = ['twitter']
+ 
+export default handler
+
+
+
+
 /* 
 - Twitter Downloader By Angel-OFC 
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
-import axios from 'axios';
+/* import axios from 'axios';
 let enviando = false;
 
 const handler = async (m, {conn, text, usedPrefix, command, args}) => {
@@ -48,4 +72,4 @@ const handler = async (m, {conn, text, usedPrefix, command, args}) => {
 handler.help = ['twitter *<url>*']
 handler.tags = ['dl']
 handler.command = /^(x|twt|twitter(dl)?)$/i
-export default handler;
+export default handler; */
