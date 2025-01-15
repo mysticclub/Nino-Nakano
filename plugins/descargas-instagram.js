@@ -1,4 +1,4 @@
-/* import axios from 'axios'
+import axios from 'axios'
 
 let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     if (!args[0]) {
