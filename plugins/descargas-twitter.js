@@ -3,7 +3,7 @@ import fetch from "node-fetch"
 let handler = async (m, { text, conn, args, usedPrefix, command }) => {
   if (!args[0]) {
     await m.react('✖️')
-    return m.reply("ingresa un link de twitter")
+    return m.reply("☁️ ingresa un link de twitter")
   }
 
   try {
