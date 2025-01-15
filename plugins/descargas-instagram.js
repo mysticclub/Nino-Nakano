@@ -42,6 +42,8 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     }
 }
 
-handler.command = /^(instagramdl|igdl|ig|instagram)$/i
+handler.help = ['ig *<link>*'];
+handler.tags = ['dl'];
+handler.command = /^(ig|igdl|instagram)$/i
 
 export default handler
