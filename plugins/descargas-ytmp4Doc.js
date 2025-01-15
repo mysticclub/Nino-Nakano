@@ -13,7 +13,7 @@ let handler = async (m, { text, conn, args, usedPrefix, command }) => {
         let json = await api.json()
         let { data } = json
 
-        await conn.sendFile(m.chat, data, 'video.mp4', '> [ V I D E Y - D L]', m)
+        await conn.sendFile(m.chat, data, 'video.mp4', '> [ V I D E Y - D E SC A R G A S ]', m)
         await m.react('✅')
     } catch (error) {
         console.error(error)
