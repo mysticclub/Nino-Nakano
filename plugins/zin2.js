@@ -1,7 +1,7 @@
 const handler = async (m, { conn, args }) => {
 
     if (args.length < 3) {
-        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 (SR o EU), 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙).', m);
+        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 (SR o EU), 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙, 𝘊𝘖, 𝘔𝘟).', m);
         return;
     }
 
@@ -34,17 +34,15 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    // Diferencias horarias para SR (Sudamérica)
+    // Diferencias horarias para SR (Sudamérica) - Bolivia, Perú, Chile, Argentina
     const diferenciasHorariasSR = {
         BO: 0, // Bolivia
         PE: -1, // Perú 
         CL: 1,  // Chile
         AR: 1,  // Argentina
-        CO: -1, // Colombia
-        MX: -2  // México
     };
 
-    // Diferencias horarias para EU (Europa), con solo México y Colombia
+    // Diferencias horarias para EU (Europa) - Colombia y México
     const diferenciasHorariasEU = {
         CO: -1, // Colombia
         MX: -2  // México
@@ -54,7 +52,7 @@ const handler = async (m, { conn, args }) => {
     const diferenciasHorarias = region === 'SR' ? diferenciasHorariasSR : diferenciasHorariasEU;
 
     if (!(paisBase in diferenciasHorarias)) {
-        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile, AR para Argentina, CO para Colombia, MX para México o los países de la región EU.', m);
+        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile, AR para Argentina, CO para Colombia o MX para México.', m);
         return;
     }
 
@@ -93,9 +91,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
             BO: '🇧🇴',
             PE: '🇵🇪',
             CL: '🇨🇱',
-            AR: '🇦🇷',
-            CO: '🇨🇴',
-            MX: '🇲🇽'
+            AR: '🇦🇷'
         }[pais];
         return `${bandera} ${pais} : ${formatTime(hora)}`;
     }).join('\n')}
@@ -148,6 +144,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
         conn.sendMessage(m.chat, { text: messageEU }, { quoted: m });
     }
 };
+
 handler.help = ['4vs4']
 handler.tags = ['freefire']
 handler.command = /^(4vs4|vs4)$/i;
