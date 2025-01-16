@@ -12,7 +12,7 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    const horaUsuario = args[0]; // Hora proporcionada por el usuario
+    const horaUsuario = args[0];
     let paisBase = args[1].toUpperCase();
 
     const banderasToPais = {
@@ -22,17 +22,16 @@ const handler = async (m, { conn, args }) => {
         '🇦🇷': 'AR'
     };
 
-    // Si el argumento es una bandera, asignar el código de país correspondiente
+
     if (banderasToPais[paisBase]) {
         paisBase = banderasToPais[paisBase];
     }
 
-    // Verificar si el país es válido
     const diferenciasHorarias = {
-        BO: 0, // Bolivia base (hora de referencia)
-        PE: -1, // Perú tiene 1 hora menos que Bolivia
-        CL: 1,  // Chile tiene 1 hora más que Bolivia
-        AR: 1   // Argentina tiene 1 hora más que Bolivia
+        BO: 0, // Bolivia
+        PE: -1, // Perú 
+        CL: 1,  // Chile
+        AR: 1   // Argentina
     };
 
     if (!(paisBase in diferenciasHorarias)) {
@@ -40,37 +39,33 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    // Obtener la diferencia horaria del país seleccionado
+
     const diferenciaBase = diferenciasHorarias[paisBase];
 
-    // Calcular la hora base del país seleccionado
     const hora = parseInt(horaUsuario.split(':')[0], 10);
     const minutos = parseInt(horaUsuario.split(':')[1], 10);
 
-    // Crear una fecha base en la hora proporcionada, tomando en cuenta la diferencia horaria
     const horaBase = new Date();
-    horaBase.setHours(hora - diferenciaBase); // Ajustar la hora base con la diferencia
+    horaBase.setHours(hora - diferenciaBase);
     horaBase.setMinutes(minutos);
     horaBase.setSeconds(0);
     horaBase.setMilliseconds(0);
 
-    // Calcular las horas en cada país según la diferencia horaria
     const horasEnPais = [];
     for (let i = 0; i < 4; i++) {
         const horaActual = new Date(horaBase.getTime());
-        horaActual.setHours(horaBase.getHours() + i); // Aumentar la hora en 1 para cada iteración
+        horaActual.setHours(horaBase.getHours() + i);
 
-        // Ajustar la hora para cada país
         const horasAjustadas = Object.keys(diferenciasHorarias).map(pais => {
             const diferencia = diferenciasHorarias[pais];
-            const horaEnPais = new Date(horaActual.getTime() + (3600000 * diferencia)); // Ajuste de hora
+            const horaEnPais = new Date(horaActual.getTime() + (3600000 * diferencia));
             return { pais, hora: horaEnPais };
         });
 
         horasEnPais.push(horasAjustadas);
     }
 
-    // Formatear las horas según el formato de 24 horas y obtener solo la hora y minutos
+
     const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
     const message = `
