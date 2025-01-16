@@ -26,21 +26,26 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    // Crear una fecha base en la zona horaria proporcionada
+    // Crear la fecha base a partir de la hora proporcionada
     const fechaBase = new Date();
     fechaBase.setHours(horas, minutos, 0, 0); // Configurar hora proporcionada
+    fechaBase.setSeconds(0);
+    fechaBase.setMilliseconds(0);
+
     const zonaPaisBase = zonasHorarias[paisBase];
-    
+
     // Convertir la hora base a cada zona horaria
     const horasEnPais = {};
     for (let pais in zonasHorarias) {
-        const horaConvertida = new Intl.DateTimeFormat('es-ES', {
-            timeZone: zonasHorarias[pais],
+        const horaConvertida = new Date(
+            fechaBase.toLocaleString('en-US', { timeZone: zonasHorarias[pais] })
+        );
+        const formatoHora = horaConvertida.toLocaleTimeString('es-ES', {
             hour12: false,
             hour: '2-digit',
             minute: '2-digit'
-        }).format(fechaBase);
-        horasEnPais[pais] = horaConvertida;
+        });
+        horasEnPais[pais] = formatoHora;
     }
 
     // Crear el mensaje con las horas en cada país
