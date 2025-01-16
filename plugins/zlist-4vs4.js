@@ -19,24 +19,21 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    // Función para convertir la hora base a la zona horaria específica
-    function convertirHora(hora, zonaOrigen, zonaDestino) {
+    function convertirHoraBase(hora, zonaOrigen, zonaDestino) {
         const [horas, minutos] = hora.split(':').map(num => parseInt(num, 10));
         if (isNaN(horas) || isNaN(minutos) || horas < 0 || horas > 23 || minutos < 0 || minutos > 59) {
             throw new RangeError('Hora inválida. Debe estar en formato HH:MM.');
         }
 
-        // Crear una fecha específica para la hora proporcionada
+        // Crear un objeto de fecha con la hora proporcionada
         const fechaBase = new Date();
-        fechaBase.setUTCHours(horas, minutos, 0, 0);
+        fechaBase.setHours(horas, minutos, 0, 0);
 
-        // Convertir la hora de la zona de origen a UTC
+        // Convertir desde zona origen a UTC
         const opcionesOrigen = { timeZone: zonaOrigen };
-        const fechaUTC = new Date(
-            new Intl.DateTimeFormat('en-US', opcionesOrigen).format(fechaBase)
-        );
+        const fechaUTC = new Date(fechaBase.toLocaleString('en-US', opcionesOrigen));
 
-        // Convertir la hora UTC a la zona destino
+        // Convertir UTC a la zona destino
         const opcionesDestino = { timeZone: zonaDestino, hour12: false, hour: '2-digit', minute: '2-digit' };
         return new Intl.DateTimeFormat('es-ES', opcionesDestino).format(fechaUTC);
     }
@@ -44,7 +41,7 @@ const handler = async (m, { conn, args }) => {
     const horasEnPais = {};
     try {
         for (let pais in zonasHorarias) {
-            horasEnPais[pais] = convertirHora(horaUsuario, zonasHorarias[paisBase], zonasHorarias[pais]);
+            horasEnPais[pais] = convertirHoraBase(horaUsuario, zonasHorarias[paisBase], zonasHorarias[pais]);
         }
     } catch (e) {
         conn.reply(m.chat, `Error: ${e.message}`, m);
