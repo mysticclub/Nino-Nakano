@@ -30,7 +30,7 @@ const handler = async (m, { conn, args }) => {
 
     // Crear la hora base en la zona horaria del país base
     const fechaBase = new Date();
-    fechaBase.setUTCHours(horas, minutos, 0, 0);
+    fechaBase.setUTCHours(horas, minutos, 0, 0); // Establecer la hora ingresada en UTC
     const fechaEnZonaBase = new Date(fechaBase.toLocaleString('en-US', { timeZone: zonasHorarias[paisBase] }));
 
     // Convertir la hora a las zonas horarias de los demás países
