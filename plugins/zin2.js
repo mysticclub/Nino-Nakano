@@ -15,6 +15,7 @@ const handler = async (m, { conn, args }) => {
     let paisBase = args[1].toUpperCase();
 
     const banderasToPais = {
+
         '🇧🇴': 'BO',
         '🇵🇪': 'PE',
         '🇨🇱': 'CL',
