@@ -84,6 +84,8 @@ const handler = async (m, { conn, args }) => {
 
     const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
+    const reglas = modalidad === 'infinito' ? '.reglasinf' : '.reglasvv2';
+
     const message = `
 *4 VERSUS 4 ${modalidad.toUpperCase()}*
 
@@ -98,7 +100,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
         }[pais];
         return `*${bandera} ${pais} :* ${formatTime(hora)}`;
     }).join('\n')}
-*REGLAS:*
+*REGLAS:* ${reglas}
 
 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
 
@@ -126,15 +128,20 @@ export default handler;
 
 
 /* const handler = async (m, { conn, args }) => {
-
-    if (args.length < 3) {
-        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 (SR o EU), 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙, 𝘊𝘖, 𝘔𝘟).', m);
+    if (args.length < 4) {
+        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 (SR o EU), 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔), 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙, 𝘊𝘖, 𝘔𝘟) 𝘺 𝘭𝘢 𝘮𝘰𝘥𝘢𝘭𝘪𝘥𝘢𝘥 (𝘪𝘯𝘧𝘪𝘯𝘪𝘵𝘰 𝘰 𝘷𝘪́𝘷𝘪𝘥𝘰).', m);
         return;
     }
 
     const horaRegex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
     if (!horaRegex.test(args[1])) {
         conn.reply(m.chat, '𝘍𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 𝘩𝘰𝘳𝘢 𝘪𝘯𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘰. 𝘋𝘦𝘣𝘦 𝘴𝘦𝘳 𝘏𝘏:𝘔𝘔 𝘦𝘯 𝘧𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 24 𝘩𝘰𝘳𝘢𝘴.', m);
+        return;
+    }
+
+    const modalidad = args[3].toLowerCase();
+    if (modalidad !== 'infinito' && modalidad !== 'vivido') {
+        conn.reply(m.chat, '𝘔𝘰𝘥𝘢𝘭𝘪𝘥𝘢𝘥 𝘯𝘰 𝘷𝘢𝘭𝘪𝘥𝘢. 𝘌𝘴𝘤𝘳𝘪𝘣𝘦 "𝘪𝘯𝘧𝘪𝘯𝘪𝘵𝘰" 𝘰 "𝘷𝘪́𝘷𝘪𝘥𝘰".', m);
         return;
     }
 
@@ -207,7 +214,7 @@ export default handler;
     const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
     const message = `
-𝟰 𝗩𝗘𝗥𝗦𝗨𝗦 𝟰
+*4 VERSUS 4 ${modalidad.toUpperCase()}*
 
 ${horasEnPais[0].map(({ pais, hora }) => {
         const bandera = {
@@ -218,8 +225,9 @@ ${horasEnPais[0].map(({ pais, hora }) => {
             CO: '🇨🇴',
             MX: '🇲🇽'
         }[pais];
-        return `${bandera} ${pais} : ${formatTime(hora)}`;
+        return `*${bandera} ${pais} :* ${formatTime(hora)}`;
     }).join('\n')}
+*REGLAS:*
 
 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
 
@@ -237,7 +245,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
 
-handler.help = ['4vs4']
-handler.tags = ['freefire']
+handler.help = ['4vs4'];
+handler.tags = ['freefire'];
 handler.command = /^(4vs4|vs4)$/i;
 export default handler; */
