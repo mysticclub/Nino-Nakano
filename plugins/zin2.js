@@ -1,62 +1,95 @@
-/* let handler = async (m, { conn, isRowner }) => {
-    const newName = m.text.trim().split(' ').slice(1).join(' ');
-  
-   
-    if (!newName) {
-      return m.reply('Por favor, proporciona un nuevo nombre para el bot.');
-    }
-  
-   
-    global.botname = newName;  
-    global.packname = newName; 
-    global.wm = newName; 
-    global.namebot = newName; 
-    global.titulowm = newName; 
-    global.titulowm2 = newName; 
-  
-    
-    m.reply(`ยกEl nombre del bot ha sido actualizado a: ${newName}!`);
-  
-  
-  };
-  
- 
-  handler.help = ['setname'];  
-  handler.tags = ['banner'];
-  handler.command = ['setname']; 
-  handler.rowner = true
-
-  export default handler; */
-
-/* let handler = async (m, { conn, isRowner }) => {
-    // Verificar si el bot es el bot principal
-    if (global.conn.user.jid === conn.user.jid) {
-        return m.reply('Este comando solo puede ser usado en SubBots, no en el Bot principal.');
+const handler = async (m, { conn, args }) => {
+    // Verificar si se proporcionaron los argumentos necesarios
+    if (args.length < 2) {
+        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙).', m);
+        return;
     }
 
-    const newName = m.text.trim().split(' ').slice(1).join(' ');
-
-    if (!newName) {
-        return m.reply('Por favor, proporciona un nuevo nombre para el bot.');
+    // Validar el formato de la hora
+    const horaRegex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
+    if (!horaRegex.test(args[0])) {
+        conn.reply(m.chat, '𝘍𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 𝘩𝘰𝘳𝘢 𝘪𝘯𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘰. 𝘋𝘦𝘣𝘦 𝘴𝘦𝘳 𝘏𝘏:𝘔𝘔 𝘦𝘯 𝘧𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 24 𝘩𝘰𝘳𝘢𝘴.', m);
+        return;
     }
 
-    // Verifica si el bot es un subbot y actualiza el nombre solo en los subbots
-    if (global.conn.user.jid !== conn.user.jid) {
-        // Actualizar el nombre en las variables globales solo para subbots
-        global.botname = newName;
-        global.packname = newName;
-        global.wm = newName;
-        global.namebot = newName;
-        global.titulowm = newName;
-        global.titulowm2 = newName;
+    const horaUsuario = args[0]; // Hora proporcionada por el usuario
+    const paisBase = args[1].toUpperCase(); // País proporcionado por el usuario
 
-        m.reply(`El nombre del subbot ha sido actualizado a: ${newName}!`);
+    // Definir las diferencias horarias respecto a la hora de Bolivia
+    const diferenciasHorarias = {
+        BO: 0, // Bolivia base (hora de referencia)
+        PE: 0, // Perú tiene la misma hora que Bolivia
+        CL: 1, // Chile tiene una hora más que Bolivia
+        AR: 2  // Argentina tiene dos horas más que Bolivia
+    };
+
+    if (!(paisBase in diferenciasHorarias)) {
+        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina.', m);
+        return;
     }
+
+    // Obtener la diferencia horaria del país seleccionado
+    const diferenciaBase = diferenciasHorarias[paisBase];
+
+    // Calcular la hora en Bolivia
+    const hora = parseInt(horaUsuario.split(':')[0], 10);
+    const minutos = parseInt(horaUsuario.split(':')[1], 10);
+
+    // Crear una fecha base en la hora proporcionada
+    const horaBase = new Date();
+    horaBase.setHours(hora);
+    horaBase.setMinutes(minutos);
+    horaBase.setSeconds(0);
+    horaBase.setMilliseconds(0);
+
+    // Calcular las horas consecutivas en cada país
+    const horasEnPais = [];
+    for (let i = 0; i < 4; i++) {
+        const horaActual = new Date(horaBase.getTime());
+        horaActual.setHours(horaBase.getHours() + i); // Aumentar la hora en 1 para cada iteración
+
+        // Ajustar la hora para cada país
+        const horasAjustadas = Object.keys(diferenciasHorarias).map(pais => {
+            const diferencia = diferenciasHorarias[pais];
+            const horaEnPais = new Date(horaActual.getTime() + (3600000 * (diferencia - diferenciaBase))); // Ajuste de hora
+            return { pais, hora: horaEnPais };
+        });
+
+        horasEnPais.push(horasAjustadas);
+    }
+
+    // Formatear las horas según el formato de 24 horas y obtener solo la hora y minutos
+    const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+    const message = `
+*4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
+
+${horasEnPais[0].map(({ pais, hora }) => {
+        const bandera = {
+            BO: '🇧🇴',
+            PE: '🇵🇪',
+            CL: '🇨🇱',
+            AR: '🇦🇷'
+        }[pais];
+        return `${bandera} ${pais} : ${formatTime(hora)}`;
+    }).join('\n')}
+
+𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
+
+👑 ┇ 
+🥷🏻 ┇  
+🥷🏻 ┇ 
+🥷🏻 ┇ 
+
+
+ㅤʚ 𝐒𝐔𝐏𝐋𝐄𝐍𝐓𝐄:
+🥷🏻 ┇ 
+🥷🏻 ┇
+`.trim();
+
+    conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
-
-handler.help = ['setname'];
-handler.tags = ['banner'];
-handler.command = ['setname'];
-handler.rowner = true;
-
-export default handler; */
+handler.help = ['4vs4']
+handler.tags = ['freefire']
+handler.command = /^(4vs4|vs4)$/i;
+export default handler;
