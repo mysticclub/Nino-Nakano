@@ -26,13 +26,11 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    // Crear una fecha base con la hora proporcionada en la zona horaria del país base
+    // Crear una fecha base en la zona horaria proporcionada
     const fechaBase = new Date();
-    fechaBase.setUTCHours(0, 0, 0, 0); // Ajustar a medianoche UTC
+    fechaBase.setHours(horas, minutos, 0, 0); // Configurar hora proporcionada
     const zonaPaisBase = zonasHorarias[paisBase];
-    fechaBase.setHours(horas);
-    fechaBase.setMinutes(minutos);
-
+    
     // Convertir la hora base a cada zona horaria
     const horasEnPais = {};
     for (let pais in zonasHorarias) {
