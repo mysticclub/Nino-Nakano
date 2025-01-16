@@ -18,9 +18,9 @@ const handler = async (m, { conn, args }) => {
     // Definir las diferencias horarias respecto a la hora de Bolivia
     const diferenciasHorarias = {
         BO: 0, // Bolivia base (hora de referencia)
-        PE: 0, // Perú tiene la misma hora que Bolivia
-        CL: 1, // Chile tiene una hora más que Bolivia
-        AR: 2  // Argentina tiene dos horas más que Bolivia
+        PE: -1, // Perú tiene 1 hora menos que Bolivia
+        CL: 1,  // Chile tiene 1 hora más que Bolivia
+        AR: 1   // Argentina tiene 1 hora más que Bolivia
     };
 
     if (!(paisBase in diferenciasHorarias)) {
@@ -42,7 +42,7 @@ const handler = async (m, { conn, args }) => {
     horaBase.setSeconds(0);
     horaBase.setMilliseconds(0);
 
-    // Calcular las horas consecutivas en cada país
+    // Calcular las horas en cada país según la diferencia horaria
     const horasEnPais = [];
     for (let i = 0; i < 4; i++) {
         const horaActual = new Date(horaBase.getTime());
@@ -51,7 +51,7 @@ const handler = async (m, { conn, args }) => {
         // Ajustar la hora para cada país
         const horasAjustadas = Object.keys(diferenciasHorarias).map(pais => {
             const diferencia = diferenciasHorarias[pais];
-            const horaEnPais = new Date(horaActual.getTime() + (3600000 * (diferencia - diferenciaBase))); // Ajuste de hora
+            const horaEnPais = new Date(horaActual.getTime() + (3600000 * diferencia)); // Ajuste de hora
             return { pais, hora: horaEnPais };
         });
 
