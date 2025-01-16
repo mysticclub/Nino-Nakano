@@ -85,7 +85,7 @@ const handler = async (m, { conn, args }) => {
 
     // Generar el mensaje
     const message = `
-*4 𝐕𝐄𝐑𝐒𝐔𝐒 4 ${region === 'SR' ? '' : '(EU)'}*
+4 𝐕𝐄𝐑𝐒𝐔𝐒 4 ${region === 'SR' ? '' : '(EU)'}
 
 ${horasEnPais[0].map(({ pais, hora }) => {
         const bandera = {
