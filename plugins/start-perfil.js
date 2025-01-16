@@ -24,7 +24,7 @@ let handler = async (m, { conn, usedPrefix, command}) => {
       txt += `◦ *Nombre* : ${name}\n`
       txt += `◦ *Edad* : ${registered ? `${age} años` : '×'}\n`
       txt += `◦ *Numero* : ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}\n`
-      txt += `◦ *Nacionalidad* : ${userNationality}\n`
+   //   txt += `◦ *Nacionalidad* : ${userNationality}\n`
       txt += `◦ *Link* : wa.me/${who.split`@`[0]}\n`
       txt += `◦ *Corazones* : ${corazones}\n`
       txt += `◦ *Nivel* : ${level}\n`
