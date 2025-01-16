@@ -85,7 +85,7 @@ const handler = async (m, { conn, args }) => {
     const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
     const message = `
-𝟰 𝗩𝗘𝗥𝗦𝗨𝗦 𝟰 ${modalidad.toUpperCase()}
+*4 VERSUS 4 ${modalidad.toUpperCase()}*
 
 ${horasEnPais[0].map(({ pais, hora }) => {
         const bandera = {
