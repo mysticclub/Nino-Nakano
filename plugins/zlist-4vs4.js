@@ -1,4 +1,4 @@
-const handler = async (m, { conn, args }) => {
+/* const handler = async (m, { conn, args }) => {
     // Verificar si se proporcionaron los argumentos necesarios
     if (args.length < 2) {
         conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙).', m);
@@ -87,4 +87,4 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 handler.help = ['4vs4']
 handler.tags = ['freefire']
 handler.command = /^(4vs4|vs4)$/i;
-export default handler;
+export default handler; */
