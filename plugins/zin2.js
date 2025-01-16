@@ -28,7 +28,7 @@
 
   export default handler; */
 
-let handler = async (m, { conn, isRowner }) => {
+/* let handler = async (m, { conn, isRowner }) => {
     // Verificar si el bot es el bot principal
     if (global.conn.user.jid === conn.user.jid) {
         return m.reply('Este comando solo puede ser usado en SubBots, no en el Bot principal.');
@@ -59,4 +59,4 @@ handler.tags = ['banner'];
 handler.command = ['setname'];
 handler.rowner = true;
 
-export default handler;
+export default handler; */
