@@ -123,7 +123,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
         });
 
         const messageEU = `
-*4 𝐕𝐄𝐑𝐒𝐔𝐒 4 (EU)*
+*4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
 
 ${horasAjustadasMexico.map(({ pais, hora }) => {
             const bandera = {
