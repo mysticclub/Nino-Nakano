@@ -109,11 +109,11 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 🥷🏻 ┇
 `.trim();
 
-    // Enviar el mensaje con la primera lista (según región)
+    // Enviar el mensaje con la lista correspondiente a la región seleccionada
     await m.react('✅')
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 
-    // Enviar la segunda lista con los horarios de Colombia y México (EU)
+    // Enviar la lista para Europa (EU) con solo México y Colombia
     if (region === 'EU') {
         const messageEU = `
 *4 𝐕𝐄𝐑𝐒𝐔𝐒 4 (EU)*
