@@ -4,9 +4,8 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    const horaUsuario = args[0]; // Hora proporcionada por el usuario
+    const horaUsuario = args[0];
     const paisBase = args[1].toUpperCase();
-
 
     const zonasHorarias = {
         BO: 'America/La_Paz',  // Bolivia
