@@ -13,9 +13,22 @@ const handler = async (m, { conn, args }) => {
     }
 
     const horaUsuario = args[0]; // Hora proporcionada por el usuario
-    const paisBase = args[1].toUpperCase(); // País proporcionado por el usuario
+    let paisBase = args[1].toUpperCase(); // País proporcionado por el usuario
 
-    // Definir las diferencias horarias respecto a la hora de Bolivia
+    // Mapeo de banderas a sus códigos de país
+    const banderasToPais = {
+        '🇧🇴': 'BO',
+        '🇵🇪': 'PE',
+        '🇨🇱': 'CL',
+        '🇦🇷': 'AR'
+    };
+
+    // Si el argumento es una bandera, asignar el código de país correspondiente
+    if (banderasToPais[paisBase]) {
+        paisBase = banderasToPais[paisBase];
+    }
+
+    // Verificar si el país es válido
     const diferenciasHorarias = {
         BO: 0, // Bolivia base (hora de referencia)
         PE: -1, // Perú tiene 1 hora menos que Bolivia
@@ -24,7 +37,7 @@ const handler = async (m, { conn, args }) => {
     };
 
     if (!(paisBase in diferenciasHorarias)) {
-        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina.', m);
+        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina. También puedes usar las banderas correspondientes.', m);
         return;
     }
 
