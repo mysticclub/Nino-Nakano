@@ -2,8 +2,6 @@ import fg from 'api-dylux';
 import { youtubedl, youtubedlv2 } from '@bochilteam/scraper';
 
 const limit = 320; // Límite en MB
-const rwait = '⏳'; // Emoji o texto para indicar espera
-const done = '✅';  // Emoji o texto para indicar éxito
 
 let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) => {
     if (!args || !args[0]) {
