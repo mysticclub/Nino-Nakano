@@ -129,7 +129,7 @@ ${horasAjustadasMexico.map(({ pais, hora }) => {
             const bandera = {
                 CO: '🇨🇴',
                 MX: '🇲🇽'
-            }[pais];
+            }[pais]; // Asignar correctamente las banderas
             return `${bandera} ${pais} : ${formatTime(hora)}`;
         }).join('\n')}
 
