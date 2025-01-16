@@ -1,53 +1,40 @@
 const handler = async (m, { conn, args }) => {
     if (args.length < 2) {
-        conn.reply(m.chat, 'Debes proporcionar la hora (HH:MM) y el país base (BO, PE, CL, AR).', m);
+        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙).', m);
         return;
     }
 
     const horaUsuario = args[0];
     const paisBase = args[1].toUpperCase();
 
-    // Zonas horarias para cada país
     const zonasHorarias = {
-        BO: 'America/La_Paz',       // Bolivia
-        PE: 'America/Lima',         // Perú
-        CL: 'America/Santiago',     // Chile
+        BO: 'America/La_Paz',  // Bolivia
+        PE: 'America/Lima',    // Perú
+        CL: 'America/Santiago',// Chile
         AR: 'America/Argentina/Buenos_Aires' // Argentina
     };
 
-    // Validar el país base
+
     if (!(paisBase in zonasHorarias)) {
         conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina.', m);
         return;
     }
 
-    // Validar formato de hora
-    const [horas, minutos] = horaUsuario.split(':').map(num => parseInt(num, 10));
-    if (isNaN(horas) || isNaN(minutos) || horas < 0 || horas > 23 || minutos < 0 || minutos > 59) {
-        conn.reply(m.chat, 'Hora inválida. Debe estar en formato HH:MM (ejemplo: 21:00).', m);
-        return;
+    function obtenerHoraZona(zona) {
+        const opciones = { timeZone: zona, hour12: false, hour: '2-digit', minute: '2-digit' };
+        const formatter = new Intl.DateTimeFormat('es-ES', opciones);
+        const fecha = new Date();
+        return formatter.format(fecha); 
     }
 
-    // Crear la hora base en la zona horaria del país base
-    const fechaBase = new Date();
-    fechaBase.setUTCHours(horas, minutos, 0, 0); // Establecer la hora ingresada en UTC
-    const fechaEnZonaBase = new Date(fechaBase.toLocaleString('en-US', { timeZone: zonasHorarias[paisBase] }));
+    const horaBase = obtenerHoraZona(zonasHorarias[paisBase]);
 
-    // Convertir la hora a las zonas horarias de los demás países
     const horasEnPais = {};
     for (let pais in zonasHorarias) {
-        const horaConvertida = new Date(
-            fechaEnZonaBase.toLocaleString('en-US', { timeZone: zonasHorarias[pais] })
-        );
-        const formatoHora = horaConvertida.toLocaleTimeString('es-ES', {
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-        horasEnPais[pais] = formatoHora;
+        const hora = obtenerHoraZona(zonasHorarias[pais]);
+        horasEnPais[pais] = hora;
     }
 
-    // Generar el mensaje con las horas en cada país
     const message = `
 *4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
 
@@ -77,7 +64,7 @@ ${Object.keys(horasEnPais).map((pais) => {
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
 
-handler.help = ['4vs4'];
-handler.tags = ['freefire'];
+handler.help = ['4vs4']
+handler.tags = ['freefire']
 handler.command = /^(4vs4|vs4)$/i;
 export default handler;
