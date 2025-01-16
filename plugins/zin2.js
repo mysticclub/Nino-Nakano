@@ -93,6 +93,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 🥷🏻 ┇
 `.trim();
 
+    await m.react('✅')
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
 handler.help = ['4vs4']
