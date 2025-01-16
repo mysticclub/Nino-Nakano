@@ -91,7 +91,9 @@ ${horasEnPais[0].map(({ pais, hora }) => {
             BO: '🇧🇴',
             PE: '🇵🇪',
             CL: '🇨🇱',
-            AR: '🇦🇷'
+            AR: '🇦🇷',
+            CO: '🇨🇴', // Colombia
+            MX: '🇲🇽'  // México
         }[pais];
         return `${bandera} ${pais} : ${formatTime(hora)}`;
     }).join('\n')}
@@ -113,7 +115,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
     await m.react('✅')
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 
-    // Enviar la lista para Europa (EU) con solo México y Colombia, basada en la hora de México
+    // Solo si la región es EU, enviar la lista con los horarios para México y Colombia
     if (region === 'EU') {
         const horaMexico = new Date(horaBase.getTime() + (3600000 * 2)); // Horario base para México
         const horasAjustadasMexico = Object.keys(diferenciasHorariasEU).map(pais => {
@@ -123,7 +125,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
         });
 
         const messageEU = `
-*4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
+*4 𝐕𝐄𝐑𝐒𝐔𝐒 4 (EU)*
 
 ${horasAjustadasMexico.map(({ pais, hora }) => {
             const bandera = {
