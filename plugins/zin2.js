@@ -1,4 +1,4 @@
-const handler = async (m, { conn, args }) => {
+const handler = async (m, { conn, args, command }) => {
 
     if (args.length < 3) {
         conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 (SR o EU), 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙, 𝘊𝘖, 𝘔𝘟).', m);
@@ -120,7 +120,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
         footer: wm, 
         buttons: [
             {
-                buttonId: ".anotar", 
+                buttonId: `.anotar_${m.sender}`, 
                 buttonText: { 
                     displayText: 'Anotar' 
                 }
@@ -131,7 +131,58 @@ ${horasEnPais[0].map(({ pais, hora }) => {
     }, { quoted: m });
 };
 
+// Función para manejar el evento cuando se presiona el botón "Anotar"
+const anotador = async (m, { conn, command }) => {
+    const { exp, corazones, name, registered, regTime, age, level } = global.db.data.users[m.sender];
+    
+    // Los nombres de los jugadores
+    let players = ['👑', '🥷🏻', '🥷🏻', '🥷🏻'];
+
+    // Buscar un espacio vacío y colocar el nombre del usuario
+    for (let i = 0; i < players.length; i++) {
+        if (players[i] === '🥷🏻') {
+            players[i] = `${name}`;
+            break; // Salir del ciclo una vez que se encuentra un espacio vacío
+        }
+    }
+
+    // Volver a generar el mensaje con los nombres
+    const message = `
+*4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
+
+${players.join(' ┇ ')}
+
+𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
+
+${players.join(' ┇ ')}
+
+ㅤʚ 𝐒𝐔𝐏𝐋𝐄𝐍𝐓𝐄:
+🥷🏻 ┇ 
+🥷🏻 ┇
+`.trim();
+
+    // Enviar de nuevo el mensaje con los nombres actualizados
+    conn.sendMessage(m.chat, {
+        text: message, 
+        caption: "1234", 
+        footer: wm, 
+        buttons: [
+            {
+                buttonId: `.anotar_${m.sender}`, 
+                buttonText: { 
+                    displayText: 'Anotar' 
+                }
+            }
+        ],
+        viewOnce: true,
+        headerType: 1,
+    }, { quoted: m });
+};
+
+// Vincular el comando
 handler.help = ['4vs4']
 handler.tags = ['freefire']
 handler.command = /^(4vs4|vs4)$/i;
+handler.anotador = anotador;
+
 export default handler;
