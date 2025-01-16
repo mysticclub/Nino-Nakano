@@ -85,7 +85,7 @@ const handler = async (m, { conn, args }) => {
 
     // Generar el mensaje
     const message = `
-4 𝐕𝐄𝐑𝐒𝐔𝐒 4 ${region === 'SR' ? '' : '(EU)'}
+*4 𝐕𝐄𝐑𝐒𝐔𝐒 4 ${region === 'SR' ? '' : '(EU)'}
 
 ${horasEnPais[0].map(({ pais, hora }) => {
         const bandera = {
@@ -112,9 +112,23 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 🥷🏻 ┇
 `.trim();
 
-    // Enviar solo una lista con los horarios
+    // Enviar solo una lista con los horarios y un solo botón
     await m.react('✅')
-    conn.sendMessage(m.chat, { text: message }, { quoted: m });
+    conn.sendMessage(m.chat, {
+        text: message, 
+        caption: "1234", 
+        footer: wm, 
+        buttons: [
+            {
+                buttonId: ".anotar", 
+                buttonText: { 
+                    displayText: 'Anotar' 
+                }
+            }
+        ],
+        viewOnce: true,
+        headerType: 1,
+    }, { quoted: m });
 };
 
 handler.help = ['4vs4']
