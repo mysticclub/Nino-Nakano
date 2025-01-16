@@ -19,37 +19,36 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    // Función para convertir hora base a la zona horaria específica
+    // Función para convertir la hora base a la zona horaria específica
     function convertirHora(hora, zonaOrigen, zonaDestino) {
-        const fecha = new Date();
         const [horas, minutos] = hora.split(':').map(num => parseInt(num, 10));
+        if (isNaN(horas) || isNaN(minutos) || horas < 0 || horas > 23 || minutos < 0 || minutos > 59) {
+            throw new RangeError('Hora inválida. Debe estar en formato HH:MM.');
+        }
 
-        fecha.setHours(horas, minutos, 0, 0);
+        // Crear una fecha específica para la hora proporcionada
+        const fechaBase = new Date();
+        fechaBase.setUTCHours(horas, minutos, 0, 0);
 
-        // Crear formato con la zona horaria de origen
-        const opciones = {
-            timeZone: zonaOrigen,
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-        };
-        const formatterOrigen = new Intl.DateTimeFormat('es-ES', opciones);
-        const fechaUTC = new Date(formatterOrigen.format(fecha) + ' UTC');
+        // Convertir la hora de la zona de origen a UTC
+        const opcionesOrigen = { timeZone: zonaOrigen };
+        const fechaUTC = new Date(
+            new Intl.DateTimeFormat('en-US', opcionesOrigen).format(fechaBase)
+        );
 
-        // Convertir a la zona horaria destino
-        const opcionesDestino = {
-            timeZone: zonaDestino,
-            hour12: false,
-            hour: '2-digit',
-            minute: '2-digit',
-        };
-        const formatterDestino = new Intl.DateTimeFormat('es-ES', opcionesDestino);
-        return formatterDestino.format(fechaUTC);
+        // Convertir la hora UTC a la zona destino
+        const opcionesDestino = { timeZone: zonaDestino, hour12: false, hour: '2-digit', minute: '2-digit' };
+        return new Intl.DateTimeFormat('es-ES', opcionesDestino).format(fechaUTC);
     }
 
     const horasEnPais = {};
-    for (let pais in zonasHorarias) {
-        horasEnPais[pais] = convertirHora(horaUsuario, zonasHorarias[paisBase], zonasHorarias[pais]);
+    try {
+        for (let pais in zonasHorarias) {
+            horasEnPais[pais] = convertirHora(horaUsuario, zonasHorarias[paisBase], zonasHorarias[pais]);
+        }
+    } catch (e) {
+        conn.reply(m.chat, `Error: ${e.message}`, m);
+        return;
     }
 
     // Crear el mensaje con las horas en cada país
