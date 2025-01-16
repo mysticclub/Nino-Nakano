@@ -1,40 +1,75 @@
-/* var handler = async (m, { conn, participants, groupMetadata, args, text }) => {
+const handler = async (m, { conn, args }) => {
+    // Verificar si se proporcionaron los argumentos necesarios
+    if (args.length < 2) {
+        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙).', m);
+        return;
+    }
 
-const pp = 'https://files.catbox.moe/mi2i9i.jpeg'
-const groupAdmins = participants.filter(p => p.admin)
-const listaAdmins = groupAdmins.map((v, i) => ``).join('\n')
-const owner = groupMetadata.owner || groupAdmins.find(p => p.admin === 'superadmin')?.id || m.chat.split`-`[0] + '@s.whatsapp.net'
-if (!text) return m.reply(`🕓 𝗜𝗡𝗚𝗥𝗘𝗦𝗔 𝗨𝗡 𝗛𝗢𝗥𝗔𝗥𝗜𝗢.\n𝗘𝗷𝗲𝗺𝗽𝗹𝗼:\n.4vs4 4pm🇪🇨/3pm🇲🇽`)
-if (text.length < 0) return m.reply(`⚙️ 𝗛𝗢𝗥𝗔𝗥𝗜𝗢 𝗠𝗔𝗟 𝗘𝗦𝗖𝗥𝗜𝗧𝗢, 𝗜𝗡𝗧𝗘𝗡𝗧𝗔 𝗗𝗘 𝗡𝗨𝗘𝗩𝗢.`)
-let mensaje = args.join` `
-let yo = `🕓 𝗛𝗢𝗥𝗔: *${text}*`
-let texto = `╭──────⚔──────╮
-   4𝗩𝗦4 𝗖𝗢𝗠𝗣𝗘𝗧𝗜𝗧𝗜𝗩𝗢 
-╰──────⚔──────╯
+    const horaRegex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
+    if (!horaRegex.test(args[0])) {
+        conn.reply(m.chat, '𝘍𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 𝘩𝘰𝘳𝘢 𝘪𝘯𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘰. 𝘋𝘦𝘣𝘦 𝘴𝘦𝘳 𝘏𝘏:𝘔𝘔 𝘦𝘯 𝘧𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 24 𝘩𝘰𝘳𝘢𝘴.', m);
+        return;
+    }
 
-${yo}
-📑 𝗥𝗘𝗚𝗟𝗔𝗦: 𝗖𝗟𝗞
+    const horaUsuario = args[0];
+    const pais = args[1].toUpperCase();
 
-╭─────────────╮
-│ 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔 
-│🥷🏻 ➤ 
-│🥷🏻 ➤  
-│🥷🏻 ➤ 
-│🥷🏻 ➤ 
-╰─────────────╯
-╭─────────────╮
-│ 𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦 
-│🥷🏻 ➤  
-│🥷🏻 ➤ 
-╰─────────────╯
-𝗘𝗟𝗜𝗧𝗘 𝗕𝗢𝗧 𝗚𝗟𝗢𝗕𝗔𝗟 
-❙❘❙❙❘❙❚❙❘❙❙❚❙❘❙❘❙❚❙❘❙❙❚❙❘❙❙❘❙❚❙❘`.trim()
-conn.sendFile(m.chat, pp, 'error.jpg', texto, m, false, { mentions: [...groupAdmins.map(v => v.id), owner] })
+    const diferenciasHorarias = {
+        BO: 1, 
+        PE: 1,
+        CL: 2,
+        AR: 3
+    };
 
-}
-handler.help = ['admins']
-handler.tags = ['grupo']
-handler.command = /^(4x4|4vs4)$/i
-handler.group = true
+    if (!(pais in diferenciasHorarias)) {
+        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina.', m);
+        return;
+    }
 
-export default handler */
+
+    const diferenciaHoraria = diferenciasHorarias[pais];
+
+    const hora = parseInt(horaUsuario.split(':')[0], 10);
+    const minutos = parseInt(horaUsuario.split(':')[1], 10);
+
+    const horasEnPais = [];
+    for (let i = 0; i < 4; i++) {
+        const horaActual = new Date();
+        horaActual.setHours(hora + i);
+        horaActual.setMinutes(minutos);
+        horaActual.setSeconds(0);
+        horaActual.setMilliseconds(0);
+
+        const horaEnPais = new Date(horaActual.getTime() - (3600000 * diferenciaHoraria));
+        horasEnPais.push(horaEnPais);
+    }
+
+    const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+    const message = `
+*4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
+
+🇧🇴 𝐁𝐎𝐋𝐈𝐕𝐈𝐀 : ${formatTime(horasEnPais[0])}
+🇵🇪 𝐏𝐄𝐑𝐔 : ${formatTime(horasEnPais[1])}
+🇨🇱 𝐂𝐇𝐈𝐋𝐄 : ${formatTime(horasEnPais[2])}
+🇦🇷 𝐀𝐑𝐆𝐄𝐍𝐓𝐈𝐍𝐀 : ${formatTime(horasEnPais[3])}
+
+𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
+
+👑 ┇ 
+🥷🏻 ┇  
+🥷🏻 ┇ 
+🥷🏻 ┇ 
+
+
+ㅤʚ 𝐒𝐔𝐏𝐋𝐄𝐍𝐓𝐄:
+🥷🏻 ┇ 
+🥷🏻 ┇
+`.trim();
+    
+    conn.sendMessage(m.chat, { text: message }, { quoted: m });
+};
+handler.help = ['4vs4']
+handler.tags = ['freefire']
+handler.command = /^(4vs4|vs4)$/i;
+export default handler;
