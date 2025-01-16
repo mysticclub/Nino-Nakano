@@ -1,12 +1,13 @@
 const handler = async (m, { conn, args }) => {
     if (args.length < 2) {
-        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙).', m);
+        conn.reply(m.chat, 'Debes proporcionar la hora (HH:MM) y el país base (BO, PE, CL, AR).', m);
         return;
     }
 
     const horaUsuario = args[0];
     const paisBase = args[1].toUpperCase();
 
+    // Zonas horarias para cada país
     const zonasHorarias = {
         BO: 'America/La_Paz',       // Bolivia
         PE: 'America/Lima',         // Perú
@@ -14,6 +15,7 @@ const handler = async (m, { conn, args }) => {
         AR: 'America/Argentina/Buenos_Aires' // Argentina
     };
 
+    // Validar el país base
     if (!(paisBase in zonasHorarias)) {
         conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina.', m);
         return;
@@ -22,19 +24,17 @@ const handler = async (m, { conn, args }) => {
     // Validar formato de hora
     const [horas, minutos] = horaUsuario.split(':').map(num => parseInt(num, 10));
     if (isNaN(horas) || isNaN(minutos) || horas < 0 || horas > 23 || minutos < 0 || minutos > 59) {
-        conn.reply(m.chat, 'Hora inválida. Debe estar en formato HH:MM.', m);
+        conn.reply(m.chat, 'Hora inválida. Debe estar en formato HH:MM (ejemplo: 21:00).', m);
         return;
     }
 
-    // Crear la fecha base a partir de la hora proporcionada
+    // Crear la hora base en la zona horaria del país base
     const fechaBase = new Date();
-    fechaBase.setHours(horas, minutos, 0, 0);
+    fechaBase.setUTCHours(horas, minutos, 0, 0);
+    const fechaEnZonaBase = new Date(fechaBase.toLocaleString('en-US', { timeZone: zonasHorarias[paisBase] }));
 
-    // Convertir la hora base a cada zona horaria
+    // Convertir la hora a las zonas horarias de los demás países
     const horasEnPais = {};
-    const zonaPaisBase = zonasHorarias[paisBase];
-    const fechaEnZonaBase = new Date(fechaBase.toLocaleString('en-US', { timeZone: zonaPaisBase }));
-
     for (let pais in zonasHorarias) {
         const horaConvertida = new Date(
             fechaEnZonaBase.toLocaleString('en-US', { timeZone: zonasHorarias[pais] })
@@ -47,7 +47,7 @@ const handler = async (m, { conn, args }) => {
         horasEnPais[pais] = formatoHora;
     }
 
-    // Crear el mensaje con las horas en cada país
+    // Generar el mensaje con las horas en cada país
     const message = `
 *4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
 
