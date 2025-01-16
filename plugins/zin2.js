@@ -1,43 +1,62 @@
 const handler = async (m, { conn, args }) => {
 
-    if (args.length < 2) {
-        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙).', m);
+    if (args.length < 3) {
+        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 (SR o EU), 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔) 𝘺 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘊𝘓, 𝘈𝘙).', m);
         return;
     }
 
     const horaRegex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
-    if (!horaRegex.test(args[0])) {
+    if (!horaRegex.test(args[1])) {
         conn.reply(m.chat, '𝘍𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 𝘩𝘰𝘳𝘢 𝘪𝘯𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘰. 𝘋𝘦𝘣𝘦 𝘴𝘦𝘳 𝘏𝘏:𝘔𝘔 𝘦𝘯 𝘧𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 24 𝘩𝘰𝘳𝘢𝘴.', m);
         return;
     }
 
-    const horaUsuario = args[0];
-    let paisBase = args[1].toUpperCase();
+    const horaUsuario = args[1];
+    let paisBase = args[2].toUpperCase();
 
     const banderasToPais = {
         '🇧🇴': 'BO',
         '🇵🇪': 'PE',
         '🇨🇱': 'CL',
-        '🇦🇷': 'AR'
+        '🇦🇷': 'AR',
+        '🇨🇴': 'CO', // Colombia
+        '🇲🇽': 'MX'  // México
     };
-
 
     if (banderasToPais[paisBase]) {
         paisBase = banderasToPais[paisBase];
     }
 
-    const diferenciasHorarias = {
-        BO: 0, // Bolivia
-        PE: -1, // Perú 
-        CL: 1,  // Chile
-        AR: 1   // Argentina
-    };
-
-    if (!(paisBase in diferenciasHorarias)) {
-        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina. También puedes usar las banderas correspondientes.', m);
+    // Verificar la región
+    const region = args[0].toUpperCase(); // SR o EU
+    if (region !== 'SR' && region !== 'EU') {
+        conn.reply(m.chat, '𝘓𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 𝘦𝘯 𝘳𝘦𝘤𝘪𝘣𝘰 𝘯𝘰 𝘦𝘴 𝘷𝘢𝘭𝘪𝘥𝘢. 𝘜𝘴𝘢 𝘚𝘙 𝘰 𝘌𝘜.', m);
         return;
     }
 
+    // Diferencias horarias para SR (Sudamérica)
+    const diferenciasHorariasSR = {
+        BO: 0, // Bolivia
+        PE: -1, // Perú 
+        CL: 1,  // Chile
+        AR: 1,  // Argentina
+        CO: -1, // Colombia
+        MX: -2  // México
+    };
+
+    // Diferencias horarias para EU (Europa), con solo México y Colombia
+    const diferenciasHorariasEU = {
+        CO: -1, // Colombia
+        MX: -2  // México
+    };
+
+    // Usar las diferencias horarias correctas según la región
+    const diferenciasHorarias = region === 'SR' ? diferenciasHorariasSR : diferenciasHorariasEU;
+
+    if (!(paisBase in diferenciasHorarias)) {
+        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile, AR para Argentina, CO para Colombia, MX para México o los países de la región EU.', m);
+        return;
+    }
 
     const diferenciaBase = diferenciasHorarias[paisBase];
 
@@ -64,7 +83,6 @@ const handler = async (m, { conn, args }) => {
         horasEnPais.push(horasAjustadas);
     }
 
-
     const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
     const message = `
@@ -75,7 +93,9 @@ ${horasEnPais[0].map(({ pais, hora }) => {
             BO: '🇧🇴',
             PE: '🇵🇪',
             CL: '🇨🇱',
-            AR: '🇦🇷'
+            AR: '🇦🇷',
+            CO: '🇨🇴',
+            MX: '🇲🇽'
         }[pais];
         return `${bandera} ${pais} : ${formatTime(hora)}`;
     }).join('\n')}
@@ -93,8 +113,40 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 🥷🏻 ┇
 `.trim();
 
+    // Enviar el mensaje con la primera lista (según región)
     await m.react('✅')
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
+
+    // Enviar la segunda lista con los horarios de Colombia y México (EU)
+    if (region === 'EU') {
+        const messageEU = `
+*4 𝐕𝐄𝐑𝐒𝐔𝐒 4 (EU)*
+
+${horasEnPais[0].map(({ pais, hora }) => {
+            if (pais === 'CO' || pais === 'MX') {
+                const bandera = {
+                    CO: '🇨🇴',
+                    MX: '🇲🇽'
+                }[pais];
+                return `${bandera} ${pais} : ${formatTime(hora)}`;
+            }
+        }).join('\n')}
+
+𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
+
+👑 ┇ 
+🥷🏻 ┇  
+🥷🏻 ┇ 
+🥷🏻 ┇ 
+
+
+ㅤʚ 𝐒𝐔𝐏𝐋𝐄𝐍𝐓𝐄:
+🥷🏻 ┇ 
+🥷🏻 ┇
+`.trim();
+
+        conn.sendMessage(m.chat, { text: messageEU }, { quoted: m });
+    }
 };
 handler.help = ['4vs4']
 handler.tags = ['freefire']
