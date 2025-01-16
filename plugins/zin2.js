@@ -31,13 +31,13 @@ const handler = async (m, { conn, args }) => {
     // Obtener la diferencia horaria del país seleccionado
     const diferenciaBase = diferenciasHorarias[paisBase];
 
-    // Calcular la hora en Bolivia
+    // Calcular la hora base del país seleccionado
     const hora = parseInt(horaUsuario.split(':')[0], 10);
     const minutos = parseInt(horaUsuario.split(':')[1], 10);
 
-    // Crear una fecha base en la hora proporcionada
+    // Crear una fecha base en la hora proporcionada, tomando en cuenta la diferencia horaria
     const horaBase = new Date();
-    horaBase.setHours(hora);
+    horaBase.setHours(hora - diferenciaBase); // Ajustar la hora base con la diferencia
     horaBase.setMinutes(minutos);
     horaBase.setSeconds(0);
     horaBase.setMilliseconds(0);
