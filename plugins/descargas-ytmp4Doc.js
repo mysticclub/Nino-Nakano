@@ -1,56 +1,93 @@
+import fg from 'api-dylux';
+import { youtubedl, youtubedlv2 } from '@bochilteam/scraper';
 
-import fg from 'api-dylux'
-import { youtubedl, youtubedlv2 } from '@bochilteam/scraper'
-let limit = 320
+const limit = 320; // Límite en MB
+const rwait = '⏳'; // Emoji o texto para indicar espera
+const done = '✅';  // Emoji o texto para indicar éxito
+
 let handler = async (m, { conn, args, isPrems, isOwner, usedPrefix, command }) => {
-        if (!args || !args[0]) throw `✳️ ejemplo :\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`
-    if (!args[0].match(/youtu/gi)) throw `❎ no es un link de yt`
-         let chat = global.db.data.chats[m.chat]
-         m.react(rwait) 
+    if (!args || !args[0]) {
+        throw `✳️ Ejemplo:\n${usedPrefix + command} https://youtu.be/YzkTFFwxtXI`;
+    }
 
-         let q = args[1] || '360p'
- try {
-                const yt = await fg.ytv(args[0], q)
-                let { title, dl_url, quality, size, sizeB } = yt
-        let isLimit = limit * 1024 < sizeB 
+    // Validar que el enlace sea de YouTube
+    if (!/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)\/.+$/.test(args[0])) {
+        throw `❎ No es un enlace válido de YouTube.`;
+    }
 
-     await conn.loadingMsg(m.chat, '📥 Descargando', ` ${isLimit ? `≡  *FG YTDL 2*\n\n▢ *⚖️ peso*: ${size}\n▢ *🎞️ calidad*: ${quality}\n\n▢ _limite_ *+${limit} MB*` : '✅ Descarga Completada' }`, ["▬▭▭▭▭▭", "▬▬▭▭▭▭", "▬▬▬▭▭▭", "▬▬▬▬▭▭", "▬▬▬▬▬▭", "▬▬▬▬▬▬"], m)
+    const quality = args[1] || '360p'; // Calidad por defecto
+    const chat = global.db.data.chats[m.chat]; // Obtener configuración del chat
 
-          if(!isLimit) conn.sendFile(m.chat, dl_url, title + '.mp4', `
- ≡  *FG YTDL*
-  
-*📌 título:* ${title}
-*🎞️ titulo:* ${quality}
-*⚖️ titulo:* ${size}
-`.trim(), m, false, { asDocument: chat.useDocument })
-                m.react(done) 
-         } catch {
+    try {
+        // Enviar reacción inicial
+        await m.react(rwait);
 
-        try {
-        let yt = await fg.ytmp4(args[0], q)
-    let { title, size, sizeB, dl_url, quality } = yt
+        // Descargar usando `fg.ytv`
+        const yt = await fg.ytv(args[0], quality);
+        const { title, dl_url, quality: ytQuality, size, sizeB } = yt;
+        const isLimit = limit * 1024 < sizeB;
 
-  let isLimit = limit * 1024 < sizeB 
+        // Mensaje de carga
+        await conn.reply(m.chat, `📥 Descargando...\n${isLimit ? `⚖️ *Peso*: ${size}\n🎞️ *Calidad*: ${ytQuality}\n\n_Límite de descarga superado: ${limit} MB_` : '✅ Descarga Completada'}`, m);
 
-  await conn.loadingMsg(m.chat, '📥 Descargando', ` ${isLimit ? `≡  *FG YTDL 2*\n\n▢ *⚖️peso*: ${size}\n▢ *🎞️ calidad*: ${quality}\n\n▢ _Limite_ *+${limit} MB*` : '✅ Descarga Completada' }`, ["▬▭▭▭▭▭", "▬▬▭▭▭▭", "▬▬▬▭▭▭", "▬▬▬▬▭▭", "▬▬▬▬▬▭", "▬▬▬▬▬▬"], m)
+        // Enviar archivo si no supera el límite
+        if (!isLimit) {
+            await conn.sendFile(
+                m.chat,
+                dl_url,
+                `${title}.mp4`,
+                `
+≡  *Descarga Completa*
 
-if(!isLimit) conn.sendFile(m.chat, dl_url, title + '.mp4', `
- ≡  *FG YTDL 2*
-  
-▢ *📌titulo* : ${title}
-*🎞️calidad:* ${quality}
-▢ *⚖️peso* : ${size}
-`.trim(), m, false, { asDocument: chat.useDocument })
-                m.react(done)
-
-        } catch {
-                await m.reply(`❎ error`)
+📌 *Título:* ${title}
+🎞️ *Calidad:* ${ytQuality}
+⚖️ *Peso:* ${size}
+                `.trim(),
+                m,
+                false,
+                { asDocument: chat.useDocument }
+            );
         }
-                } 
-}
-handler.help = ['ytmp4 <link yt>']
-handler.tags = ['dl'] 
-handler.command = ['ytmp4doc', 'fgmp4doc']
-handler.diamond = false
+        await m.react(done); // Reacción de éxito
+    } catch (error) {
+        try {
+            // Intentar con `fg.ytmp4` si el anterior falla
+            const yt = await fg.ytmp4(args[0], quality);
+            const { title, size, sizeB, dl_url, quality: ytQuality } = yt;
+            const isLimit = limit * 1024 < sizeB;
 
-export default handler
+            // Mensaje de carga
+            await conn.reply(m.chat, `📥 Descargando...\n${isLimit ? `⚖️ *Peso*: ${size}\n🎞️ *Calidad*: ${ytQuality}\n\n_Límite de descarga superado: ${limit} MB_` : '✅ Descarga Completada'}`, m);
+
+            // Enviar archivo si no supera el límite
+            if (!isLimit) {
+                await conn.sendFile(
+                    m.chat,
+                    dl_url,
+                    `${title}.mp4`,
+                    `
+≡  *Descarga Completa (Método Alternativo)*
+
+📌 *Título:* ${title}
+🎞️ *Calidad:* ${ytQuality}
+⚖️ *Peso:* ${size}
+                    `.trim(),
+                    m,
+                    false,
+                    { asDocument: chat.useDocument }
+                );
+            }
+            await m.react(done); // Reacción de éxito
+        } catch (e) {
+            // Enviar mensaje de error si ambos métodos fallan
+            await conn.reply(m.chat, `❎ Error al procesar la descarga. Intenta con otro enlace.`, m);
+        }
+    }
+};
+
+handler.help = ['ytmp4 <link yt>'];
+handler.tags = ['dl'];
+handler.command = ['ytmp4doc', 'fgmp4doc'];
+handler.diamond = false;
+
+export default handler;
