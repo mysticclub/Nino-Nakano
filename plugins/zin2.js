@@ -80,7 +80,7 @@ const handler = async (m, { conn, args }) => {
     const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
     const message = `
-4 𝐕𝐄𝐑𝐒𝐔𝐒 4
+𝟰 𝗩𝗘𝗥𝗦𝗨𝗦 𝟰
 
 ${horasEnPais[0].map(({ pais, hora }) => {
         const bandera = {
@@ -101,13 +101,12 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 🥷🏻 ➤ 
 🥷🏻 ➤ 
 
-
-ㅤʚ 𝐒𝐔𝐏𝐋𝐄𝐍𝐓𝐄:
+𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦 
 🥷🏻 ➤ 
 🥷🏻 ➤ 
 `.trim();
 
-    await m.react('☁️')
+    await m.react('✅')
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
 
