@@ -19,15 +19,18 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
+    // Validar formato de hora
     const [horas, minutos] = horaUsuario.split(':').map(num => parseInt(num, 10));
     if (isNaN(horas) || isNaN(minutos) || horas < 0 || horas > 23 || minutos < 0 || minutos > 59) {
         conn.reply(m.chat, 'Hora inválida. Debe estar en formato HH:MM.', m);
         return;
     }
 
+    // Crear una fecha base con la hora proporcionada en la zona horaria del país base
     const fechaBase = new Date();
-    fechaBase.setHours(horas, minutos, 0, 0);
+    fechaBase.setUTCHours(horas - (new Date().getTimezoneOffset() / 60), minutos, 0, 0);
 
+    // Convertir la hora base a cada zona horaria
     const horasEnPais = {};
     for (let pais in zonasHorarias) {
         const horaConvertida = new Intl.DateTimeFormat('es-ES', {
