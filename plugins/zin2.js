@@ -113,19 +113,24 @@ ${horasEnPais[0].map(({ pais, hora }) => {
     await m.react('✅')
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 
-    // Enviar la lista para Europa (EU) con solo México y Colombia
+    // Enviar la lista para Europa (EU) con solo México y Colombia, basada en la hora de México
     if (region === 'EU') {
+        const horaMexico = new Date(horaBase.getTime() + (3600000 * 2)); // Horario base para México
+        const horasAjustadasMexico = Object.keys(diferenciasHorariasEU).map(pais => {
+            const diferencia = diferenciasHorariasEU[pais];
+            const horaEnPais = new Date(horaMexico.getTime() + (3600000 * diferencia));
+            return { pais, hora: horaEnPais };
+        });
+
         const messageEU = `
 *4 𝐕𝐄𝐑𝐒𝐔𝐒 4 (EU)*
 
-${horasEnPais[0].map(({ pais, hora }) => {
-            if (pais === 'CO' || pais === 'MX') {
-                const bandera = {
-                    CO: '🇨🇴',
-                    MX: '🇲🇽'
-                }[pais];
-                return `${bandera} ${pais} : ${formatTime(hora)}`;
-            }
+${horasAjustadasMexico.map(({ pais, hora }) => {
+            const bandera = {
+                CO: '🇨🇴',
+                MX: '🇲🇽'
+            }[pais];
+            return `${bandera} ${pais} : ${formatTime(hora)}`;
         }).join('\n')}
 
 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
