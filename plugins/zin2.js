@@ -37,7 +37,7 @@ const handler = async (m, { conn, args }) => {
         BO: 0,
         PE: -1,
         CL: 1,
-        AR: 1
+        AR: 1,
     };
 
     const diferenciasHorariasEU = {
@@ -80,7 +80,7 @@ const handler = async (m, { conn, args }) => {
     const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
     const message = `
-4 𝐕𝐄𝐑𝐒𝐔𝐒 4 ${region === 'SR' ? '' : '(EU)'}
+4 𝐕𝐄𝐑𝐒𝐔𝐒 4
 
 ${horasEnPais[0].map(({ pais, hora }) => {
         const bandera = {
@@ -107,7 +107,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 🥷🏻 ┇
 `.trim();
 
-    await m.react('✅')
+    await m.react('☁️')
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
 
