@@ -4,8 +4,8 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    const horaUsuario = args[0];  // Hora proporcionada por el usuario
-    const paisBase = args[1].toUpperCase();  // País proporcionado por el usuario
+    const horaUsuario = args[0];
+    const paisBase = args[1].toUpperCase();
 
     const zonasHorarias = {
         BO: 'America/La_Paz',  // Bolivia
@@ -19,27 +19,37 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    // Función para obtener la hora de una zona horaria específica
-    function obtenerHoraZona(zona, hora, minutos) {
-        const opciones = { timeZone: zona, hour12: false, hour: '2-digit', minute: '2-digit' };
-        const formatter = new Intl.DateTimeFormat('es-ES', opciones);
-
-        // Crear una fecha con la hora y los minutos proporcionados
+    // Función para convertir hora base a la zona horaria específica
+    function convertirHora(hora, zonaOrigen, zonaDestino) {
         const fecha = new Date();
-        fecha.setUTCHours(hora, minutos, 0, 0); // Establecer la hora UTC según la hora proporcionada
-        return formatter.format(fecha);
+        const [horas, minutos] = hora.split(':').map(num => parseInt(num, 10));
+
+        fecha.setHours(horas, minutos, 0, 0);
+
+        // Crear formato con la zona horaria de origen
+        const opciones = {
+            timeZone: zonaOrigen,
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+        };
+        const formatterOrigen = new Intl.DateTimeFormat('es-ES', opciones);
+        const fechaUTC = new Date(formatterOrigen.format(fecha) + ' UTC');
+
+        // Convertir a la zona horaria destino
+        const opcionesDestino = {
+            timeZone: zonaDestino,
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+        };
+        const formatterDestino = new Intl.DateTimeFormat('es-ES', opcionesDestino);
+        return formatterDestino.format(fechaUTC);
     }
-
-    // Extraemos la hora y minutos del argumento dado
-    const [horaInput, minutosInput] = horaUsuario.split(":").map(num => parseInt(num));
-
-    // Obtener la hora base para el país de referencia
-    const horaBase = obtenerHoraZona(zonasHorarias[paisBase], horaInput, minutosInput);
 
     const horasEnPais = {};
     for (let pais in zonasHorarias) {
-        const hora = obtenerHoraZona(zonasHorarias[pais], horaInput, minutosInput);
-        horasEnPais[pais] = hora;
+        horasEnPais[pais] = convertirHora(horaUsuario, zonasHorarias[paisBase], zonasHorarias[pais]);
     }
 
     // Crear el mensaje con las horas en cada país
@@ -72,7 +82,7 @@ ${Object.keys(horasEnPais).map((pais) => {
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
 
-handler.help = ['4vs4']
-handler.tags = ['freefire']
+handler.help = ['4vs4'];
+handler.tags = ['freefire'];
 handler.command = /^(4vs4|vs4)$/i;
 export default handler;
