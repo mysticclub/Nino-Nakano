@@ -96,8 +96,9 @@ ${horasEnPais[0].map(({ pais, hora }) => {
             CO: '🇨🇴',
             MX: '🇲🇽'
         }[pais];
-        return `${bandera} ${pais} : ${formatTime(hora)}`;
+        return `*${bandera} ${pais} :* ${formatTime(hora)}`;
     }).join('\n')}
+*REGLAS:*
 
 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
 
