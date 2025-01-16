@@ -83,8 +83,9 @@ const handler = async (m, { conn, args }) => {
 
     const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
+    // Generar el mensaje
     const message = `
-*4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
+*4 𝐕𝐄𝐑𝐒𝐔𝐒 4 ${region === 'SR' ? '' : '(EU)'}*
 
 ${horasEnPais[0].map(({ pais, hora }) => {
         const bandera = {
@@ -111,45 +112,9 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 🥷🏻 ┇
 `.trim();
 
-    // Enviar el mensaje con la lista correspondiente a la región seleccionada
+    // Enviar solo una lista con los horarios
     await m.react('✅')
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
-
-    // Solo si la región es EU, enviar la lista con los horarios para México y Colombia
-    if (region === 'EU') {
-        const horaMexico = new Date(horaBase.getTime() + (3600000 * 2)); // Horario base para México
-        const horasAjustadasMexico = Object.keys(diferenciasHorariasEU).map(pais => {
-            const diferencia = diferenciasHorariasEU[pais];
-            const horaEnPais = new Date(horaMexico.getTime() + (3600000 * diferencia));
-            return { pais, hora: horaEnPais };
-        });
-
-        const messageEU = `
-*4 𝐕𝐄𝐑𝐒𝐔𝐒 4 (EU)*
-
-${horasAjustadasMexico.map(({ pais, hora }) => {
-            const bandera = {
-                CO: '🇨🇴',
-                MX: '🇲🇽'
-            }[pais]; // Asignar correctamente las banderas
-            return `${bandera} ${pais} : ${formatTime(hora)}`;
-        }).join('\n')}
-
-𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
-
-👑 ┇ 
-🥷🏻 ┇  
-🥷🏻 ┇ 
-🥷🏻 ┇ 
-
-
-ㅤʚ 𝐒𝐔𝐏𝐋𝐄𝐍𝐓𝐄:
-🥷🏻 ┇ 
-🥷🏻 ┇
-`.trim();
-
-        conn.sendMessage(m.chat, { text: messageEU }, { quoted: m });
-    }
 };
 
 handler.help = ['4vs4']
