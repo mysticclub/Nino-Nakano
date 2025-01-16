@@ -5,54 +5,69 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
+    // Validar el formato de la hora
+    const horaRegex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
+    if (!horaRegex.test(args[0])) {
+        conn.reply(m.chat, '𝘍𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 𝘩𝘰𝘳𝘢 𝘪𝘯𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘰. 𝘋𝘦𝘣𝘦 𝘴𝘦𝘳 𝘏𝘏:𝘔𝘔 𝘦𝘯 𝘧𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 24 𝘩𝘰𝘳𝘢𝘴.', m);
+        return;
+    }
+
     const horaUsuario = args[0]; // Hora proporcionada por el usuario
     const paisBase = args[1].toUpperCase(); // País proporcionado por el usuario
 
-    // Zonas horarias de referencia sin considerar horario de verano
-    const zonasHorarias = {
-        BO: 'America/La_Paz',  // Bolivia
-        PE: 'America/Lima',    // Perú
-        CL: 'America/Santiago',// Chile
-        AR: 'America/Argentina/Buenos_Aires' // Argentina
+    // Definir las diferencias horarias respecto a la hora de Bolivia
+    const diferenciasHorarias = {
+        BO: 0, // Bolivia base (hora de referencia)
+        PE: 0, // Perú tiene la misma hora que Bolivia
+        CL: 1, // Chile tiene una hora más que Bolivia
+        AR: 2  // Argentina tiene dos horas más que Bolivia
     };
 
-    // Verificar que el país ingresado es válido
-    if (!(paisBase in zonasHorarias)) {
+    if (!(paisBase in diferenciasHorarias)) {
         conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina.', m);
         return;
     }
 
-    // Función para obtener la hora en una zona horaria
-    function obtenerHoraZona(zona) {
-        const opciones = { timeZone: zona, hour12: false, hour: '2-digit', minute: '2-digit' };
-        const formatter = new Intl.DateTimeFormat('es-ES', opciones);
-        const fecha = new Date();
-        return formatter.format(fecha);  // Devuelve la hora en formato HH:MM
+    // Obtener la diferencia horaria del país seleccionado
+    const diferenciaBase = diferenciasHorarias[paisBase];
+
+    // Calcular las cuatro horas consecutivas en Bolivia según la hora proporcionada
+    const hora = parseInt(horaUsuario.split(':')[0], 10);
+    const minutos = parseInt(horaUsuario.split(':')[1], 10);
+
+    const horasEnPais = [];
+    for (let i = 0; i < 4; i++) {
+        const horaActual = new Date();
+        horaActual.setHours(hora + i);
+        horaActual.setMinutes(minutos);
+        horaActual.setSeconds(0);
+        horaActual.setMilliseconds(0);
+
+        // Ajustar la hora a cada país
+        const horasAjustadas = Object.keys(diferenciasHorarias).map(pais => {
+            const diferencia = diferenciasHorarias[pais];
+            const horaEnPais = new Date(horaActual.getTime() + (3600000 * (diferencia - diferenciaBase))); // Ajuste de hora
+            return { pais, hora: horaEnPais };
+        });
+
+        horasEnPais.push(horasAjustadas);
     }
 
-    // Obtener la hora en el país base
-    const horaBase = obtenerHoraZona(zonasHorarias[paisBase]);
+    // Formatear las horas según el formato de 24 horas y obtener solo la hora y minutos
+    const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
 
-    // Calcular las horas en los otros países
-    const horasEnPais = {};
-    for (let pais in zonasHorarias) {
-        const hora = obtenerHoraZona(zonasHorarias[pais]);
-        horasEnPais[pais] = hora;
-    }
-
-    // Crear el mensaje con las horas
     const message = `
 *4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
 
-${Object.keys(horasEnPais).map((pais) => {
-    const bandera = {
-        BO: '🇧🇴',
-        PE: '🇵🇪',
-        CL: '🇨🇱',
-        AR: '🇦🇷'
-    }[pais];
-    return `${bandera} ${pais} : ${horasEnPais[pais]}`;
-}).join('\n')}
+${horasEnPais[0].map(({ pais, hora }) => {
+        const bandera = {
+            BO: '🇧🇴',
+            PE: '🇵🇪',
+            CL: '🇨🇱',
+            AR: '🇦🇷'
+        }[pais];
+        return `${bandera} ${pais} : ${formatTime(hora)}`;
+    }).join('\n')}
 
 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
 
@@ -69,7 +84,6 @@ ${Object.keys(horasEnPais).map((pais) => {
 
     conn.sendMessage(m.chat, { text: message }, { quoted: m });
 };
-
 handler.help = ['4vs4']
 handler.tags = ['freefire']
 handler.command = /^(4vs4|vs4)$/i;
