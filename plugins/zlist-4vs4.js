@@ -14,27 +14,38 @@ const handler = async (m, { conn, args }) => {
         AR: 'America/Argentina/Buenos_Aires' // Argentina
     };
 
-
     if (!(paisBase in zonasHorarias)) {
         conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, CL para Chile o AR para Argentina.', m);
         return;
     }
 
-    function obtenerHoraZona(zona) {
+
+    function obtenerHoraZona(zona, hora, minutos) {
         const opciones = { timeZone: zona, hour12: false, hour: '2-digit', minute: '2-digit' };
         const formatter = new Intl.DateTimeFormat('es-ES', opciones);
+
         const fecha = new Date();
-        return formatter.format(fecha); 
+        fecha.setHours(hora);
+        fecha.setMinutes(minutos);
+        fecha.setSeconds(0);
+        fecha.setMilliseconds(0);
+
+        return formatter.format(fecha);
     }
 
-    const horaBase = obtenerHoraZona(zonasHorarias[paisBase]);
+
+    const [horaInput, minutosInput] = horaUsuario.split(":").map(num => parseInt(num));
+
+
+    const horaBase = obtenerHoraZona(zonasHorarias[paisBase], horaInput, minutosInput);
 
     const horasEnPais = {};
     for (let pais in zonasHorarias) {
-        const hora = obtenerHoraZona(zonasHorarias[pais]);
+        const hora = obtenerHoraZona(zonasHorarias[pais], horaInput, minutosInput);
         horasEnPais[pais] = hora;
     }
 
+ 
     const message = `
 *4 𝐕𝐄𝐑𝐒𝐔𝐒 4*
 
