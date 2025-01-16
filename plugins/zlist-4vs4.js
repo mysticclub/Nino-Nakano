@@ -1,4 +1,4 @@
-var handler = async (m, { conn, participants, groupMetadata, args, text }) => {
+/* var handler = async (m, { conn, participants, groupMetadata, args, text }) => {
 
 const pp = 'https://files.catbox.moe/mi2i9i.jpeg'
 const groupAdmins = participants.filter(p => p.admin)
@@ -37,4 +37,4 @@ handler.tags = ['grupo']
 handler.command = /^(4x4|4vs4)$/i
 handler.group = true
 
-export default handler
+export default handler */
