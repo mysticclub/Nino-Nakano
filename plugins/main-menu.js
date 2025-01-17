@@ -6,6 +6,7 @@ import os from 'os'
 import fs from 'fs'
 import fetch from 'node-fetch'
 const { generateWAMessageFromContent, proto, getDevice } = (await import('@whiskeysockets/baileys')).default
+
 let estilo = (text, style = 1) => {
   var xStr = 'abcdefghijklmnopqrstuvwxyz1234567890'.split('');
   var yStr = Object.freeze({
@@ -24,6 +25,7 @@ let estilo = (text, style = 1) => {
   });
   return output.join('');
 };
+
 const defaultMenu = {
   before: `*Hola \`%name\` soy Genesis*
 
@@ -37,12 +39,12 @@ const defaultMenu = {
  %readmore
   `.trimStart(),
   header: '✧*̥˚ ︶︶︶︶︶︶︶︶︶  ✧*̥˚\n┊ %category \n✧*̥˚ ︶︶︶︶︶︶︶︶︶  ✧*̥˚',
-  body: '*┊➫* %cmd %iscorazones %isPremium',
+  body: '*┊%emoji* %cmd %iscorazones %isPremium',
   footer: '  ︶︶︶︶︶︶︶︶︶︶︶︶\n\n',
   after: ``,
-  }
-let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
+}
 
+let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
   let tags = {
     "main": "🌟 「 *`PRINCIPAL`* 」 🌟",
     "tk": "💻 「 *`TK-HOSTING`* 」 💻",
@@ -65,27 +67,25 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
   }
 
   try {
-    // DEFAULT MENU
+    // Default values
     let dash = global.dashmenu
     let m1 = global.dmenut
     let m2 = global.dmenub
     let m3 = global.dmenuf
     let m4 = global.dmenub2
 
-    // COMMAND MENU
     let cc = global.cmenut
     let c1 = global.cmenuh
     let c2 = global.cmenub
     let c3 = global.cmenuf
     let c4 = global.cmenua
 
-    // LOGO L P
     let lprem = global.lopr
     let llim = global.lolm
     let tag = `@${m.sender.split('@')[0]}`
     let device = await getDevice(m.id)
 
-    //-----------TIME---------
+    // Time setup
     let ucpn = `${ucapan()}`
     let d = new Date(new Date + 3600000)
     let locale = 'es'
@@ -96,10 +96,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       year: 'numeric'
     })
     let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-    // d.getTimeZoneOffset()
-    // Offset -420 is 18.00
-    // Offset    0 is  0.00
-    // Offset  420 is  7.00
     let weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
     let dateIslamic = Intl.DateTimeFormat(locale + '-TN-u-ca-islamic', {
       day: 'numeric',
@@ -122,40 +118,10 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     }
     let muptime = clockString(_muptime)
     let uptime = clockString(_uptime)
-    let _mpt
-    if (process.send) {
-      process.send('uptime')
-      _mpt = await new Promise(resolve => {
-        process.once('message', resolve)
-        setTimeout(resolve, 1000)
-      }) * 1000
-    }
-    let mpt = clockString(_mpt)
-    let usrs = db.data.users[m.sender]
 
-
-    /**************************** TIME *********************/
-    let wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
-    let wibh = moment.tz('Asia/Jakarta').format('HH')
-    let wibm = moment.tz('Asia/Jakarta').format('mm')
-    let wibs = moment.tz('Asia/Jakarta').format('ss')
-    let wit = moment.tz('Asia/Jayapura').format('HH:mm:ss')
-    let wita = moment.tz('Asia/Makassar').format('HH:mm:ss')
-    let wktuwib = `${wibh} H ${wibm} M ${wibs} S`
-
-    let mode = global.opts['self'] || global.opts['owneronly'] ? 'Private' : 'Publik'
-    let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
-    let { age, exp, corazones, level, role, registered, money } = global.db.data.users[m.sender]
-    let { min, xp, max } = xpRange(level, global.multiplier)
-    let name = await conn.getName(m.sender)
-    let premium = global.db.data.users[m.sender].premiumTime
-    let prems = `${premium > 0 ? 'Premium' : 'Free'}`
-    let platform = os.platform()
-
-    //---------------------
     let totalf = Object.values(global.plugins).filter(
-    (v) => v.help && v.tags
-  ).length;
+      (v) => v.help && v.tags
+    ).length;
     let totalreg = Object.keys(global.db.data.users).length
     let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
     let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
@@ -176,23 +142,24 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
         if (plugin.tags && plugin.tags.includes(tag))
           if (plugin.help) groups[tag].push(plugin)
     }
-    conn.menu = conn.menu ? conn.menu : {}
+    
     let before = conn.menu.before || defaultMenu.before
     let header = conn.menu.header || defaultMenu.header
     let body = conn.menu.body || defaultMenu.body
     let footer = conn.menu.footer || defaultMenu.footer
     let after = conn.menu.after || (conn.user.jid == global.conn.user.jid ? '' : `Powered by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + defaultMenu.after
+
     let _text = [
       before,
       ...Object.keys(tags).map(tag => {
+        let emoji = tags[tag].split(' ')[0];  // Obtener el emoji del tag
         return header.replace(/%category/g, tags[tag]) + '\n' + [
           ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
             return menu.help.map(help => {
               return body.replace(/%cmd/g, menu.prefix ? help : '%_p' + help)
                 .replace(/%iscorazones/g, menu.corazones ? '◜🪙◞' : '')
                 .replace(/%isPremium/g, menu.premium ? '◜🎫◞' : '')
-//                .replace(/%iscorazones/g, menu.corazones ? corazones : '')
-//                .replace(/%isPremium/g, menu.premium ? lprem : '')
+                .replace(/%emoji/g, emoji)  // Reemplazar la flecha por el emoji
                 .trim()
             }).join('\n')
           }),
@@ -201,6 +168,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       }),
       after
     ].join('\n')
+    
     let text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
     let replace = {
       '%': '%',
