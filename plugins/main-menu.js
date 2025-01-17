@@ -3,7 +3,6 @@ import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
 import os from 'os'
-import fs from 'fs'
 import fetch from 'node-fetch'
 const { generateWAMessageFromContent, proto, getDevice } = (await import('@whiskeysockets/baileys')).default
 
@@ -158,7 +157,10 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let wktuwib = `${wibh} H ${wibm} M ${wibs} S`
 
     let mode = global.opts['self'] || global.opts['owneronly'] ? 'Private' : 'Publik'
-    let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')).catch(_ => ({}))) || {}
+    
+    // Asegúrate de que esta línea carga correctamente el archivo 'package.json'
+    let _package = JSON.parse(await promises.readFile(join(__dirname, '../package.json')))
+
     let { age, exp, corazones, level, role, registered, money } = global.db.data.users[m.sender]
     let { min, xp, max } = xpRange(level, global.multiplier)
     let name = await conn.getName(m.sender)
@@ -267,11 +269,3 @@ handler.register = true
 handler.exp = 3
 
 export default handler
-
-//----------- FUNCIONES ---------
-
-function pickRandom(list) {
-  return list[Math.floor(Math.random() * list.length)]
-}
-
-const more
