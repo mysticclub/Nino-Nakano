@@ -1,165 +1,173 @@
-import db from '../lib/database.js';
-import { createHash } from 'crypto';
-import fetch from 'node-fetch';
+import { generate, generateV1, generateV2, generateV3 } from "../lib/captcha.js"
+import { createHash, randomBytes } from "crypto"
+import { getDevice } from '@whiskeysockets/baileys'
+import fetch from "node-fetch"
+import _ from "lodash"
+const Reg = /\|?(.*)([^\w\s])([0-9]*)$/i
+let msg, user, pp, who, name, age, sn, otp
 
-let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i;
 let handler = async function (m, { conn, text, usedPrefix, command }) {
-  let user = global.db.data.users[m.sender];
-  let name2 = conn.getName(m.sender);
+const dispositivo = await getDevice(m.key.id)
+user = global.db.data.users[m.sender]
+who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+if (user.banned) return await conn.reply(m.chat, `🚫 Esta baneado. No tiene permitido usar este bot.*`, m)
+if (user.registered) return await conn.sendMessage(m.chat, { text: `${dis}Ya esta registrado como *${user.name}*\n\nSi desea hacer un nuevo registro ✨ debe de usar el comando:\n*${usedPrefix}delregistro* \`Número de serie\`\n\n🙂 Si no conoce su número de serie, use el comando:\n*${usedPrefix}numserie*`, ...fake }, { quoted: m })
+let nombre = await conn.getName(m.sender) || await generarNombreRandom()
+const edadRandom = _.random(10, 60)
+const formatoIncorrecto = `⚠️ *¡Verifica el formato de uso!*\n\n📌 Usa el comando de esta manera:\n*${usedPrefix + command} nombre.edad*\n\n📝 Ejemplo:\n*${usedPrefix + command}* ${nombre}.${edadRandom}`
+if (!Reg.test(text)) { 
+return await conn.reply(m.chat, `${dis}\`Uso correcto del comando:\`\n*${usedPrefix + command}* nombre.edad\n\n🩷 *Ejemplo:*\n*${usedPrefix + command}* GataDios.20`, m)
+//const edadesMayores = await generarEdades(18, 60)
+//const edadesMenores = await generarEdades(10, 17)
+/*const sections = [
+{
+title: `🔢 Datos Aleatorios`,
+highlight_label: "Popular",
+rows: [{
+title: "🎲 Edad Aleatoria",
+description: `Elige ${edadRandom} para tu edad.`,
+id: `${usedPrefix + command} ${nombre}.${edadRandom}`
+}]
+},
+{
+title: `❇️ Registro Dinámico`,
+highlight_label: "Recomendado",
+rows: [{
+title: "💫 Nombre y edad aleatorios",
+description: `Registrarme como ${await generarNombreRandom()} con edad de ${edadRandom} años.`,
+id: `${usedPrefix + command} ${await generarNombreRandom()}.${edadRandom}`
+}]
+},
+{
+title: `🧓 Mayor de edad`,
+rows: edadesMayores.map(age => ({
+title: `${age} Años`,
+description: `👉 Elige ${age} para tu edad.`,
+id: `${usedPrefix + command} ${nombre}.${age}`
+}))
+},
+{
+title: `👶 Menor de edad`,
+rows: edadesMenores.map(age => ({
+title: `${age} Años`,
+description: `🍭 Elige ${age} para tu edad.`,
+id: `${usedPrefix + command} ${nombre}.${age}`
+}))
+}  
+]
+if (/ios|web|desktop|unknown/gi.test(dispositivo)) {
+return await conn.reply(m.chat, formatoIncorrecto + '\n\n' + wm2, m)
+} else {*/
+//return await conn.sendButton(m.chat, formatoIncorrecto + '\n\n> _También puedes usar el botón de abajo..._\n', wm.trim(), null, null, null, null, [['Completar registro', sections]], m)
 
-  if (user.registered === true) {
-    return m.reply(`[ ✰ ] Ya estás registrado.`);
-  }
-  if (!Reg.test(text)) {
-    return m.reply(
-      `*[ ✰ ] Por favor, ingresa tu nombre de usuario para proceder con el registro.*\n\n*🤍 Ejemplo de Uso* :\n*${usedPrefix + command}* Angel.19`
-    );
-  }
+}  
+[, name, , age] = text.match(Reg)
+if (!name) return conn.reply(m.chat, `🫠 *No hemos econtrado su nombre, intente de nuevo.*`, m)
+if (name.length >= 41) return conn.reply(m.chat, `😩 *Use un nombre más corto por favor.*`, m)
+if (!age) return conn.reply(m.chat, `🤔 *No hemos econtrado su edad, intente de nuevo.*`, m)
+age = parseInt(age)
+if (age >= 61) return conn.reply(m.chat, `🤷‍♀️ *Use una edad más joven por favor.*`, m)
+if (age <= 9) return conn.reply(m.chat, `😆 *Use una edad mayor por favor.*`, m)
+sn = createHash('md5').update(m.sender).digest('hex')
+try {
+const { image } = await createOtp("Éxito", sn.replace(/\D/g, ""))
+let confirm = "📌 Responde este mensaje con el código OTP que aparece en la imagen."
+let txt = `🕵️‍♀️ *Proceso de Verificación* 🕵️‍♀️\n\n@${m.sender.split("@")[0]}\n${confirm}\n\n> _(El código OTP es personal y de un solo uso.)_`
+otp = sn.replace(/\D/g, "").slice(0, 6)
+msg = await conn.sendMessage(m.sender, { image: image, caption: txt, mentions: [m.sender] }, { quoted: m })
+// Si el tiempo se agota, se limpian los datos de registro
+setTimeout(() => {
+if (user.registered) return
+user.name = ""
+user.age = 0
+user.registered = false
+user.OTP = "" 
+user.registered ? '' : conn.sendMessage(m.sender, { delete: msg.key })
+}, 30000)
+m.isGroup ? await conn.reply(m.chat, "📨 El formulario de verificación se ha enviado a tu chat privado. ¡Revísalo!", m) : ''
+} catch (e) {
+msg = ''
+console.error(e)
+await conn.reply(m.chat, "*⚠️ Ocurrió un error al enviar el formulario de verificación. Intenta de nuevo más tarde.*", m)
+}
+handler.before = async function (m, { conn }) {
+let isVerified = m.quoted && m.quoted.id == msg.key.id && m.text == otp
+if (isVerified) {
+pp = await conn.profilePictureUrl(m.sender, 'image').catch(_ => yartexImg.getRandom())
+user.name = name
+user.age = age
+user.registered = true
+user.OTP = otp
+await conn.sendMessage(m.sender, { delete: msg.key })
+m.react('✨') 
+await conn.sendMessage(m.chat, { image: { url: pp }, caption: `*║⫘⫘⫘⫘⫘⫘✨*
+*║ ${dis}ＲＥＧＩＳＴＲＯ*
+*║ .・゜゜・・゜゜・．*
+*║* 💠 *Nombre* ${name}
+*║* 💠 *Edad* ${age} años
+*║* 💠 *Número de serie* \`${sn.slice(0, 6)}\`
+*║* 💠 *OTP* \`${user.OTP}\` (correcto)
+*║⫘⫘⫘⫘⫘⫘✨*\n
+> ✅ _Tus datos están seguros en nuestra base de datos y ahora puedes usar todas las funciones disponibles para usuarios verificados._`, mentions: [m.sender], ...fake }, { quoted: m })
+}}}
+handler.command = /^(ver(ify|ificar)|reg(istrar)?)$/i
+export default handler
 
-  let [_, name, splitter, age] = text.match(Reg);
-  if (!name) return conn.reply(m.chat, '[ ✰ ] El nombre no puede estar vacío.', m);
-  if (!age) return conn.reply(m.chat, '[ ✰ ] La edad no puede estar vacía.', m);
+async function createOtp(buffer, code) {
+code = code.slice(0, 6)
+try {
+const captcha = await generateV2(code) || await generateV3(code) || await generateV1(code) || await generate(code)
+const captchaBuffer = captcha.buffer
+const securityBuffer = (await generateV2(buffer) || await generateV3(buffer) || await generateV1(buffer) || await generate(buffer))?.buffer
+return { image: captchaBuffer, otp: captcha.code, verified: securityBuffer }
+} catch (e) {
+console.error(e)
+}}
 
-  age = parseInt(age);
-  user.name = name.trim();
-  user.age = age;
-  user.regTime = +new Date();
-  user.registered = true;
+async function generarNombreRandom() {
+const numeros = '0123456789'
+const letras = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const combinacion = [ numeros[_.random(0, numeros.length - 1)], numeros[_.random(0, numeros.length - 1)], letras[_.random(0, letras.length - 1)], letras[_.random(0, letras.length - 1)], letras[_.random(0, letras.length - 1)]]
+return `Usuario#${_.shuffle(combinacion).join('')}`
+}
 
-  let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
+function generarEdades(min, max) {
+return _.range(max, min - 1, -1)  // Rango será de max a min (de mayor a menor)
+}
 
-  // Descargar imagen como Buffer
-  let imgUrl = `https://qu.ax/rJHDD.jpg`;
-  let imgBuffer;
-  try {
-    imgBuffer = await (await fetch(imgUrl)).buffer();
-  } catch (error) {
-    console.error('[ERROR] No se pudo descargar la imagen:', error);
-    return m.reply('[ERROR] No se pudo cargar la imagen. Inténtalo más tarde.');
-  }
-
-  let now = new Date();
-  let date = now.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
-  let time = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-
-  let txt = '*`📄 R E G I S T R O 📄`*\n';
-  txt += `\`━━━━━━━━━━━━━━━━━━━━\`\n`;
-  txt += `*\`⁘ NOMBRE:\`* ${name}\n`;
-  txt += `*\`⁘ EDAD:\`* ${age} años\n`;
-  txt += `*\`⁘ FECHA:\`* ${fecha}\n`;
-  txt += `*\`⁘ N° SERIAL:\`* ${sn}\n`;
-  txt += `\`━━━━━━━━━━━━━━━━━━━━\``;
-//  txt += `> Escribe *${usedPrefix}profile* para ver tu perfil.`;
-
-  let dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ іzᥙmі.kz᥊';
-
-  // Enviar mensaje con imagen
-  await conn.sendMessage(m.chat, {
-    image: imgBuffer, // Pasar el Buffer directamente
-    caption: txt,
-    footer: dev,
-    buttons: [
-      {
-        buttonId: `.perfil`,
-        buttonText: { displayText: '👤 PERFIL' },
-      },
-      {
-        buttonId: `.owner`,
-        buttonText: { displayText: '☁️ OWNER' },
-      },
-      {
-        buttonId: `.ping`,
-        buttonText: { displayText: '📶 PING' },
-      },
-    ],
-    viewOnce: true,
-    headerType: 4,
-  }, { quoted: m });
-
-  await m.react('✅');
-};
-
-handler.help = ['reg'].map(v => v + ' *<nombre.edad>*');
-handler.tags = ['start'];
-handler.command = ['verify', 'reg', 'register', 'registrar'];
-
-export default handler;
-
-
-
-
-
-/* import db from '../lib/database.js'
-import { createHash } from 'crypto'
-import fs from 'fs'
-import PhoneNumber from 'awesome-phonenumber'
-import fetch from 'node-fetch'
+/*import { createHash } from 'crypto' 
 
 let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i
 let handler = async function (m, { conn, text, usedPrefix, command }) {
-  let user = global.db.data.users[m.sender]
-  let name2 = conn.getName(m.sender)
-  if (user.registered === true) return m.reply(`[ ✰ ] Ya estás registrado.`)
-  if (!Reg.test(text)) return m.reply(`*[ ✰ ] Por favor, ingresa tu nombre de usuario para proceder con el registro.*\n\n*🤍 Ejem. de Uso* :\n*${usedPrefix + command}* Angel.19`)
-  let [_, name, splitter, age] = text.match(Reg)
-  if (!name) return conn.reply(m.chat, '[ ✰ ] El nombre no puede estar vacío.', m, rcanal)
-  if (!age) return conn.reply(m.chat, '[ ✰ ] La edad no puede estar vacía.', m, rcanal)
-  age = parseInt(age)
-  user.name = name.trim()
-  user.age = age
-  user.regTime = +new Date()
-  user.registered = true
-  let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6)
-  let img = await (await fetch(`https://qu.ax/rJHDD.jpg`)).buffer()
+let user = global.db.data.users[m.sender]
+let name2 = conn.getName(m.sender)
+let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
+let pp = await conn.profilePictureUrl(who, 'image').catch(_ => yartexImg.getRandom())
+
+if (user.registered === true) return conn.sendMessage(m.chat, { text: `${dis}Ya esta registrado como *${user.name}*\n\nSi desea hacer un nuevo registro ✨ debe de usar el comando:\n*${usedPrefix}delregistro* \`Número de serie\`\n\n🙂 Si no conoce su número de serie, use el comando:\n*${usedPrefix}numserie*`, ...fake }, { quoted: m })
+if (!Reg.test(text)) return conn.reply(m.chat, `${dis}\`Uso correcto del comando:\`\n*${usedPrefix + command}* nombre.edad\n\n🩷 *Ejemplo:*\n*${usedPrefix + command}* GataDios.20`, m)
+let [_, name, splitter, age] = text.match(Reg)
+if (!name) return conn.reply(m.chat, `🫠 *No hemos econtrado su nombre, intente de nuevo.*`, m)
+if (!age) return conn.reply(m.chat, `🤔 *No hemos econtrado su edad, intente de nuevo.*`, m)
+if (name.length >= 31) return conn.reply(m.chat, `😩 *Use un nombre más corto por favor.*`, m)
+age = parseInt(age)
+if (age >= 61) return conn.reply(m.chat, `🤷‍♀️ *Use una edad más joven por favor.*`, m)
+if (age <= 10) return conn.reply(m.chat, `😆 *Use una edad mayor por favor.*`, m)
+user.name = name.trim()
+user.age = age
+user.regTime = + new Date
+user.registered = true
+let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6)        
+m.react('✨') 
+await conn.sendMessage(m.chat, { image: { url: pp }, caption: `*║⫘⫘⫘⫘⫘⫘✨*
+*║ ${dis}ＲＥＧＩＳＴＲＯ*
+*║ .・゜゜・・゜゜・．*
+*║* 💠 *Nombre* ${name}
+*║* 💠 *Edad* ${age} años
+*║* 💠 *Número de serie* \`${sn}\`
+*║⫘⫘⫘⫘⫘⫘✨*`, mentions: [m.sender], ...fake }, { quoted: m })
   
-  let now = new Date()
-  let date = now.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' })
-  let time = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-
- let txt = '*`📄 R E G I S T R O 📄`*\n'
-      txt += `\`━━━━━━━━━━━━━━━━━━━━\`\n`
-      txt += `*\`⁘ TAG:\`* @${m.sender.split('@')[0]}\n`
-      txt += `*\`⁘ NOMBRE:\`* ${name}\n`
-      txt += `*\`⁘ EDAD:\`* ${age} años\n`
-      txt += `*\`⁘ FECHA:\`* ${fecha}\n`
-      txt += `*\`⁘ N° SERIAL:\`* ${sn}\n`
-      txt += `\`━━━━━━━━━━━━━━━━━━━━\`\n\n`
-      txt += `> Escribe *${usedPrefix}profile* para ver tu perfil.`
-      
-//  await conn.sendFile(m.chat, img, 'perfil.jpg', txt, m, false, { mentions: [m.sender] })
-
-await conn.sendMessage(m.chat, {
-  image: { url: img },
-  caption: txt,
-  footer: dev,
-  buttons: [
-    {
-      buttonId: `.ping`,
-      buttonText: {
-        displayText: 'PING',
-      },
-    },
-    {
-      buttonId: `.owner`,
-      buttonText: {
-        displayText: 'OWNER',
-      },
-    },
-    {
-      buttonId: `.help`,
-      buttonText: {
-        displayText: 'HELP',
-      },
-    },
-  ],
-  viewOnce: true,
-  headerType: 4,
-}, { quoted: m });
-  await m.react('✅')
 }
-
-handler.help = ['reg'].map(v => v + ' *<nombre.edad>*')
-handler.tags = ['start']
-handler.command = ['verify', 'reg', 'register', 'registrar']
-
-export default handler */
+handler.command = /^(ver(ify|ificar)|reg(istrar)?)$/i
+export default handler
+*/
