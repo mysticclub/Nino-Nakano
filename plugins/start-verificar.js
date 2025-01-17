@@ -13,7 +13,7 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
   if (!Reg.test(text)) {
     return await conn.sendMessage(m.chat, {
     caption: '*[ ✰ ] Por favor, ingresa tu nombre de usuario para proceder con el registro.*\n\n*🤍 Ejemplo de Uso* :\n*${usedPrefix + command}* Angel.19',
-    footer: dev,
+    footer: '${dev}',
     buttons: [
       {
         buttonId: `.reg`,
