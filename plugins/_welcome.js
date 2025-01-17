@@ -13,7 +13,7 @@ export async function before(m, {conn, participants, groupMetadata}) {
   let userName = user ? user.name : await conn.getName(who);
 
   if (chat.welcome && m.messageStubType == 27) {
-    let bienvenida = `❀ *Se unió* al grupo *${groupMetadata.subject}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    ʕ⁠´⁠•⁠ᴥ⁠•⁠`⁠ʔ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
+    let bienvenida = `❀ *Se unio* al grupo *${groupMetadata.subject}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    ʕ⁠´⁠•⁠ᴥ⁠•⁠`⁠ʔ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
     
 await conn.sendAi(m.chat, packname, dev, bienvenida, img, img, canal, estilo)
   }
