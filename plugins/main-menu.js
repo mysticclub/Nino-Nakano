@@ -39,7 +39,7 @@ const emojis = {
   "tools": "🍧",
   "anonymous": "🎭",
   "confesar": "📝",
-  "internet": "🕸️",
+  "internet": "🌐",
   "anime": "🦋",
   "group": "🌼",
   "owner": "🪐",
