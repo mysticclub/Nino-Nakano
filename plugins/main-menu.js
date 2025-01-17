@@ -67,24 +67,24 @@ const defaultMenu = {
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
   let tags = {
-    "main": "🌟 「 *`PRINCIPAL`* 」 🌟",
-    "tk": "💻 「 *`TK-HOSTING`* 」 💻",
-    "info": "ℹ️ 「 *`INFORMACION`* 」 ℹ️",
-    "search": "🔍 「 *`SEARCH`* 」 🔍",
-    "rpg": "🎮 「 *`RPG`* 」 🎮",
-    "nable": "🟢 「 *`ON - OFF`* 」 🔴",
-    "start": "🚀 「 *`START`* 」 🚀",
-    "sticker": "🖼️ 「 *`STICKER`* 」 🖼️",
-    "dl": "📥 「 *`DOWNLOADER`* 」 📥",
-    "ai": "🧠 「 *`INTELIGENCIAS`* 」 🧠",
-    "serbot": "🤖 「 *`JADI-BOT`* 」 🤖",
-    "tools": "🛠️ 「 *`TOOLS`* 」 🛠️",
-    "anonymous": "🙈 「 *`ANONYMOUS`* 」 🙈",
-    "confesar": "🤫 「 *`CONFESIONES`* 」 🤫",
-    "internet": "🌐 「 *`INTERNET`* 」 🌐",
-    "anime": "🌸 「 *`ANIME`* 」 🌸",
-    "group": "👥 「 *`GROUP`* 」 👥",
-    "owner": "👑 「 *`OWNER`* 」 👑",
+    "main": "PRINCIPAL",
+    "tk": "TK-HOSTING",
+    "info": "INFORMACION",
+    "search": "SEARCH",
+    "rpg": "RPG",
+    "nable": "ON - OFF",
+    "start": "START",
+    "sticker": "STICKER",
+    "dl": "DOWNLOADER",
+    "ai": "INTELIGENCIAS",
+    "serbot": "JADI-BOT",
+    "tools": "TOOLS",
+    "anonymous": "ANONYMOUS",
+    "confesar": "CONFESIONES",
+    "internet": "INTERNET",
+    "anime": "ANIME",
+    "group": "GROUP",
+    "owner": "OWNER",
   }
 
   try {
@@ -200,7 +200,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let _text = [
       before,
       ...Object.keys(emojis).map(tag => {
-        return header.replace(/%category/g, emojis[tag]) + '\n' + [
+        return header.replace(/%category/g, tags[tag]) + '\n' + [
           ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
             return menu.help.map(help => {
               return body.replace(/%emoji/g, emojis[tag])
