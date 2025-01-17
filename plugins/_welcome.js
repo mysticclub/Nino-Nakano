@@ -1,7 +1,7 @@
 import {WAMessageStubType} from '@whiskeysockets/baileys'
 import fetch from 'node-fetch'
 
-export async function before(m, {conn, participants, groupMetadata}) {
+export async function before(m, {conn, participants}) {
   if (!m.messageStubType || !m.isGroup) return !0;
   const groupName = (await conn.groupMetadata(m.chat)).subject;
   let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg')
