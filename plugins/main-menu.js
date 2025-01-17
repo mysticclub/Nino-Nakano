@@ -32,7 +32,7 @@ const emojis = {
   "rpg": "🌵",
   "nable": "🌀",
   "start": "🌱",
-  "sticker": "🖼️",
+  "sticker": "🍥",
   "dl": "🍄",
   "ai": "🍘",
   "serbot": "👾",
@@ -57,15 +57,35 @@ const defaultMenu = {
 ▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬
  %readmore
   `.trimStart(),
-  header: '✧*̥˚ ︶︶︶︶︶︶︶︶︶  ✧*̥˚\n┊ %category \n✧*̥˚ ︶︶︶︶︶︶︶︶︶  ✧*̥˚',
-  body: '*┊* %emoji %cmd %iscorazones %isPremium',
-  footer: '  ︶︶︶︶︶︶︶︶︶︶︶︶\n\n',
+  header: '\n %category \n',
+  body: '%emoji %cmd %iscorazones %isPremium',
+  footer: '\n\n',
   after: ``,
 }
 
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
   let tags = {
+    "main": "☁️ 「 *`PRINCIPAL`* 」 ☁️",
+    "info": "✨ 「 *`INFORMACION`* 」 ✨",
+    "search": "🎋 「 *`SEARCH`* 」 🎋",
+    "rpg": "🌵 「 *`RPG`* 」 🌵",
+    "nable": "🌀 「 *`ON - OFF`* 」 🌀",
+    "start": "🌱 「 *`START`* 」 🌱",
+    "sticker": "🍥 「 *`STICKER`* 」 🍥",
+    "dl": "🍄 「 *`DOWNLOADER`* 」 🍄",
+    "ai": "🍘 「 *`INTELIGENCIAS`* 」 🍘",
+    "serbot": "👾 「 *`JADI-BOT`* 」 👾",
+    "tools": "🍧 「 *`TOOLS`* 」 🍧",
+    "anonymous": "🎭 「 *`ANONYMOUS`* 」 🎭",
+    "confesar": "📝 「 *`CONFESIONES`* 」 📝",
+    "internet": "🌐 「 *`INTERNET`* 」 🌐",
+    "anime": "🦋 「 *`ANIME`* 」 🦋",
+    "group": "🌼 「 *`GROUP`* 」 🌼",
+    "owner": "🪐 「 *`OWNER`* 」 🪐",
+
+
+
     "main": "PRINCIPAL",
     "info": "INFORMACION",
     "search": "SEARCH",
