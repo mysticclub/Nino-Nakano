@@ -25,6 +25,6 @@ await conn.sendAi(m.chat, packname, dev, bye, img, img, canal, estilo)
   }
   
   if (chat.welcome && m.messageStubType == 32) {
-    let kick = `❀ *se salio* del grupo  *${groupMetadata.subject}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    •(=^●ω●^=)• ¡¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
+    let kick = `❀ *se salio* del grupo  *${groupMetadata.subject}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    •(=^●ω●^=)• ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
 await conn.sendAi(m.chat, packname, dev, kick, img, img, canal, estilo)
 }}
