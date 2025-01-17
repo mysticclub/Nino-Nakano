@@ -19,11 +19,8 @@ await conn.sendAi(m.chat, packname, dev, bienvenida, img, img, canal, estilo)
   }
   
   if (chat.welcome && m.messageStubType == 28) {
-    let bye = `❀ *Se salio* del grupo *${groupMetadata.subject}*\n` +
-    `    ✰ @${m.messageStubParameters[0].split('@')[0]}\n\n` +
-    `    ʕ⁠´⁠•⁠ ⁠ᴥ⁠•̥⁠`⁠ʔ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n` +
-    `> ✐ No olvides usar *#help* si necesitas algo.\n` +
-    `> 🜸 Próximamente...`;
+    let bye = `❀ *se salio* del grupo  *${groupMetadata.subject}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    ʕ⁠´⁠•⁠ ⁠ᴥ⁠•̥⁠`⁠ʔ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
+
 await conn.sendAi(m.chat, packname, dev, bye, img, img, canal, estilo)
   }
   
