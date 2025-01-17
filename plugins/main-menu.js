@@ -191,10 +191,10 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     }
     
     let before = conn.menu?.before || defaultMenu.before
-    let header = conn.menu.header || defaultMenu.header
-    let body = conn.menu.body || defaultMenu.body
-    let footer = conn.menu.footer || defaultMenu.footer
-    let after = conn.menu.after || (conn.user.jid == global.conn.user.jid ? '' : `Powered by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + defaultMenu.after
+    let header = conn.menu?.header || defaultMenu.header
+    let body = conn.menu?.body || defaultMenu.body
+    let footer = conn.menu?.footer || defaultMenu.footer
+    let after = conn.menu?.after || (conn.user.jid == global.conn.user.jid ? '' : `Powered by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + defaultMenu.after
     let _text = [
       before,
       ...Object.keys(emojis).map(tag => {
