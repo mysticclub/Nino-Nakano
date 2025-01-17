@@ -262,7 +262,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 }
 handler.help = ['menu']
 handler.tags = ['main']
-handler.command = /^(allmenu|menu|menú|\?)$/i
+handler.command = /^(allmenu|menu|help|menú|\?)$/i
 handler.register = true
 handler.exp = 3
 
