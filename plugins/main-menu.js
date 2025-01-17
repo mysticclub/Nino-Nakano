@@ -30,7 +30,7 @@ const emojis = {
   "info": "✨",
   "search": "🎋",
   "rpg": "🌵",
-  "nable": "🟢",
+  "nable": "🌀",
   "start": "🌱",
   "sticker": "🖼️",
   "dl": "🍄",
