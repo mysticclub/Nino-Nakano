@@ -27,22 +27,22 @@ let estilo = (text, style = 1) => {
 
 const emojis = {
   "main": "☁️",
-  "info": "ℹ️",
+  "info": "✨",
   "search": "🎋",
   "rpg": "🌵",
   "nable": "🟢",
-  "start": "🚀",
-  "sticker": "🍥",
+  "start": "🌱",
+  "sticker": "🖼️",
   "dl": "🍄",
   "ai": "🍘",
-  "serbot": "🤖",
+  "serbot": "👾",
   "tools": "🍧",
-  "anonymous": "🙈",
-  "confesar": "🤫",
-  "internet": "🌐",
-  "anime": "🌸",
+  "anonymous": "🎭",
+  "confesar": "📝",
+  "internet": "🕸️",
+  "anime": "🦋",
   "group": "🌼",
-  "owner": "👑",
+  "owner": "🪐",
 };
 
 const defaultMenu = {
