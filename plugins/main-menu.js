@@ -49,11 +49,10 @@ const defaultMenu = {
   before: `*Hola \`%name\` soy Genesis*
 
 > 👤 *Creador:* Izumi-kzx
-> 🌐 *Web:* genesis-support.vercel.app/
-> 💫 *Activo:* %muptime
-> 🧑‍🤝‍🧑 *Usuarios:* %rtotalreg de %totalreg
-> 🤍 *Corazones:* %corazones
-> 📈 *Total Comandos:* %totalf
+> 🍧 *Activo:* %muptime
+> 🍘 *Usuarios:* %rtotalreg de %totalreg
+> ☁️ *Corazones:* %corazones
+> 🌵 *Total Comandos:* %totalf
 
 ▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬
  %readmore
