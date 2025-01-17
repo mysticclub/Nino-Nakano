@@ -6,6 +6,7 @@ import os from 'os'
 import fs from 'fs'
 import fetch from 'node-fetch'
 const { generateWAMessageFromContent, proto, getDevice } = (await import('@whiskeysockets/baileys')).default
+
 let estilo = (text, style = 1) => {
   var xStr = 'abcdefghijklmnopqrstuvwxyz1234567890'.split('');
   var yStr = Object.freeze({
@@ -24,6 +25,28 @@ let estilo = (text, style = 1) => {
   });
   return output.join('');
 };
+
+const emojis = {
+  "main": "🌟",
+  "tk": "💻",
+  "info": "ℹ️",
+  "search": "🔍",
+  "rpg": "🎮",
+  "nable": "🟢",
+  "start": "🚀",
+  "sticker": "🖼️",
+  "dl": "📥",
+  "ai": "🧠",
+  "serbot": "🤖",
+  "tools": "🛠️",
+  "anonymous": "🙈",
+  "confesar": "🤫",
+  "internet": "🌐",
+  "anime": "🌸",
+  "group": "👥",
+  "owner": "👑",
+};
+
 const defaultMenu = {
   before: `*Hola \`%name\` soy Genesis*
 
@@ -37,10 +60,11 @@ const defaultMenu = {
  %readmore
   `.trimStart(),
   header: '✧*̥˚ ︶︶︶︶︶︶︶︶︶  ✧*̥˚\n┊ %category \n✧*̥˚ ︶︶︶︶︶︶︶︶︶  ✧*̥˚',
-  body: '*┊➫* %cmd %iscorazones %isPremium',
+  body: '*┊* %emoji %cmd %iscorazones %isPremium',
   footer: '  ︶︶︶︶︶︶︶︶︶︶︶︶\n\n',
   after: ``,
-  }
+}
+
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
   let tags = {
@@ -65,27 +89,23 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
   }
 
   try {
-    // DEFAULT MENU
     let dash = global.dashmenu
     let m1 = global.dmenut
     let m2 = global.dmenub
     let m3 = global.dmenuf
     let m4 = global.dmenub2
 
-    // COMMAND MENU
     let cc = global.cmenut
     let c1 = global.cmenuh
     let c2 = global.cmenub
     let c3 = global.cmenuf
     let c4 = global.cmenua
 
-    // LOGO L P
     let lprem = global.lopr
     let llim = global.lolm
     let tag = `@${m.sender.split('@')[0]}`
     let device = await getDevice(m.id)
 
-    //-----------TIME---------
     let ucpn = `${ucapan()}`
     let d = new Date(new Date + 3600000)
     let locale = 'es'
@@ -96,10 +116,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       year: 'numeric'
     })
     let who = m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
-    // d.getTimeZoneOffset()
-    // Offset -420 is 18.00
-    // Offset    0 is  0.00
-    // Offset  420 is  7.00
     let weton = ['Pahing', 'Pon', 'Wage', 'Kliwon', 'Legi'][Math.floor(d / 84600000) % 5]
     let dateIslamic = Intl.DateTimeFormat(locale + '-TN-u-ca-islamic', {
       day: 'numeric',
@@ -133,8 +149,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let mpt = clockString(_mpt)
     let usrs = db.data.users[m.sender]
 
-
-    /**************************** TIME *********************/
     let wib = moment.tz('Asia/Jakarta').format('HH:mm:ss')
     let wibh = moment.tz('Asia/Jakarta').format('HH')
     let wibm = moment.tz('Asia/Jakarta').format('mm')
@@ -152,7 +166,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let prems = `${premium > 0 ? 'Premium' : 'Free'}`
     let platform = os.platform()
 
-    //---------------------
     let totalf = Object.values(global.plugins).filter(
     (v) => v.help && v.tags
   ).length;
@@ -170,13 +183,13 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     })
     
     let groups = {}
-    for (let tag in tags) {
+    for (let tag in emojis) {
       groups[tag] = []
       for (let plugin of help)
         if (plugin.tags && plugin.tags.includes(tag))
           if (plugin.help) groups[tag].push(plugin)
     }
-    conn.menu = conn.menu ? conn.menu : {}
+    
     let before = conn.menu.before || defaultMenu.before
     let header = conn.menu.header || defaultMenu.header
     let body = conn.menu.body || defaultMenu.body
@@ -184,15 +197,14 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let after = conn.menu.after || (conn.user.jid == global.conn.user.jid ? '' : `Powered by https://wa.me/${global.conn.user.jid.split`@`[0]}`) + defaultMenu.after
     let _text = [
       before,
-      ...Object.keys(tags).map(tag => {
-        return header.replace(/%category/g, tags[tag]) + '\n' + [
+      ...Object.keys(emojis).map(tag => {
+        return header.replace(/%category/g, emojis[tag]) + '\n' + [
           ...help.filter(menu => menu.tags && menu.tags.includes(tag) && menu.help).map(menu => {
             return menu.help.map(help => {
-              return body.replace(/%cmd/g, menu.prefix ? help : '%_p' + help)
+              return body.replace(/%emoji/g, emojis[tag])
+                .replace(/%cmd/g, menu.prefix ? help : '%_p' + help)
                 .replace(/%iscorazones/g, menu.corazones ? '◜🪙◞' : '')
                 .replace(/%isPremium/g, menu.premium ? '◜🎫◞' : '')
-//                .replace(/%iscorazones/g, menu.corazones ? corazones : '')
-//                .replace(/%isPremium/g, menu.premium ? lprem : '')
                 .trim()
             }).join('\n')
           }),
@@ -243,8 +255,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       viewOnce: true,
       headerType: 4,
     }, { quoted: m })
-
-//    await conn.sendFile(m.chat, img, 'thumbnail.jpg', text.trim(), m, null, fake)
   } catch (e) {
     conn.reply(m.chat, ' error', m)
     throw e
@@ -258,44 +268,10 @@ handler.exp = 3
 
 export default handler
 
-//----------- FUNCIÓN -------
+//----------- FUNCIONES ---------
 
 function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)]
 }
 
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
-
-function clockString(ms) {
-  let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
-  let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-  let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return [h, ' H ', m, ' M ', s, ' S '].map(v => v.toString().padStart(2, 0)).join('')
-}
-function clockStringP(ms) {
-  let ye = isNaN(ms) ? '--' : Math.floor(ms / 31104000000) % 10
-  let mo = isNaN(ms) ? '--' : Math.floor(ms / 2592000000) % 12
-  let d = isNaN(ms) ? '--' : Math.floor(ms / 86400000) % 30
-  let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000) % 24
-  let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
-  let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
-  return [ye, ' *Years 🗓️*\n', mo, ' *Month 🌙*\n', d, ' *Days ☀️*\n', h, ' *Hours 🕐*\n', m, ' *Minute ⏰*\n', s, ' *Second ⏱️*'].map(v => v.toString().padStart(2, 0)).join('')
-}
-function ucapan() {
-    const time = moment.tz('America/Buenos_Aires').format('HH')
-    let res = "Buenas Noches🌙"
-    if (time >= 5) {
-        res = "Buena Madrugada🌄"
-    }
-    if (time > 10) {
-        res = "Buenos días☀️"
-    }
-    if (time >= 12) {
-        res = "Buenas Tardes🌅"
-    }
-    if (time >= 19) {
-        res = "Buenas Noches🌙"
-    }
-    return res
-}
+const more
