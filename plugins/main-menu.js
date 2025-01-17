@@ -190,7 +190,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
           if (plugin.help) groups[tag].push(plugin)
     }
     
-   // let before = conn.menu.before || defaultMenu.before
+    let before = conn.menu?.before || defaultMenu.before
     let header = conn.menu.header || defaultMenu.header
     let body = conn.menu.body || defaultMenu.body
     let footer = conn.menu.footer || defaultMenu.footer
