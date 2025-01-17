@@ -11,7 +11,7 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
   }
   if (!Reg.test(text)) {
     return await conn.sendMessage(m.chat, {
-      caption: '*[ ✰ ] Por favor, ingresa tu nombre de usuario para proceder con el registro.*\n\n*🤍 Ejemplo de Uso* :\n*' + usedPrefix + command + '* Angel.19',
+      text: '*[ ✰ ] Por favor, ingresa tu nombre de usuario para proceder con el registro.*\n\n*🤍 Ejemplo de Uso* :\n*' + usedPrefix + command + '* Angel.19',
       footer: 'hols',
       buttons: [
         {
@@ -19,8 +19,6 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
           buttonText: { displayText: '👤 PERFIL' },
         }
       ],
-      viewOnce: true,
-      headerType: 1,
     }, { quoted: m });
   }
 
@@ -50,9 +48,9 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
 
   let dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ іzᥙmі.kz᥊';
 
-  // Enviar mensaje con botón
+  // Enviar mensaje con botón (sin imagen)
   await conn.sendMessage(m.chat, {
-    caption: txt,
+    text: txt,
     footer: dev,
     buttons: [
       {
@@ -60,8 +58,6 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
         buttonText: { displayText: '👤 PERFIL' },
       }
     ],
-    viewOnce: true,
-    headerType: 1,
   }, { quoted: m });
 
   await m.react('✅');
