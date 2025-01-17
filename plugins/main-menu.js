@@ -48,11 +48,12 @@ const emojis = {
 const defaultMenu = {
   before: `*Hola \`%name\` soy Genesis*
 
-➫ _\`ᴀᴄᴛɪᴠᴏ\`_ :: %muptime
-➫ _\`ᴜꜱᴜᴀʀɪᴏꜱ\`_ :: _%rtotalreg de %totalreg_
-➫ _\`ᴄᴏʀᴀᴢᴏɴᴇꜱ\`_ :: _%corazones_
-➫ _\`ᴘʀᴇꜰɪᴊᴏ\`_ :: _< . >_
-➫ _\`ᴛᴏᴛᴀʟ ᴄᴏᴍᴀɴᴅᴏꜱ\`_ :: _%totalf_
+> 👤 *Creador:* Izumi-kzx
+> 🌐 *Web:* genesis-support.vercel.app/
+> 💫 *Activo:* %muptime
+> 🧑‍🤝‍🧑 *Usuarios:* %rtotalreg de %totalreg
+> 🤍 *Corazones:* %corazones
+> 📈 *Total Comandos:* %totalf
 
 ▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬
  %readmore
