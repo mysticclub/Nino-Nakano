@@ -23,7 +23,7 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
     viewOnce: true,
     headerType: 1,
   }, { quoted: m });
-  }
+  
 
   let [_, name, splitter, age] = text.match(Reg);
   if (!name) return conn.reply(m.chat, '[ ✰ ] El nombre no puede estar vacío.', m);
