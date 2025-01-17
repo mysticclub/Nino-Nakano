@@ -59,7 +59,7 @@ const defaultMenu = {
   `.trimStart(),
   header: '\n %category \n',
   body: '%emoji %cmd %iscorazones %isPremium',
-  footer: '\n\n',
+  footer: '\n',
   after: ``,
 }
 
