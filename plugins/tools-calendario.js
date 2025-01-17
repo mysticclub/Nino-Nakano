@@ -109,8 +109,7 @@ let handler = async (m, { conn, text }) => {
   });
 };
 
-handler.help = ['calendario ,
-*<mes>*'];
+handler.help = ['calendario *<mes>*'];
 handler.tags = ['tools'];
 handler.command = ['calendario'];
 export default handler;
