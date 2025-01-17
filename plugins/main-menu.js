@@ -83,26 +83,6 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     "anime": "🦋 「 *`ANIME`* 」 🦋",
     "group": "🌼 「 *`GROUP`* 」 🌼",
     "owner": "🪐 「 *`OWNER`* 」 🪐",
-
-
-
-    "main": "PRINCIPAL",
-    "info": "INFORMACION",
-    "search": "SEARCH",
-    "rpg": "RPG",
-    "nable": "ON - OFF",
-    "start": "START",
-    "sticker": "STICKER",
-    "dl": "DOWNLOADER",
-    "ai": "INTELIGENCIAS",
-    "serbot": "JADI-BOT",
-    "tools": "TOOLS",
-    "anonymous": "ANONYMOUS",
-    "confesar": "CONFESIONES",
-    "internet": "INTERNET",
-    "anime": "ANIME",
-    "group": "GROUP",
-    "owner": "OWNER",
   }
 
   try {
