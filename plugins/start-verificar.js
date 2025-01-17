@@ -1,6 +1,5 @@
 import db from '../lib/database.js';
 import { createHash } from 'crypto';
-import fetch from 'node-fetch';
 
 let Reg = /\|?(.*)([.|] *?)([0-9]*)$/i;
 let handler = async function (m, { conn, text, usedPrefix, command }) {
@@ -12,18 +11,18 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
   }
   if (!Reg.test(text)) {
     return await conn.sendMessage(m.chat, {
-    caption: '*[ ✰ ] Por favor, ingresa tu nombre de usuario para proceder con el registro.*\n\n*🤍 Ejemplo de Uso* :\n*${usedPrefix + command}* Angel.19',
-    footer: 'hols',
-    buttons: [
-      {
-        buttonId: `.reg`,
-        buttonText: { displayText: '👤 PERFIL' },
-      }
-    ],
-    viewOnce: true,
-    headerType: 1,
-  }, { quoted: m });
-  
+      caption: '*[ ✰ ] Por favor, ingresa tu nombre de usuario para proceder con el registro.*\n\n*🤍 Ejemplo de Uso* :\n*' + usedPrefix + command + '* Angel.19',
+      footer: 'hols',
+      buttons: [
+        {
+          buttonId: `.reg`,
+          buttonText: { displayText: '👤 PERFIL' },
+        }
+      ],
+      viewOnce: true,
+      headerType: 1,
+    }, { quoted: m });
+  }
 
   let [_, name, splitter, age] = text.match(Reg);
   if (!name) return conn.reply(m.chat, '[ ✰ ] El nombre no puede estar vacío.', m);
@@ -37,19 +36,9 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
 
   let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
 
-  // Descargar imagen como Buffer
-  let imgUrl = `https://qu.ax/rJHDD.jpg`;
-  let imgBuffer;
-  try {
-    imgBuffer = await (await fetch(imgUrl)).buffer();
-  } catch (error) {
-    console.error('[ERROR] No se pudo descargar la imagen:', error);
-    return m.reply('[ERROR] No se pudo cargar la imagen. Inténtalo más tarde.');
-  }
-
   let now = new Date();
-  let date = now.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
-  let time = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  let fecha = now.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+  let hora = now.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
   let txt = '*`📄 R E G I S T R O 📄`*\n';
   txt += `\`━━━━━━━━━━━━━━━━━━━━\`\n`;
@@ -58,31 +47,21 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
   txt += `*\`⁘ FECHA:\`* ${fecha}\n`;
   txt += `*\`⁘ N° SERIAL:\`* ${sn}\n`;
   txt += `\`━━━━━━━━━━━━━━━━━━━━\``;
-//  txt += `> Escribe *${usedPrefix}profile* para ver tu perfil.`;
 
   let dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ іzᥙmі.kz᥊';
 
-  // Enviar mensaje con imagen
+  // Enviar mensaje con botón
   await conn.sendMessage(m.chat, {
-    image: imgBuffer, // Pasar el Buffer directamente
     caption: txt,
     footer: dev,
     buttons: [
       {
         buttonId: `.perfil`,
         buttonText: { displayText: '👤 PERFIL' },
-      },
-      {
-        buttonId: `.owner`,
-        buttonText: { displayText: '☁️ OWNER' },
-      },
-      {
-        buttonId: `.ping`,
-        buttonText: { displayText: '📶 PING' },
-      },
+      }
     ],
     viewOnce: true,
-    headerType: 4,
+    headerType: 1,
   }, { quoted: m });
 
   await m.react('✅');
