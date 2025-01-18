@@ -1,4 +1,4 @@
-import {WAMessageStubType} from '@whiskeysockets/baileys';
+import { WAMessageStubType } from '@whiskeysockets/baileys';
 import fetch from 'node-fetch';
 import canvafy from 'canvafy';
 
@@ -11,10 +11,20 @@ export async function before(m, { conn, participants, groupMetadata }) {
   let user = global.db.data.users[who];
   let userName = user ? user.name : await conn.getName(who);
 
+  // Obtener avatar del usuario
+  const getUserAvatar = async () => {
+    try {
+      return await conn.profilePictureUrl(m.messageStubParameters[0], 'image');
+    } catch (err) {
+      return 'https://qu.ax/Tdxwk.jpg'; // Avatar predeterminado en caso de error
+    }
+  };
+
   // Generador de imágenes dinámicas
   const generateImage = async (title, description) => {
+    const userAvatar = await getUserAvatar();
     const img = await new canvafy.WelcomeLeave()
-      .setAvatar(`https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=random`) // Avatar predeterminado
+      .setAvatar(userAvatar) // Usar avatar real del usuario
       .setBackground(
         'image',
         'https://i.ibb.co/0cfqJLt/file.jpg'
