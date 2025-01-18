@@ -13,7 +13,7 @@ async function handler(m, { conn, usedPrefix, command }) {
   // servidor
   let _uptime = process.uptime() * 1000
   let uptime = convertirMs(_uptime)
-  // imagenes
+  // imágenes
   let img = [ 
     'https://i.ibb.co/VYMKmbM/file.jpg',
     'https://i.ibb.co/Zf4YQqC/file.jpg',
@@ -34,10 +34,12 @@ async function handler(m, { conn, usedPrefix, command }) {
 ${totalUsers ? `🍧 *Sub Bots conectados:* ${totalUsers || 0}\n` : ''}${cantidadCarpetas ? `📁 *Sesiones creadas:* ${cantidadCarpetas}\n` : ''}${totalUsers ? `📁 *Sesiones activas:* ${totalUsers || 0}\n` : ''}💻 *Servidor:* \`\`\`${uptime}\`\`\`\n\n${replyMessage.trim()}`.trim()
 
   if (m.isWABusiness) {
+    await conn.sendFile(m.chat, img, 'error.jpg', responseMessage + `\n ¿Quieres ser subbot?\n *.serbot code*\n *.serbot*`, m, null, fake)
+  } else {
     await conn.sendMessage(m.chat, {
       image: { url: img },
       caption: responseMessage,
-      footer: '¡Hazte Subbot Con la opción que desees!',
+      footer: '¡Hazte Subbot con la opción que desees!',
       buttons: [
         {
           buttonId: `.serbot code`,
@@ -55,8 +57,6 @@ ${totalUsers ? `🍧 *Sub Bots conectados:* ${totalUsers || 0}\n` : ''}${cantida
       viewOnce: true,
       headerType: 4,
     }, { quoted: m })
-  } else {
-    await conn.sendFile(m.chat, img, 'error.jpg', responseMessage + `\n quieres ser subbot\n *.serbot code*\n *.serbot*`, m, null, fake)
   }
 }
 handler.command = /^(listjadibots|bots|subsbots)$/i
