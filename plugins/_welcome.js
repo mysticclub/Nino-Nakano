@@ -9,12 +9,12 @@ export async function before(m, { conn, participants, groupMetadata }) {
   let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg'); // Imagen por defecto si no tiene foto
 
   // Generar la imagen de bienvenida utilizando canvacard
-  const background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo predeterminado (se puede modificar)
+  const background = "https://i.ibb.co/0cfqJLt/file.jpg"; // Fondo predeterminado (se puede modificar)
 
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground('COLOR', '#000000')  // Cambia el color del fondo si es necesario
+    .setBackground(background)  // Cambia el color del fondo si es necesario
     .setTitulo("Bienvenido al grupo", '#FFFFFF')
     .setSubtitulo("¡Esperamos que tengas un excelente día!", '#FFFFFF')
     .setOpacityOverlay(1)
