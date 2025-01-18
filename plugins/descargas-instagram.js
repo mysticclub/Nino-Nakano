@@ -1,49 +1,48 @@
+// *[ ❀ INSTAGRAM DL (imagen/video) ]*
 import axios from 'axios'
 
-let handler = async (m, { conn, usedPrefix, args, command, text }) => {
-    if (!args[0]) {
-        await m.react('✖️')
-        return conn.reply(m.chat, `☁️ Ingresa un link de Instagram`, m, fake)
-    }
+let handler = async (m, { conn, args, usedPrefix, command }) => {
+if (!args[0]) return conn.reply(m.chat,`❀ Ingresa un enlace de Instagram`, m)
+    
+try {
+let api = await axios.get(`https://restapi.apibotwa.biz.id/api/igdl?url=${args[0]}`)
+let json = api.data
+    
+let media = json.data
+let titulo = media.metadata.caption || ''
+let likes = media.metadata.like || ''
+let comentarios = media.metadata.comment || ''
+let mediaUrl = media.url
 
-    if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(p|tv|reel)\\/([a-zA-Z0-9_-]+)(\\/)?(\\?.*)?$'))) {
-        await m.react('✖️')
-        return conn.reply(m.chat, `☁️ Verifica que sea un link de Instagram`, m)
-    }
+    
+let HS = `- *Titulo :* ${titulo}
 
-    try {
-        await m.react('🕑')
-        let api = await axios.get(`https://apidl.asepharyana.cloud/api/downloader/igdl?url=${args[0]}`)
-        for (let a of api.data.data) {
-            if (a.url.includes('jpg') || a.url.includes('png') || a.url.includes('jpeg') || a.url.includes('webp') || a.url.includes('heic') || a.url.includes('tiff') || a.url.includes('bmp')) {
-                await conn.sendMessage(
-                    m.chat, 
-                    { 
-                        image: { url: a.url }, 
-                        caption: '> *[ I G - D O W N L O A D ]*\n' 
-                    }, 
-                    { quoted: m }
-                )
-            } else {
-                await conn.sendMessage(
-                    m.chat, 
-                    { 
-                        video: { url: a.url }, 
-                        caption: '> *[ I G - D O W N L O A D ]*\n' 
-                    }, 
-                    { quoted: m }
-                )
-            }
-        }
-        await m.react('✅') 
-    } catch (error) {
-        console.log(error)
-        await m.react('❌')
-    }
-}
-
-handler.help = ['ig *<link>*'];
-handler.tags = ['dl'];
-handler.command = /^(ig|igdl|instagram)$/i
+- *Likes :* ${toNum(likes)} 
+- *Comentarios :* ${toNum(comentarios)} `
+      
+if (media.metadata.isVideo) {
+await conn.sendFile(m.chat, mediaUrl[0], 'instagram.mp4', HS, m)
+} else {
+for (let url of mediaUrl) {
+await conn.sendFile(m.chat, url, 'instagram.jpg', HS, m)
+}}    
+} catch (error) {
+console.error(error)    
+}}
+    
+handler.command = ['instagramdl', 'igdl']
 
 export default handler
+
+function toNum(number) {
+if (number >= 1000 && number < 1000000) {
+return (number / 1000).toFixed(1) + 'k'
+} else if (number >= 1000000) {
+return (number / 1000000).toFixed(1) + 'M'
+} else if (number <= -1000 && number > -1000000) {
+return (number / 1000).toFixed(1) + 'k'
+} else if (number <= -1000000) {
+return (number / 1000000).toFixed(1) + 'M'
+} else {
+return number.toString()
+}}
