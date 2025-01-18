@@ -9,7 +9,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
   let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg'); // Imagen por defecto si no tiene foto
 
   // Fondo predeterminado
-  const background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo personalizado
+  let background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo personalizado
 
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
