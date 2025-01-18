@@ -170,6 +170,6 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ['applemusic *<url|txt>*'];
 handler.tags = ['dl'];
-handler.command = /^(applemusic)$/i;
+handler.command = /^(play2)$/i;
 
 export default handler;
