@@ -11,16 +11,10 @@ export async function before(m, { conn, participants, groupMetadata }) {
   // URL del fondo (la imagen que quieres usar)
   const background = "https://i.ibb.co/cXqTMQ8/file.jpg"; // Imagen de fondo deseada
 
-  // Verifica que la URL del fondo sea válida
-  if (!background || !background.startsWith('http')) {
-    console.error('La URL del fondo no es válida:', background);
-    return;
-  }
-
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground({ data: background })  // Pasa la URL del fondo en un objeto con el campo 'data'
+    .setBackground(background)  // Pasa directamente la URL de la imagen de fondo
     .setTitulo("Bienvenido al grupo", '#FFFFFF')
     .setSubtitulo("¡Esperamos que tengas un excelente día!", '#FFFFFF')
     .setOpacityOverlay(1)
@@ -33,7 +27,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
   // Crear tarjeta de despedida (se usará también para expulsión)
   const byeCard = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground({ data: background })  // Pasa la URL del fondo en un objeto con el campo 'data'
+    .setBackground(background)  // Pasa directamente la URL de la imagen de fondo
     .setTitulo("Adiós del grupo", '#FFFFFF')
     .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
     .setOpacityOverlay(1)
