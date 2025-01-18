@@ -1,3 +1,8 @@
+/* 
+- Código Creado y modificado por Izumi-kzx
+- Welcome con Imagen inteligente
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
 import { WAMessageStubType } from '@whiskeysockets/baileys';
 import fetch from 'node-fetch';
 import canvafy from 'canvafy';
