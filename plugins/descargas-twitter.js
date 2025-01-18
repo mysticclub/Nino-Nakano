@@ -29,8 +29,8 @@ let handler = async (m, { conn, args }) => {
 
             const caption = `✧ Para: @${sender}`;
 
-            // Verificar si es imagen o video
-            if (downloadResult.type === 'image') {
+            // Verificar si es imagen o video basado en su extensión
+            if (downloadResult.type === 'image' || /\.(jpg|jpeg|png|gif)$/.test(fileUrl)) {
                 await conn.sendMessage(
                     m.chat,
                     {
@@ -40,7 +40,7 @@ let handler = async (m, { conn, args }) => {
                     },
                     { quoted: m }
                 );
-            } else if (downloadResult.type === 'video') {
+            } else if (downloadResult.type === 'video' || /\.(mp4|mov|avi|mkv)$/.test(fileUrl)) {
                 await conn.sendMessage(
                     m.chat,
                     {
@@ -52,6 +52,8 @@ let handler = async (m, { conn, args }) => {
                     },
                     { quoted: m }
                 );
+            } else {
+                m.reply('❌ Formato desconocido, no se pudo enviar el contenido.');
             }
         }
     } catch (error) {
