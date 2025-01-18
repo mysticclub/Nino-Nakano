@@ -44,8 +44,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
     let bienvenida = `❀ *Se unió* al grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
 
     let img = await generateImage(
-      '¡Bienvenido!',
-      `Hola ${userName}, bienvenido al grupo *${groupMetadata.subject.trim()}*!`
+      '¡BIENVENIDO!',
+      `¡Hola Bienvenido al grupo!`
     );
 
     await conn.sendAi(m.chat, packname, dev, bienvenida, img, img, canal, estilo);
@@ -55,8 +55,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
     let bye = `❀ *Se salió* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Próximamente...`;
 
     let img = await generateImage(
-      '¡Adiós!',
-      `El usuario ${userName} dejó el grupo *${groupMetadata.subject.trim()}*. ¡Hasta pronto!`
+      '¡ADIOS!',
+      `¡Hasta pronto Usuario!`
     );
 
     await conn.sendAi(m.chat, packname, dev, bye, img, img, canal, estilo);
@@ -66,8 +66,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
     let kick = `❀ *Fue expulsado* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Próximamente...`;
 
     let img = await generateImage(
-      'Expulsado',
-      `El usuario ${userName} fue expulsado del grupo *${groupMetadata.subject.trim()}*.`
+      'EXPULSADO',
+      `¡fue expulsado del grupo.!`
     );
 
     await conn.sendAi(m.chat, packname, dev, kick, img, img, canal, estilo);
