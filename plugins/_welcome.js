@@ -16,7 +16,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
     try {
       return await conn.profilePictureUrl(m.messageStubParameters[0], 'image');
     } catch (err) {
-      return 'https://qu.ax/Tdxwk.jpg'; // Avatar predeterminado en caso de error
+      return 'https://i.ibb.co/cFzgdNw/file.jpg'; // Avatar predeterminado en caso de error
     }
   };
 
