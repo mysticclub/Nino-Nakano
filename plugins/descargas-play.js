@@ -14,12 +14,11 @@ let handler = async (m, { conn, args }) => {
     let video = res[0];
     let img = await (await fetch(video.image)).buffer();
 
-    let txt = `*\`【Y O U T U B E - P L A Y】\`*\n\n`;
-    txt += `• *\`Título:\`* ${video.title}\n`;
-    txt += `• *\`Duración:\`* ${secondString(video.duration.seconds)}\n`;
-    txt += `• *\`Publicado:\`* ${eYear(video.ago)}\n`;
-    txt += `• *\`Canal:\`* ${video.author.name || 'Desconocido'}\n`;
-    txt += `• *\`Url:\`* _https://youtu.be/${video.videoId}_\n\n`;
+    let txt = `> *YouTube Play 🍧.*\n\n`;
+    txt += `${video.title}\n\n`;
+    txt += `• *Duración:* ${secondString(video.duration.seconds)}\n`;
+    txt += `• *Autor:* ${video.author.name || 'Desconocido'}\n`;
+    txt += `• *Url:* _https://youtu.be/${video.videoId}_\n\n`;
 
     await conn.sendMessage(m.chat, {
       image: img,
