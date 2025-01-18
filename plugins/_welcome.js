@@ -8,18 +8,18 @@ export async function before(m, { conn, participants, groupMetadata }) {
   // Obtener la foto de perfil del usuario
   let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg'); // Imagen por defecto si no tiene foto
 
-  // Generar la imagen de bienvenida utilizando canvacard
-  const background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo predeterminado (se puede modificar)
+  // Fondo predeterminado
+  const background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo personalizado
 
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground('COLOR', '#000000')  // Cambia el color del fondo si es necesario
+    .setBackground(background)  // Usar el fondo personalizado
     .setTitulo("Bienvenido al grupo", '#FFFFFF')
     .setSubtitulo("¡Esperamos que tengas un excelente día!", '#FFFFFF')
-    .setOpacityOverlay(1)
+    .setOpacityOverlay(0.5)  // Overlay con opacidad (0.5 para semi-transparente)
     .setColorCircle('#FFFFFF')
-    .setColorOverlay('#5865F2')
+    .setColorOverlay('#FFFFFF')  // Overlay blanco
     .setTypeOverlay('ROUNDED');
 
   const welcomeCard = await welcomer.build("Cascadia Code PL, Noto Color Emoji");
@@ -27,12 +27,12 @@ export async function before(m, { conn, participants, groupMetadata }) {
   // Crear tarjeta de despedida (se usará también para expulsión)
   const byeCard = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground('COLOR', '#000000')
+    .setBackground(background)  // Usar el fondo personalizado
     .setTitulo("Adiós del grupo", '#FFFFFF')
     .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
-    .setOpacityOverlay(1)
+    .setOpacityOverlay(0.5)  // Overlay con opacidad (0.5 para semi-transparente)
     .setColorCircle('#FFFFFF')
-    .setColorOverlay('#5865F2')
+    .setColorOverlay('#FFFFFF')  // Overlay blanco
     .setTypeOverlay('ROUNDED');
 
   const byeImage = await byeCard.build("Cascadia Code PL, Noto Color Emoji");
