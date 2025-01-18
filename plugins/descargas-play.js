@@ -18,12 +18,13 @@ let handler = async (m, { conn, args }) => {
     txt += `${video.title}\n\n`;
     txt += `• *Duración:* ${secondString(video.duration.seconds)}\n`;
     txt += `• *Autor:* ${video.author.name || 'Desconocido'}\n`;
+    txt += `• *Publicado:* ${eYear(video.ago)}\n`;
     txt += `• *Url:* _https://youtu.be/${video.videoId}_\n\n`;
 
     await conn.sendMessage(m.chat, {
       image: img,
       caption: txt,
-      footer: 'Selecciona una opción',
+      footer: 'Presiona el botón para el tipo de descarga.',
       buttons: [
         {
           buttonId: `.ytmp3 https://youtu.be/${video.videoId}`,
