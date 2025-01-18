@@ -17,9 +17,9 @@ export async function before(m, { conn, participants, groupMetadata }) {
     .setBackground(background)  // Usar el fondo personalizado
     .setTitulo("Bienvenido al grupo", '#FFFFFF')
     .setSubtitulo("¡Esperamos que tengas un excelente día!", '#FFFFFF')
-    .setOpacityOverlay(0.5)  // Overlay con opacidad (0.5 para semi-transparente)
+    .setOpacityOverlay(1)
     .setColorCircle('#FFFFFF')
-    .setColorOverlay('#FFFFFF')  // Overlay blanco
+    .setColorOverlay('#5865F2')
     .setTypeOverlay('ROUNDED');
 
   const welcomeCard = await welcomer.build("Cascadia Code PL, Noto Color Emoji");
@@ -30,9 +30,9 @@ export async function before(m, { conn, participants, groupMetadata }) {
     .setBackground(background)  // Usar el fondo personalizado
     .setTitulo("Adiós del grupo", '#FFFFFF')
     .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
-    .setOpacityOverlay(0.5)  // Overlay con opacidad (0.5 para semi-transparente)
+    .setOpacityOverlay(1)
     .setColorCircle('#FFFFFF')
-    .setColorOverlay('#FFFFFF')  // Overlay blanco
+    .setColorOverlay('#5865F2')
     .setTypeOverlay('ROUNDED');
 
   const byeImage = await byeCard.build("Cascadia Code PL, Noto Color Emoji");
