@@ -1,14 +1,13 @@
 import { WAMessageStubType } from '@whiskeysockets/baileys';
 import fetch from 'node-fetch';
 import canvacard from 'canvacard';
-import { AttachmentBuilder } from 'discord.js'; // Necesario para enviar la imagen
 
 export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
 
   // Generar la imagen de bienvenida utilizando canvacard
   const img = "https://cdn.discordapp.com/embed/avatars/0.png"; // Avatar predeterminado (se puede modificar)
-  const background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo predeterminado (se puede modificar)
+  const background = "https://i.imgur.com/5O7xmVe.png"; // Fondo predeterminado (se puede modificar)
 
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
@@ -58,21 +57,21 @@ export async function before(m, { conn, participants, groupMetadata }) {
   if (chat.welcome && m.messageStubType == 27) {
     let bienvenida = `❀ *Se unió* al grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
 
-    const welcomeAttachment = new AttachmentBuilder(welcomeCard, { name: "WelcomeCard.png" });
-    await conn.sendAi(m.chat, packname, dev, bienvenida, welcomeAttachment, welcomeAttachment, canal, estilo);
+    // Enviar la tarjeta de bienvenida
+    await conn.sendMessage(m.chat, { image: welcomeCard, caption: bienvenida });
   }
 
   if (chat.welcome && m.messageStubType == 28) {
     let bye = `❀ *Se salió* del grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
 
-    const byeAttachment = new AttachmentBuilder(byeImage, { name: "ByeCard.png" });
-    await conn.sendAi(m.chat, packname, dev, bye, byeAttachment, byeAttachment, canal, estilo);
+    // Enviar la tarjeta de despedida
+    await conn.sendMessage(m.chat, { image: byeImage, caption: bye });
   }
 
   if (chat.welcome && m.messageStubType == 32) {
     let kick = `❀ *Se expulsó* del grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
 
-    const kickAttachment = new AttachmentBuilder(kickImage, { name: "KickCard.png" });
-    await conn.sendAi(m.chat, packname, dev, kick, kickAttachment, kickAttachment, canal, estilo);
+    // Enviar la tarjeta de expulsión
+    await conn.sendMessage(m.chat, { image: kickImage, caption: kick });
   }
 }
