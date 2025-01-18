@@ -1,6 +1,6 @@
 const handler = async (m, { conn, args }) => {
     if (args.length < 4) {
-        conn.reply(m.chat, '𝘋𝘦𝘣𝘦𝘴 𝘱𝘳𝘰𝘱𝘰𝘳𝘤𝘪𝘰𝘯𝘢𝘳 𝘭𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 (SR o EU), 𝘭𝘢 𝘩𝘰𝘳𝘢 (𝘏𝘏:𝘔𝘔), 𝘦𝘭 𝘱𝘢𝘪́𝘴 (𝘉𝘖, 𝘗𝘌, 𝘈𝘙, 𝘊𝘖, 𝘔𝘟) 𝘺 𝘭𝘢 𝘮𝘰𝘥𝘢𝘭𝘪𝘥𝘢𝘥 (𝘪𝘯𝘧𝘪𝘯𝘪𝘵𝘰 𝘰 𝘷𝘪́𝘷𝘪𝘥𝘰).\n\n*Ejemplo:*\n.4vs4 SR 22:00 🇦🇷 infinito\n.4vs4 SR 22:00 🇦🇷 vivido\n.4vs4 EU 20:00 🇲🇽 infinito\n.4vs4 EY 20:00 🇲🇽 vivido', m);
+        conn.reply(m.chat, 'Debes proporcionar esto.\n*.4vs4 <región> <hora> <Bandera> <modalidad>*\n\n*Ejemplo:*\n.4vs4 SR 22:00 🇦🇷 infinito\n.4vs4 SR 22:00 🇦🇷 vivido\n.4vs4 EU 20:00 🇲🇽 infinito\n.4vs4 EY 20:00 🇲🇽 vivido', m);
         return;
     }
 
