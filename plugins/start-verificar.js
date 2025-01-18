@@ -29,7 +29,12 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
   let sn = createHash('md5').update(m.sender).digest('hex').slice(0, 6);
 
   // Descargar imagen como Buffer
-  let imgUrl = `https://qu.ax/rJHDD.jpg`;
+  let imgUrl = [ 
+    'https://i.ibb.co/XVq2V0P/file.jpg',
+    'https://i.ibb.co/93wxrXV/file.jpg',
+    'https://i.ibb.co/NTrX3Hz/file.jpg',
+    'https://i.ibb.co/PQnRDFh/file.jpg'
+  ].getRandom()
   let imgBuffer;
   try {
     imgBuffer = await (await fetch(imgUrl)).buffer();
