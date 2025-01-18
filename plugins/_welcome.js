@@ -1,20 +1,19 @@
 import { WAMessageStubType } from '@whiskeysockets/baileys';
 import fetch from 'node-fetch';
 import canvacard from 'canvacard';
+import { AttachmentBuilder } from 'discord.js'; // Necesario para enviar la imagen
 
 export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
 
-  // Obtener la foto de perfil del usuario
-  let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg'); // Imagen por defecto si no tiene foto
-
-  // URL del fondo (la imagen que quieres usar)
-  let img = "https://i.ibb.co/cXqTMQ8/file.jpg"; // Imagen de fondo deseada
+  // Generar la imagen de bienvenida utilizando canvacard
+  const img = "https://cdn.discordapp.com/embed/avatars/0.png"; // Avatar predeterminado (se puede modificar)
+  const background = "https://i.imgur.com/5O7xmVe.png"; // Fondo predeterminado (se puede modificar)
 
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
-    .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground(img)  // Pasa directamente la URL de la imagen de fondo
+    .setAvatar(img)
+    .setBackground('COLOR', '#000000')  // Cambia el color del fondo si es necesario
     .setTitulo("Bienvenido al grupo", '#FFFFFF')
     .setSubtitulo("¡Esperamos que tengas un excelente día!", '#FFFFFF')
     .setOpacityOverlay(1)
@@ -24,10 +23,10 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
   const welcomeCard = await welcomer.build("Cascadia Code PL, Noto Color Emoji");
 
-  // Crear tarjeta de despedida (se usará también para expulsión)
+  // Crear tarjeta de despedida
   const byeCard = new canvacard.WelcomeLeave()
-    .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground(img)  // Pasa directamente la URL de la imagen de fondo
+    .setAvatar(img)
+    .setBackground('COLOR', '#000000')
     .setTitulo("Adiós del grupo", '#FFFFFF')
     .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
     .setOpacityOverlay(1)
@@ -36,6 +35,19 @@ export async function before(m, { conn, participants, groupMetadata }) {
     .setTypeOverlay('ROUNDED');
 
   const byeImage = await byeCard.build("Cascadia Code PL, Noto Color Emoji");
+
+  // Crear tarjeta para el kick (expulsión)
+  const kickCard = new canvacard.WelcomeLeave()
+    .setAvatar(img)
+    .setBackground('COLOR', '#000000')
+    .setTitulo("Expulsado del grupo", '#FFFFFF')
+    .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
+    .setOpacityOverlay(1)
+    .setColorCircle('#FFFFFF')
+    .setColorOverlay('#5865F2')
+    .setTypeOverlay('ROUNDED');
+
+  const kickImage = await kickCard.build("Cascadia Code PL, Noto Color Emoji");
 
   let chat = global.db.data.chats[m.chat];
   let who = m.messageStubParameters[0] + '@s.whatsapp.net';
@@ -46,21 +58,21 @@ export async function before(m, { conn, participants, groupMetadata }) {
   if (chat.welcome && m.messageStubType == 27) {
     let bienvenida = `❀ *Se unió* al grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
 
-    // Enviar la tarjeta de bienvenida
-    await conn.sendMessage(m.chat, { image: welcomeCard, caption: bienvenida });
+    const welcomeAttachment = new AttachmentBuilder(welcomeCard, { name: "WelcomeCard.png" });
+    await conn.sendAi(m.chat, packname, dev, bienvenida, welcomeAttachment, welcomeAttachment, canal, estilo);
   }
 
   if (chat.welcome && m.messageStubType == 28) {
     let bye = `❀ *Se salió* del grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
 
-    // Enviar la tarjeta de despedida
-    await conn.sendMessage(m.chat, { image: byeImage, caption: bye });
+    const byeAttachment = new AttachmentBuilder(byeImage, { name: "ByeCard.png" });
+    await conn.sendAi(m.chat, packname, dev, bye, byeAttachment, byeAttachment, canal, estilo);
   }
 
   if (chat.welcome && m.messageStubType == 32) {
     let kick = `❀ *Se expulsó* del grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
 
-    // Enviar la tarjeta de expulsión (usando la misma imagen de despedida)
-    await conn.sendMessage(m.chat, { image: byeImage, caption: kick });
+    const kickAttachment = new AttachmentBuilder(kickImage, { name: "KickCard.png" });
+    await conn.sendAi(m.chat, packname, dev, kick, kickAttachment, kickAttachment, canal, estilo);
   }
 }
