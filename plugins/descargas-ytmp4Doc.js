@@ -45,11 +45,11 @@ await conn.sendFile(m.chat, download, 'Applemusic.mp4', null, m) */
       contextInfo: {
         externalAdReply: {
           title: name,
-          body: 'Genesis Ai By Izumi-kzx',
-          mediaType: 2,
-          mediaUrl: null,
+          body: artist,
+          mediaType: 1,
+          mediaUrl: url,
           thumbnailUrl: thumb,
-          sourceUrl: null,
+          sourceUrl: url,
           containsAutoReply: true,
           renderLargerThumbnail: true,
           showAdAttribution: false,
