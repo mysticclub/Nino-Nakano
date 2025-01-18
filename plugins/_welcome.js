@@ -7,6 +7,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
   // Base de datos y variables
   let chat = global.db.data.chats[m.chat];
+  let web = 'https://genesis-support.vercel.app/';
+  let webb = 'https://izumikzx.vercel.app/';
   let who = m.messageStubParameters[0] + '@s.whatsapp.net';
   let user = global.db.data.users[who];
   let userName = user ? user.name : await conn.getName(who);
@@ -48,7 +50,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       `¡Hola Bienvenido al grupo!`
     );
 
-    await conn.sendAi(m.chat, packname, dev, bienvenida, img, img, canal, estilo);
+    await conn.sendAi(m.chat, packname, dev, bienvenida, img, img, web, m);
   }
 
   if (chat.welcome && m.messageStubType == 28) {
@@ -59,7 +61,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       `¡Hasta pronto Usuario!`
     );
 
-    await conn.sendAi(m.chat, packname, dev, bye, img, img, canal, estilo);
+    await conn.sendAi(m.chat, packname, dev, bye, img, img, webb, m);
   }
 
   if (chat.welcome && m.messageStubType == 32) {
@@ -70,6 +72,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
       `¡fue expulsado del grupo.!`
     );
 
-    await conn.sendAi(m.chat, packname, dev, kick, img, img, canal, estilo);
+    await conn.sendAi(m.chat, packname, dev, kick, img, img, web, m);
   }
 }
