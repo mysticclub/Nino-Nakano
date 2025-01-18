@@ -22,7 +22,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
   const welcomeCard = await welcomer.build("Cascadia Code PL, Noto Color Emoji");
 
-  // Crear tarjeta de despedida
+  // Crear tarjeta de despedida (se usará también para expulsión)
   const byeCard = new canvacard.WelcomeLeave()
     .setAvatar(img)
     .setBackground('COLOR', '#000000')
@@ -34,19 +34,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
     .setTypeOverlay('ROUNDED');
 
   const byeImage = await byeCard.build("Cascadia Code PL, Noto Color Emoji");
-
-  // Crear tarjeta para el kick (expulsión)
-  const kickCard = new canvacard.WelcomeLeave()
-    .setAvatar(img)
-    .setBackground('COLOR', '#000000')
-    .setTitulo("Expulsado del grupo", '#FFFFFF')
-    .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
-    .setOpacityOverlay(1)
-    .setColorCircle('#FFFFFF')
-    .setColorOverlay('#5865F2')
-    .setTypeOverlay('ROUNDED');
-
-  const kickImage = await kickCard.build("Cascadia Code PL, Noto Color Emoji");
 
   let chat = global.db.data.chats[m.chat];
   let who = m.messageStubParameters[0] + '@s.whatsapp.net';
@@ -71,7 +58,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
   if (chat.welcome && m.messageStubType == 32) {
     let kick = `❀ *Se expulsó* del grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
 
-    // Enviar la tarjeta de expulsión
-    await conn.sendMessage(m.chat, { image: kickImage, caption: kick });
+    // Enviar la tarjeta de expulsión (usando la misma imagen de despedida)
+    await conn.sendMessage(m.chat, { image: byeImage, caption: kick });
   }
 }
