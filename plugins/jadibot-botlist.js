@@ -39,7 +39,7 @@ ${totalUsers ? `💠 *Sub Bots conectados:* ${totalUsers || 0}\n` : ''}${cantida
     await conn.sendMessage(m.chat, {
       image: { url: img },
       caption: responseMessage,
-      footer: dev,
+      footer: '¡Hazte Subbot Con la opcion que desees!',
       buttons: [
         {
           buttonId: `.serbot code`,
