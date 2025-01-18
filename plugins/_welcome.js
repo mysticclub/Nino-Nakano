@@ -5,13 +5,15 @@ import canvacard from 'canvacard';
 export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
 
+  // Obtener la foto de perfil del usuario
+  let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg'); // Imagen por defecto si no tiene foto
+
   // Generar la imagen de bienvenida utilizando canvacard
-  const img = "https://cdn.discordapp.com/embed/avatars/0.png"; // Avatar predeterminado (se puede modificar)
-  const background = "https://i.imgur.com/5O7xmVe.png"; // Fondo predeterminado (se puede modificar)
+  const background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo predeterminado (se puede modificar)
 
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
-    .setAvatar(img)
+    .setAvatar(pp)  // Usar la foto de perfil obtenida
     .setBackground('COLOR', '#000000')  // Cambia el color del fondo si es necesario
     .setTitulo("Bienvenido al grupo", '#FFFFFF')
     .setSubtitulo("¡Esperamos que tengas un excelente día!", '#FFFFFF')
@@ -24,7 +26,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
   // Crear tarjeta de despedida (se usará también para expulsión)
   const byeCard = new canvacard.WelcomeLeave()
-    .setAvatar(img)
+    .setAvatar(pp)  // Usar la foto de perfil obtenida
     .setBackground('COLOR', '#000000')
     .setTitulo("Adiós del grupo", '#FFFFFF')
     .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
