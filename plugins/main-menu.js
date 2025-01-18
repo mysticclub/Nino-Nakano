@@ -233,7 +233,13 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 
-    let img = 'https://i.ibb.co/6mvk6Xn/1a35aec3-8ce2-4e46-97ad-cf080ab4ee69.png'
+  let img = [ 
+    'https://i.ibb.co/YDGYRhx/file.jpg',
+    'https://i.ibb.co/T0qNJ1f/file.jpg',
+    'https://i.ibb.co/gdxsw9Y/file.jpg',
+    'https://i.ibb.co/wpJJcG0/file.jpg'
+  ].getRandom()
+
     await m.react('🤍')
     await conn.sendMessage(m.chat, {
       image: { url: img },
