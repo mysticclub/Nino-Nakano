@@ -4,7 +4,7 @@ let handler = async (m, { conn, usedPrefix, isRowner }) => {
     let _muptime
     let totalreg = Object.keys(global.db.data.users).length
     let totalchats = Object.keys(global.db.data.chats).length
-    let pp = 'https://files.catbox.moe/z8k11d.jpeg'
+    let pp = 'https://i.ibb.co/CKggFFc/file.jpg'
     
     if (process.send) {
         process.send('uptime')
