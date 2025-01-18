@@ -1,30 +1,65 @@
-import {WAMessageStubType} from '@whiskeysockets/baileys'
-import fetch from 'node-fetch'
+import {WAMessageStubType} from '@whiskeysockets/baileys';
+import fetch from 'node-fetch';
+import canvafy from 'canvafy';
 
-export async function before(m, {conn, participants, groupMetadata}) {
+export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
-  let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg')
-  let img = await (await fetch(`${pp}`)).buffer()
-  let chat = global.db.data.chats[m.chat]
-  
+
+  // Base de datos y variables
+  let chat = global.db.data.chats[m.chat];
   let who = m.messageStubParameters[0] + '@s.whatsapp.net';
   let user = global.db.data.users[who];
-
   let userName = user ? user.name : await conn.getName(who);
 
-  if (chat.welcome && m.messageStubType == 27) {
-    let bienvenida = `❀ *Se unio* al grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
-    
-await conn.sendAi(m.chat, packname, dev, bienvenida, img, img, canal, estilo)
-  }
-  
-  if (chat.welcome && m.messageStubType == 28) {
-    let bye = `❀ *Se salio* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
+  // Generador de imágenes dinámicas
+  const generateImage = async (title, description) => {
+    const img = await new canvafy.WelcomeLeave()
+      .setAvatar(`https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=random`) // Avatar predeterminado
+      .setBackground(
+        'image',
+        'https://th.bing.com/th/id/R.248b992f15fb255621fa51ee0ca0cecb?rik=K8hIsVFACWQ8%2fw&pid=ImgRaw&r=0'
+      )
+      .setTitle(title)
+      .setDescription(description)
+      .setBorder('#2a2e35')
+      .setAvatarBorder('#2a2e35')
+      .setOverlayOpacity(0.3)
+      .build();
 
-await conn.sendAi(m.chat, packname, dev, bye, img, img, canal, estilo)
+    return img;
+  };
+
+  // Mensajes personalizados
+  if (chat.welcome && m.messageStubType == 27) {
+    let bienvenida = `❀ *Se unió* al grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
+
+    let img = await generateImage(
+      '¡Bienvenido!',
+      `Hola ${userName}, bienvenido al grupo *${groupMetadata.subject.trim()}*!`
+    );
+
+    await conn.sendAi(m.chat, packname, dev, bienvenida, img, img, canal, estilo);
   }
-  
+
+  if (chat.welcome && m.messageStubType == 28) {
+    let bye = `❀ *Se salió* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Próximamente...`;
+
+    let img = await generateImage(
+      '¡Adiós!',
+      `El usuario ${userName} dejó el grupo *${groupMetadata.subject.trim()}*. ¡Hasta pronto!`
+    );
+
+    await conn.sendAi(m.chat, packname, dev, bye, img, img, canal, estilo);
+  }
+
   if (chat.welcome && m.messageStubType == 32) {
-    let kick = `❀ *Se salio* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Proximamente...`;
-await conn.sendAi(m.chat, packname, dev, kick, img, img, canal, estilo)
-}}
+    let kick = `❀ *Fue expulsado* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Próximamente...`;
+
+    let img = await generateImage(
+      'Expulsado',
+      `El usuario ${userName} fue expulsado del grupo *${groupMetadata.subject.trim()}*.`
+    );
+
+    await conn.sendAi(m.chat, packname, dev, kick, img, img, canal, estilo);
+  }
+}
