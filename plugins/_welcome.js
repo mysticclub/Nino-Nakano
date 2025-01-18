@@ -9,8 +9,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
   let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg'); // Imagen por defecto si no tiene foto
 
   // Definir fondos y otros parámetros
-  const bgWelcome = 'https://imgur.com/okIR1iY.png'; // Fondo para bienvenida
-  const bgBye = 'https://imgur.com/byeImage.png'; // Fondo para despedida
+  const bgWelcome = 'https://imgur.com/okIR1iY.png'; // Fondo para bienvenida (asegúrate que la URL sea válida)
+  const bgBye = 'https://imgur.com/byeImage.png'; // Fondo para despedida (asegúrate que la URL sea válida)
   const avatar = pp;  // Foto de perfil del usuario
   const titleWelcome = 'Bienvenido al grupo';
   const subtitleWelcome = `¡Esperamos que tengas un excelente día!`;
