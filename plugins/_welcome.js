@@ -17,20 +17,10 @@ export async function before(m, { conn, participants, groupMetadata }) {
     return;
   }
 
-  // Convertir la URL de fondo a un Buffer si es necesario
-  let backgroundImage;
-  try {
-    const response = await fetch(background);
-    backgroundImage = await response.buffer();
-  } catch (error) {
-    console.error('Error al obtener la imagen de fondo:', error);
-    return;
-  }
-
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground(backgroundImage)  // Usar la imagen de fondo en Buffer
+    .setBackground({ data: background })  // Pasa la URL del fondo en un objeto con el campo 'data'
     .setTitulo("Bienvenido al grupo", '#FFFFFF')
     .setSubtitulo("¡Esperamos que tengas un excelente día!", '#FFFFFF')
     .setOpacityOverlay(1)
@@ -43,7 +33,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
   // Crear tarjeta de despedida (se usará también para expulsión)
   const byeCard = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground(backgroundImage)  // Usar la imagen de fondo en Buffer
+    .setBackground({ data: background })  // Pasa la URL del fondo en un objeto con el campo 'data'
     .setTitulo("Adiós del grupo", '#FFFFFF')
     .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
     .setOpacityOverlay(1)
