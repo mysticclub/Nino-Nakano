@@ -5,7 +5,6 @@ import canvafy from 'canvafy';
 export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
 
-  // Base de datos y variables
   let chat = global.db.data.chats[m.chat];
   let web = 'https://genesis-support.vercel.app/';
   let webb = 'https://izumikzx.vercel.app/';
@@ -13,20 +12,18 @@ export async function before(m, { conn, participants, groupMetadata }) {
   let user = global.db.data.users[who];
   let userName = user ? user.name : await conn.getName(who);
 
-  // Obtener avatar del usuario
   const getUserAvatar = async () => {
     try {
       return await conn.profilePictureUrl(m.messageStubParameters[0], 'image');
     } catch (err) {
-      return 'https://i.ibb.co/cFzgdNw/file.jpg'; // Avatar predeterminado en caso de error
+      return 'https://i.ibb.co/cFzgdNw/file.jpg';
     }
   };
 
-  // Generador de imágenes dinámicas
   const generateImage = async (title, description) => {
     const userAvatar = await getUserAvatar();
     const img = await new canvafy.WelcomeLeave()
-      .setAvatar(userAvatar) // Usar avatar real del usuario
+      .setAvatar(userAvatar)
       .setBackground(
         'image',
         'https://i.ibb.co/0cfqJLt/file.jpg'
@@ -41,7 +38,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
     return img;
   };
 
-  // Mensajes personalizados
   if (chat.welcome && m.messageStubType == 27) {
     let bienvenida = `❀ *Se unió* al grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
 
@@ -50,7 +46,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       `¡Hola Bienvenido al grupo!`
     );
 
-    await conn.sendAi(m.chat, packname, dev, bienvenida, img, img, web, null);
+    await conn.sendAi(m.chat, botname, dev, bienvenida, img, img, web, null);
   }
 
   if (chat.welcome && m.messageStubType == 28) {
@@ -61,7 +57,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       `¡Hasta pronto Usuario!`
     );
 
-    await conn.sendAi(m.chat, packname, dev, bye, img, img, webb, null);
+    await conn.sendAi(m.chat, botname, dev, bye, img, img, webb, null);
   }
 
   if (chat.welcome && m.messageStubType == 32) {
@@ -72,6 +68,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
       `¡fue expulsado del grupo.!`
     );
 
-    await conn.sendAi(m.chat, packname, dev, kick, img, img, web, null);
+    await conn.sendAi(m.chat, botname, dev, kick, img, img, web, null);
   }
 }
