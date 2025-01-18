@@ -28,15 +28,6 @@ let { name, albumname, artist, thumb, duration, url, download } = json.result
 let HS = `- *Album Name :* ${albumname}
 - *Duracion :* ${duration}`
 
-/* conn.reply(m.chat, `${HS}`, m, {
-contextInfo: { externalAdReply :{ mediaUrl: null, mediaType: 1, showAdAttribution: true,
-title: name,
-body: artist,
-previewType: 0, thumbnailUrl: thumb,
-sourceUrl: url }}})
-    
-await conn.sendFile(m.chat, download, 'Applemusic.mp4', null, m) */
-
     await conn.sendMessage(m.chat, {
       audio: {
         url: download
