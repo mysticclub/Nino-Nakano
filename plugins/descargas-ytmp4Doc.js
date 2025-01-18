@@ -8,8 +8,6 @@ try {
 let api = await axios.get(`https://restapi.apibotwa.biz.id/api/appledl?url=${args[0]}`)
 let json = api.data
 let { name, albumname, artist, thumb, duration, url, download } = json.result
-let HS = `- *Album Name :* ${albumname}
-- *Duracion :* ${duration}`
 
     await conn.sendMessage(m.chat, {
       audio: {
