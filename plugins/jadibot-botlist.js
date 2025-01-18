@@ -7,7 +7,7 @@ async function handler(m, { conn, usedPrefix, command }) {
 // carpetas creadas
 const __filename = fileURLToPath(import.meta?.url)
 const __dirname = path?.dirname(__filename)
-const carpetaBase = path?.resolve(__dirname, '..', 'GataJadiBot')
+const carpetaBase = path?.resolve(__dirname, '..', 'GenesisJadiBot')
 const cantidadCarpetas = (fs?.readdirSync(carpetaBase, { withFileTypes: true }).filter(item => item?.isDirectory())?.length) || 0
 
 // servidor
