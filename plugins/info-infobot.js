@@ -1,4 +1,4 @@
-import { generateWAMessageFromContent } from "@whiskeysockets/baileys";
+/* import { generateWAMessageFromContent } from "@whiskeysockets/baileys";
 import { cpus as _cpus, totalmem, freemem } from "os";
 import { performance } from "perf_hooks";
 import { sizeFormatter } from "human-readable";
@@ -71,4 +71,4 @@ function clockString(ms) {
   let h = Math.floor(ms / 3600000);
   let m = Math.floor(ms / 60000) % 60;
   let s = Math.floor(ms / 1000) % 60;
-  return [h, m, s].map((v) =>
+  return [h, m, s].map((v) => */
