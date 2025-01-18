@@ -33,9 +33,9 @@ contextInfo: { externalAdReply :{ mediaUrl: null, mediaType: 1, showAdAttributio
 title: name,
 body: artist,
 previewType: 0, thumbnailUrl: thumb,
-sourceUrl: url }}})*/
+sourceUrl: url }}})
     
-await conn.sendFile(m.chat, download, 'Applemusic.mp4', null, m)
+await conn.sendFile(m.chat, download, 'Applemusic.mp4', null, m) */
 
     await conn.sendMessage(m.chat, {
       audio: {
