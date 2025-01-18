@@ -34,7 +34,29 @@ const responseMessage = `☄️ *LISTA DE SUB-BOTS V${vsJB}*\n
 _${canal}_
 
 ${totalUsers ? `💠 *Sub Bots conectados:* ${totalUsers || 0}\n` : ''}${cantidadCarpetas ? `📁 *Sesiones creadas:* ${cantidadCarpetas}\n` : ''}${totalUsers ? `📁 *Sesiones activas:* ${totalUsers || 0}\n` : ''}💻 *Servidor:* \`\`\`${uptime}\`\`\`\n\n${replyMessage.trim()}`.trim()
-await conn.sendMessage(m.chat, { image: { url: ['https://i.ibb.co/VYMKmbM/file.jpg', 'https://i.ibb.co/Zf4YQqC/file.jpg', 'https://i.ibb.co/10QK4kb/file.jpg'].getRandom() }, caption: responseMessage }, { quoted: m })
+
+/* await conn.sendMessage(m.chat, { image: { url: ['https://i.ibb.co/VYMKmbM/file.jpg', 'https://i.ibb.co/Zf4YQqC/file.jpg', 'https://i.ibb.co/10QK4kb/file.jpg'].getRandom() }, caption: responseMessage }, { quoted: m }) */
+    await conn.sendMessage(m.chat, {
+      image: { url: img },
+      caption: responseMessage,
+      footer: dev,
+      buttons: [
+        {
+          buttonId: `.serbot code`,
+          buttonText: {
+            displayText: 'CODE',
+          },
+        },
+        {
+          buttonId: `.serbot`,
+          buttonText: {
+            displayText: 'QR',
+          },
+        },
+      ],
+      viewOnce: true,
+      headerType: 4,
+    }, { quoted: m })
 }
 handler.command = /^(listjadibots|bots|subsbots)$/i
 export default handler
