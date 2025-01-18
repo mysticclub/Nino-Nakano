@@ -1,4 +1,4 @@
-import fs from 'fs'
+/* import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import ws from 'ws'
@@ -68,7 +68,7 @@ function convertirMs(ms) {
   const h = Math.floor(ms / 3600000) % 24;
   const d = Math.floor(ms / 86400000);
   return [ d > 0 ? `${d}d` : "", `${h}h`, `${m}m`, `${s}s` ].filter(Boolean).join(" ")
-}
+} */
 
 
 
