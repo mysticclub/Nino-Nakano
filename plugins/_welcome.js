@@ -17,7 +17,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       .setAvatar(`https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=random`) // Avatar predeterminado
       .setBackground(
         'image',
-        'https://th.bing.com/th/id/R.248b992f15fb255621fa51ee0ca0cecb?rik=K8hIsVFACWQ8%2fw&pid=ImgRaw&r=0'
+        'https://i.ibb.co/0cfqJLt/file.jpg'
       )
       .setTitle(title)
       .setDescription(description)
