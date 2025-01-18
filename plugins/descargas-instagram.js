@@ -15,12 +15,12 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
         await m.react('🕑');
         let api = await axios.get(`https://apidl.asepharyana.cloud/api/downloader/igdl?url=${args[0]}`);
         
-        // Set para almacenar las URLs ya procesadas
+
         let processedUrls = new Set();
 
         for (let a of api.data.data) {
-            if (!processedUrls.has(a.url)) { // Verifica si la URL ya fue procesada
-                processedUrls.add(a.url); // Agrega la URL al Set
+            if (!processedUrls.has(a.url)) {
+                processedUrls.add(a.url);
 
                 if (a.url.includes('jpg') || a.url.includes('png') || a.url.includes('jpeg') || a.url.includes('webp') || a.url.includes('heic') || a.url.includes('tiff') || a.url.includes('bmp')) {
                     await conn.sendMessage(
