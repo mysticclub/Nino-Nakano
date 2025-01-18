@@ -47,8 +47,8 @@ let handler = async (m, { conn, args }) => {
     }
 };
 
-handler.help = ['twitter <url>']
-handler.tags = ['downloader']
+handler.help = ['twitter *<url>*']
+handler.tags = ['dl']
 handler.command = /^(x|twt|twitter(dl)?)$/i
 
 handler.limit = true
