@@ -1,11 +1,15 @@
-/* import { readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch, rmSync, promises as fsPromises } from "fs";
+import { readdirSync, statSync, unlinkSync, existsSync, readFileSync, watch, rmSync, promises as fsPromises } from "fs";
 const fs = { ...fsPromises, existsSync };
 import path, { join } from 'path' 
 import ws from 'ws';
 
 let handler = async (m, { conn: _envio, command, usedPrefix, args, text, isOwner}) => {
 
-let img = await (await fetch(`https://i.ibb.co/cDcj6bv/ee415abc-626b-4659-9a9e-a313c159512b.png`)).buffer()
+let img = [ 
+    'https://i.ibb.co/VYMKmbM/file.jpg',
+    'https://i.ibb.co/Zf4YQqC/file.jpg',
+    'https://i.ibb.co/10QK4kb/file.jpg'
+  ].getRandom()
 
 const isCommand1 = /^(deletesesion|deletebot|deletesession|deletesesaion)$/i.test(command)  
 const isCommand2 = /^(stop|pausarai|pausarbot)$/i.test(command)  
@@ -82,4 +86,4 @@ break
 handler.help = ['deletesesion', 'deletebot', 'deletesession', 'deletesession', 'stop', 'pausarai', 'pausarbot', 'bots', 'sockets', 'socket'];
 handler.tags = ['serbot'];
 handler.command = ['deletesesion', 'deletebot', 'deletesession', 'deletesession', 'stop', 'pausarai', 'pausarbot', 'bots', 'sockets', 'socket']
-export default handler */
+export default handler
