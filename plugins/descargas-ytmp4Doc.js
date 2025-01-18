@@ -5,6 +5,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 if (!args[0]) return conn.reply(m.chat, `❀ Ingresa un enlace de applemusic`, m)
 
 try {
+
+await m.react('🕒')
 let api = await axios.get(`https://restapi.apibotwa.biz.id/api/appledl?url=${args[0]}`)
 let json = api.data
 let { name, albumname, artist, thumb, duration, url, download } = json.result
@@ -28,9 +30,11 @@ let { name, albumname, artist, thumb, duration, url, download } = json.result
         }
       }
     }, { quoted: m });
+    await m.react('✅')
 
 } catch (error) {
 console.error(error)    
+await m.react('✖️')
 }}    
 
 handler.help = ['applemusicdl *<url>*'];
