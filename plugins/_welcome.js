@@ -7,7 +7,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
   // Generar la imagen de bienvenida utilizando canvacard
   const img = "https://cdn.discordapp.com/embed/avatars/0.png"; // Avatar predeterminado (se puede modificar)
-  const background = "https://i.imgur.com/5O7xmVe.png"; // Fondo predeterminado (se puede modificar)
+  const background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo predeterminado (se puede modificar)
 
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
