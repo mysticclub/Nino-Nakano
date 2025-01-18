@@ -8,13 +8,13 @@ export async function before(m, { conn, participants, groupMetadata }) {
   // Obtener la foto de perfil del usuario
   let pp = await conn.profilePictureUrl(m.messageStubParameters[0], 'image').catch(_ => 'https://qu.ax/Tdxwk.jpg'); // Imagen por defecto si no tiene foto
 
-  // Fondo predeterminado
-  let background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo personalizado
+  // Generar la imagen de bienvenida utilizando canvacard
+  const background = "https://files.catbox.moe/kj16gf.jpeg"; // Fondo predeterminado (se puede modificar)
 
   // Crear tarjeta de bienvenida
   const welcomer = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground(background)  // Usar el fondo personalizado
+    .setBackground('COLOR', '#000000')  // Cambia el color del fondo si es necesario
     .setTitulo("Bienvenido al grupo", '#FFFFFF')
     .setSubtitulo("¡Esperamos que tengas un excelente día!", '#FFFFFF')
     .setOpacityOverlay(1)
@@ -27,7 +27,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
   // Crear tarjeta de despedida (se usará también para expulsión)
   const byeCard = new canvacard.WelcomeLeave()
     .setAvatar(pp)  // Usar la foto de perfil obtenida
-    .setBackground(background)  // Usar el fondo personalizado
+    .setBackground('COLOR', '#000000')
     .setTitulo("Adiós del grupo", '#FFFFFF')
     .setSubtitulo("¡Nos vemos pronto! ¡Que tengas un buen día!", '#FFFFFF')
     .setOpacityOverlay(1)
