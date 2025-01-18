@@ -37,8 +37,8 @@ console.error(error)
 await m.react('✖️')
 }}    
 
-handler.help = ['applemusicdl *<url>*'];
+handler.help = ['applemusic *<url>*'];
 handler.tags = ['dl'];
-handler.command = ['appledl', 'applemusicdl']
+handler.command = ['appledl', 'applemusic']
 
 export default handler
