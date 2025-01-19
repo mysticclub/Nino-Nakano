@@ -18,6 +18,8 @@ console.error(error)
 await m.react('✖️');
 }}
 
+handler.help = ['ytmp4 *<url>*'];
+handler.tags = ['dl'];
 handler.command = ['ytmp4']
 
 export default handler
