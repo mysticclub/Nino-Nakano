@@ -5,7 +5,7 @@ const handler = async (m, { conn, text }) => {
   if (!text || !text.startsWith('https://pastebin.com/')) {
     return await conn.sendMessage(
       m.chat,
-      { text: '❗ Por favor, proporciona una URL de Pastebin válida.' },
+      { text: '❗ Mohon berikan URL Pastebin yang valid.' },
       { quoted: m }
     );
   }
@@ -14,27 +14,27 @@ const handler = async (m, { conn, text }) => {
     const { data } = await axios.get(text);
     const $ = cheerio.load(data);
 
-    const title = $('div.info-top h1').text().trim() || 'Título no encontrado';
+    const title = $('div.info-top h1').text().trim() || 'Judul tidak ditemukan';
     const rawLink = $('a[href^="/raw"]').attr('href');
     const downloadLink = $('a[href^="/dl"]').attr('href');
 
     const content = [];
     $('.source.text ol li').each((i, el) => content.push($(el).text().trim()));
 
-    const username = $('div.username a').text().trim() || 'Nombre de usuario no encontrado';
-    const datePosted = $('div.date span').text().trim() || 'Fecha no encontrada';
-    const viewCount = $('div.visits').text().trim() || 'Número de vistas no encontrado';
+    const username = $('div.username a').text().trim() || 'Username tidak ditemukan';
+    const datePosted = $('div.date span').text().trim() || 'Tanggal tidak ditemukan';
+    const viewCount = $('div.visits').text().trim() || 'Jumlah tampilan tidak ditemukan';
 
-    const caption = `🍁 *Obtener Pastebin*\n\n` +
-      `📌 *Título*: ${title}\n` +
-      `👤 *Subido por*: ${username}\n` +
-      `📅 *Fecha*: ${datePosted}\n` +
-      `👀 *Vistas*: ${viewCount}\n\n` +
-      `🔗 *Enlace Raw*: ${rawLink ? `https://pastebin.com${rawLink}` : 'No encontrado'}\n` +
-      `📥 *Enlace de Descarga*: ${downloadLink ? `https://pastebin.com${downloadLink}` : 'No encontrado'}\n\n` +
-      `📝 *Contenido*:\n${content.length ? content.join('\n') : 'No se encontró contenido de código.'}\n\n`;
+    const caption = `🍁 *Ambil Pastebin*\n\n` +
+      `📌 *Judul*: ${title}\n` +
+      `👤 *Uploader*: ${username}\n` +
+      `📅 *Tanggal*: ${datePosted}\n` +
+      `👀 *Tampilan*: ${viewCount}\n\n` +
+      `🔗 *Link Raw*: ${rawLink ? `https://pastebin.com${rawLink}` : 'Tidak ditemukan'}\n` +
+      `📥 *Link Unduh*: ${downloadLink ? `https://pastebin.com${downloadLink}` : 'Tidak ditemukan'}\n\n` +
+      `📝 *Konten*:\n${content.length ? content.join('\n') : 'Tidak ada konten kode ditemukan.'}\n\n`;
 
-    const documentContent = content.join('\n') || 'No hay contenido para guardar.';
+    const documentContent = content.join('\n') || 'Tidak ada konten untuk disimpan.';
 
     await conn.sendMessage(
       m.chat,
@@ -48,10 +48,10 @@ const handler = async (m, { conn, text }) => {
     );
 
   } catch (error) {
-    console.error('Error Skill Issue:', error);
+    console.error('Error Skill Isue:', error);
     await conn.sendMessage(
       m.chat,
-      { text: `❗ Ocurrió un error: ${error.message}` },
+      { text: `❗ Terjadi kesalahan: ${error.message}` },
       { quoted: m }
     );
   }
