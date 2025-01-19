@@ -69,8 +69,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
     let kick = `❀ *Fue expulsado* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Adiós...`;
 
     let img = await generateImage(
-      'EXPULSADO',
-      `¡fue expulsado del grupo.!`
+      '¡ADIOS!',
+      `¡Hasta pronto Usuario!`
     );
 
     await conn.sendAi(m.chat, botname, dev, kick, img, img, web, null);
