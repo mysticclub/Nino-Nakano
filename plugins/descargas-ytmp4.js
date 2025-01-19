@@ -1,19 +1,27 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return conn.reply(m.chat, '❀ Ingresa un link de youtube', m);
-    
+    if (!text) return conn.reply(m.chat, '❀ Ingresa un link de YouTube', m);
+
     try {
         await m.react('🕒');
+        
         let api = await fetch(`https://apidl.asepharyana.cloud/api/downloader/ytmp4?url=${text}&quality=360`);
         let json = await api.json();
-        let { title, author, authorUrl, lengthSeconds, views, uploadDate, thumbnail, description, duration, downloadUrl, quality } = json;
         
-        let HS = `*Titulo :* ${title}\nDuración : ${duration}\nCalidad : ${quality}p`;
+        let { title, duration, downloadUrl, quality } = json;
 
-        let durationInSeconds = parseInt(duration.split(':')[0]) * 60 + parseInt(duration.split(':')[1]);
+        let durationParts = duration.split(':').map(Number);
+        let durationInSeconds = 0;
+        if (durationParts.length === 3) {
+            durationInSeconds = durationParts[0] * 3600 + durationParts[1] * 60 + durationParts[2];
+        } else if (durationParts.length === 2) {
+            durationInSeconds = durationParts[0] * 60 + durationParts[1];
+        }
 
-        if (durationInSeconds >= 2400) {
+        let HS = `*Título:* ${title}\n*Duración:* ${duration}\n*Calidad:* ${quality}p`;
+
+        if (durationInSeconds >= 1800) {
             await conn.sendMessage(m.chat, { 
                 document: { url: downloadUrl }, 
                 mimetype: 'video/mp4', 
