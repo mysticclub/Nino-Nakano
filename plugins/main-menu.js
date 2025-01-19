@@ -2,6 +2,7 @@ import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
+import PhoneNumber from 'awesome-phonenumber'
 import os from 'os'
 import fetch from 'node-fetch'
 const { generateWAMessageFromContent, proto, getDevice } = (await import('@whiskeysockets/baileys')).default
