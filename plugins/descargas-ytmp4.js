@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const limit = 50;
+const limit = 50 * 1024 * 1024; // Límite de tamaño en bytes (50 MB)
 
 let handler = async (m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, `❀ Ingresa un link de YouTube`, m);
@@ -13,10 +13,12 @@ let handler = async (m, { conn, text }) => {
         
         let { title, duration, downloadUrl, quality, fileSize } = json;
 
-        let sizeInBytes = parseInt(fileSize.split(' ')[0]) * 1024 * 1024;
+        // Convertir tamaño del archivo a bytes
+        let sizeInBytes = parseInt(fileSize.split(' ')[0]) * 1024 * 1024; // Supone que fileSize está en formato "XX MB"
         
         let HS = `*Título:* ${title}\n*Duración:* ${duration}\n*Calidad:* ${quality}p\n*Tamaño:* ${fileSize}`;
 
+        // Verificar si excede el límite
         if (sizeInBytes > limit) {
             await conn.sendMessage(m.chat, {
                 document: { url: downloadUrl },
@@ -41,7 +43,6 @@ let handler = async (m, { conn, text }) => {
 handler.command = ['ytmp4'];
 
 export default handler;
-
 
 
 
