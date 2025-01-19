@@ -1,3 +1,4 @@
+
 import { canLevelUp, xpRange } from '../lib/levelling.js'
 import { createHash } from 'crypto'
 import PhoneNumber from 'awesome-phonenumber'
@@ -15,11 +16,15 @@ let handler = async (m, { conn, usedPrefix, command}) => {
   let username = conn.getName(who)
   let prem = global.prems.includes(who.split`@`[0])
   let sn = createHash('md5').update(who).digest('hex')
+  let api = await axios.get(`https://deliriussapi-oficial.vercel.app/tools/country?text=${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}`)
+  let userNationalityData = api.data.result
+  let userNationality = userNationalityData ? `${userNationalityData.name} ${userNationalityData.emoji}` : 'Desconocido'
   let img = await (await fetch(`${pp}`)).buffer()
   let txt = ` –  *P E R F I L  -  U S E R*\n\n`
       txt += `◦ *Nombre* : ${name}\n`
       txt += `◦ *Edad* : ${registered ? `${age} años` : '×'}\n`
       txt += `◦ *Numero* : ${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}\n`
+      txt += `◦ *Nacionalidad* : ${userNationality}\n`
       txt += `◦ *Link* : wa.me/${who.split`@`[0]}\n`
       txt += `◦ *Corazones* : ${corazones}\n`
       txt += `◦ *Nivel* : ${level}\n`
