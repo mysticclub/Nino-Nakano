@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const limit = 50 * 1024 * 1024;
+const limit = 50;
 
 let handler = async (m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, `❀ Ingresa un link de YouTube`, m);
