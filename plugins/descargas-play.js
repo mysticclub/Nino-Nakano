@@ -24,13 +24,13 @@ let handler = async (m, { conn: star, command, args, text, usedPrefix }) => {
       footer: 'Presiona el botón para el tipo de descarga.',
       buttons: [
         {
-          buttonId: `.ytmp3 https://youtu.be/${video.videoId}`,
+          buttonId: `.ytmp3 ${'https://youtu.be/' + res[0].videoId}`,
           buttonText: {
             displayText: '🎵 Audio',
           },
         },
         {
-          buttonId: `.ytmp4 https://youtu.be/${video.videoId}`,
+          buttonId: `.ytmp4 ${'https://youtu.be/' + res[0].videoId}`,
           buttonText: {
             displayText: '🎥 Video',
           },
