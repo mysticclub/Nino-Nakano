@@ -49,6 +49,7 @@ const defaultMenu = {
   before: `*Hola \`%name\` soy Genesis*
 
 > 👤 *Creador:* Izumi-kzx
+> 🍥 *Pais:* %userNationality
 > 🍧 *Activo:* %muptime
 > 🍘 *Usuarios:* %rtotalreg de %totalreg
 > ☁️ *Corazones:* %corazones
@@ -166,6 +167,10 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let prems = `${premium > 0 ? 'Premium' : 'Free'}`
     let platform = os.platform()
 
+let api = await axios.get(`https://delirius-apiofc.vercel.app/tools/country?text=${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}`)
+let userNationalityData = api.data.result
+let userNationality = userNationalityData ? `${userNationalityData.name} ${userNationalityData.emoji}` : 'Desconocido'
+
     let totalf = Object.values(global.plugins).filter(
     (v) => v.help && v.tags
   ).length;
@@ -228,7 +233,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       xp4levelup: max - exp,
       github: _package.homepage ? _package.homepage.url || _package.homepage : '[unknown github url]',
       tag, dash, m1, m2, m3, m4, cc, c1, c2, c3, c4, lprem, llim,
-      ucpn, platform, wib, mode, _p, money, age, tag, name, prems, level, corazones, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role, totalf,
+      ucpn, platform, wib, mode, _p, money, age, tag, name, prems, level, corazones, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role, totalf, userNationality,
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
