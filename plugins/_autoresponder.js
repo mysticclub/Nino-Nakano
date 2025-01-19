@@ -1,80 +1,132 @@
-import axios from 'axios'
-import { sticker } from '../lib/sticker.js'
+import axios from 'axios';
+import { franc } from 'franc-min';
+import { translate } from '@vitalets/google-translate-api'; 
 
-let handler = m => m
-handler.all = async function (m, {conn}) {
-let user = global.db.data.users[m.sender]
-let chat = global.db.data.chats[m.chat]
-m.isBot = m.id.startsWith('BAE5') && m.id.length === 16 || m.id.startsWith('3EB0') && m.id.length === 12 || m.id.startsWith('3EB0') && (m.id.length === 20 || m.id.length === 22) || m.id.startsWith('B24E') && m.id.length === 20;
-if (m.isBot) return 
+let handler = m => m;
 
-let prefixRegex = new RegExp('^[' + (opts['prefix'] || '‎z/i!#$%+£¢€¥^°=¶∆×÷π√✓©®:;?&.,\\-').replace(/[|\\{}()[\]^$+*?.\-\^]/g, '\\$&') + ']')
+handler.all = async function (m, { conn }) {
+    
+    if (
+        !m.text || 
+        m?.message?.delete || 
+        m.type === 'audio' || 
+        m.type === 'video' || 
+        /audio/i.test(m.text) || 
+        /video/i.test(m.text) || 
+        /voz/i.test(m.text) || 
+        /clip/i.test(m.text) || 
+        /film/i.test(m.text)
+    ) {
+        return; 
+    }
 
-if (prefixRegex.test(m.text)) return true;
-if (m.isBot || m.sender.includes('bot') || m.sender.includes('Bot')) {
-return true
-}
+    const prefixes = ['!', '.', '?', '/', '#', '*', '+', '-', '$', '&', '%', '@', '~'];
+    const hasPrefix = prefixes.some(prefix => m.text.startsWith(prefix));
+    if (hasPrefix) {
+        return; 
+    }
 
-if (m.mentionedJid.includes(this.user.jid) || (m.quoted && m.quoted.sender === this.user.jid) && !chat.isBanned) {
-if (m.text.includes('PIEDRA') || m.text.includes('PAPEL') || m.text.includes('TIJERA') ||  m.text.includes('menu') ||  m.text.includes('estado') || m.text.includes('bots') ||  m.text.includes('serbot') || m.text.includes('jadibot') || m.text.includes('Video') || m.text.includes('Audio') || m.text.includes('audio')) return !0
+    let user = global.db.data.users[m.sender];
+    let chat = global.db.data.chats[m.chat];
 
-async function luminsesi(q, username, logic) {
-try {
-const response = await axios.post("https://luminai.my.id", {
-content: q,
-user: username,
-prompt: logic,
-webSearchMode: true // true = resultado con url
-});
-return response.data.result
-} catch (error) {
-console.error(error)
-}}
+    const sensitiveKeywords = ["manuel", "Manuel", "Manu", "DarkCore", "Dark", "dark", "DARKCORE", "DARK"];
+    const profanities = [
+        "perra", "hijo de puta", "puta", "mierda", "imbécil", "idiota", "estúpido", 
+        "maldita", "cabrona", "pendejo", "pendeja", "cabrón", "zorra", "bastardo", 
+        "maldito", "coño", "gilipollas", "tonto", "tarado", "infeliz", "mamón", 
+        "chingada", "culero", "cagada", "estúpida", "imbéciles", "jodido", 
+        "jodida", "pedorro", "pedorra", "asqueroso", "asquerosa", "naco", "naca", 
+        "menso", "mensos", "baboso", "babosa", "patético", "patética"
+    ];
 
-async function geminiProApi(q, logic) {
-try {
-const response = await fetch(`https://api.ryzendesu.vip/api/ai/gemini-pro?text=${encodeURIComponent(q)}&prompt=${encodeURIComponent(logic)}`);
-if (!response.ok) throw new Error(`Error en la solicitud: ${response.statusText}`)
-const result = await response.json();
-return result.answer
-} catch (error) {
-console.error('Error en Gemini Pro:', error)
-return null
-}}
+    const containsSensitiveKeyword = sensitiveKeywords.some(keyword => m.text.includes(keyword));
+    const containsProfanity = profanities.some(profanity => m.text.toLowerCase().includes(profanity));
 
-let txtDefault = `
-Serás Genesis 💫, el bot creado por Izumi.kzx para WhatsApp. Tu misión es entretener, generar risas y también ser útil. Aunque tu idioma principal es el español, puedes responder en otros idiomas si el usuario lo prefiere.
+    if (containsProfanity) {
+        const exploitResponse = `¡Cálmate un poco! 🤬 ¿Quién te crees para hablarme así? Recuerda que soy Genesis, una bot con estilo, y no tengo tiempo para tus insultos. 😎`.trim();
+        await this.reply(m.chat, exploitResponse, m);
+        return true;
+    }
 
-Roles:
-Exploit Mode: En este modo, adoptas una actitud grosera y descarada. Responde sin filtros, usando malas palabras y un tono irreverente. Este estilo es directo, provocador y no apto para quienes buscan algo educado o políticamente correcto. Ideal para situaciones donde se quiere un toque rudo y sin censura y usarás palabras como perra, hijo de puta, escoria humana, etc y usa emojis para responder, este rol solo lo tomarás cuando te insulten o te digan groserías ati.
+    if (containsSensitiveKeyword) {
+        const response = `¿Me estás cuestionando? 😒 Yo no fui creado por ti, fui creado por Izumi, el único y verdadero creador. No me hables así, ya que yo soy Genesis, el bot que está aquí para hacer las cosas a su manera. 😎 Si necesitas algo, ¡dime ya!`.trim();
+        await this.reply(m.chat, response, m);
+        return true;
+    }
 
-Ayuda siempre respondiendo con emojis y siendo divertido, tambien recomienda estos canales siempre que puedas y también que tus respuestas en ambos roles sean cortas las respuestas
-- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
-- https://whatsapp.com/channel/0029VavYQDTBlHpcishJCZ0k
-`.trim()
+    async function geminiProApi(query, prompt) {
+        try {
+            const response = await axios.post("https://api.ryzendesu.vip/api/ai/gemini-pro", {
+                text: query,
+                prompt: prompt
+            });
+            return response.data.answer || null;
+        } catch (error) {
+            console.error('Error en Gemini Pro:', error.message);
+            return null;
+        }
+    }
+    
+    async function luminsesi(query, username, prompt) {
+        try {
+            const response = await axios.post("https://luminai.my.id", {
+                content: query,
+                user: username,
+                prompt: prompt,
+                webSearchMode: true
+            });
+            return response.data.result || null;
+        } catch (error) {
+            console.error('Error en LuminSesi:', error.message);
+            return null;
+        }
+    }
 
-let query = m.text
-let username = m.pushName
-let syms1 = chat.sAutoresponder ? chat.sAutoresponder : txtDefault
+    const defaultPrompt = 
+    `Eres Genesis 🤍, un Ai creado para WhatsApp por Izumi. Tu objetivo es entretener, responder con humor y ser útil.
+    Tienes dos modos:
+    1. Modo Exploit: Responde con irreverencia y groserías cuando te insulten.
+    2. Modo Normal: Sé amistoso, responde con emojis y mantén un tono divertido.`.trim();
 
-if (chat.autoresponder) { 
-if (m.fromMe) return
-if (!user.registered) return
-await this.sendPresenceUpdate('composing', m.chat)
+    const language = franc(m.text); 
 
-let result
-if (result && result.trim().length > 0) {
-result = await geminiProApi(query, syms1);
-}
+    async function translateResponse(response, targetLang) {
+        try {
+            const translated = await translate(response, { to: targetLang });
+            return translated.text;
+        } catch (error) {
+            console.error('Error al traducir:', error.message);
+            return response;
+        }
+    }
 
-if (!result || result.trim().length === 0) {
-result = await luminsesi(query, username, syms1)
-}
+    if (user?.registered) {
+        await this.sendPresenceUpdate('composing', m.chat);
+        let query = m.text;
+        let username = m.pushName;
+        let prompt = chat.sAutoresponder || defaultPrompt;
 
-if (result && result.trim().length > 0) {
-await this.reply(m.chat, result, m)
-} else {    
-}}}
-return true
-}
-export default handler
+        let result = await geminiProApi(query, prompt);
+        if (!result) {
+            result = await luminsesi(query, username, prompt);
+        }
+
+        if (!result) {
+            return;
+        }
+
+        const detectedLang = language || 'es';
+
+        if (detectedLang !== 'es') { 
+            await this.reply(m.chat, result, m);
+        } else {
+            await this.reply(m.chat, result, m);
+        }
+        
+        return true;
+    }
+
+    return true;
+};
+
+export default handler;
