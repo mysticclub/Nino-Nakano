@@ -19,7 +19,36 @@ let handler = async (m, { conn: star, command, args, text, usedPrefix }) => {
        txt += `\t\t*» ID* : ${res[0].videoId}\n`
        txt += `\t\t*» Url* : ${'https://youtu.be/' + res[0].videoId}\n\n`
        txt += `> *-* Para descargar responde a este mensaje con *Video* o *Audio*.`
-await star.sendFile(m.chat, img, 'thumbnail.jpg', txt, m)
+
+    await conn.sendMessage(m.chat, {
+      image: img,
+      caption: txt,
+      footer: 'Presiona el botón para el tipo de descarga.',
+      buttons: [
+        {
+          buttonId: `.ytmp3 https://youtu.be/${video.videoId}`,
+          buttonText: {
+            displayText: '🎵 Audio',
+          },
+        },
+        {
+          buttonId: `.ytmp4 https://youtu.be/${video.videoId}`,
+          buttonText: {
+            displayText: '🎥 Video',
+          },
+        },
+      ],
+      viewOnce: true,
+      headerType: 4,
+    }, { quoted: m });
+
+    await m.react('✅');
+  } catch (e) {
+    console.error(e);
+    await m.react('✖️');
+    conn.reply(m.chat, '*\`Error al buscar el video.\`*', m);
+  }
+};
 await m.react('✅')
 } catch {
 await m.react('✖️')
