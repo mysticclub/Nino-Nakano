@@ -23,7 +23,7 @@ handler.all = async function (m, { conn }) {
     const prefixes = ['!', '.', '?', '/', '#', '*', '+', '-', '$', '&', '%', '@', '~'];
     const hasPrefix = prefixes.some(prefix => m.text.startsWith(prefix));
     if (hasPrefix) {
-        return; 
+        return; // No responde si el mensaje comienza con un prefijo
     }
 
     let user = global.db.data.users[m.sender];
