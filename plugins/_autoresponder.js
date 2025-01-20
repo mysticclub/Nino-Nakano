@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { franc } from 'franc-min';
 import { translate } from '@vitalets/google-translate-api'; 
