@@ -17,12 +17,12 @@ const handler = async (m, { text, conn }) => {
         const videoUrl = downloads.url;
         const thumbnailUrl = metadata.thumbnail.url;
 
-    /*    await conn.sendMessage(m.chat, {
+        await conn.sendMessage(m.chat, {
             image: {
                 url: thumbnailUrl
             },
             caption: `📺 *Título*: ${metadata.title}\n⏳ *Duración*: ${metadata.duration}s\n👀 *Vistas*: ${metadata.views}\n👍 *Likes*: ${metadata.likes}\n✍️ *Autor*: ${metadata.author}\n📜 *Descripción*: ${metadata.description}`,
-        }, { quoted: m }); */
+        }, { quoted: m });
 
         await conn.sendMessage(m.chat, {
             video: {
