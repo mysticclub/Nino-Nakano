@@ -1,4 +1,4 @@
-/* import axios from 'axios';
+import axios from 'axios';
 
 const handler = async (m, { text, conn }) => {
     if (!text) return m.reply('Proporcióname el enlace de YouTube para que pueda ayudarte. 🎥');
@@ -40,7 +40,7 @@ const handler = async (m, { text, conn }) => {
 handler.help = ['ytmp4 *<url>*'];
 handler.tags = ['dl'];
 handler.command = ['ytmp4'];
-export default handler; */
+export default handler;
 
 
 
