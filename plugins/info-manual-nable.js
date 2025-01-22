@@ -23,6 +23,13 @@ _Usa *off* para apagar la función_
 *Comando:* #on autolevelup - #off autolevelup 
 *Descripción:* Activa o descativa la subida automática de nivel en el Bot.
 
+🤖 *ANTIBOT*  
+*Comando:* #on antibot - #off antibot
+*Descripción:* Activa o descativa la expulsión de un grupo. otros bots no autorizados.
+
+🤖 *SUBBOTS*  
+*Comando:* #on antibot - #off antibot
+*Descripción:* Activa o descativa la expulsión de un grupo. otros bots no autorizados.
 
 
 
