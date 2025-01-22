@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { franc } from 'franc-min';
-import translateModule from '@vitalets/google-translate-api';
+import { translate } from '@vitalets/google-translate-api';
 
 let handler = m => m;
 
