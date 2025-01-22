@@ -1,11 +1,9 @@
 import axios from 'axios';
 import { franc } from 'franc-min';
-import { translate } from '@vitalets/google-translate-api';
 
 let handler = m => m;
 
 handler.all = async function (m, { conn }) {
-    
     if (
         !m.text || 
         m?.message?.delete || 
@@ -90,10 +88,14 @@ handler.all = async function (m, { conn }) {
 
     const language = franc(m.text); 
 
-    async function translateResponse(response, targetLang) {
+    async function translateResponseLibre(response, targetLang) {
         try {
-            const translated = await translate(response, { to: targetLang });
-            return translated.text;
+            const translation = await axios.post("https://libretranslate.com/translate", {
+                q: response,
+                source: "auto",
+                target: targetLang
+            });
+            return translation.data.translatedText || response;
         } catch (error) {
             console.error('Error al traducir:', error.message);
             return response;
@@ -118,7 +120,8 @@ handler.all = async function (m, { conn }) {
         const detectedLang = language || 'es';
 
         if (detectedLang !== 'es') { 
-            await this.reply(m.chat, result, m);
+            const translated = await translateResponseLibre(result, 'es');
+            await this.reply(m.chat, translated, m);
         } else {
             await this.reply(m.chat, result, m);
         }
