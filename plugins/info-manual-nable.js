@@ -1,8 +1,35 @@
 let opciones = `
+\`FUNCIONES GRUPOS\`
+_Usa *on* para prender la función_
+_Usa *off* para apagar la función_
 --------------------------------
 👋 *WELCOME*  
-**Comando:** #enable welcome  
-**Descripción:** Activa o desactiva el mensaje de bienvenida en el grupo.
+*Comando:* #on welcome - #off welcome
+*Descripción:* Activa o desactiva el mensaje de bienvenida en el grupo.
+
+✅ *AUTOACEPTAR*  
+*Comando:* #on autoaceptar - #off autoaceptar
+*Descripción:* Activa o desactiva el autoaceptar que acepta automáticamente la solicitud a los números en el grupo.
+
+❌ *AUTORECHAZAR*  
+*Comando:* #on autorechazar - #off autorechazar
+*Descripción:* Activa o desactiva el autorechazar que rechaza automáticamente la solicitud a los números en el grupo.
+
+🗨️ *AUTORESPONDER*  
+*Comando:* #on autoresponder - #off autoresponder
+*Descripción:* Activa las respuestas automáticas del bot usando la IA de Gemini.
+
+🆙 *AUTOLEVELUP*  
+*Comando:* #on autolevelup - #off autolevelup 
+*Descripción:* Activa o descativa la subida automática de nivel en el Bot.
+
+
+
+
+
+
+
+
 
 🔓 *MODO PÚBLICO*  
 **Comando:** #enable public  
@@ -87,10 +114,6 @@ let opciones = `
 👑 *MODO ADMIN*  
 **Comando:** #enable modoadmin  
 **Descripción:** El bot solo responderá a los administradores del grupo.
-
-🗨️ *SIMSIMI*  
-**Comando:** #enable simsimi  
-**Descripción:** Activa las respuestas automáticas del bot usando la IA de SimSimi.
 
 ⏳ *ANTISPAM*  
 **Comando:** #enable antispam  
