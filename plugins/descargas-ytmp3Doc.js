@@ -28,7 +28,7 @@ let HS = ` ᚚᚚᩳᚚ͜ᩬᚚ͜ᚚ͜ᚚ͜ᚚ͜ᚚ͜ᚚ͜ᚚ͜ᚚ͜ᚚ͜ᚚ͜�
 
 ➥𝙀𝙨𝙥𝙚𝙧𝙚 𝙙𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙣𝙙𝙤 𝙨𝙪 𝙖𝙪𝙙𝙞𝙤...
 
-> Si No Se Envia Intenta Con ${usedPrefix}playdoc`
+> Si No Se Envia Intenta Con .playdoc`
 
 let thumb = (await conn.getFile(thumbnail))?.data;
 
