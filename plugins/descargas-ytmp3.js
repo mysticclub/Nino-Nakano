@@ -13,15 +13,14 @@ const handler = async (m, { text, conn }) => {
         }
 
         const { downloads } = response.data;
-
         const audioUrl = downloads.url;
 
         await conn.sendMessage(m.chat, {
-            audio: {
-                url: audioUrl
-            },
-            mimetype: "audio/mpeg"
-        }, { quoted: m });
+            audio: { url: audioUrl },
+            mimetype: "audio/mp4",
+            fileName: downloads.title + '.mp3',
+            quoted: m
+        });
 
         await m.react('✅');
 
@@ -34,6 +33,8 @@ handler.help = ['ytmp3 *<url>*'];
 handler.tags = ['dl'];
 handler.command = ['ytmp3'];
 export default handler;
+
+
 
 
 
