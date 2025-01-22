@@ -15,13 +15,6 @@ const handler = async (m, { text, conn }) => {
         const { downloads } = response.data;
         const audioUrl = downloads.url;
 
-       /* await conn.sendMessage(m.chat, {
-            audio: { url: audioUrl },
-            mimetype: "audio/mp4",
-            fileName: downloads.title + '.mp3',
-            quoted: m
-        }); */
-
             await conn.sendMessage(m.chat, { 
                 audio: { url: audioUrl }, 
                 fileName: `${downloads.title}.mp3`, 
