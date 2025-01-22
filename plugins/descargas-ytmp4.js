@@ -21,7 +21,7 @@ const handler = async (m, { text, conn }) => {
             image: {
                 url: thumbnailUrl
             },
-            caption: `📺 *Título*: ${metadata.title}\n⏳ *Duración*: ${metadata.duration}s\n👀 *Vistas*: ${metadata.views}\n👍 *Likes*: ${metadata.likes}\n✍️ *Autor*: ${metadata.author}\n📜 *Descripción*: ${metadata.description}`,
+            caption: `📺 *Título*: ${metadata.title}\n⏳ *Duración*: ${metadata.duration}s\n👀 *Vistas*: ${metadata.views}`,
         }, { quoted: m });
 
         await conn.sendMessage(m.chat, {
