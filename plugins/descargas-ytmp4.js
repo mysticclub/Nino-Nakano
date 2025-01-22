@@ -4,6 +4,8 @@ const handler = async (m, { text, conn }) => {
     if (!text) return m.reply('Proporcióname el enlace de YouTube para que pueda ayudarte. 🎥');
 
     try {
+       await m.react('🕓');
+
         const response = await axios.get(`https://ytdl.axeel.my.id/api/download/video/?url=${text}`);
 
         if (!response.data || !response.data.metadata) {
@@ -15,12 +17,12 @@ const handler = async (m, { text, conn }) => {
         const videoUrl = downloads.url;
         const thumbnailUrl = metadata.thumbnail.url;
 
-        await conn.sendMessage(m.chat, {
+    /*    await conn.sendMessage(m.chat, {
             image: {
                 url: thumbnailUrl
             },
             caption: `📺 *Título*: ${metadata.title}\n⏳ *Duración*: ${metadata.duration}s\n👀 *Vistas*: ${metadata.views}\n👍 *Likes*: ${metadata.likes}\n✍️ *Autor*: ${metadata.author}\n📜 *Descripción*: ${metadata.description}`,
-        }, { quoted: m });
+        }, { quoted: m }); */
 
         await conn.sendMessage(m.chat, {
             video: {
@@ -28,9 +30,10 @@ const handler = async (m, { text, conn }) => {
             },
             caption: `*• Título*: ${metadata.title}`,
         }, { quoted: m });
+        await m.react('✅');
 
     } catch (error) {
-        await m.reply('Hubo un error al obtener los datos del enlace de YouTube. Por favor, inténtalo de nuevo más tarde. ❌');
+        await m.react('✖️');
     }
 };
 
