@@ -26,7 +26,7 @@ const handler = async (m, { text, conn }) => {
             video: {
                 url: videoUrl
             },
-            caption: `🎬 *Video*: ${metadata.title}`,
+            caption: `*• Título*: ${metadata.title}`,
         }, { quoted: m });
 
     } catch (error) {
@@ -34,9 +34,9 @@ const handler = async (m, { text, conn }) => {
     }
 };
 
-handler.help = ['ytvideo'];
-handler.tags = ['downloader'];
-handler.command = /^yt|ytvideo$/i;
+handler.help = ['ytmp4 *<url>*'];
+handler.tags = ['dl'];
+handler.command = ['ytmp4'];
 export default handler;
 
 
