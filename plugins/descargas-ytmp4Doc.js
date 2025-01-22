@@ -274,7 +274,7 @@ const yt_play = await search(args.join(' '))
 const texto1 = `📌 *Título* : ${yt_play[0].title}\n📆 *Publicado:* ${yt_play[0].ago}\n⌚ *Duración:* ${secondString(yt_play[0].duration.seconds)}\n👀 *Vistas:* ${MilesNumber(yt_play[0].views)}`.trim()
 
 await conn.sendButton(m.chat, texto1, botname, yt_play[0].thumbnail, [['Audio', `${usedPrefix}ytmp3 ${yt_play[0].url}`], ['video', `${usedPrefix}ytmp4 ${yt_play[0].url}`], ['Mas resultados', `${usedPrefix}yts ${text}`]], null, null, m)
-}*/
+}
 }
 handler.help = ['ytmp3', 'ytmp4', 'ytmp3doc', 'ytmp4doc', 'playdoc', 'playdoc2'];
 handler.tags = ['downloader'];
