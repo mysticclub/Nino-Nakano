@@ -20,7 +20,7 @@ handler.all = async function (m, { conn }) {
     let chat = global.db.data.chats[m.chat];
     let user = global.db.data.users[m.sender];
 
-    if (!chat || !chat.sAutoresponder || !user?.registered) return;
+    if (!chat || !chat.autoresponder || !user?.registered) return;
 
     if (
         !m.text || 
