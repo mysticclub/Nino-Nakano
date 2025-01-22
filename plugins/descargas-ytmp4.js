@@ -1,22 +1,16 @@
 import axios from 'axios';
 
-const handler = async (m, {
-    text,
-    conn
-}) => {
-    if (!text) return m.reply('Kasih link YouTube-nya, biar gue bantu. 🎥');
+const handler = async (m, { text, conn }) => {
+    if (!text) return m.reply('Proporcióname el enlace de YouTube para que pueda ayudarte. 🎥');
 
     try {
         const response = await axios.get(`https://ytdl.axeel.my.id/api/download/video/?url=${text}`);
 
         if (!response.data || !response.data.metadata) {
-            return m.reply('Gagal ambil data dari link YouTube itu, coba deh link-nya bener. 😕');
+            return m.reply('No se pudo obtener los datos del enlace de YouTube. Asegúrate de que el enlace sea correcto. 😕');
         }
 
-        const {
-            metadata,
-            downloads
-        } = response.data;
+        const { metadata, downloads } = response.data;
 
         const videoUrl = downloads.url;
         const thumbnailUrl = metadata.thumbnail.url;
@@ -25,29 +19,24 @@ const handler = async (m, {
             image: {
                 url: thumbnailUrl
             },
-            caption: `📺 *Judul*: ${metadata.title}\n⏳ *Durasi*: ${metadata.duration}s\n👀 *Views*: ${metadata.views}\n👍 *Likes*: ${metadata.likes}\n✍️ *Author*: ${metadata.author}\n📜 *Deskripsi*: ${metadata.description}`,
-        }, {
-            quoted: m
-        });
+            caption: `📺 *Título*: ${metadata.title}\n⏳ *Duración*: ${metadata.duration}s\n👀 *Vistas*: ${metadata.views}\n👍 *Likes*: ${metadata.likes}\n✍️ *Autor*: ${metadata.author}\n📜 *Descripción*: ${metadata.description}`,
+        }, { quoted: m });
 
         await conn.sendMessage(m.chat, {
             video: {
                 url: videoUrl
             },
             caption: `🎬 *Video*: ${metadata.title}`,
-        }, {
-            quoted: m
-        });
+        }, { quoted: m });
 
     } catch (error) {
-        await m.reply('Ada error pas ambil data YouTube-nya, coba lagi nanti ya. ❌');
+        await m.reply('Hubo un error al obtener los datos del enlace de YouTube. Por favor, inténtalo de nuevo más tarde. ❌');
     }
 };
 
 handler.help = ['ytvideo'];
 handler.tags = ['downloader'];
 handler.command = /^yt|ytvideo$/i;
-handler.limit = 3 //biar gak spam
 export default handler;
 
 
