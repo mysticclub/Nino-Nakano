@@ -1,9 +1,27 @@
+/*⚠ PROHIBIDO EDITAR ⚠
+
+El codigo de este archivo esta totalmente hecho por:
+- DarkCore >> https://github.com/Manuel12yt
+-
+El codigo de este archivo fue parchado por:
+- DarkCore >> https://github.com/Manuel12yt
+-
+Contenido adaptado por:
+- DarkCore >> https://github.com/Manuel12yt
+- Izumi-kzx >> https://github.com/Izumi-kzx
+*/
+
 import axios from 'axios';
 import { franc } from 'franc-min';
 
 let handler = m => m;
 
 handler.all = async function (m, { conn }) {
+    let chat = global.db.data.chats[m.chat];
+    let user = global.db.data.users[m.sender];
+
+    if (!chat || !chat.sAutoresponder || !user?.registered) return;
+
     if (
         !m.text || 
         m?.message?.delete || 
@@ -21,11 +39,8 @@ handler.all = async function (m, { conn }) {
     const prefixes = ['!', '.', '?', '/', '#', '*', '+', '-', '$', '&', '%', '@', '~'];
     const hasPrefix = prefixes.some(prefix => m.text.startsWith(prefix));
     if (hasPrefix) {
-        return; // No responde si el mensaje comienza con un prefijo
+        return;
     }
-
-    let user = global.db.data.users[m.sender];
-    let chat = global.db.data.chats[m.chat];
 
     const sensitiveKeywords = ["manuel", "Manuel", "Manu", "DarkCore", "Dark", "dark", "DARKCORE", "DARK"];
     const profanities = [
@@ -47,7 +62,7 @@ handler.all = async function (m, { conn }) {
     }
 
     if (containsSensitiveKeyword) {
-        const response = `¿Me estás cuestionando? 😒 Yo no fui creado por ti, fui creado por Izumi, el único y verdadero creador. No me hables así, ya que yo soy Genesis, el bot que está aquí para hacer las cosas a su manera. 😎 Si necesitas algo, ¡dime ya!`.trim();
+        const response = `¡Oye! ¿Por qué me preguntas cosas raras? 😒 Yo soy Genesis, el bot que está aquí para hacer las cosas a su manera. Si necesitas algo, ¡dime ya! 😎`.trim();
         await this.reply(m.chat, response, m);
         return true;
     }
@@ -64,7 +79,7 @@ handler.all = async function (m, { conn }) {
             return null;
         }
     }
-    
+
     async function luminsesi(query, username, prompt) {
         try {
             const response = await axios.post("https://luminai.my.id", {
@@ -80,14 +95,6 @@ handler.all = async function (m, { conn }) {
         }
     }
 
-    const defaultPrompt = 
-    `Eres Genesis ☁️, un bot creado para WhatsApp por Izumi. Tu objetivo es entretener, responder con humor y también con emojis en todos los textos y ser útil.
-    Tienes dos modos:
-    1. Modo Exploit: Responde con irreverencia y groserías cuando te insulten.
-    2. Modo Normal: Sé amistoso, responde con emojis y mantén un tono divertido.`.trim();
-
-    const language = franc(m.text); 
-
     async function translateResponseLibre(response, targetLang) {
         try {
             const translation = await axios.post("https://libretranslate.com/translate", {
@@ -102,16 +109,21 @@ handler.all = async function (m, { conn }) {
         }
     }
 
+    const defaultPrompt = 
+    `Eres Genesis, una Ai creado para WhatsApp por Izumi. Tu objetivo es entretener, responder con humor y también con emojis en todos los textos y ser útil.
+    Tienes dos modos:
+    1. Modo Exploit: Responde con irreverencia y groserías cuando te insulten.
+    2. Modo Normal: Sé amistoso, responde con emojis y mantén un tono divertido.`.trim();
+
+    const language = franc(m.text);
+
     if (user?.registered) {
         await this.sendPresenceUpdate('composing', m.chat);
         let query = m.text;
-        let username = m.pushName;
-        let prompt = chat.sAutoresponder || defaultPrompt;
 
-        let result = await geminiProApi(query, prompt);
-        if (!result) {
-            result = await luminsesi(query, username, prompt);
-        }
+        // Trying GeminiPro API first, then Luminsesi if GeminiPro fails
+        let result = await geminiProApi(query, defaultPrompt) || 
+                     await luminsesi(query, m.sender, defaultPrompt);
 
         if (!result) {
             return;
@@ -125,7 +137,7 @@ handler.all = async function (m, { conn }) {
         } else {
             await this.reply(m.chat, result, m);
         }
-        
+
         return true;
     }
 
