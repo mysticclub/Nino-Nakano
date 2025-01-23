@@ -44,6 +44,7 @@ const emojis = {
   "anime": "🦋",
   "group": "🌼",
   "owner": "🪐",
+  "nsfw": "🔞",
 };
 
 const defaultMenu = {
@@ -85,6 +86,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     "anime": "🦋「 *`ＡＮＩＭＥ`* 」🦋",
     "group": "🌼「 *`ＧＲＵＰＯ`* 」🌼",
     "owner": "🪐「 *`ＯＷＮＥＲ`* 」🪐",
+    "nsfw": "🔞「 *`＋１８`* 」🔞",
   }
 
   try {
