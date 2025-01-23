@@ -1,4 +1,4 @@
-/* import { promises } from 'fs'
+import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
@@ -27,7 +27,7 @@ const defaultMenu = {
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command}) => {
 let tags = {
-'ff': 'ᴍᴇɴᴜ ɢᴀᴍᴇ',
+'nsfw': 'ᴍᴇɴᴜ +18',
 }
 let img = 'https://iili.io/ds8bWmJ.md.png'
 
@@ -246,4 +246,4 @@ function ucapan() {
     res = "Noche 🌙"
   }
   return res
-} */
+}
