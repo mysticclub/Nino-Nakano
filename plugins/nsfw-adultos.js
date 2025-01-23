@@ -18,21 +18,54 @@ const handler = async (m, {conn, command, usedPrefix}) => {
         viewOnce: true,
         headerType: 4
     }, { quoted: m });
-
-
-   //   conn.sendMessage(m.chat, {image: {url: url}, caption: `_🥵 Pack 🥵_`}, {quoted: m});
       break;
     case 'pack2':
       const url2 = await packgirl[Math.floor(Math.random() * packgirl.length)];
-      conn.sendMessage(m.chat, {image: {url: url2}, caption: `_🥵 Pack 2 🥵_`}, {quoted: m});
+      conn.sendMessage(m.chat, { 
+        image: { url: url2 }, 
+        caption: `*🥵 Pack 2 🥵*`, 
+        footer: dev, 
+        buttons: [
+            {
+                buttonId: `.pack2`,
+                buttonText: { displayText: 'Siguiente' }
+            }
+        ],
+        viewOnce: true,
+        headerType: 4
+    }, { quoted: m });
       break;
     case 'pack3':
       const url3 = await packmen[Math.floor(Math.random() * packmen.length)];
-      conn.sendMessage(m.chat, {image: {url: url3}, caption: `_🥵 Pack 3 🥵_`}, {quoted: m});
+      conn.sendMessage(m.chat, { 
+        image: { url: url3 }, 
+        caption: `*🥵 Pack 3 🥵*`, 
+        footer: dev, 
+        buttons: [
+            {
+                buttonId: `.pack3`,
+                buttonText: { displayText: 'Siguiente' }
+            }
+        ],
+        viewOnce: true,
+        headerType: 4
+    }, { quoted: m });
       break;
     case 'videoxxx': case 'vídeoxxx':
       const url4 = await videosxxxc[Math.floor(Math.random() * videosxxxc.length)];
-      await conn.sendMessage(m.chat, {video: {url: url4}, caption: `*ᴅɪsғʀᴜᴛᴀ ᴅᴇʟ ᴠɪᴅᴇᴏ 🥵*`}, {quoted: m});
+   await conn.sendMessage(m.chat, { 
+        image: { url: url4 }, 
+        caption: `*ᴅɪsғʀᴜᴛᴀ ᴅᴇʟ ᴠɪᴅᴇᴏ 🥵*`, 
+        footer: dev, 
+        buttons: [
+            {
+                buttonId: `.videoxxx`,
+                buttonText: { displayText: 'Siguiente' }
+            }
+        ],
+        viewOnce: true,
+        headerType: 4
+    }, { quoted: m });
       break;
     case 'videoxxxlesbi': case 'videolesbixxx': case 'pornolesbivid': case 'pornolesbianavid': case 'pornolesbiv': case 'pornolesbianav': case 'pornolesv':
       const url5 = await videosxxxc2[Math.floor(Math.random() * videosxxxc2.length)];
