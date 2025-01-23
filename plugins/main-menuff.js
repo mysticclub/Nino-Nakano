@@ -1,4 +1,4 @@
-import { promises } from 'fs'
+/* import { promises } from 'fs'
 import { join } from 'path'
 import { xpRange } from '../lib/levelling.js'
 import moment from 'moment-timezone'
@@ -246,4 +246,4 @@ function ucapan() {
     res = "Noche 🌙"
   }
   return res
-}
+} */
