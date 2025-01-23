@@ -180,7 +180,7 @@ let img = 'https://iili.io/ds8bWmJ.md.png'
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
 
  let fkon = { key: { fromMe: false, participant: `${m.sender.split`@`[0]}@s.whatsapp.net`, ...(m.chat ? { remoteJid: '16504228206@s.whatsapp.net' } : {}) }, message: { contactMessage: { displayName: `${name}`, vcard: `BEGIN:VCARD\nVERSION:3.0\nN:;a,;;;\nFN:${name}\nitem1.TEL;waid=${m.sender.split('@')[0]}:${m.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD`}}}
-await m.react('🎳') 
+await m.react('🔞') 
 
  conn.sendMessage(m.chat, {
         text: text,
@@ -200,9 +200,9 @@ await m.react('🎳')
     throw e
   }
 }
-handler.help = ['menugame']
+handler.help = ['menu+18']
 handler.tags = ['main']
-handler.command = ['menugame']
+handler.command = ['menu+18']
 
 export default handler
 
