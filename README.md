@@ -54,15 +54,6 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 - **Texto:** `Genesis Ultra (Bot-Oficial)`
 - [x] **Configuración** <details><summary>**Ajustes del Servidor - Genesis-Ultra**</summary><img src="https://i.ibb.co/w6MC5Q4/file.jpg"></details>
 
-### **`🎇 Hosting Py:`**
-<a href="https://dahs.hostingpy.shop/"><img src="https://files.catbox.moe/lr92z2.jpg" height="130px"></a>
-
-- **Dashboard:** [`Aquí`](https://dahs.hostingpy.shop/)
-- **Panel:** [`Aquí`](https://panel.hostingpy.shop/)
-- **Canal de WhatsApp:** [`Aquí`](https://whatsapp.com/channel/0029Vak4e1R4NVifmh8Tvi3q)
-- **Contacto:** [`AdrianOficial`](https://wa.me/595976126756)
-- **Texto:** `Genesis Ai diponible aqui`
-
 
 ***
 
