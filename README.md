@@ -70,6 +70,6 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 <a
 href="https://github.com/Izumi-kzx"><img src="https://github.com/Izumi-kzx.png" width="130" height="130" alt="Angelito"/></a>
 
-> Copyright (c) 2024 **[Angelito-OFC](https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y)**.
+> Copyright (c) 2025 **[Angelito-OFC](https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y)**.
 
 **`¡GRACIAS POR PREFERIR ESTE PROYECTO!` ☕**
