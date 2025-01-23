@@ -54,7 +54,7 @@ const handler = async (m, {conn, command, usedPrefix}) => {
     case 'videoxxx': case 'vídeoxxx':
       const url4 = await videosxxxc[Math.floor(Math.random() * videosxxxc.length)];
    await conn.sendMessage(m.chat, { 
-        image: { url: url4 }, 
+        video: { url: url4 },
         caption: `*ᴅɪsғʀᴜᴛᴀ ᴅᴇʟ ᴠɪᴅᴇᴏ 🥵*`, 
         footer: dev, 
         buttons: [
