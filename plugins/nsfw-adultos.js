@@ -11,7 +11,7 @@ const handler = async (m, {conn, command, usedPrefix}) => {
         footer: dev, 
         buttons: [
             {
-                buttonId: `${usedPrefix + command} ${text}`,
+                buttonId: `.pack`,
                 buttonText: { displayText: 'Siguiente' }
             }
         ],
