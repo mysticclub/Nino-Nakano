@@ -172,9 +172,16 @@ let api = await axios.get(`https://delirius-apiofc.vercel.app/tools/country?text
 let userNationalityData = api.data.result
 let userNationality = userNationalityData ? `${userNationalityData.name} ${userNationalityData.emoji}` : 'Desconocido'
 
-    let totalf = Object.values(global.plugins).filter(
-    (v) => v.help && v.tags
-  ).length;
+let totalf = Object.values(global.plugins).reduce((total, plugin) => {
+  if (plugin.command) {
+    if (Array.isArray(plugin.command)) {
+      return total + plugin.command.length;
+    } else {
+      return total + 1;
+    }
+  }
+  return total;
+}, 0);
     let totalreg = Object.keys(global.db.data.users).length
     let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
     let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
