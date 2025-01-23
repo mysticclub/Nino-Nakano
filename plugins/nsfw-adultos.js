@@ -5,7 +5,22 @@ const handler = async (m, {conn, command, usedPrefix}) => {
    switch (command) {
     case 'pack':
       const url = await pack[Math.floor(Math.random() * pack.length)];
-      conn.sendMessage(m.chat, {image: {url: url}, caption: `_🥵 Pack 🥵_`}, {quoted: m});
+      conn.sendMessage(m.chat, { 
+        image: { url: url }, 
+        caption: `*🥵 Pack 🥵*`, 
+        footer: dev, 
+        buttons: [
+            {
+                buttonId: `${usedPrefix + command} ${text}`,
+                buttonText: { displayText: 'Siguiente' }
+            }
+        ],
+        viewOnce: true,
+        headerType: 4
+    }, { quoted: m });
+
+
+   //   conn.sendMessage(m.chat, {image: {url: url}, caption: `_🥵 Pack 🥵_`}, {quoted: m});
       break;
     case 'pack2':
       const url2 = await packgirl[Math.floor(Math.random() * packgirl.length)];
