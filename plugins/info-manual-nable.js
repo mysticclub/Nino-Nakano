@@ -1,5 +1,10 @@
-let opciones = `
-\`FUNCIONES GRUPOS\`
+import fetch from 'node-fetch'
+
+let handler  = async (m, { conn, usedPrefix, command }) => {
+let img = await (await fetch(`https://i.ibb.co/s14LV37/file.jpg`)).buffer()
+const more = String.fromCharCode(8206)
+const readMore = more.repeat(4001)
+let txt = `\`FUNCIONES GRUPOS\`
 _Usa *on* para prender la función_
 _Usa *off* para apagar la función_
 --------------------------------
@@ -80,33 +85,7 @@ _Usa *off* para apagar la función_
 *Comando:* #on restrict - #off restrict
 *Descripción:* Activa o desactiva restricciones como agregar o eliminar personas del grupo.  
 *Nota:* Solo puede ser usado por los dueños del bot.
---------------------------------
-`.trim();
-
-
-
-import fetch from 'node-fetch'
-
-let handler  = async (m, { conn, usedPrefix, command }) => {
-let img = await (await fetch(`https://i.ibb.co/YDGYRhx/file.jpg`)).buffer()
-const more = String.fromCharCode(8206)
-const readMore = more.repeat(4001)
-let txt = `*Hola!, te invito a unirte a los grupos oficiales de del Bot para convivir con la comunidad :D*
-
-1- Génesis Ultra ☁️
-*✰* https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX
-
-*─ׄ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׄ*
-
-➠ Enlace anulado? entre aquí! 
-
-♡ Canal Genesis :
-*✰* https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
-
-♡ Canal TK-Host :
-*✰* https://whatsapp.com/channel/0029VaGGynJLY6d43krQYR2g
-
-> ${dev}`
+--------------------------------`
 await conn.sendFile(m.chat, img, "Thumbnail.jpg", txt, m, null, fake)
 }
 handler.help = ['grupos']
