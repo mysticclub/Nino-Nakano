@@ -88,7 +88,7 @@ _Usa *off* para apagar la función_
 --------------------------------`
 await conn.sendFile(m.chat, img, "Thumbnail.jpg", txt, m, null, fake)
 }
-handler.help = ['grupos']
-handler.tags = ['main']
-handler.command = /^(grupos)$/i
+handler.help = ['manual']
+handler.tags = ['nable', 'main']
+handler.command = /^(manual)$/i
 export default handler
