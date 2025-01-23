@@ -69,7 +69,19 @@ const handler = async (m, {conn, command, usedPrefix}) => {
       break;
     case 'videoxxxlesbi': case 'videolesbixxx': case 'pornolesbivid': case 'pornolesbianavid': case 'pornolesbiv': case 'pornolesbianav': case 'pornolesv':
       const url5 = await videosxxxc2[Math.floor(Math.random() * videosxxxc2.length)];
-      await conn.sendMessage(m.chat, {video: {url: url5}, caption: `*ᴅɪsғʀᴜᴛᴀ ᴅᴇʟ ᴠɪᴅᴇᴏ 🥵*`}, {quoted: m});
+   await conn.sendMessage(m.chat, { 
+        video: { url: url5 },
+        caption: `*ᴅɪsғʀᴜᴛᴀ ᴅᴇʟ ᴠɪᴅᴇᴏ 🥵*`, 
+        footer: dev, 
+        buttons: [
+            {
+                buttonId: `.videoxxxlesbi`,
+                buttonText: { displayText: 'Siguiente' }
+            }
+        ],
+        viewOnce: true,
+        headerType: 4
+    }, { quoted: m });
       break;
   }
 };
