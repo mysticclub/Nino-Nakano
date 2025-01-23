@@ -20,10 +20,10 @@ const defaultMenu = {
 ▬▭▬▭▬▭▬✦✧✦▬▭▬▭▬▭▬
 %readmore
 `.trimStart(),
-  header: '╭─(❀)❝┊ *_`%category`_* ┊❝(❀)',
-  body: '┊➧ %cmd\n',
-  footer: '╰───────────── –\n',
-  after: `> ʙʏ : ᴀɴɢᴇʟ ᴏꜰᴄ ʏ ɢᴇɴᴇꜱɪꜱ ʙᴏᴛ`,
+  header: '\n %category \n',
+  body: '%cmd \n',
+  footer: '\n',
+  after: ``,
 }
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command}) => {
 let tags = {
