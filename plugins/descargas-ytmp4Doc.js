@@ -10,11 +10,11 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/yt?url=${encodeURIComponent(text)}&apikey=${apiKey}`);
     const result = await response.json();
 
-    if (result.status && result.result && result.result.mp3) {
+    if (result.status && result.result && result.result.mp4) {
       await conn.sendMessage(
         m.chat,
         { 
-          audio: { url: result.result.mp3 }, 
+          audio: { url: result.result.mp4 }, 
           mimetype: 'audio/mpeg' 
         },
         { quoted: m }
