@@ -1,9 +1,10 @@
 import fetch from 'node-fetch';
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) throw `*Example:* ${usedPrefix + command} https://youtube.com/watch?v=YgOAN8_KYEk`;
+  await m.react('✖️');
+  if (!text) throw `*Ej:* ${usedPrefix + command} https://youtube.com/watch?v=YgOAN8_KYEk`;
 
-  m.reply('WAIT');
+  await m.react('🕓');
 
   try {
     const apiKey = 'xenzpedo';
@@ -19,11 +20,14 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
         },
         { quoted: m }
       );
+
+      await m.react('✅');
     } else {
       throw new Error('Error: Unable to fetch audio');
     }
   } catch (error) {
-    throw new Error(error.message || 'An unknown error occurred');
+    await m.react('❌');
+    m.reply(`❌ *Error:* ${error.message || 'An unknown error occurred'}`);
   }
 };
 
