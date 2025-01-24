@@ -13,7 +13,7 @@ if (!response.ok) throw new Error('Network response was not ok');
 
 const buffer = await response.buffer();
 
-m.react('✔️');
+m.react('✅');
 
 await conn.sendFile(m.chat, buffer, 'imagen.jpg', listo, m, fake);
 } catch (error) {
