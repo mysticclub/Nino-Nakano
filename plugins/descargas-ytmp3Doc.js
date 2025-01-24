@@ -3,8 +3,7 @@ import fetch from 'node-fetch';
 const handler = async (m, {conn, text, usedPrefix, command}) => {
 
 if (!text) return conn.reply(m.chat, `* Ingresa un texto para generar tu imagen a tu gusto*`,m,rcanal);
-m.react('🕒');
-await conn.reply(m.chat,'*🧑‍💻 Espere, Estamos Trabajando en su imagen*',m,rcanal);
+await m.react('🕒');
 try {
 
 const response = await fetch(`https://eliasar-yt-api.vercel.app/api/ai/text2img?prompt=${encodeURIComponent(text)}`);
