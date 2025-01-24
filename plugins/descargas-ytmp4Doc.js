@@ -1,3 +1,11 @@
+/* 
+
+*❀ By JTxs*
+[ HasumiBot FreeCodes ] :
+https://whatsapp.com/channel/0029Vanjyqb2f3ERifCpGT0W
+*/
+
+// *[ SOUNDCLOUD SEARCH  ]*
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix }) => {
