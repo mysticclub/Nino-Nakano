@@ -32,4 +32,4 @@ handler.command = ['ytmp3v3', 'ytav3'];
 handler.tags = ['downloader'];
 handler.limit = true;
 
-export default xenzsigma;
+export default handler;
