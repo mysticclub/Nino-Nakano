@@ -1,5 +1,6 @@
-const axios = require('axios');
-const cheerio = require('cheerio');
+
+import fetch from "node-fetch";
+import cheerio from "cheerio";
 
 const handler = async (m, { conn, usedPrefix, command, text }) => {
     if (!text) return m.reply(`*• Ejemplo :* ${usedPrefix + command} *[url capcut]*`);
@@ -14,7 +15,7 @@ const handler = async (m, { conn, usedPrefix, command, text }) => {
 
         const cpt = `*乂 D E S C A R G A D O R - C A P C U T*\n\n   ◦ Título : ${result.title}\n   ◦ Fecha : ${result.date}\n   ◦ Usuario : ${result.pengguna}\n   ◦ Me gusta : ${result.likes}\n   ◦ Autor : ${result.author.name}`;
         await conn.sendFile(m.chat, result.videoUrl, '', cpt, m, {
-            thumbnail: await (await axios.get(result.posterUrl, { responseType: 'arraybuffer' })).data
+            thumbnail: await fetch(result.posterUrl).then(res => res.buffer())
         });
     } catch (error) {
         console.error(error);
@@ -26,12 +27,12 @@ handler.help = ["capcut"].map((a) => a + " *[url capcut]*");
 handler.tags = ["downloader"];
 handler.command = ["capcut"];
 
-module.exports = handler;
+export default handler;
 
 async function capcutdl(url) {
     try {
-        const response = await axios.get(url);
-        const html = response.data;
+        const response = await fetch(url);
+        const html = await response.text();
         const $ = cheerio.load(html);
         const videoElement = $('video.player-o3g3Ag');
         const videoSrc = videoElement.attr('src');
