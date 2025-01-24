@@ -15,7 +15,7 @@ const buffer = await response.buffer();
 
 m.react('✔️');
 
-await conn.sendFile(m.chat, buffer, 'imagen.jpg',listo,m,rcanal,fake);
+await conn.sendFile(m.chat, buffer, 'imagen.jpg', listo, m, fake);
 } catch (error) {
 console.error(error);
 throw `*🚨 Lo sentimos, ha ocurrido un error 😔*`;
