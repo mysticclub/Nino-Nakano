@@ -28,7 +28,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 };
 
 handler.help = ['ytmp3', 'yta']; 
-handler.command = ['ytmp3v2', 'ytav2'];
+handler.command = ['ytmp3v3', 'ytav3'];
 handler.tags = ['downloader'];
 handler.limit = true;
 
