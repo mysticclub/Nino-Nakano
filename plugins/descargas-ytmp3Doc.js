@@ -5,11 +5,9 @@ const handler = async (m, { conn, text }) => {
         return m.reply('¿Nombre?');
     }
     try {
-        // Petición a la API
         const { data } = await axios.post(`https://github-roaster.programordie.workers.dev/${text}`);
         const roastMessageInEnglish = data.roast || 'Vaya, parece que me quedé sin palabras para roastarlo.';
         
-        // Traducción al español
         const translation = await axios.post('https://translate.googleapis.com/translate_a/single', null, {
             params: {
                 client: 'gtx',
@@ -21,7 +19,6 @@ const handler = async (m, { conn, text }) => {
         });
         const roastMessageInSpanish = translation.data[0][0][0];
 
-        // Envío del mensaje traducido
         await conn.sendMessage(m.chat, {
             text: `🔥 *¡Hora de roast!* 🔥\n\n${roastMessageInSpanish}`
         }, { quoted: m });
