@@ -1,4 +1,4 @@
-import axios from 'axios';
+/* import axios from 'axios';
 
 const handler = async (m, { text, conn }) => {
     if (!text) return m.reply('Proporcióname el enlace de YouTube para que pueda ayudarte. 🎵');
@@ -31,13 +31,7 @@ const handler = async (m, { text, conn }) => {
 handler.help = ['ytmp3 *<url>*'];
 handler.tags = ['dl'];
 handler.command = ['ytmp3'];
-export default handler;
-
-
-
-
-
-
+export default handler; */
 
 
 /* import fetch from "node-fetch";
