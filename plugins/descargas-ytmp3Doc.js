@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const xenzsigma = async (m, { conn, text, usedPrefix, command }) => {
+const handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) throw `*Example:* ${usedPrefix + command} https://youtube.com/watch?v=YgOAN8_KYEk`;
 
   m.reply('WAIT');
