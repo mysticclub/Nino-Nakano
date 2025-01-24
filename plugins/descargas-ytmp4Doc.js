@@ -18,7 +18,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
         {
           video: { url: mp4 },
           mimetype: 'video/mp4',
-          caption: `*Título:* ${title}\n*Duración:* ${Math.floor(duration / 60)}:${duration % 60} minutos\n\n🎥 *Disfruta del video!*`,
+          caption: `*🍟 Título:* ${title}\n*🍟 Duración:* ${Math.floor(duration / 60)}:${duration % 60} minutos`,
           thumbnail: await (await fetch(thumb)).buffer(), // Opcional: usa la miniatura como preview
         },
         { quoted: m }
