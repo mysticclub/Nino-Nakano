@@ -1,9 +1,10 @@
 import fetch from 'node-fetch';
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
+  await m.react('✖️');
   if (!text) throw `*Ejemplo:* ${usedPrefix + command} https://youtube.com/watch?v=YgOAN8_KYEk`;
 
-  m.reply('⏳ *Procesando, por favor espera...*');
+  await m.react('🕓');
 
   try {
     const apiKey = 'xenzpedo';
@@ -19,14 +20,17 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
           video: { url: mp4 },
           mimetype: 'video/mp4',
           caption: `*🍟 Título:* ${title}\n*🍟 Duración:* ${Math.floor(duration / 60)}:${duration % 60} minutos`,
-          thumbnail: await (await fetch(thumb)).buffer(), // Opcional: usa la miniatura como preview
+          thumbnail: await (await fetch(thumb)).buffer(),
         },
         { quoted: m }
       );
+
+      await m.react('✅');
     } else {
       throw new Error('Error: No se pudo obtener el archivo MP4');
     }
   } catch (error) {
+    await m.react('❌');
     m.reply(`❌ *Error:* ${error.message || 'Ocurrió un error desconocido'}`);
   }
 };
