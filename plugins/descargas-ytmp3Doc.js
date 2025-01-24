@@ -2,7 +2,7 @@
 import fetch from 'node-fetch';
 const handler = async (m, {conn, text, usedPrefix, command}) => {
 
-if (!text) return conn.reply(m.chat, `* Ingresa un texto para generar tu imagen a tu gusto*`,m,rcanal);
+if (!text) return conn.reply(m.chat, `* Ingresa un texto para generar tu imagen a tu gusto*`, m, fake);
 await m.react('🕒');
 try {
 
@@ -21,8 +21,8 @@ throw `*🚨 Lo sentimos, ha ocurrido un error 😔*`;
 }
 }
 
-handler.tags = ['tools'];
-handler.help = ['genearimg'];
+handler.tags = ['ai'];
+handler.help = ['genearimg *<texto>*'];
 handler.command = ['genearimg', 'imgg'];
 handler.register = true;
 
