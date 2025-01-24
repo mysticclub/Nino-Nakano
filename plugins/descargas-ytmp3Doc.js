@@ -31,6 +31,8 @@ m.reply(json.data.response)
 console.error(error)    
 }}    
 
+handler.help = ['chatgpt *<texto>*'];
+handler.tags = ['ai'];
 handler.command = ['chatgpt']
 
 export default handler
