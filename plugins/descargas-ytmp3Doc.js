@@ -3,8 +3,7 @@ import fetch from "node-fetch";
 import cheerio from "cheerio";
 
 const handler = async (m, { conn, usedPrefix, command, text }) => {
-    if (!text) return m.reply(`*• Ejemplo :* ${usedPrefix + command} *[url capcut]*`);
-    m.reply('Espera un momento...');
+    if (!text) return m.reply(`*• Ejemplo :* ${usedPrefix + command} *url*`);
     
     try {
         const result = await capcutdl(text);
@@ -23,8 +22,8 @@ const handler = async (m, { conn, usedPrefix, command, text }) => {
     }
 };
 
-handler.help = ["capcut"].map((a) => a + " *[url capcut]*");
-handler.tags = ["downloader"];
+handler.help = ["capcut *<url>*"];
+handler.tags = ["dl"];
 handler.command = ["capcut"];
 
 export default handler;
