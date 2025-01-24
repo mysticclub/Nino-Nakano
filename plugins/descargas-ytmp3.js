@@ -1,3 +1,7 @@
+/* 
+- Downloader Ytmp3 By Izumi-kzx
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
 import fetch from 'node-fetch';
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
