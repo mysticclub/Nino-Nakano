@@ -27,7 +27,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
                         m.chat,
                         { 
                             image: { url: a.url }, 
-                            caption: '> *[ I G - D O W N L O A D ]*\n' 
+                            caption: '*✔️🍟Downloader instagram.*' 
                         },
                         { quoted: m }
                     );
@@ -36,7 +36,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
                         m.chat,
                         { 
                             video: { url: a.url }, 
-                            caption: '> *[ I G - D O W N L O A D ]*\n' 
+                            caption: '*✔️🍟Downloader instagram.*' 
                         },
                         { quoted: m }
                     );
