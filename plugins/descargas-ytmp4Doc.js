@@ -61,6 +61,8 @@ handler.before = async (m, { conn }) => {
     }
 }
 
+handler.help = ['soundcloudsearch *<url>*'];
+handler.tags = ['search'];
 handler.command = ['soundcloudsearch']
 
 export default handler
