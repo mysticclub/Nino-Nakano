@@ -28,7 +28,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 `.trim();
 
     if (type === "slide") {
-      message += "\n📷 *Tipo*: Presentación (Imágenes)";
+      message += "\n> • *Tipo*: Presentación (Imágenes)";
       await conn.reply(m.chat, message, m);
 
       for (let slide of slides) {
@@ -37,7 +37,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       }
     } 
     else if (type === "video") {
-      message += "\n🎥 *Tipo*: Video";
+      message += "\n> • *Tipo*: Video";
 
       if (videoInfo.nowm) {
         await m.react('✅');
