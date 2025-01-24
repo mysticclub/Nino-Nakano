@@ -1,4 +1,4 @@
-import { spawn } from 'child_process';
+/* import { spawn } from 'child_process';
 
 let handler = async (m, { conn }) => {
     const imageUrl = 'https://i.ibb.co/cLMH26y/file.jpg'; 
@@ -32,4 +32,4 @@ handler.help = ['start'];
 handler.tags = ['general'];
 handler.command = ['Start', 'start'];
 
-export default handler;
+export default handler; */
