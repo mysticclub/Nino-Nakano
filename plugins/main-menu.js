@@ -264,13 +264,13 @@ let totalf = Object.values(global.plugins).reduce((total, plugin) => {
         {
           buttonId: `.ping`,
           buttonText: {
-            displayText: 'PING',
+            displayText: 'ᯓᡣ𐭩 ⍴іᥒg',
           },
         },
         {
           buttonId: `.owner`,
           buttonText: {
-            displayText: 'OWNER',
+            displayText: 'ᯓᡣ𐭩 ᥆ᥕᥒᥱr',
           },
         },
       ],
