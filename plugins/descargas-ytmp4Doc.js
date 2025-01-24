@@ -1,6 +1,3 @@
-
-
-
 import { spawn } from 'child_process';
 
 let handler = async (m, { conn }) => {
