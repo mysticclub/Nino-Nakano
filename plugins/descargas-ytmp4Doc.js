@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text, usedPrefix }) => {
-if (!text) return conn.reply(m.chat, `❀ Ingresa el texto de la cancion que quieras buscar en soundcloud`, m)
+if (!text) return conn.reply(m.chat, `☁️ Ingresa el texto de la cancion que quieras buscar en soundcloud`, m, fake)
 
 let result = await soundcloudSearch(text)
 let title = result.name
@@ -40,7 +40,7 @@ await conn.reply(m.chat, 'Error al enviar la cancion', m)
 await conn.reply(m.chat, "Responde con uno de los numeros de la cancion que quieres", m)
 }}
 
-handler.command = ['soundcloudsearch', 'soundsearch']
+handler.command = ['soundcloudsearch']
 
 export default handler
 
