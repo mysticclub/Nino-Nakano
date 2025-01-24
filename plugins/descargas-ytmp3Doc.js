@@ -1,22 +1,35 @@
-// *[ ❀ YT POST DL  ]*
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 
-let handler = async (m, { conn, text }) => {
-if (!text) return conn.reply(m.chat, `❀ Ingresa un link de un post de youtube`, m)
-  
-try {
-let api = await fetch(`https://api.siputzx.my.id/api/d/ytpost?url=${text}`)
-let json = await api.json()
-let { images, content } = json.data
-let HS = `- *Titulo :* ${content}`
-for (let imagen of images) {
-await conn.sendFile(m.chat, imagen, 'HasumiBotFreeCodes.jpg', HS, m)
-}
+const xenzsigma = async (m, { conn, text, usedPrefix, command }) => {
+  if (!text) throw `*Example:* ${usedPrefix + command} https://youtube.com/watch?v=YgOAN8_KYEk`;
 
-} catch (error) {
-console.error(error)    
-}}
+  m.reply('WAIT');
 
-handler.command = ['ytpost', 'ytpostdl']
+  try {
+    const apiKey = 'xenzpedo';
+    const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/yt?url=${encodeURIComponent(text)}&apikey=${apiKey}`);
+    const result = await response.json();
 
-export default handler
+    if (result.status && result.result && result.result.mp3) {
+      await conn.sendMessage(
+        m.chat,
+        { 
+          audio: { url: result.result.mp3 }, 
+          mimetype: 'audio/mpeg' 
+        },
+        { quoted: m }
+      );
+    } else {
+      throw new Error('Error: Unable to fetch audio');
+    }
+  } catch (error) {
+    throw new Error(error.message || 'An unknown error occurred');
+  }
+};
+
+handler.help = ['ytmp3', 'yta']; 
+handler.command = ['ytmp3v2', 'ytav2'];
+handler.tags = ['downloader'];
+handler.limit = true;
+
+export default xenzsigma;
