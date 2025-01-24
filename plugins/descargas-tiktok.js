@@ -20,7 +20,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       audioUrl 
     } = videoResult;
 
-    let message = `*✔️🍟Downloader tiktok.*\n\n> • *Nombre*: ${nickname || "-"}\n> • *Usuario*: ${username || "-"}\n> • *Descripción*: ${description || "-"}
+    let message = `*✔️🍟Downloader tiktok.*
+
+> • *Nombre*: ${nickname || "-"}
+> • *Usuario*: ${username || "-"}
+> • *Descripción*: ${description || "-"}
 `.trim();
 
     if (type === "slide") {
