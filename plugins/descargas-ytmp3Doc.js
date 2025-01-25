@@ -1,19 +1,14 @@
 import fetch from "node-fetch";
 
-let handler = async (m, { conn, args, text }) => {
-    // Verifica si se proporcionó una URL
+let handler = async (m, { conn, args }) => {
     if (!args[0]) {
         return m.reply(
-            `✧ Por favor, ingresa un enlace válido de una de las plataformas soportadas:\n\n` +
-            `- Facebook\n- Instagram\n- TikTok\n- Twitter\n- y más...`
+            `✧ Por favor, ingresa un enlace válido de una plataforma soportada.`
         );
     }
 
-    const apiKey = 'xenzpedo'; // Tu API Key
-    const url = args[0]; // URL proporcionada por el usuario
-
-    // Indica que el bot está procesando la solicitud
-    await conn.sendMessage(m.chat, { react: { text: `🌟`, key: m.key } });
+    const apiKey = 'xenzpedo'; // API Key
+    const url = args[0]; // URL del enlace proporcionado
 
     try {
         // Llamada a la API
@@ -21,9 +16,25 @@ let handler = async (m, { conn, args, text }) => {
             `https://api.botcahx.eu.org/api/dowloader/allin?url=${encodeURIComponent(url)}&apikey=${apiKey}`
         );
 
-        // Procesa la respuesta de la API
-        const result = await response.json();
+        // Verifica si el servidor respondió correctamente
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`Error del servidor: ${errorText}`);
+            return m.reply(`Error: El servidor devolvió un error. Verifica tu URL o la API Key.`);
+        }
 
+        // Intenta convertir la respuesta a JSON
+        let result;
+        try {
+            result = await response.json();
+        } catch (error) {
+            console.error(`Error al analizar JSON: ${error.message}`);
+            const errorText = await response.text();
+            console.error(`Respuesta del servidor: ${errorText}`);
+            return m.reply(`Error: El servidor no devolvió una respuesta válida.`);
+        }
+
+        // Verifica el estado de la respuesta
         if (result.status === 200 && result.result) {
             const { title, video, audio } = result.result;
 
@@ -33,7 +44,7 @@ let handler = async (m, { conn, args, text }) => {
                     m.chat,
                     {
                         video: { url: video },
-                        caption: `VIDEO DESCARGADO`,
+                        caption: `*Título*: ${title || 'Sin título disponible'}\n\n*Enlace del video:* ${video}`,
                     },
                     { quoted: m }
                 );
@@ -49,7 +60,7 @@ let handler = async (m, { conn, args, text }) => {
                         audio: { url: audio },
                         mimetype: 'audio/mp4',
                         ptt: false,
-                        caption: `AUDIO`,
+                        caption: `*Título*: ${title || 'Sin título disponible'}\n\n*Enlace del audio:* ${audio}`,
                     },
                     { quoted: m }
                 );
@@ -57,12 +68,11 @@ let handler = async (m, { conn, args, text }) => {
                 await m.reply("No se encontró un audio para el enlace proporcionado.");
             }
         } else {
-            // Error proporcionado por la API
-            await m.reply(`Error: ${result.message || 'No se pudo procesar la solicitud.'}`);
+            m.reply(`Error: ${result.message || 'No se pudo procesar la solicitud.'}`);
         }
     } catch (error) {
-        console.error(error);
-        await m.reply(`Error: ${error.message}`);
+        console.error(`Error: ${error.message}`);
+        m.reply(`Error al procesar la solicitud: ${error.message}`);
     }
 };
 
