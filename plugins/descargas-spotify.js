@@ -54,7 +54,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   }
 };
 
-handler.command = /^(spotify|sp|Spotify)$/i;
+handler.command = /^(spotify|sps|Spotify)$/i;
 handler.tags = ['search'];
 handler.register = true;
 
