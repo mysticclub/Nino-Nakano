@@ -33,7 +33,7 @@ let handler = async (m, { conn, args, text }) => {
                     m.chat,
                     {
                         video: { url: video },
-                        caption: `*Título*: ${title || 'Sin título disponible'}\n\n*Enlace del video:* ${video}`,
+                        caption: `VIDEO DESCARGADO`,
                     },
                     { quoted: m }
                 );
@@ -49,7 +49,7 @@ let handler = async (m, { conn, args, text }) => {
                         audio: { url: audio },
                         mimetype: 'audio/mp4',
                         ptt: false,
-                        caption: `*Título*: ${title || 'Sin título disponible'}\n\n*Enlace del audio:* ${audio}`,
+                        caption: `AUDIO`,
                     },
                     { quoted: m }
                 );
