@@ -13,8 +13,8 @@ await m.react('✅')
 } catch {
 await m.react('✖️')
 }}
-handler.help = ['likeedl *<url>*']
+handler.help = ['likee *<url>*']
 handler.tags = ['dl']
-handler.command = /^(likeedl)$/i
+handler.command = /^(likee)$/i
 handler.register = true
 export default handler
