@@ -13,11 +13,13 @@ let handler = async (m, { text }) => {
     const response = await fetch(apiUrl);
     const result = await response.json();
 
+    // Verificamos el estado de la respuesta
     if (!result.status) {
       m.reply(`*Error al realizar la búsqueda:* ${result.message}`);
       return;
     }
 
+    // Construimos el mensaje con los resultados
     let replyMessage = '*Resultados de búsqueda:*\n\n';
     result.data.slice(0, 1).forEach((item, index) => {
       replyMessage += `${index + 1}. ${item.title}\n`;
@@ -25,7 +27,7 @@ let handler = async (m, { text }) => {
       replyMessage += `   URL: ${item.url}\n\n`;
     });
 
-    m.react('✅');
+    m.react('✅'); // Reacción de confirmación
     m.reply(replyMessage);
   } catch (error) {
     console.error('Error al realizar la solicitud a la API:', error);
