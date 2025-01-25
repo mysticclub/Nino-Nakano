@@ -13,7 +13,13 @@ let handler = async (m, { text }) => {
     const response = await fetch(apiUrl);
     const result = await response.json();
 
-    // Verificamos el estado de la respuesta
+    // Verificamos si no hay resultados
+    if (!result.status && result.message === 'Result Not Found') {
+      m.reply('*No se encontraron resultados para tu búsqueda.*');
+      return;
+    }
+
+    // Verificamos otros errores de la API
     if (!result.status) {
       m.reply(`*Error al realizar la búsqueda:* ${result.message}`);
       return;
@@ -40,7 +46,6 @@ handler.tags = ['internet'];
 handler.command = ['google'];
 
 export default handler;
-
 
 
 
