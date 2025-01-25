@@ -31,7 +31,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       // Enviar la imagen (thumbnail) y el mensaje con los detalles
       await conn.sendFile(m.chat, thumbnail, 'cover.jpg', mensaje, m);
 
-await conn.sendMessage(m.chat, { audio: url, fileName: `${title}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })
+await conn.sendMessage(m.chat, { audio: url, fileName: `music.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })
 
 
  //     await conn.sendFile(m.chat, url, 'music.mp3', null, m);
