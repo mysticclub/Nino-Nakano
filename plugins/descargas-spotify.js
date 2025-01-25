@@ -1,3 +1,7 @@
+/* 
+- Downloader Spotify By Izumi-kzx
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
