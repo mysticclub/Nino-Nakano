@@ -37,7 +37,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
         { quoted: m }
       );
 
-      await m.react('✅');
+      await m.react('🍟');
     } else {
       await m.react('❌');
       conn.reply(
