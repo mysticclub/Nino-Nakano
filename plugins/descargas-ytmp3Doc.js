@@ -1,84 +1,46 @@
-import axios from 'axios';
+import fetch from 'node-fetch';
 
-const handler = async (m, { conn, text, usedPrefix, command }) => {
-  await m.react('✖️');
-  if (!text) throw `Proporcióname el enlace de la historia de Instagram para que pueda ayudarte. 📷`;
+const handler = async (m, { conn, args, usedPrefix, command }) => {
+  if (!args[0]) throw `*[❗𝐈𝐍𝐅𝐎❗] 𝙸𝙽𝙶𝚁𝙴𝚂𝙴 𝙴𝙻 𝙽𝙾𝙼𝙱𝚁𝙴 𝙳𝙴 𝚄𝙽 𝚄𝚂𝚄𝙰𝚁𝙸𝙾 𝙳𝙴 𝙸𝙽𝚂𝚃𝙰𝙶𝚁𝙰𝙼*\n\n*𝙴𝙹𝙴𝙼𝙿𝙻𝙾:*\n*${usedPrefix + command} luisitocomunica*`;
 
-  await m.react('🕓');
+  await m.reply(global.wait);
+
+  // API Key de BotCahX
+  const apiKey = 'xenzpedo';
+  const url = `https://api.botcahx.eu.org/api/dowloader/igdowloader?url=https://www.instagram.com/${args[0]}/&apikey=${apiKey}`;
 
   try {
-    const apiKey = 'xenzpedo'; // Manteniendo el API key original
-    const response = await axios.get(`https://api.botcahx.eu.org/api/dowloader/igdowloader?url=${encodeURIComponent(text)}&apikey=${apiKey}`);
-    const result = response.data;
+    const res = await fetch(url); // Realizamos la solicitud GET
+    const data = await res.json(); // Parseamos la respuesta en formato JSON
 
-    // Verificar si la API devuelve un resultado correcto
-    console.log("Respuesta de la API:", result);
+    const anuku = data.result; // Obtenemos las historias
 
-    if (result.status && result.result) {
-      let processedUrls = new Set(); // Para evitar procesar URLs duplicadas
+    // Verificamos si la respuesta contiene historias
+    if (!anuku || anuku.length === 0) {
+      return m.reply('*[❗] 𝚄𝚂𝚄𝙰𝚁𝙸𝙾 𝙸𝙽𝚅𝙰𝙻𝙸𝙳𝙾 𝙾 𝚂𝙸𝙽 𝙷𝙸𝚂𝚃𝙾𝚁𝙸𝙰𝚂*');
+    }
 
-      // Eliminar duplicados basándonos en las URLs únicas
-      const uniqueStories = Array.from(new Set(result.result.map(item => item.url))).map(url => {
-        return result.result.find(item => item.url === url);
-      });
-
-      for (const item of uniqueStories) {
-        const fileExtension = item.url.split('.').pop().toLowerCase(); 
-        const isVideo = fileExtension === 'mp4';
-        const isImage = 
-          item.url.includes('jpg') || 
-          item.url.includes('png') || 
-          item.url.includes('jpeg') || 
-          item.url.includes('webp') || 
-          item.url.includes('heic') || 
-          item.url.includes('tiff') || 
-          item.url.includes('bmp'); 
-
-        // Verificamos si la URL ya fue procesada
-        if (!processedUrls.has(item.url)) {
-          processedUrls.add(item.url);
-
-          // Depuración: Imprimir la URL del archivo
-          console.log("Enviando archivo:", item.url);
-
-          // Enviar imagen o video según el tipo
-          if (isImage) {
-            await conn.sendMessage(
-              m.chat,
-              { 
-                image: { url: item.url },
-                caption: '*✔️🍟 Downloader Instagram*' 
-              },
-              { quoted: m }
-            );
-          } else if (isVideo) {
-            await conn.sendMessage(
-              m.chat,
-              { 
-                video: { url: item.url },
-                caption: '*✔️🍟 Downloader Instagram*' 
-              },
-              { quoted: m }
-            );
-          } else {
-            console.log("Formato no soportado para:", item.url);
-          }
-        }
+    // Enviar cada archivo (imagen o video)
+    for (const i of anuku) {
+      const mime = i.url.split('.').pop().toLowerCase(); // Obtenemos la extensión del archivo
+      if (['jpg', 'jpeg', 'png', 'webp', 'heic', 'tiff', 'bmp'].includes(mime)) { // Si es imagen
+        await conn.sendFile(m.chat, i.url, 'error.jpg', null, m).catch(() => {
+          return m.reply('*[❗] 𝚄𝚂𝚄𝙰𝚁𝙸𝙾 𝙸𝙽𝚅𝙰𝙻𝙸𝙳𝙾 𝙾 𝚂𝙸𝙽 𝙷𝙸𝚂𝚃𝙾𝚁𝙸𝙰𝚂*');
+        });
+      } else if (mime === 'mp4') { // Si es video
+        await conn.sendFile(m.chat, i.url, 'error.mp4', null, m).catch(() => {
+          return m.reply('*[❗] 𝚄𝚂𝚄𝙰𝚁𝙸𝙾 𝙸𝙽𝚅𝙰𝙻𝙸𝙳𝙾 𝙾 𝚂𝙸𝙽 𝙷𝙸𝚂𝚃𝙾𝚁𝙸𝙰𝚂*');
+        });
       }
-
-      await m.react('✅'); // Marca como exitoso
-    } else {
-      throw new Error('No se pudo obtener las historias, verifica el enlace.');
     }
   } catch (error) {
-    await m.react('❌'); // Marca como error
-    console.error("Error en el proceso:", error); // Más detalle en los errores
-    m.reply(`❌ *Error:* ${error.message || 'Ocurrió un error desconocido'}`);
+    console.error(error);
+    m.reply('*[❗] 𝙴𝚁𝙾𝚁 𝙲𝙾𝙽𝙴𝙲𝚃𝙰𝙽𝙾 𝙲𝙾𝙽 𝙻𝙰 𝙰𝙿𝙸*');
   }
 };
 
-handler.help = ['igstory *<url>*']; 
-handler.command = ['igstory'];
-handler.tags = ['dl'];
+handler.help = ['igstory <username>'];
+handler.tags = ['downloader'];
+handler.command = ['igstory', 'ighistoria'];
 
 export default handler;
