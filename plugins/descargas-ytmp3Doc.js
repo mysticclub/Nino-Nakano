@@ -14,14 +14,12 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     if (result.status && result.result) {
       let processedUrls = new Set(); // Para evitar procesar URLs duplicadas
 
-      // Eliminamos duplicados basándonos en las URLs únicas
       const uniqueStories = Array.from(new Set(result.result.map(item => item.url))).map(url => {
         return result.result.find(item => item.url === url);
       });
 
       for (const item of uniqueStories) {
-        // Verificamos si la URL corresponde a una imagen o un video
-        const fileExtension = item.url.split('.').pop().toLowerCase(); // Extraemos la extensión
+        const fileExtension = item.url.split('.').pop().toLowerCase(); 
         const isVideo = fileExtension === 'mp4';
         const isImage = 
           item.url.includes('jpg') || 
@@ -30,13 +28,11 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
           item.url.includes('webp') || 
           item.url.includes('heic') || 
           item.url.includes('tiff') || 
-          item.url.includes('bmp'); // Verificamos extensiones válidas para imágenes
+          item.url.includes('bmp'); 
 
-        // Verificamos si la URL ya fue procesada
         if (!processedUrls.has(item.url)) {
           processedUrls.add(item.url);
 
-          // Verificamos si es una imagen o video
           if (isImage) {
             await conn.sendMessage(
               m.chat,
@@ -59,12 +55,13 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
         }
       }
 
-      await m.react('✅'); // Marca como exitoso
+      await m.react('✅'); 
     } else {
       throw new Error('No se pudo obtener las historias, verifica el enlace.');
     }
   } catch (error) {
-    await m.react('❌'); // Marca como error
+    await m.react('❌'); 
+    console.error(error); 
     m.reply(`❌ *Error:* ${error.message || 'Ocurrió un error desconocido'}`);
   }
 };
