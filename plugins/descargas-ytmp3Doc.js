@@ -18,9 +18,23 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       });
 
       for (const item of uniqueStories) {
-        const isVideo = item.url.endsWith('.mp4');
+        console.log('URL de la historia:', item.url); // Depuración de la URL
+
+        const fileExtension = item.url.split('.').pop().toLowerCase(); // Extraemos la extensión
+        const isVideo = fileExtension === 'mp4';
+        const isImage = ['jpg', 'jpeg', 'png'].includes(fileExtension); // Verificamos extensiones válidas para imágenes
+
+        if (!isVideo && !isImage) continue; // Ignorar formatos no compatibles
+
         const mediaType = isVideo ? 'video' : 'image';
-        const mimetype = isVideo ? 'video/mp4' : 'image/jpeg';
+        const mimetype = isVideo ? 'video/mp4' : `image/${fileExtension}`;
+
+        // Verificación de la URL antes de enviar
+        const fileResponse = await fetch(item.url);
+        if (!fileResponse.ok) {
+          console.error('Error al descargar el archivo:', item.url);
+          continue;
+        }
 
         await conn.sendMessage(
           m.chat,
