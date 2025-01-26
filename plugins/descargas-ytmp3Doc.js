@@ -27,10 +27,19 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
         const mediaType = isVideo ? 'video' : 'image';
         const mimetype = isVideo ? 'video/mp4' : `image/${fileExtension}`;
 
+        // Intentamos descargar la URL y verificar si el archivo está disponible
+        const fileResponse = await fetch(item.url);
+        if (!fileResponse.ok) {
+          console.error(`No se pudo obtener el archivo desde la URL: ${item.url}`);
+          continue; // Si no se puede descargar el archivo, saltamos al siguiente
+        }
+
+        const buffer = await fileResponse.buffer(); // Obtenemos el buffer del archivo
+
         await conn.sendMessage(
           m.chat,
           { 
-            [mediaType]: { url: item.url },
+            [mediaType]: buffer,
             mimetype 
           },
           { quoted: m }
