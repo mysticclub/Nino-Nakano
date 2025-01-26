@@ -11,9 +11,13 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
     const response = await axios.get(`https://api.botcahx.eu.org/api/dowloader/igdowloader?url=${encodeURIComponent(text)}&apikey=${apiKey}`);
     const result = response.data;
 
+    // Verificar si la API devuelve un resultado correcto
+    console.log("Respuesta de la API:", result);
+
     if (result.status && result.result) {
       let processedUrls = new Set(); // Para evitar procesar URLs duplicadas
 
+      // Eliminar duplicados basándonos en las URLs únicas
       const uniqueStories = Array.from(new Set(result.result.map(item => item.url))).map(url => {
         return result.result.find(item => item.url === url);
       });
@@ -30,9 +34,14 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
           item.url.includes('tiff') || 
           item.url.includes('bmp'); 
 
+        // Verificamos si la URL ya fue procesada
         if (!processedUrls.has(item.url)) {
           processedUrls.add(item.url);
 
+          // Depuración: Imprimir la URL del archivo
+          console.log("Enviando archivo:", item.url);
+
+          // Enviar imagen o video según el tipo
           if (isImage) {
             await conn.sendMessage(
               m.chat,
@@ -51,17 +60,19 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
               },
               { quoted: m }
             );
+          } else {
+            console.log("Formato no soportado para:", item.url);
           }
         }
       }
 
-      await m.react('✅'); 
+      await m.react('✅'); // Marca como exitoso
     } else {
       throw new Error('No se pudo obtener las historias, verifica el enlace.');
     }
   } catch (error) {
-    await m.react('❌'); 
-    console.error(error); 
+    await m.react('❌'); // Marca como error
+    console.error("Error en el proceso:", error); // Más detalle en los errores
     m.reply(`❌ *Error:* ${error.message || 'Ocurrió un error desconocido'}`);
   }
 };
