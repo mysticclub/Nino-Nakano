@@ -8,47 +8,50 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
   await m.react('🕓');
 
   try {
-    const apiKey = 'xenzpedo'; // Manteniendo el API key original
+    const apiKey = 'xenzpedo'; // API key
     const response = await fetch(`https://api.botcahx.eu.org/api/dowloader/igdowloader?url=${encodeURIComponent(text)}&apikey=${apiKey}`);
     const result = await response.json();
 
     if (result.status && result.result) {
-      // Eliminamos duplicados basándonos en las URLs únicas
+      // Filtrar URLs únicas
       const uniqueStories = Array.from(new Set(result.result.map(item => item.url))).map(url => {
         return result.result.find(item => item.url === url);
       });
 
       for (const item of uniqueStories) {
-        // Identificamos el formato del archivo
-        const fileExtension = item.url.split('.').pop().toLowerCase(); // Extraemos la extensión
-        const isVideo = fileExtension === 'mp4';
-        const isImage = ['jpg', 'jpeg', 'png'].includes(fileExtension);
+        try {
+          const fileExtension = item.url.split('.').pop().toLowerCase(); // Extraemos la extensión
+          const isVideo = fileExtension === 'mp4';
+          const isImage = ['jpg', 'jpeg', 'png'].includes(fileExtension);
 
-        if (!isVideo && !isImage) {
-          // Si no es un formato compatible, lo ignoramos
-          continue;
+          if (!isVideo && !isImage) continue; // Ignorar formatos no compatibles
+
+          const mediaType = isVideo ? 'video' : 'image';
+          const mimetype = isVideo ? 'video/mp4' : `image/${fileExtension}`;
+
+          // Descargar el archivo
+          const res = await fetch(item.url);
+          if (!res.ok) throw new Error(`No se pudo descargar el archivo: ${item.url}`);
+          const buffer = await res.buffer();
+
+          // Guardar el archivo temporalmente
+          const filePath = `/tmp/${Date.now()}_${mediaType}.${fileExtension}`;
+          await writeFile(filePath, buffer);
+
+          // Enviar el archivo descargado
+          await conn.sendMessage(
+            m.chat,
+            {
+              [mediaType]: { url: filePath },
+              mimetype,
+              caption: isVideo ? '🎥 Video' : '🖼️ Imagen',
+            },
+            { quoted: m }
+          );
+        } catch (err) {
+          // Manejo de errores individuales para cada archivo
+          console.error(`Error procesando el archivo ${item.url}:`, err);
         }
-
-        const mediaType = isVideo ? 'video' : 'image';
-        const mimetype = isVideo ? 'video/mp4' : `image/${fileExtension}`;
-
-        // Descargamos el archivo antes de enviarlo
-        const res = await fetch(item.url);
-        const buffer = await res.buffer();
-
-        // Guardamos el archivo temporalmente
-        const filePath = `/tmp/${Date.now()}_${mediaType}.${fileExtension}`;
-        await writeFile(filePath, buffer);
-
-        // Enviamos el archivo descargado
-        await conn.sendMessage(
-          m.chat,
-          {
-            [mediaType]: { url: filePath },
-            mimetype
-          },
-          { quoted: m }
-        );
       }
 
       await m.react('✅');
