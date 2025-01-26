@@ -19,16 +19,25 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       });
 
       for (const item of uniqueStories) {
-        const isVideo = item.url.endsWith('.mp4');
+        // Identificamos el formato del archivo
+        const fileExtension = item.url.split('.').pop().toLowerCase(); // Extraemos la extensión
+        const isVideo = fileExtension === 'mp4';
+        const isImage = ['jpg', 'jpeg', 'png'].includes(fileExtension);
+
+        if (!isVideo && !isImage) {
+          // Si no es un formato compatible, lo ignoramos
+          continue;
+        }
+
         const mediaType = isVideo ? 'video' : 'image';
-        const mimetype = isVideo ? 'video/mp4' : 'image/jpeg';
+        const mimetype = isVideo ? 'video/mp4' : `image/${fileExtension}`;
 
         // Descargamos el archivo antes de enviarlo
         const res = await fetch(item.url);
         const buffer = await res.buffer();
 
         // Guardamos el archivo temporalmente
-        const filePath = `/tmp/${Date.now()}_${mediaType}.${isVideo ? 'mp4' : 'jpg'}`;
+        const filePath = `/tmp/${Date.now()}_${mediaType}.${fileExtension}`;
         await writeFile(filePath, buffer);
 
         // Enviamos el archivo descargado
