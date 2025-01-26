@@ -20,7 +20,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       for (const item of uniqueStories) {
         const isVideo = item.url.endsWith('.mp4');
         const mediaType = isVideo ? 'video' : 'image';
-        const mimetype = isVideo ? 'video/mp4' : 'image/jpeg';
+        const mimetype = isVideo ? 'video/mp4' : 'image/jpg';
 
         await conn.sendMessage(
           m.chat,
