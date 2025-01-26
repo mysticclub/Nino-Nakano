@@ -18,14 +18,9 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       });
 
       for (const item of uniqueStories) {
-        const fileExtension = item.url.split('.').pop().toLowerCase(); // Extraemos la extensión
-        const isVideo = fileExtension === 'mp4';
-        const isImage = ['jpg', 'jpeg', 'png'].includes(fileExtension); // Verificamos extensiones válidas para imágenes
-
-        if (!isVideo && !isImage) continue; // Ignorar formatos no compatibles
-
+        const isVideo = item.url.endsWith('.mp4');
         const mediaType = isVideo ? 'video' : 'image';
-        const mimetype = isVideo ? 'video/mp4' : `image/${fileExtension}`;
+        const mimetype = isVideo ? 'video/mp4' : 'image/jpeg';
 
         await conn.sendMessage(
           m.chat,
