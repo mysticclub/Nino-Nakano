@@ -20,20 +20,23 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       });
 
       for (const item of uniqueStories) {
+        // Verificamos si la URL corresponde a una imagen o un video
         const fileExtension = item.url.split('.').pop().toLowerCase(); // Extraemos la extensión
         const isVideo = fileExtension === 'mp4';
-        const isImage = ['jpg', 'jpeg', 'png', 'webp', 'heic', 'tiff', 'bmp'].includes(fileExtension); // Verificamos extensiones válidas para imágenes
-
-        if (!isVideo && !isImage) continue; // Ignorar formatos no compatibles
-
-        const mediaType = isVideo ? 'video' : 'image';
-        const mimetype = isVideo ? 'video/mp4' : `image/${fileExtension}`;
+        const isImage = 
+          item.url.includes('jpg') || 
+          item.url.includes('png') || 
+          item.url.includes('jpeg') || 
+          item.url.includes('webp') || 
+          item.url.includes('heic') || 
+          item.url.includes('tiff') || 
+          item.url.includes('bmp'); // Verificamos extensiones válidas para imágenes
 
         // Verificamos si la URL ya fue procesada
         if (!processedUrls.has(item.url)) {
           processedUrls.add(item.url);
 
-          // Enviar imagen o video según el tipo
+          // Verificamos si es una imagen o video
           if (isImage) {
             await conn.sendMessage(
               m.chat,
