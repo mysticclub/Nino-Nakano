@@ -6,8 +6,8 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
         return conn.reply(m.chat, `☁️ Ingresa un link de Instagram`, m, fake);
     }
 
-    // Expresión regular actualizada para aceptar enlaces de publicaciones, reels y historias
-    if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(p|tv|reel|s)\\/([a-zA-Z0-9_-]+)(\\/)?(\\?.*)?$'))) {
+    // Expresión regular actualizada para aceptar enlaces de publicaciones, reels y todos los tipos de historias
+    if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(p|tv|reel|s|stories)\\/([a-zA-Z0-9_-]+)\\/([0-9]+)(\\/)?(\\?.*)?$'))) {
         await m.react('✖️');
         return conn.reply(m.chat, `☁️ Verifica que sea un link de Instagram válido (publicación, reel o historia)`, m);
     }
@@ -56,6 +56,7 @@ handler.tags = ['dl'];
 handler.command = /^(ig|igdl|instagram)$/i;
 
 export default handler;
+
 
 
 
