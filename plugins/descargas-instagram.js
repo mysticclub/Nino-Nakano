@@ -1,3 +1,8 @@
+/* 
+- Downloader Instagram By Izumi-kzx
+- Descarga todo de Instagram como publicaciones, historias, reels, destacadas
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
 import axios from 'axios';
 
 let handler = async (m, { conn, usedPrefix, args, command, text }) => {
