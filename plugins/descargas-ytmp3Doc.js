@@ -20,10 +20,10 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
       push.push({
         body: proto.Message.InteractiveMessage.Body.fromObject({
-          text: `◦ *Nombre:* ${app.name} \n◦ *Valoración:* ${app.stars} ⭐ \n◦ *Descripción:* ${app.description} \n◦ *Enlace:* ${app.link}`
+          text: `◦ *Nombre:* ${app.name} \n◦ *Valoración:* ${app.stars} ⭐ \n◦ *Enlace:* ${app.link}`
         }),
         footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: ''
+          text: '${global.dev}'
         }),
         header: proto.Message.InteractiveMessage.Header.fromObject({
           title: '',
