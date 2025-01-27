@@ -6,7 +6,6 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
         return conn.reply(m.chat, `☁️ Ingresa un link de Instagram`, m, fake);
     }
 
-    // Expresión regular para aceptar enlaces de cualquier tipo de Instagram (publicaciones, historias, reels, etc.)
     if (!args[0].match(new RegExp('^https?:\\/\\/www\\.instagram\\.com\\/([a-zA-Z0-9_-]+)\\/.*$'))) {
         await m.react('✖️');
         return conn.reply(m.chat, `☁️ Verifica que sea un link válido de Instagram`, m);
