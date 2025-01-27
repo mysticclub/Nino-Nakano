@@ -1,7 +1,4 @@
 import ws from 'ws';
-import translate from 'translate-google-api';
-// const translate = require('translate-google-api');
-// const ws = require("ws");
 
 let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     class BlueArchive {
@@ -84,9 +81,8 @@ ${listaVoces}`
         }
         m.reply("Espera un momento...");
         const blueArchive = new BlueArchive();
-        const traducido = await translate(texto, { to: 'ja', autoCorrect: false });
         const personajeFormateado = personaje.toLowerCase().split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1));
-        const resultado = await blueArchive.voice(traducido[0], personajeFormateado, velocidad || 1);
+        const resultado = await blueArchive.voice(texto, personajeFormateado, velocidad || 1);
         conn.sendMessage(m.chat, { audio: { url: resultado.resultado.url }, mimetype: 'audio/mpeg', ptt: true }, { quoted: m });
     } catch (err) {
         console.error(err);
