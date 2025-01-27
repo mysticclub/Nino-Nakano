@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
-    if (!text) return conn.reply(m.chat, `❀ Ingresa un link de mediafire`, m)
+    if (!text) return conn.reply(m.chat, `🍟 Ingresa un link de mediafire`, m)
     await m.react('🕓');
 
     try {
