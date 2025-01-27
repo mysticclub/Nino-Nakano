@@ -23,7 +23,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           text: `◦ *Nombre:* ${app.name} \n◦ *Valoración:* ${app.stars} ⭐ \n◦ *Descripción:* ${app.description} \n◦ *Enlace:* ${app.link}`
         }),
         footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: ''  // Aquí aseguramos que el pie de página esté vacío
+          text: ''
         }),
         header: proto.Message.InteractiveMessage.Header.fromObject({
           title: '',
