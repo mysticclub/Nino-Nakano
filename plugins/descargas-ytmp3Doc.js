@@ -6,8 +6,8 @@ const handler = async (m, { conn, args, usedPrefix, command }) => {
   await m.reply(global.wait);
 
   // API Key de BotCahX
-  const apiKey = 'xenzpedo';
-  const url = `https://api.botcahx.eu.org/api/dowloader/igdowloader?url=https://www.instagram.com/${args[0]}/&apikey=${apiKey}`;
+  const apiKey = 'xenzpedo'; // Reemplaza con tu clave de API
+  const url = `https://api.botcahx.eu.org/api/dowloader/igdowloader?url=${encodeURIComponent(args[0])}&apikey=${apiKey}`;
 
   try {
     const res = await fetch(url); // Realizamos la solicitud GET
