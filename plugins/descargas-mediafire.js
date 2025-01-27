@@ -10,11 +10,11 @@ let handler = async (m, { conn, text }) => {
         if (!json.success) return m.reply('❌ Error al obtener los detalles del enlace, por favor intenta nuevamente.');
 
         let { name, size, date, mime, link } = json.result;
-        let caption = `*Nombre:* ${name}
+        let caption = `「✐」*${name}*
 
-- *Tamaño:* ${size}
-- *Fecha:* ${date}
-- *Tipo MIME:* ${mime}`;
+> ❒ Tamaño » *${size}*
+> ✰ Fecha » *${date}*
+> 🜸 Tipo » *${mime}*`;
 
         // Enviar el archivo con el caption
         await conn.sendFile(m.chat, link, name, caption, m, null, { mimetype: mime, asDocument: true });
