@@ -1,6 +1,7 @@
 /* 
 - Search Happy Mod By Izumi-kzx
 - API Privada By Darkcore
+- Haz búsquedas en Happy Mod 
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
 import fetch from 'node-fetch'
