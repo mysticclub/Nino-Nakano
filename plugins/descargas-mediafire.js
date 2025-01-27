@@ -10,13 +10,16 @@ let handler = async (m, { conn, text }) => {
         if (!json.success) return m.reply('❌ Error al obtener los detalles del enlace, por favor intenta nuevamente.');
 
         let { name, size, date, mime, link } = json.result;
-        m.reply(`*Nombre:* ${name}
+        let message = `*Nombre:* ${name}
 
 - *Tamaño:* ${size}
 - *Fecha:* ${date}
-- *Tipo MIME:* ${mime}`)
+- *Tipo MIME:* ${mime}`;
+
+        // Enviar el mensaje con el archivo y el texto
+        await conn.sendMessage(m.chat, { text: message, document: { url: link }, mimetype: mime, fileName: name }, { quoted: m });
+        
         await m.react('✅');
-        await conn.sendFile(m.chat, link, name, null, m, null, { mimetype: mime, asDocument: true })
     } catch (error) {
         console.error(error)
         m.reply('❌ Ocurrió un error al procesar la solicitud.')
