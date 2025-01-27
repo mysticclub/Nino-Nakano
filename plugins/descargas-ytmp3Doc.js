@@ -20,7 +20,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
       push.push({
         body: proto.Message.InteractiveMessage.Body.fromObject({
-          text: `> ✐ Nombre » *${app.name}*\n> ✰ Valoración » *${app.stars}* ⭐ \n> 🜸 Link » _${app.link}_`
+          text: `> ✐ Nombre » *${app.name.trim()}*\n> ✰ Valoración » *${app.stars}* ⭐ \n> 🜸 Link » _${app.link}_`
         }),
         footer: proto.Message.InteractiveMessage.Footer.fromObject({
           text: ''
