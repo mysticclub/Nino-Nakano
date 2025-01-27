@@ -20,15 +20,15 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
       push.push({
         body: proto.Message.InteractiveMessage.Body.fromObject({
-          text: `◦ *Nombre:* ${app.name} \n◦ *Valoración:* ${app.stars} ⭐ \n◦ *Descripción:* ${app.description} \n◦ *Enlace:* ${app.link}`
+          text: `*「✐」${app.name}*\n\n> ✰ Valoración » *${app.stars}* ⭐ \n> 🜸 Link » _${app.link}_`
         }),
         footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: ''  // Aseguramos que no haya texto en el pie de página
+          text: ''
         }),
         header: proto.Message.InteractiveMessage.Header.fromObject({
-          title: app.name,  // Título del mensaje será el nombre de la app
+          title: '',
           hasMediaAttachment: true,
-          imageMessage: image  // Imagen asociada a la app
+          imageMessage: image
         }),
         nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
           buttons: [
