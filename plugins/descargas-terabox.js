@@ -2,72 +2,54 @@
 - Downloader Terabox By Angel-OFC 
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
+import fetch from 'node-fetch';
 import axios from 'axios';
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) return m.reply(`Ejemplo:\n${usedPrefix + command} https://terabox.com/s/1kReYr_2pyxLZ2c2kEAHF3A`);
-  await m.react('🕓');
-  try {
-    const result = await terabox(text);
-    if (!result.length) return m.reply('Ingresa un URL válido.');
+let handler = async (m, { conn, text }) => {
+    if (!text) return conn.reply(m.chat, `🍟 Ingresa un link de TeraBox`, m);
+    await m.react('🕓');
 
-    for (let i = 0; i < result.length; i++) {
-      const { fileName, type, thumb, url } = result[i];
-      const caption = `📄 *Nombre File:* ${fileName}\n📂 *Formato:* ${type}`;
+    try {
+        let api = await fetch(`https://dark-core-api.vercel.app/api/terabox?key=TWIzumi&url=${text}`);
+        let json = await api.json();
+        if (!json.success) return m.reply('❌ Error al obtener los detalles del enlace, por favor intenta nuevamente.');
 
-      await m.react('✅');      
-      await conn.sendFile(m.chat, url, fileName, caption, m, false, {
-        thumbnail: thumb ? await getBuffer(thumb) : null
-      });
+        let { fileName, type, thumb, url } = json.result;
+        let caption = `*「✐」${fileName}*
+
+> ❒ Tipo » *${type}*
+> 🖼️ Vista previa » *${thumb}*`;
+
+        // Enviar el archivo con el caption y el thumbnail
+        await conn.sendFile(m.chat, url, fileName, caption, m, false, {
+            thumbnail: thumb ? await getBuffer(thumb) : null
+        });
+
+        await m.react('✅');
+    } catch (error) {
+        console.error(error);
+        m.reply('❌ Ocurrió un error al procesar la solicitud.');
     }
-  } catch (err) {
-    console.error(err);
-    m.reply('Error al descargar el archivo.');
-  }
-};
+}
 
-handler.help = ["terabox *<url>*"];
-handler.tags = ["dl"];
-handler.command = ["terabox"];
+handler.help = ['terabox *<url>*']
+handler.tags = ['dl']
+handler.command = ['terabox']
 
 export default handler;
 
-async function terabox(url) {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await axios.get(`https://dark-core-api.vercel.app/api/terabox?key=TWIzumi&url=${url}`);
-      const result = response.data.files;
-
-      if (!result || result.length === 0) {
-        return reject('No se encontraron archivos.');
-      }
-
-      const array = result.map(file => ({
-        fileName: file.fileName,
-        type: file.type,
-        thumb: file.thumb,
-        url: file.url
-      }));
-
-      resolve(array);
-    } catch (err) {
-      reject('Error al obtener los datos.');
-    }
-  });
-}
-
 async function getBuffer(url) {
-  try {
-    const res = await axios({
-      method: 'get',
-      url,
-      responseType: 'arraybuffer'
-    });
-    return res.data;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+    try {
+        const res = await axios({
+            method: 'get',
+            url,
+            responseType: 'arraybuffer'
+        });
+        return res.data;
+    } catch (err) {
+        console.error(err);
+        return null;
+    }
 }
 
 
