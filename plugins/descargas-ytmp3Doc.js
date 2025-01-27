@@ -23,7 +23,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           text: `◦ *Nombre:* ${app.name} \n◦ *Valoración:* ${app.stars} ⭐ \n◦ *Enlace:* ${app.link}`
         }),
         footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: '${global.dev}'
+          text: null
         }),
         header: proto.Message.InteractiveMessage.Header.fromObject({
           title: '',
