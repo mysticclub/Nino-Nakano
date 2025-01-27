@@ -6,7 +6,6 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
         return conn.reply(m.chat, `☁️ Ingresa un link de Instagram`, m, fake);
     }
 
-    // Expresión regular actualizada para aceptar enlaces de publicaciones, reels y todos los tipos de historias
     if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(p|tv|reel|s|stories)\\/([a-zA-Z0-9_.-]+)\\/([0-9]+)(\\/)?(\\?.*)?$'))) {
         await m.react('✖️');
         return conn.reply(m.chat, `☁️ Verifica que sea un link de Instagram válido (publicación, reel o historia)`, m);
@@ -22,7 +21,6 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
             if (!processedUrls.has(a.url)) {
                 processedUrls.add(a.url);
 
-                // Verificación de si la URL es una imagen o un video
                 if (a.url.includes('jpg') || a.url.includes('png') || a.url.includes('jpeg') || a.url.includes('webp') || a.url.includes('heic') || a.url.includes('tiff') || a.url.includes('bmp')) {
                     await conn.sendMessage(
                         m.chat,
