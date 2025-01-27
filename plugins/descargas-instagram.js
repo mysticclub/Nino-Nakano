@@ -3,13 +3,13 @@ import axios from 'axios';
 let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     if (!args[0]) {
         await m.react('✖️');
-        return conn.reply(m.chat, `☁️ Ingresa un link de Instagram`, m, fake);
+        return conn.reply(m.chat, `☁️ Ingresa un link de historia de Instagram`, m, fake);
     }
 
-    // Expresión regular actualizada para aceptar enlaces de publicaciones, reels y todos los tipos de historias
-    if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(p|tv|reel|s|stories)\\/([a-zA-Z0-9_-]+)\\/([0-9]+)(\\/)?(\\?.*)?$'))) {
+    // Expresión regular para aceptar solo enlaces de historias de Instagram
+    if (!args[0].match(new RegExp('^https?:\\/\\/(www\\.)?instagram\\.com\\/(stories|s)\\/([a-zA-Z0-9_.-]+)\\/([0-9]+)(\\/)?(\\?.*)?$'))) {
         await m.react('✖️');
-        return conn.reply(m.chat, `☁️ Verifica que sea un link de Instagram válido (publicación, reel o historia)`, m);
+        return conn.reply(m.chat, `☁️ Verifica que sea un link válido de historia de Instagram`, m);
     }
 
     try {
@@ -51,9 +51,9 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
     }
 };
 
-handler.help = ['ig *<link>*'];
-handler.tags = ['dl'];
-handler.command = /^(ig|igdl|instagram)$/i;
+handler.help = ['igstory <username>'];
+handler.tags = ['downloader'];
+handler.command = ['igstory', 'ighistoria'];
 
 export default handler;
 
