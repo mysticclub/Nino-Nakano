@@ -3,6 +3,86 @@
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
 import axios from 'axios';
+
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+  if (!text) return m.reply(`Ejemplo:\n${usedPrefix + command} https://terabox.com/s/1kReYr_2pyxLZ2c2kEAHF3A`);
+  await m.react('🕓');
+  try {
+    const result = await terabox(text);
+    if (!result.length) return m.reply('Ingresa un URL válido.');
+
+    for (let i = 0; i < result.length; i++) {
+      const { fileName, type, thumb, url } = result[i];
+      const caption = `📄 *Nombre File:* ${fileName}\n📂 *Formato:* ${type}`;
+
+      await m.react('✅');      
+      await conn.sendFile(m.chat, url, fileName, caption, m, false, {
+        thumbnail: thumb ? await getBuffer(thumb) : null
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    m.reply('Error al descargar el archivo.');
+  }
+};
+
+handler.help = ["terabox *<url>*"];
+handler.tags = ["dl"];
+handler.command = ["terabox"];
+
+export default handler;
+
+async function terabox(url) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await axios.get(`https://dark-core-api.vercel.app/api/terabox?key=TWIzumi&url=${url}`);
+      const result = response.data.files;
+
+      if (!result || result.length === 0) {
+        return reject('No se encontraron archivos.');
+      }
+
+      const array = result.map(file => ({
+        fileName: file.fileName,
+        type: file.type,
+        thumb: file.thumb,
+        url: file.url
+      }));
+
+      resolve(array);
+    } catch (err) {
+      reject('Error al obtener los datos.');
+    }
+  });
+}
+
+async function getBuffer(url) {
+  try {
+    const res = await axios({
+      method: 'get',
+      url,
+      responseType: 'arraybuffer'
+    });
+    return res.data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* import axios from 'axios';
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) return m.reply(`Ejemplo:\n${usedPrefix + command} https://terabox.com/s/1kReYr_2pyxLZ2c2kEAHF3A`);
 await m.react('🕓')
@@ -81,4 +161,4 @@ async function getBuffer(url) {
     console.error(err);
     return null;
   }
-}
+} */
