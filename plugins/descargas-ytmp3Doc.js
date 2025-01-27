@@ -1,10 +1,3 @@
-/* PLUGIN TTS BA (BLUE ARCHIVE)
-Código editado por Rapikz: rapikzhehe.vercel.app
-Scraper:
-https://whatsapp.com/channel/0029Vac0YNgAjPXNKPXCvE2e/815
-Canal:
-https://whatsapp.com/channel/0029Vb08kk8KwqSRh2Y4U20i/115
-*/
 import ws from 'ws';
 import translate from 'translate-google-api';
 // const translate = require('translate-google-api');
