@@ -20,15 +20,15 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
       push.push({
         body: proto.Message.InteractiveMessage.Body.fromObject({
-          text: `◦ *Nombre:* ${app.name} \n◦ *Valoración:* ${app.stars} ⭐ \n◦ *Enlace:* ${app.link}`
+          text: `◦ *Nombre:* ${app.name} \n◦ *Valoración:* ${app.stars} ⭐ \n◦ *Descripción:* ${app.description} \n◦ *Enlace:* ${app.link}`
         }),
         footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: null
+          text: ''  // Aseguramos que no haya texto en el pie de página
         }),
         header: proto.Message.InteractiveMessage.Header.fromObject({
-          title: '',
+          title: app.name,  // Título del mensaje será el nombre de la app
           hasMediaAttachment: true,
-          imageMessage: image
+          imageMessage: image  // Imagen asociada a la app
         }),
         nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
           buttons: [
@@ -50,7 +50,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           },
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             body: proto.Message.InteractiveMessage.Body.create({text: '*`\Resultados de:\`* ' + `${text}`}),
-            footer: proto.Message.InteractiveMessage.Footer.create({text: '_\`ꜱ\` \`ᴘ\` \`-\` \`ꜱ\` \`ᴇ\` \`ᴀ\` \`ʀ\` \`c\`h\`_'}),
+            footer: proto.Message.InteractiveMessage.Footer.create({text: ''}),  // Pie de página vacío
             header: proto.Message.InteractiveMessage.Header.create({hasMediaAttachment: false}),
             carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({cards: [...push]})
           })
