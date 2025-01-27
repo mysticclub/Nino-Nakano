@@ -1,6 +1,8 @@
-import ws from 'ws';
 
-let handler = async (m, { conn, usedPrefix, args, command, text }) => {
+import ws from 'ws';
+import translate from 'translate-google-api';
+
+let handler = async (m, { conn, text }) => {
     class BlueArchive {
         voice = async function voice(texto, modelo = "Airi", velocidad = 1.2) {
             return new Promise(async (resolve, reject) => {
@@ -68,7 +70,7 @@ let handler = async (m, { conn, usedPrefix, args, command, text }) => {
 
     try {
         let [texto, personaje, velocidad] = text.split('|');
-        if (!texto || !personaje) return m.reply('> Ejemplo: .ttsba hola|momoi');
+        if (!texto || !personaje) return m.reply('> Ejemplo: .ttsba hola cómo estás|momoi');
         const vocesSoportadas = ['airi', 'akane', 'akari', 'ako', 'aris', 'arona', 'aru', 'asuna', 'atsuko', 'ayane', 'azusa', 'cherino', 'chihiro', 'chinatsu', 'chise', 'eimi', 'erica', 'fubuki', 'fuuka', 'hanae', 'hanako', 'hare', 'haruka', 'haruna', 'hasumi', 'hibiki', 'hihumi', 'himari', 'hina', 'hinata', 'hiyori', 'hoshino', 'iori', 'iroha', 'izumi', 'izuna', 'juri', 'kaede', 'karin', 'kayoko', 'kazusa', 'kirino', 'koharu', 'kokona', 'kotama', 'kotori', 'main', 'maki', 'mari', 'marina', 'mashiro', 'michiru', 'midori', 'miku', 'mimori', 'misaki', 'miyako', 'miyu', 'moe', 'momoi', 'momoka', 'mutsuki', 'NP0013', 'natsu', 'neru', 'noa', 'nodoka', 'nonomi', 'pina', 'rin', 'saki', 'saori', 'saya', 'sena', 'serika', 'serina', 'shigure', 'shimiko', 'shiroko', 'shizuko', 'shun', 'ShunBaby', 'sora', 'sumire', 'suzumi', 'tomoe', 'tsubaki', 'tsurugi', 'ui', 'utaha', 'wakamo', 'yoshimi', 'yuuka', 'yuzu', 'zunko'];
         if (!vocesSoportadas.includes(personaje.toLowerCase())) {
             const listaVoces = vocesSoportadas.map(nombre => `> - ${nombre.charAt(0).toUpperCase() + nombre.slice(1)}`).join('\n');
@@ -81,8 +83,12 @@ ${listaVoces}`
         }
         m.reply("Espera un momento...");
         const blueArchive = new BlueArchive();
+        
+        // Traducir el texto al japonés antes de enviarlo al servicio
+        const textoTraducido = await translate(texto, { to: 'ja', autoCorrect: false });
+
         const personajeFormateado = personaje.toLowerCase().split(' ').map(p => p.charAt(0).toUpperCase() + p.slice(1));
-        const resultado = await blueArchive.voice(texto, personajeFormateado, velocidad || 1);
+        const resultado = await blueArchive.voice(textoTraducido[0], personajeFormateado, velocidad || 1);
         conn.sendMessage(m.chat, { audio: { url: resultado.resultado.url }, mimetype: 'audio/mpeg', ptt: true }, { quoted: m });
     } catch (err) {
         console.error(err);
@@ -97,4 +103,3 @@ handler.limit = true;
 handler.register = true;
 
 export default handler;
-// module.exports = handler;
