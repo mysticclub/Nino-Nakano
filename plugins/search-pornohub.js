@@ -5,16 +5,22 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
 
   try {
     const apiKey = 'xenzpedo';
-    const url = `https://api.botcahx.eu.org/api/search/pornhub?query=${encodeURIComponent(args[0])}&apikey=${apiKey}`;
+    const query = encodeURIComponent(args[0]);
+    const url = `https://api.botcahx.eu.org/api/search/pornhub?query=${query}&apikey=${apiKey}`;
     const response = await fetch(url);
-    const { result, status } = await response.json();
 
-    if (!status || result.length === 0) {
-      m.reply('*Sin resultados*');
-      return;
+    // Verificamos que la respuesta sea válida
+    if (!response.ok) throw `*Error en la conexión con la API: ${response.status}*`;
+
+    const json = await response.json();
+
+    // Validamos si la API devolvió datos
+    if (!json.status || !json.result || json.result.length === 0) {
+      throw '*No se encontraron resultados para tu búsqueda.*';
     }
 
-    let teks = result.map((v, i) => 
+    // Construimos el mensaje con los resultados
+    let teks = json.result.map((v, i) => 
       `「 *P O R N H U B  - S E A R C H* 」
 • *Título:* ${v.title}
 • *Duración:* ${v.duration}
@@ -27,7 +33,7 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
     m.reply(teks);
   } catch (e) {
     console.error('Error al procesar la búsqueda:', e);
-    m.reply('*Ocurrió un error al realizar la búsqueda. Inténtalo más tarde.*');
+    m.reply(typeof e === 'string' ? e : '*Ocurrió un error al realizar la búsqueda. Inténtalo más tarde.*');
   }
 };
 
