@@ -2,6 +2,9 @@ import fetch from 'node-fetch';
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default;
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
+  if (!global.db.data.chats[m.chat].nsfw) {
+    return conn.reply(m.chat, `🚩 El grupo no admite contenido *Nsfw.*\n\n> Para activarlo un *Administrador* debe usar el comando */on nsfw*`, m, rcanal);
+}
   if (!text) return conn.reply(m.chat, 'Ingresa el texto de lo que quieres buscar en Xvideo 🤍', m, rcanal);
   await m.react('🕓');
   try {
