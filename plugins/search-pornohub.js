@@ -4,7 +4,7 @@ let handler = async (m, { conn, args, command, usedPrefix }) => {
   if (!args[0]) throw `*Formato incorrecto*\nEjemplo:\n\n${usedPrefix + command} con mi prima`;
 
   try {
-    const apiKey = 'xenzpedo';
+    const apiKey = 'ebyqXbsq';
     const query = encodeURIComponent(args[0]);
     const url = `https://api.botcahx.eu.org/api/search/pornhub?query=${query}&apikey=${apiKey}`;
     const response = await fetch(url);
