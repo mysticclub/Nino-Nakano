@@ -5,7 +5,7 @@ let handler = async (m, { conn, text }) => {
     await m.react('🕓');
 
     try {
-        let api = await fetch(`https://dark-core-api.vercel.app/api/dowload/mediafire?key=777izumi&url=${text}`)
+        let api = await fetch(`https://dark-core-api.vercel.app/api/download/mediafire?key=777izumi&url=${text}`)
         let json = await api.json()
         if (!json.success) return m.reply('❌ Error al obtener los detalles del enlace, por favor intenta nuevamente.');
 
