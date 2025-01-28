@@ -25,7 +25,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
         const durationInSeconds = parseInt(duration);
 
-        let HS = `*Título :* ${title}\n*Duración :* ${(durationInSeconds / 60).toFixed(2)} minutos`;
+        let HS = `🍃 *Título :* ${title}\n🍃 *Duración :* ${(durationInSeconds / 60).toFixed(2)} minutos`;
 
         if (durationInSeconds >= 2400) { 
             await conn.sendMessage(m.chat, { 
