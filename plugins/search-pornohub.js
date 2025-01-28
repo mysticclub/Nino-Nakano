@@ -1,56 +1,4 @@
-import fetch from 'node-fetch';
-
-let handler = async (m, { conn, args, command, usedPrefix }) => {
-  if (!args[0]) throw `*Formato incorrecto*\nEjemplo:\n\n${usedPrefix + command} con mi prima`;
-
-  try {
-    const apiKey = 'ebyqXbsq';
-    const query = encodeURIComponent(args[0]);
-    const url = `https://api.botcahx.eu.org/api/search/pornhub?query=${query}&apikey=${apiKey}`;
-    const response = await fetch(url);
-
-    // Verificamos que la respuesta sea válida
-    if (!response.ok) throw `*Error en la conexión con la API: ${response.status}*`;
-
-    const json = await response.json();
-
-    // Validamos si la API devolvió datos
-    if (!json.status || !json.result || json.result.length === 0) {
-      throw '*No se encontraron resultados para tu búsqueda.*';
-    }
-
-    // Construimos el mensaje con los resultados
-    let teks = json.result.map((v, i) => 
-      `「 *P O R N H U B  - S E A R C H* 」
-• *Título:* ${v.title}
-• *Duración:* ${v.duration}
-• *Vistas:* ${v.viewers}
-• *Rating:* ${v.rating}
-• *Publicado:* ${v.published}
-• *Link:* ${v.url}
----------------------------------------------------\n`).join('\n\n');
-
-    m.reply(teks);
-  } catch (e) {
-    console.error('Error al procesar la búsqueda:', e);
-    m.reply(typeof e === 'string' ? e : '*Ocurrió un error al realizar la búsqueda. Inténtalo más tarde.*');
-  }
-};
-
-handler.tags = ['search'];
-handler.help = ['pornhubsearch *<texto>*'];
-handler.command = /^(phsearch|pornhubsearch)$/i;
-
-export default handler;
-
-
-
-
-
-
-
-
-/* import cheerio from 'cheerio';
+import cheerio from 'cheerio';
 import axios from 'axios';
 import fetch from 'node-fetch';
 
@@ -95,4 +43,4 @@ async function searchPornhub(search) {
     console.error('Ocurrió un error al buscar en Pornhub:', error);
     return { result: [] };
   }
-} */
+}
