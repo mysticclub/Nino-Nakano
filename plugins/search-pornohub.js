@@ -1,6 +1,50 @@
-//Créditos del código DanielDiod 
+import fetch from 'node-fetch';
 
-import cheerio from 'cheerio';
+let handler = async (m, { conn, args, command, usedPrefix }) => {
+  if (!args[0]) throw `*Formato incorrecto*\nEjemplo:\n\n${usedPrefix + command} con mi prima`;
+
+  try {
+    const apiKey = 'xenzpedo';
+    const url = `https://api.botcahx.eu.org/api/search/pornhub?query=${encodeURIComponent(args[0])}&apikey=${apiKey}`;
+    const response = await fetch(url);
+    const { result, status } = await response.json();
+
+    if (!status || result.length === 0) {
+      m.reply('*Sin resultados*');
+      return;
+    }
+
+    let teks = result.map((v, i) => 
+      `「 *P O R N H U B  - S E A R C H* 」
+• *Título:* ${v.title}
+• *Duración:* ${v.duration}
+• *Vistas:* ${v.viewers}
+• *Rating:* ${v.rating}
+• *Publicado:* ${v.published}
+• *Link:* ${v.url}
+---------------------------------------------------\n`).join('\n\n');
+
+    m.reply(teks);
+  } catch (e) {
+    console.error('Error al procesar la búsqueda:', e);
+    m.reply('*Ocurrió un error al realizar la búsqueda. Inténtalo más tarde.*');
+  }
+};
+
+handler.tags = ['search'];
+handler.help = ['pornhubsearch *<texto>*'];
+handler.command = /^(phsearch|pornhubsearch)$/i;
+
+export default handler;
+
+
+
+
+
+
+
+
+/* import cheerio from 'cheerio';
 import axios from 'axios';
 import fetch from 'node-fetch';
 
@@ -45,4 +89,4 @@ async function searchPornhub(search) {
     console.error('Ocurrió un error al buscar en Pornhub:', error);
     return { result: [] };
   }
-}
+} */
