@@ -60,7 +60,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
           },
           interactiveMessage: proto.Message.InteractiveMessage.fromObject({
             body: proto.Message.InteractiveMessage.Body.create({ text: `*Resultados de búsqueda para:* ${text}` }),
-            footer: proto.Message.InteractiveMessage.Footer.create({ text: 'Powered by Galay Team' }),
+            footer: proto.Message.InteractiveMessage.Footer.create({ text: 'Powered by Dark Team' }),
             header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
             carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: [...push] }),
           })
