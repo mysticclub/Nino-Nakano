@@ -138,9 +138,11 @@ const pindl = {
     },
 };
 
-const handler = async (m, { text }) => {
+const handler = async (m, { conn, text }) => {
     if (!text) throw "¿Dónde está la URL?";
-
+    
+    await m.react('🕓');
+    
     try {
         const result = await pindl.download(text);
         if (result.error) throw result.error;
@@ -148,7 +150,7 @@ const handler = async (m, { text }) => {
         let caption = ``;
 
         if (result.type === "video") {
-            caption += `「✦」 *Informacion video*\n\n> ✐ Titulo » ${result.name || "N/A"}\n> 🜸 Link » ${result.contentUrl}\n`;
+            caption += `「✦」 *Información Video*\n\n> ✐ Título » ${result.name || "N/A"}\n> 🜸 Link » ${result.contentUrl}\n`;
             await conn.sendMessage(m.chat, {
                 video: {
                     url: result.contentUrl
@@ -158,7 +160,7 @@ const handler = async (m, { text }) => {
                 quoted: m
             });
         } else if (result.type === "image") {
-            caption += `「✦」 *Información Imagen*\n\n> ✐ Titulo » ${result.headline || "N/A"}\n> 🜸 Link » ${result.image}`;
+            caption += `「✦」 *Información Imagen*\n\n> ✐ Título » ${result.headline || "N/A"}\n> 🜸 Link » ${result.image}`;
             await conn.sendMessage(m.chat, {
                 image: {
                     url: result.image
@@ -168,7 +170,7 @@ const handler = async (m, { text }) => {
                 quoted: m
             });
         } else if (result.type === "gif") {
-            caption += `「✦」 *Información Gif*\n\n> ✐ Titulo » ${result.headline || "N/A"}\n> 🜸 Link » ${result.gif}\n`;
+            caption += `「✦」 *Información Gif*\n\n> ✐ Título » ${result.headline || "N/A"}\n> 🜸 Link » ${result.gif}\n`;
             await conn.sendMessage(m.chat, {
                 video: {
                     url: result.gif
@@ -178,7 +180,10 @@ const handler = async (m, { text }) => {
                 quoted: m
             });
         }
+
+        await m.react('✅');
     } catch (error) {
+        await m.react('✖️');
         await conn.sendMessage(m.chat, {
             text: `Algo salió mal: ${error}`
         }, {
