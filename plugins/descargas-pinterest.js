@@ -1,52 +1,199 @@
-/* 
+import axios from "axios";
+import * as cheerio from "cheerio";
 
-[ Canal Principal ] :
-https://whatsapp.com/channel/0029VaeQcFXEFeXtNMHk0D0n
+const pindl = {
+    video: async (url) => {
+        try {
+            let { data: html } = await axios.get(url);
+            let $ = cheerio.load(html);
 
-[ Canal Rikka Takanashi Bot ] :
-https://whatsapp.com/channel/0029VaksDf4I1rcsIO6Rip2X
+            const mediaDataScript = $('script[data-test-id="video-snippet"]');
+            if (mediaDataScript.length) {
+                const mediaData = JSON.parse(mediaDataScript.html());
 
-[ Canal StarlightsTeam] :
-https://whatsapp.com/channel/0029VaBfsIwGk1FyaqFcK91S
+                if (
+                    mediaData["@type"] === "VideoObject" &&
+                    mediaData.contentUrl &&
+                    mediaData.contentUrl.endsWith(".mp4")
+                ) {
+                    return {
+                        type: "video",
+                        name: mediaData.name,
+                        description: mediaData.description,
+                        contentUrl: mediaData.contentUrl,
+                        thumbnailUrl: mediaData.thumbnailUrl,
+                        uploadDate: mediaData.uploadDate,
+                        duration: mediaData.duration,
+                        commentCount: mediaData.commentCount,
+                        likeCount: mediaData.interactionStatistic?.find(
+                            (stat) =>
+                            stat.InteractionType["@type"] === "https://schema.org/LikeAction"
+                        )?.InteractionCount,
+                        watchCount: mediaData.interactionStatistic?.find(
+                            (stat) =>
+                            stat.InteractionType["@type"] ===
+                            "https://schema.org/WatchAction"
+                        )?.InteractionCount,
+                        creator: mediaData.creator?.name,
+                        creatorUrl: mediaData.creator?.url,
+                        keywords: mediaData.keywords,
+                    };
+                }
+            }
+            return null;
+        } catch (error) {
+            return {
+                error: "Error al obtener los datos del video"
+            };
+        }
+    },
 
-[ HasumiBot FreeCodes ] :
-https://whatsapp.com/channel/0029Vanjyqb2f3ERifCpGT0W
-*/
+    image: async (url) => {
+        try {
+            let { data: html } = await axios.get(url);
+            let $ = cheerio.load(html);
 
-// *[ ❀ PINTEREST DL (Imagen/video) ]*
-import fetch from 'node-fetch'
+            const mediaDataScript = $('script[data-test-id="leaf-snippet"]');
+            if (mediaDataScript.length) {
+                const mediaData = JSON.parse(mediaDataScript.html());
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-if (!text) {
-return conn.reply(m.chat, '☁️ Ingresa el link de un video/imagen de pinterest', m, fake)
-}
+                if (
+                    mediaData["@type"] === "SocialMediaPosting" &&
+                    mediaData.image &&
+                    (mediaData.image.endsWith(".png") ||
+                        mediaData.image.endsWith(".jpg") ||
+                        mediaData.image.endsWith(".jpeg") ||
+                        mediaData.image.endsWith(".webp")) &&
+                    !mediaData.image.endsWith(".gif")
+                ) {
+                    return {
+                        type: "image",
+                        author: mediaData.author?.name,
+                        authorUrl: mediaData.author?.url,
+                        headline: mediaData.headline,
+                        articleBody: mediaData.articleBody,
+                        image: mediaData.image,
+                        datePublished: mediaData.datePublished,
+                        sharedContentUrl: mediaData.sharedContent?.url,
+                        isRelatedTo: mediaData.isRelatedTo,
+                        mainEntityOfPage: mediaData.mainEntityOfPage?.["@id"],
+                    };
+                }
+            }
+            return null;
+        } catch (error) {
+            return {
+                error: "Error al obtener los datos de la imagen"
+            };
+        }
+    },
 
-try {
-let api = await fetch(`https://api.giftedtech.my.id/api/download/pinterestdl?apikey=gifted&url=${text}`)
-let res = await api.json()
-let json = res.result
+    gif: async (url) => {
+        try {
+            let { data: html } = await axios.get(url);
+            let $ = cheerio.load(html);
 
-if (Array.isArray(json.media)) {
-for (let media of json.media) {
-if (media.format === "JPG") {
-await conn.sendFile(m.chat, media.download_url, 'HasumiBotFreeCodes.jpg', `✰ ${json.title}`, m)
-} else if (media.format === "MP4") {
-await conn.sendFile(m.chat, media.download_url, 'HasumiBotFreeCodes.mp4', `✰ ${json.title}`, m)
-}}
-} else {
-let media = json.media
-if (media.format === "JPG") {
-await conn.sendFile(m.chat, media.download_url, 'HasumiBotFreeCodes.jpg', `✰ ${json.title}`, m)
-} else if (media.format === "MP4") {
-await conn.sendFile(m.chat, media.download_url, 'HasumiBotFreeCodes.mp4', `✰ ${json.title}`, m)
-}}
+            const mediaDataScript = $('script[data-test-id="leaf-snippet"]');
+            if (mediaDataScript.length) {
+                const mediaData = JSON.parse(mediaDataScript.html());
 
-} catch (error) {
-console.error(error)
-}}
+                if (
+                    mediaData["@type"] === "SocialMediaPosting" &&
+                    mediaData.image &&
+                    mediaData.image.endsWith(".gif")
+                ) {
+                    return {
+                        type: "gif",
+                        author: mediaData.author?.name,
+                        authorUrl: mediaData.author?.url,
+                        headline: mediaData.headline,
+                        articleBody: mediaData.articleBody,
+                        gif: mediaData.image,
+                        datePublished: mediaData.datePublished,
+                        sharedContentUrl: mediaData.sharedContent?.url,
+                        isRelatedTo: mediaData.isRelatedTo,
+                        mainEntityOfPage: mediaData.mainEntityOfPage?.["@id"],
+                    };
+                }
+            }
+            return null;
+        } catch (error) {
+            return {
+                error: "Error al obtener los datos del GIF"
+            };
+        }
+    },
 
-handler.help = ['pinterestdl *<url>*']
-handler.tags = ['dl']
-handler.command = /^(pinterestdl)$/i
+    download: async (urlPin) => {
+        let result = await pindl.video(urlPin);
+        if (result) return result;
 
-export default handler
+        result = await pindl.image(urlPin);
+        if (result) return result;
+
+        result = await pindl.gif(urlPin);
+        return result || {
+            error: "No se encontró ningún medio"
+        };
+    },
+};
+
+const handler = async (m, { conn, text }) => {
+    if (!text) throw "¿Dónde está la URL?";
+    
+    await m.react('🕓');
+    
+    try {
+        const result = await pindl.download(text);
+        if (result.error) throw result.error;
+
+        let caption = ``;
+
+        if (result.type === "video") {
+            caption += `「✦」 *Información Video*\n\n> ✐ Título » ${result.name || "N/A"}\n> 🜸 Link » ${result.contentUrl}\n`;
+            await conn.sendMessage(m.chat, {
+                video: {
+                    url: result.contentUrl
+                },
+                caption
+            }, {
+                quoted: m
+            });
+        } else if (result.type === "image") {
+            caption += `「✦」 *Información Imagen*\n\n> ✐ Título » ${result.headline || "N/A"}\n> 🜸 Link » ${result.image}`;
+            await conn.sendMessage(m.chat, {
+                image: {
+                    url: result.image
+                },
+                caption
+            }, {
+                quoted: m
+            });
+        } else if (result.type === "gif") {
+            caption += `「✦」 *Información Gif*\n\n> ✐ Título » ${result.headline || "N/A"}\n> 🜸 Link » ${result.gif}\n`;
+            await conn.sendMessage(m.chat, {
+                video: {
+                    url: result.gif
+                },
+                caption
+            }, {
+                quoted: m
+            });
+        }
+
+        await m.react('✅');
+    } catch (error) {
+        await m.react('✖️');
+        await conn.sendMessage(m.chat, {
+            text: `Algo salió mal: ${error}`
+        }, {
+            quoted: m
+        });
+    }
+};
+
+handler.help = ["pinterestdl *<url>*"];
+handler.tags = ["dl"];
+handler.command = /^(pindl|pinterestdl)$/i;
+
+export default handler;
