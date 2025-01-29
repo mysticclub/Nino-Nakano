@@ -148,7 +148,7 @@ const handler = async (m, { text }) => {
         let caption = `Listo desu\n`;
 
         if (result.type === "video") {
-            caption += `「✦」*Informacion video*\n\n> ✐ Titulo » ${result.name || "N/A"}\n> 🜸 Link » ${result.contentUrl}\n`;
+            caption += `「✦」 *Informacion video*\n\n> ✐ Titulo » ${result.name || "N/A"}\n> 🜸 Link » ${result.contentUrl}\n`;
             await conn.sendMessage(m.chat, {
                 video: {
                     url: result.contentUrl
@@ -158,7 +158,7 @@ const handler = async (m, { text }) => {
                 quoted: m
             });
         } else if (result.type === "image") {
-            caption += `「✦」*Información Imagen*\n\n> ✐ Titulo » ${result.headline || "N/A"}\n> 🜸 Link » ${result.image}`;
+            caption += `「✦」 *Información Imagen*\n\n> ✐ Titulo » ${result.headline || "N/A"}\n> 🜸 Link » ${result.image}`;
             await conn.sendMessage(m.chat, {
                 image: {
                     url: result.image
@@ -168,7 +168,7 @@ const handler = async (m, { text }) => {
                 quoted: m
             });
         } else if (result.type === "gif") {
-            caption += `「✦」*Información Gif*\n\n> ✐ Titulo » ${result.headline || "N/A"}\n> 🜸 Link » ${result.gif}\n`;
+            caption += `「✦」 *Información Gif*\n\n> ✐ Titulo » ${result.headline || "N/A"}\n> 🜸 Link » ${result.gif}\n`;
             await conn.sendMessage(m.chat, {
                 video: {
                     url: result.gif
