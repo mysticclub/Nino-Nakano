@@ -148,7 +148,7 @@ const handler = async (m, { text }) => {
         let caption = `Listo desu\n`;
 
         if (result.type === "video") {
-            caption += `📹 *Información del video*:\n📄 Nombre: ${result.name || "N/A"}\n🔗 URL: ${result.contentUrl}\n`;
+            caption += `「✦」*Informacion video*\n\n> ✐ Titulo » ${result.name || "N/A"}\n> 🜸 Link » ${result.contentUrl}\n`;
             await conn.sendMessage(m.chat, {
                 video: {
                     url: result.contentUrl
@@ -158,7 +158,7 @@ const handler = async (m, { text }) => {
                 quoted: m
             });
         } else if (result.type === "image") {
-            caption += `🖼️ *Información de la imagen*:\n📄 Título: ${result.headline || "N/A"}\n🔗 URL: ${result.image}\n`;
+            caption += `「✦」*Información Imagen*\n\n> ✐ Titulo » ${result.headline || "N/A"}\n> 🜸 Link » ${result.image}`;
             await conn.sendMessage(m.chat, {
                 image: {
                     url: result.image
@@ -168,7 +168,7 @@ const handler = async (m, { text }) => {
                 quoted: m
             });
         } else if (result.type === "gif") {
-            caption += `🎞️ *Información del GIF*:\n📄 Título: ${result.headline || "N/A"}\n🔗 URL: ${result.gif}\n`;
+            caption += `「✦」*Información Gif*\n\n> ✐ Titulo » ${result.headline || "N/A"}\n> 🜸 Link » ${result.gif}\n`;
             await conn.sendMessage(m.chat, {
                 video: {
                     url: result.gif
@@ -187,8 +187,8 @@ const handler = async (m, { text }) => {
     }
 };
 
-handler.help = ["pinall"];
-handler.tags = ["downloader"];
-handler.command = /^(pdl|pinall)$/i;
+handler.help = ["pinterestdl *<url>*"];
+handler.tags = ["dl"];
+handler.command = /^(pindl|pinterestdl)$/i;
 
 export default handler;
