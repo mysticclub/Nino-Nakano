@@ -16,7 +16,6 @@ const handler = async (m, {isPrems, conn}) => {
   const texto = `
 ╭━〔 ${global.botname} 〕⬣
 ┃🚩 *Obtienes Un Cofre*
-┃ ${saludo}
 ╰━━━━━━━━━━━━⬣
 
 ╭━〔 ${global.botname} 〕⬣
