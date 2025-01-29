@@ -145,7 +145,7 @@ const handler = async (m, { text }) => {
         const result = await pindl.download(text);
         if (result.error) throw result.error;
 
-        let caption = `Listo desu\n`;
+        let caption = ``;
 
         if (result.type === "video") {
             caption += `「✦」 *Informacion video*\n\n> ✐ Titulo » ${result.name || "N/A"}\n> 🜸 Link » ${result.contentUrl}\n`;
