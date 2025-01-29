@@ -1,80 +1,194 @@
-/* 
-- Search Happy Mod By Izumi-kzx
-- API Privada By Darkcore
-- Haz búsquedas en Happy Mod 
-- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
-*/
-import fetch from 'node-fetch'
-const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
+import axios from "axios";
+import * as cheerio from "cheerio";
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en HappyMod 🤍');
-  await m.react('🕓');
+const pindl = {
+    video: async (url) => {
+        try {
+            let { data: html } = await axios.get(url);
+            let $ = cheerio.load(html);
 
-  try {
-    async function createImage(url) {
-      const { imageMessage } = await generateWAMessageContent({image: { url }}, {upload: conn.waUploadToServer})
-      return imageMessage
-    }
+            const mediaDataScript = $('script[data-test-id="video-snippet"]');
+            if (mediaDataScript.length) {
+                const mediaData = JSON.parse(mediaDataScript.html());
 
-    let push = [];
-    let api = await fetch(`https://dark-core-api.vercel.app/api/search/happymod?key=777izumi&text=${encodeURIComponent(text)}`);
-    let json = await api.json();
-
-    for (let app of json.results) {
-      let image = await createImage(app.image)
-
-      push.push({
-        body: proto.Message.InteractiveMessage.Body.fromObject({
-          text: `> ✐ Nombre » *${app.name.trim()}*\n> ✰ Valoración » *${app.stars}* ⭐ \n> 🜸 Link » _${app.link}_`
-        }),
-        footer: proto.Message.InteractiveMessage.Footer.fromObject({
-          text: ''
-        }),
-        header: proto.Message.InteractiveMessage.Header.fromObject({
-          title: '',
-          hasMediaAttachment: true,
-          imageMessage: image
-        }),
-        nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
-          buttons: [
-            {
-              "name": "cta_copy",
-              "buttonParamsJson": "{\"display_text\":\"🔗 Descargar APK\",\"id\":\"123456789\",\"copy_code\":\".download " + app.link + "\"}"
-            },
-          ]
-        })
-      });
-    }
-
-    const msg = generateWAMessageFromContent(m.chat, {
-      viewOnceMessage: {
-        message: {
-          messageContextInfo: {
-            deviceListMetadata: {},
-            deviceListMetadataVersion: 2
-          },
-          interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-            body: proto.Message.InteractiveMessage.Body.create({text: '*`\Resultados de:\`* ' + `${text}`}),
-            footer: proto.Message.InteractiveMessage.Footer.create({text: ''}),
-            header: proto.Message.InteractiveMessage.Header.create({hasMediaAttachment: false}),
-            carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({cards: [...push]})
-          })
+                if (
+                    mediaData["@type"] === "VideoObject" &&
+                    mediaData.contentUrl &&
+                    mediaData.contentUrl.endsWith(".mp4")
+                ) {
+                    return {
+                        type: "video",
+                        name: mediaData.name,
+                        description: mediaData.description,
+                        contentUrl: mediaData.contentUrl,
+                        thumbnailUrl: mediaData.thumbnailUrl,
+                        uploadDate: mediaData.uploadDate,
+                        duration: mediaData.duration,
+                        commentCount: mediaData.commentCount,
+                        likeCount: mediaData.interactionStatistic?.find(
+                            (stat) =>
+                            stat.InteractionType["@type"] === "https://schema.org/LikeAction"
+                        )?.InteractionCount,
+                        watchCount: mediaData.interactionStatistic?.find(
+                            (stat) =>
+                            stat.InteractionType["@type"] ===
+                            "https://schema.org/WatchAction"
+                        )?.InteractionCount,
+                        creator: mediaData.creator?.name,
+                        creatorUrl: mediaData.creator?.url,
+                        keywords: mediaData.keywords,
+                    };
+                }
+            }
+            return null;
+        } catch (error) {
+            return {
+                error: "Error al obtener los datos del video"
+            };
         }
-      }
-    }, {
-      'quoted': m
-    });
+    },
 
-    await m.react('✅');
-    await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id })
-  } catch (error) {
-    console.error(error)
-  }
-}
+    image: async (url) => {
+        try {
+            let { data: html } = await axios.get(url);
+            let $ = cheerio.load(html);
 
-handler.help = ["happymodsearch *<texto>*"]
-handler.tags = ["search"]
-handler.command = /^(happymodsearch)$/i
+            const mediaDataScript = $('script[data-test-id="leaf-snippet"]');
+            if (mediaDataScript.length) {
+                const mediaData = JSON.parse(mediaDataScript.html());
 
-export default handler
+                if (
+                    mediaData["@type"] === "SocialMediaPosting" &&
+                    mediaData.image &&
+                    (mediaData.image.endsWith(".png") ||
+                        mediaData.image.endsWith(".jpg") ||
+                        mediaData.image.endsWith(".jpeg") ||
+                        mediaData.image.endsWith(".webp")) &&
+                    !mediaData.image.endsWith(".gif")
+                ) {
+                    return {
+                        type: "image",
+                        author: mediaData.author?.name,
+                        authorUrl: mediaData.author?.url,
+                        headline: mediaData.headline,
+                        articleBody: mediaData.articleBody,
+                        image: mediaData.image,
+                        datePublished: mediaData.datePublished,
+                        sharedContentUrl: mediaData.sharedContent?.url,
+                        isRelatedTo: mediaData.isRelatedTo,
+                        mainEntityOfPage: mediaData.mainEntityOfPage?.["@id"],
+                    };
+                }
+            }
+            return null;
+        } catch (error) {
+            return {
+                error: "Error al obtener los datos de la imagen"
+            };
+        }
+    },
+
+    gif: async (url) => {
+        try {
+            let { data: html } = await axios.get(url);
+            let $ = cheerio.load(html);
+
+            const mediaDataScript = $('script[data-test-id="leaf-snippet"]');
+            if (mediaDataScript.length) {
+                const mediaData = JSON.parse(mediaDataScript.html());
+
+                if (
+                    mediaData["@type"] === "SocialMediaPosting" &&
+                    mediaData.image &&
+                    mediaData.image.endsWith(".gif")
+                ) {
+                    return {
+                        type: "gif",
+                        author: mediaData.author?.name,
+                        authorUrl: mediaData.author?.url,
+                        headline: mediaData.headline,
+                        articleBody: mediaData.articleBody,
+                        gif: mediaData.image,
+                        datePublished: mediaData.datePublished,
+                        sharedContentUrl: mediaData.sharedContent?.url,
+                        isRelatedTo: mediaData.isRelatedTo,
+                        mainEntityOfPage: mediaData.mainEntityOfPage?.["@id"],
+                    };
+                }
+            }
+            return null;
+        } catch (error) {
+            return {
+                error: "Error al obtener los datos del GIF"
+            };
+        }
+    },
+
+    download: async (urlPin) => {
+        let result = await pindl.video(urlPin);
+        if (result) return result;
+
+        result = await pindl.image(urlPin);
+        if (result) return result;
+
+        result = await pindl.gif(urlPin);
+        return result || {
+            error: "No se encontró ningún medio"
+        };
+    },
+};
+
+const handler = async (m, { text }) => {
+    if (!text) throw "¿Dónde está la URL?";
+
+    try {
+        const result = await pindl.download(text);
+        if (result.error) throw result.error;
+
+        let caption = `Listo desu\n`;
+
+        if (result.type === "video") {
+            caption += `📹 *Información del video*:\n📄 Nombre: ${result.name || "N/A"}\n🔗 URL: ${result.contentUrl}\n`;
+            await conn.sendMessage(m.chat, {
+                video: {
+                    url: result.contentUrl
+                },
+                caption
+            }, {
+                quoted: m
+            });
+        } else if (result.type === "image") {
+            caption += `🖼️ *Información de la imagen*:\n📄 Título: ${result.headline || "N/A"}\n🔗 URL: ${result.image}\n`;
+            await conn.sendMessage(m.chat, {
+                image: {
+                    url: result.image
+                },
+                caption
+            }, {
+                quoted: m
+            });
+        } else if (result.type === "gif") {
+            caption += `🎞️ *Información del GIF*:\n📄 Título: ${result.headline || "N/A"}\n🔗 URL: ${result.gif}\n`;
+            await conn.sendMessage(m.chat, {
+                video: {
+                    url: result.gif
+                },
+                caption
+            }, {
+                quoted: m
+            });
+        }
+    } catch (error) {
+        await conn.sendMessage(m.chat, {
+            text: `Algo salió mal: ${error}`
+        }, {
+            quoted: m
+        });
+    }
+};
+
+handler.help = ["pinall"];
+handler.tags = ["downloader"];
+handler.command = /^(pdl|pinall)$/i;
+
+export default handler;
