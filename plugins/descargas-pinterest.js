@@ -1,3 +1,8 @@
+/* 
+- Downloader Pinterest By Izumi-kzx
+- Descarga imágenes, gif, videos
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
 import axios from "axios";
 import * as cheerio from "cheerio";
 
