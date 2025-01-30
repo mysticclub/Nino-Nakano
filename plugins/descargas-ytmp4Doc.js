@@ -22,7 +22,7 @@ let handler = async (m, { conn, text }) => {
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
-                    text: `◦ *Nombre:* ${apk.title} \n◦ *Versión:* ${apk.version} \n◦ *Desarrollador:* ${apk.developer}`
+                    text: `• *Nombre:* ${apk.title} \n• *Versión:* ${apk.version} \n• *Desarrollador:* ${apk.developer}\n• *enlace:* ${apk.link}`
                 }),
                 footer: proto.Message.InteractiveMessage.Footer.fromObject({ text: '' }),
                 header: proto.Message.InteractiveMessage.Header.fromObject({
