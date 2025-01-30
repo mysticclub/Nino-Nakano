@@ -37,7 +37,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     }
 };
 
-handler.help = ['pelisplus *<título>*'];
+handler.help = ['pelisplus *<texto>*'];
 handler.tags = ['search'];
 handler.command = ['pelisplussearch', 'pelisplus'];
 handler.register = true;
