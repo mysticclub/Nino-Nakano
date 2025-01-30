@@ -15,8 +15,11 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let api = await fetch(`https://vapis.my.id/api/googlev1?q=${encodeURIComponent(text)}`);
         let json = await api.json();
 
+        // URL de la imagen proporcionada
+        let imageUrl = 'https://i.ibb.co/zH2tQMFJ/file.jpg';
+
         for (let item of json.data) {
-            let image = await createImage('https://www.example.com/your-image.jpg'); // Puedes usar una URL de imagen predeterminada si no hay una imagen en la API
+            let image = await createImage(imageUrl); // Usamos la imagen proporcionada en todas las tarjetas
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
