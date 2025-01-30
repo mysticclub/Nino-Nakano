@@ -30,7 +30,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
             txt += `✨ *Título*: ${addon.title}\n`;
             txt += `📜 *Descripción*: ${addon.description}\n`;
             txt += `🔗 *Enlace*: ${addon.link}\n`;
-            txt += `🖼️ *Imagen*: ${addon.image}\n\n`;
+            txt += `🖼️ *Imagen*: ${addon.image}\n\n---------------------------------------------------\n\n`;
         });
 
         await conn.reply(m.chat, txt.trim(), m);
