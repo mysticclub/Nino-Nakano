@@ -11,7 +11,7 @@ const handler = async (m, { conn, text }) => {
   await m.react('🕓');
 
   try {
-    const apiKey = '777izumi';
+    const apiKey = 'user1';
     const apiUrl = `https://dark-core-api.vercel.app/api/download/ytmp3?url=${encodeURIComponent(text)}&type=audio&format=mp3&key=${apiKey}`;
 
     const response = await fetch(apiUrl);
