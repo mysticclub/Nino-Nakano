@@ -11,10 +11,20 @@ const handler = async (m, { conn, text }) => {
     if (!json.success) throw '*[❗] Error, no se encontraron resultados para su búsqueda.*';
 
     const { title, version, category, downloadLink } = json.data;
-    const fileExtension = downloadLink.endsWith('.zip') ? 'zip' : 'apk';
+
+    // Hacer una petición HEAD para obtener la información del archivo
+    const headRes = await fetch(downloadLink, { method: 'HEAD' });
+    const contentType = headRes.headers.get('content-type');
+    const contentDisposition = headRes.headers.get('content-disposition');
+
+    let fileExtension = 'apk';
+    if (contentType?.includes('zip') || contentDisposition?.includes('.zip')) {
+      fileExtension = 'zip';
+    }
+
     const mimetype = fileExtension === 'zip' ? 'application/zip' : 'application/vnd.android.package-archive';
 
-    const caption = `🍟 *Descargador de APK/ZIP* 🍟\n\n• *Nombre:* ${title}\n• *Versión:* ${version}\n• *Categoría:* ${category}`;
+    const caption = `📲 *Descargador de APK/ZIP* 📲\n\n📌 *Nombre:* ${title}\n🔢 *Versión:* ${version}\n📂 *Categoría:* ${category}`;
 
     await conn.sendMessage(m.chat, {
       document: { url: downloadLink },
@@ -30,6 +40,6 @@ const handler = async (m, { conn, text }) => {
 
 handler.help = ['apk *<nombre>*'];
 handler.tags = ['dl'];
-handler.command = /^(apk2)$/i;
+handler.command = /^(apk|modapk|dapk2|aptoide|aptoidedl)$/i;
 
 export default handler;
