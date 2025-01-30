@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en APKPure 🤍');
+    if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en APKMody 🤍');
     await m.react('🕓');
 
     try {
@@ -12,7 +12,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         }
 
         let push = [];
-        let api = await fetch(`https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(text)}`);
+        let api = await fetch(`https://api.siputzx.my.id/api/apk/apkmody?search=${encodeURIComponent(text)}`);
         let json = await api.json();
 
         // Imagen predeterminada (asegurada como archivo de imagen)
@@ -24,7 +24,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
-                    text: `◦ *Título:* ${item.title} \n◦ *Desarrollador:* ${item.developer} \n◦ *Calificación:* ${item.rating.display} \n◦ *Enlace:* ${item.link}`
+                    text: `◦ *Título:* ${item.title} \n◦ *Versión:* ${item.version} \n◦ *Género:* ${item.genre} \n◦ *Características:* ${item.features} \n◦ *Enlace:* ${item.link}`
                 }),
                 footer: proto.Message.InteractiveMessage.Footer.fromObject({
                     text: '' 
