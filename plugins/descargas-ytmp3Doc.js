@@ -60,9 +60,9 @@ const handler = async (m, {conn, text, usedPrefix, command}) => {
     }
 };
 
-handler.help = ['githubsearch'];
+handler.help = ['githubsearch2'];
 handler.tags = ['buscador'];
-handler.command = ['githubsearch'];
+handler.command = ['githubsearch2'];
 
 handler.register = false;
 
