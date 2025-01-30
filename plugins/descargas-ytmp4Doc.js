@@ -12,10 +12,8 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
     await m.react('🕓');
     try {
-        // Hacer una solicitud a la API de búsqueda de películas
         const response = await axios.get(`https://api.dorratz.com/v2/pelis-search?q=${encodeURIComponent(args.join(' '))}`);
         
-        // Verificar si la solicitud fue exitosa
         if (!response.data.status) {
             return conn.reply(m.chat, 'No se encontraron resultados para su búsqueda.', m);
         }
