@@ -13,7 +13,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         return conn.reply(m.chat, `🔍 *Por favor escribe un mod a buscar.*\nEjemplo: ${usedPrefix}${command} armas`, m, rcanal);
     }
 
-    const query = args.join(' '); // Obtiene el término de búsqueda
+    const query = args.join(' ');
     await m.react('🕓');
     
     try {
