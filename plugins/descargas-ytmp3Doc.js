@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 const handler = async (m, { conn, text }) => {
-if (!text) return conn.reply(m.chat, '*Ingrese el nombre de la APK que quiera buscar.*', m);
+if (!text) return conn.reply(m.chat, '*Ingrese la url de la APK que quiera descargar.*', m);
 try {
 const apiUrl = `https://dark-core-api.vercel.app/api/download/getapk?key=user1&url=${encodeURIComponent(text)}`;
 const res = await fetch(apiUrl);
