@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
 
 let handler = async (m, { conn, text }) => {
-    if (!text) return m.reply('Ingresa el nombre de la APK que quieres buscar 🤍');
+    if (!text) return m.reply('Ingresa el nombre de la APK que quieres buscar');
     await m.react('🕓');
 
     try {
@@ -34,7 +34,7 @@ let handler = async (m, { conn, text }) => {
                     buttons: [
                         {
                             "name": "cta_copy",
-                            "buttonParamsJson": `{\"display_text\":\"📥 Descargar APK\",\"id\":\"123456789\",\"copy_code\":\"${apk.link}\"}`
+                            "buttonParamsJson": `{\"display_text\":\"📥 Descargar APK\",\"id\":\"123456789\",\"copy_code\":\".apkdroid ${apk.link}\"}`
                         }
                     ]
                 })
@@ -47,7 +47,7 @@ let handler = async (m, { conn, text }) => {
                     messageContextInfo: { deviceListMetadata: {}, deviceListMetadataVersion: 2 },
                     interactiveMessage: proto.Message.InteractiveMessage.fromObject({
                         body: proto.Message.InteractiveMessage.Body.create({ text: `*Resultados de:* ${text}` }),
-                        footer: proto.Message.InteractiveMessage.Footer.create({ text: '_\`APK Search\`_' }),
+                        footer: proto.Message.InteractiveMessage.Footer.create({ text: '_\`APK Search\`_\n• copia en el botón del carrusel y pega en el teclado para descargar' }),
                         header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
                         carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: [...push] })
                     })
