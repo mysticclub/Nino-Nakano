@@ -25,7 +25,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
             txt += `🍟 *Título* : ${pelicula.titulo}\n`;
             txt += `🍟 *Rating* : ${pelicula.rating}\n`;
             txt += `🍟 *Enlace* : ${pelicula.link}\n`;
-            txt += `🍟 *Imagen* : ${pelicula.imagen}\n\n`;
+            txt += `🍟 *Imagen* : ${pelicula.imagen}\n\n---------------------------------------------------\n\n`;
         });
 
         await conn.reply(m.chat, txt.trim(), m);
