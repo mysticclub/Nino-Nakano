@@ -47,7 +47,7 @@ let handler = async (m, { conn, text }) => {
                     messageContextInfo: { deviceListMetadata: {}, deviceListMetadataVersion: 2 },
                     interactiveMessage: proto.Message.InteractiveMessage.fromObject({
                         body: proto.Message.InteractiveMessage.Body.create({ text: `*Resultados de:* ${text}` }),
-                        footer: proto.Message.InteractiveMessage.Footer.create({ text: '_\`APK Search\`_' }),
+                        footer: proto.Message.InteractiveMessage.Footer.create({ text: '_\`APK Search\`_\ncopia o apreta el Botón abajo del APK y pégalo en la barra de escribir para descargar' }),
                         header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
                         carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: [...push] })
                     })
