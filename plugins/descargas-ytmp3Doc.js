@@ -1,3 +1,9 @@
+/* 
+- Downloader Apkdroid By Izumi-kzx
+- Power By Team Code Titans
+- https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S
+*/
+// *[ 🍟 APKDROID DOWNLOADER ]*
 import fetch from 'node-fetch';
 const handler = async (m, { conn, text }) => {
 if (!text) return conn.reply(m.chat, '*Ingrese la url de la APK que quiera descargar.*', m);
