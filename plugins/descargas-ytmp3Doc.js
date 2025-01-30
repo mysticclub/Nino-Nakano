@@ -25,8 +25,8 @@ const handler = async (m, { conn, text }) => {
   }
 };
 
-handler.help = ['apk2 *<url>*'];
+handler.help = ['apkdroid *<url>*'];
 handler.tags = ['dl'];
-handler.command = /^(apk2)$/i;
+handler.command = /^(apkdroid)$/i;
 
 export default handler;
