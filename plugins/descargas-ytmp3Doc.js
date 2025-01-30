@@ -11,7 +11,7 @@ const handler = async (m, { conn, text }) => {
     if (!json.success) throw '*[❗] Error, no se encontraron resultados para su búsqueda.*';
 
     const { title, version, category, downloadLink } = json.data;
-    const caption = `📲 *Descargador de APK* 📲\n\n📌 *Nombre:* ${title}\n🔢 *Versión:* ${version}\n📂 *Categoría:* ${category}`;
+    const caption = `🍟 *Descargador de APK* 🍟\n\n• *Nombre:* ${title}\n• *Versión:* ${version}\n• *Categoría:* ${category}`;
 
     await conn.sendMessage(m.chat, {
       document: { url: downloadLink },
