@@ -59,9 +59,6 @@ console.error(error)
 m.reply('Ocurrió un error al buscar la APK.')
 }
 }
-
-handler.help = ["apkdroidsearch *<texto>*"]
-handler.tags = ["search"]
 handler.command = ["apkdroidsearch"]
 
 export default handler
