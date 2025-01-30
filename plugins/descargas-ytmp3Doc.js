@@ -4,9 +4,6 @@
 - https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S 
 */
 // *🍁 《 Playstore  - Search 》*
-
-// Importar en la package.json 👉 "google-play-scraper": "latest",
-
 import gplay from "google-play-scraper";
 
 let handler = async (m, { conn, text }) => {
