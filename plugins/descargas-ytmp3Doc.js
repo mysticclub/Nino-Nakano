@@ -4,7 +4,7 @@ const handler = async (m, { conn, text }) => {
   if (!text) throw conn.reply(m.chat, '*Ingrese el nombre de la APK que quiera buscar.*', m);
 
   try {
-    const apiUrl = `https://dark-core-api.vercel.app/api/download/getapk?key=777izumi&url=${encodeURIComponent(text)}`;
+    const apiUrl = `https://dark-core-api.vercel.app/api/download/getapk?key=user1&url=${encodeURIComponent(text)}`;
     const res = await fetch(apiUrl);
     const json = await res.json();
 
