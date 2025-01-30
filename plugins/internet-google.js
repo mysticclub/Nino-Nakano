@@ -1,92 +1,58 @@
-import fetch from 'node-fetch';
+/* 
+- Google Search Bot By Jose
+- Power By Team Code Titans
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y 
+*/
+// *[ 🔍 GOOGLE SEARCH ]*
+import { googleIt } from '@bochilteam/scraper';
+import google from 'google-it';
+import axios from 'axios';
 
-let handler = async (m, { text }) => {
-  if (!text) {
-    m.reply('*Proporciona una consulta de búsqueda*');
-    return;
-  }
+let handler = async (m, { conn, command, args, usedPrefix }) => {
+    const fetch = (await import('node-fetch')).default;
+    const text = args.join` `;
+    if (!text) return m.reply(`*\`Ingrese el texto a buscar\`*\n• Ejemplo: ${usedPrefix + command} gato`);
+    
+    m.react("🔥");
+    try {
+        const res = await fetch(`${apis}/search/googlesearch?query=${encodeURIComponent(text)}`);
+        const data = await res.json();
+        
+        if (data.status && data.data && data.data.length > 0) {
+            let teks = `\`🔍 RESULTADOS DE:\` ${text}\n\n`;
+            for (let result of data.data) {
+                teks += `*${result.title}*\n_${result.url}_\n_${result.description}_\n\n─────────────────\n\n`;
+            }
 
-  const apiKey = 'xenzpedo';
-  const apiUrl = `https://api.botcahx.eu.org/api/search/google?text1=${encodeURIComponent(text)}&apikey=${apiKey}`;
-
-  try {
-    const response = await fetch(apiUrl);
-    const result = await response.json();
-
-    // Verificamos si no hay resultados
-    if (!result.status && result.message === 'Result Not Found') {
-      m.reply('*No se encontraron resultados para tu búsqueda.*');
-      return;
+            const ss = `https://image.thum.io/get/fullpage/https://google.com/search?q=${encodeURIComponent(text)}`;
+            conn.sendFile(m.chat, ss, 'result.png', teks, fkontak, false, fake);
+            m.react("✅");
+            handler.limit = 1;      
+        }
+    } catch (error) {
+        try {
+            const url = 'https://google.com/search?q=' + encodeURIComponent(text);
+            google({ 'query': text }).then(res => {
+                let teks = `\`🔍 RESULTADOS DE:\` ${text}\n\n*${url}*\n\n`;
+                for (let g of res) {
+                    teks += `_${g.title}_\n_${g.link}_\n_${g.snippet}_\n\n┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈\n\n`;
+                }
+                const ss = `https://image.thum.io/get/fullpage/${url}`;
+                conn.sendFile(m.chat, ss, 'error.png', teks, fkontak, false, rcanal);
+            });
+            m.react("✅");
+            handler.limit = 1;         
+        } catch (e) {
+            handler.limit = 0;
+            console.log(e);
+            m.react("❌");
+        }
     }
-
-    // Verificamos otros errores de la API
-    if (!result.status) {
-      m.reply(`*Error al realizar la búsqueda:* ${result.message}`);
-      return;
-    }
-
-    // Construimos el mensaje con los resultados
-    let replyMessage = '*Resultados de búsqueda:*\n\n';
-    result.data.slice(0, 1).forEach((item, index) => {
-      replyMessage += `${index + 1}. ${item.title}\n`;
-      replyMessage += `> *${item.description}*\n\n`;
-      replyMessage += `   URL: ${item.url}\n\n`;
-    });
-
-    m.react('✅'); // Reacción de confirmación
-    m.reply(replyMessage);
-  } catch (error) {
-    console.error('Error al realizar la solicitud a la API:', error);
-    m.reply('Ocurrió un error al obtener los resultados.');
-  }
 };
 
-handler.help = ['google *<texto>*'];
-handler.tags = ['internet'];
+handler.help = ['google', 'googlef'].map(v => v + ' <pencarian>');
+handler.tags = ['buscadores'];
 handler.command = ['google'];
+handler.register = true;
 
 export default handler;
-
-
-
-
-/* import fetch from 'node-fetch';
-
-let handler = async (m, { text }) => {
-  if (!text) {
-    m.reply('*Proporciona una consulta de búsqueda*');
-    return;
-  }
-
-  const apiUrl = `https://delirius-apiofc.vercel.app/search/googlesearch?query=${encodeURIComponent(text)}`;
-
-  try {
-    const response = await fetch(apiUrl);
-    const result = await response.json();
-
-    if (!result.status) {
-      m.reply('Error al realizar la búsqueda.');
-      return;
-    }
-
-    let replyMessage = '*Resultados de búsqueda:*\n\n';
-    result.data.slice(0, 1).forEach((item, index) => {
-      replyMessage += `${index + 1}. ${item.title}\n`;
-      replyMessage += `> *${item.description}*\n\n`;
-      replyMessage += `   URL: ${item.url}\n\n`;
-    });
-
-m.react('✅')
-
-    m.reply(replyMessage);
-  } catch (error) {
-    console.error('Error al realizar la solicitud a la API:', error);
-    m.reply('Ocurrió un error al obtener los resultados.');
-  }
-};
-
-handler.help = ['google *<texto>*']
-handler.tags = ['internet']
-handler.command = ['google'];
-
-export default handler; */
