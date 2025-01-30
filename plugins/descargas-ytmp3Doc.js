@@ -11,39 +11,21 @@ const handler = async (m, { conn, text }) => {
     if (!json.success) throw '*[❗] Error, no se encontraron resultados para su búsqueda.*';
 
     const { title, version, category, downloadLink } = json.data;
-    const caption = `📲 *Descargador de Archivos* 📲\n\n📌 *Nombre:* ${title}\n🔢 *Versión:* ${version}\n📂 *Categoría:* ${category}`;
+    const caption = `📲 *Descargador de APK* 📲\n\n📌 *Nombre:* ${title}\n🔢 *Versión:* ${version}\n📂 *Categoría:* ${category}`;
 
-    // Verifica si la URL tiene formato ZIP o APK
-    if (downloadLink.includes('.zip')) {
-      await conn.sendMessage(
-        m.chat,
-        { 
-          document: { url: downloadLink },
-          mimetype: 'application/zip',
-          fileName: `${title}.zip`,
-          caption: '*✔️ Archivo ZIP descargado.*'
-        },
-        { quoted: m }
-      );
-    } else {
-      await conn.sendMessage(
-        m.chat,
-        { 
-          document: { url: downloadLink },
-          mimetype: 'application/vnd.android.package-archive',
-          fileName: `${title}.apk`,
-          caption: '*✔️ Archivo APK descargado.*'
-        },
-        { quoted: m }
-      );
-    }
+    await conn.sendMessage(m.chat, {
+      document: { url: downloadLink },
+      mimetype: 'application/vnd.android.package-archive',
+      fileName: `${title}.apk`,
+      caption
+    }, { quoted: m });
 
   } catch (e) {
     throw '*[❗] Error al procesar la solicitud.*';
   }
 };
 
-handler.help = ['apk *<nombre>*'];
+handler.help = ['apk2 *<url>*'];
 handler.tags = ['dl'];
 handler.command = /^(apk2)$/i;
 
