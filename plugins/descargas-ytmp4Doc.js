@@ -66,6 +66,6 @@ let handler = async (m, { conn, text }) => {
 
 handler.help = ["apkdroidsearch *<texto>*"];
 handler.tags = ["search"];
-handler.command = /^(apkdroidsearch)$/i;
+handler.command = ["apkdroidsearch"]
 
 export default handler;
