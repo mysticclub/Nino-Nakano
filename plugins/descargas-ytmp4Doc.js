@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en Google 🤍');
+    if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en APKPure.');
     await m.react('🕓');
 
     try {
@@ -12,18 +12,17 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         }
 
         let push = [];
-        let api = await fetch(`https://vapis.my.id/api/googlev1?q=${encodeURIComponent(text)}`);
+        let api = await fetch(`https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(text)}`);
         let json = await api.json();
 
-        // URL de la imagen proporcionada
         let imageUrl = 'https://i.ibb.co/zH2tQMFJ/file.jpg';
 
         for (let item of json.data) {
-            let image = await createImage(imageUrl); // Usamos la imagen proporcionada en todas las tarjetas
+            let image = await createImage(item.icon);
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
-                    text: `◦ *Título:* ${item.title} \n◦ *Descripción:* ${item.desc} \n◦ *Enlace:* ${item.link}`
+                    text: `◦ *Título:* ${item.title} \n◦ *Desarrollador:* ${item.developer} \n◦ *Calificación:* ${item.rating.display} \n◦ *Enlace:* ${item.link}`
                 }),
                 footer: proto.Message.InteractiveMessage.Footer.fromObject({
                     text: '' 
@@ -37,7 +36,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
                     buttons: [
                         {
                             "name": "cta_copy",
-                            "buttonParamsJson": `{"display_text":"🎧 ¡Visitar Enlace! 🎧","id":"123456789","copy_code":".google ${item.link}"}`
+                            "buttonParamsJson": `{"display_text":"🎧 ¡Descargar APK! 🎧","id":"123456789","copy_code":".apk ${item.link}"}`
                         }
                     ]
                 })
@@ -70,8 +69,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 }
 
-handler.help = ["googlesearch *<texto>*"];
+handler.help = ["apksearch *<texto>*"];
 handler.tags = ["search"];
-handler.command = /^(googlesearch)$/i;
+handler.command = /^(apksearch)$/i;
 
 export default handler;
