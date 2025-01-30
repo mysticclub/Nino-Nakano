@@ -1,4 +1,3 @@
-/* ʙʏ ᴊᴛxꜱ 🐢 */
 import fetch from 'node-fetch'
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
 
