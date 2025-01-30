@@ -4,9 +4,6 @@
 - https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S 
 */
 // *🍁 《 Playstore  - Download 》*
-
-// Importar en la package.json 👉 "google-play-scraper": "latest",
-
 import gplay from 'google-play-scraper';
 import fetch from 'node-fetch';
 
