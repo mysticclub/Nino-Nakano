@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en APKPure.');
+    if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en APKPure 🤍');
     await m.react('🕓');
 
     try {
@@ -15,10 +15,12 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let api = await fetch(`https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(text)}`);
         let json = await api.json();
 
-        let imageUrl = 'https://i.ibb.co/zH2tQMFJ/file.jpg';
+        // Si la API no proporciona iconos en un formato adecuado, puedes usar esta imagen de fallback
+        let fallbackImage = 'https://i.ibb.co/zH2tQMFJ/file.jpg'; // Imagen predeterminada
 
         for (let item of json.data) {
-            let image = await createImage(item.icon);
+            // Usar el icono de la aplicación, o fallback si no se puede acceder
+            let image = await createImage(item.icon || fallbackImage);
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
