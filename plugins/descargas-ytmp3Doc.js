@@ -1,31 +1,34 @@
-/* 
-- Downloader Ytmp4 By Izumi-kzx
-- Power By Team Code Titans
-- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y 
-*/
-// *[ 🍟 YTMP4 DOWNLOADER ]*
-import fetch from 'node-fetch'
+import fetch from 'node-fetch';
 
-let handler = async (m, { conn, text }) => {
-if (!text) return conn.reply(m.chat, '• Ingresa un enlace de YouTube.', m)
+const handler = async (m, { conn, text }) => {
+  if (!text) throw conn.reply(m.chat, '*\`Ingrese el nombre de la APK que quiera buscar. 🤍\`*', m);
 
-try {
-let apiUrl = `https://api.diioffc.web.id/api/download/ytmp4?url=${encodeURIComponent(text)}`
-let response = await fetch(apiUrl)
-let result = await response.json()
+  try {
+    const apiUrl = `https://dark-core-api.vercel.app/api/download/getapk?key=user1&url=${encodeURIComponent(text)}`;
+    const res = await fetch(apiUrl);
+    const json = await res.json();
 
-if (!result.status) throw new Error('No se pudo obtener el video.')
+    if (!json.success) throw '*[❗] Error, no se encontraron resultados para su búsqueda.*';
 
-let { title, thumbnail, views, duration, download } = result.result
-let info = `• *Título:* ${title}\n• *Vistas:* ${views.toLocaleString()}\n• *Duración:* ${duration.timestamp}`
+    const { title, version, category, downloadLink } = json.data;
+    const response = `📲 *Descargador de APK* 📲\n\n📌 *Nombre:* ${title}\n🔢 *Versión:* ${version}\n📂 *Categoría:* ${category}`;
 
-await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: info }, { quoted: m })
-await conn.sendMessage(m.chat, { video: { url: download.url }, caption: title }, { quoted: m })
+    await conn.sendMessage(m.chat, { text: response }, { quoted: m });
 
-} catch (error) {
-console.error(error)
-conn.reply(m.chat, '❌ Error al descargar el video.', m)
-}}
+    await conn.sendMessage(m.chat, {
+      document: { url: downloadLink },
+      mimetype: 'application/vnd.android.package-archive',
+      fileName: `${title}.apk`,
+      caption: null
+    }, { quoted: m });
 
-handler.command = ['ytmp4']
-export default handler
+  } catch (e) {
+    throw '*[❗] Error al procesar la solicitud.*';
+  }
+};
+
+handler.help = ['apk *<nombre>*'];
+handler.tags = ['dl'];
+handler.command = /^(apk2)$/i;
+
+export default handler;
