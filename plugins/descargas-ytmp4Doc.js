@@ -15,9 +15,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let api = await fetch(`https://vapis.my.id/api/bingimg?q=${encodeURIComponent(text)}`);
         let json = await api.json();
 
-        // Extracción de las imágenes de la respuesta de la API
         for (let img of json.data) {
-            let image = await createImage(img.photo); // Cambié a 'photo' como el campo correcto
+            // Usa la URL de la imagen (campo 'photo' de la respuesta API)
+            let image = await createImage(img.photo);
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
@@ -29,7 +29,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
                 header: proto.Message.InteractiveMessage.Header.fromObject({
                     title: '',
                     hasMediaAttachment: true,
-                    imageMessage: image
+                    imageMessage: image // Asigna la imagen aquí
                 }),
                 nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
                     buttons: [
