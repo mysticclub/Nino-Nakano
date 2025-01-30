@@ -26,5 +26,5 @@ console.error(error)
 conn.reply(m.chat, '❌ Error al descargar el video.', m)
 }}
 
-handler.command = ['ytmp7']
+handler.command = ['ytmp4']
 export default handler
