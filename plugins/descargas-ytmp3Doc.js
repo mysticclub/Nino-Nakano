@@ -1,7 +1,7 @@
 /* import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text }) => {
-if (!text) throw 'Proporcióname el enlace de YouTube para que pueda ayudarte. 🎵'
+if (!text) throw '• Ingresa un enlace de YouTube.'
 try {
 let res = await fetch(`https://api.diioffc.web.id/api/download/ytmp3?url=${encodeURIComponent(text)}`)
 let json = await res.json()
@@ -20,7 +20,7 @@ export default handler */
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text }) => {
-if (!text) return conn.reply(m.chat, '⚠️ Ingresa un enlace de YouTube.', m)
+if (!text) return conn.reply(m.chat, '• Ingresa un enlace de YouTube.', m)
 
 try {
 let apiUrl = `https://api.diioffc.web.id/api/download/ytmp4?url=${encodeURIComponent(text)}`
