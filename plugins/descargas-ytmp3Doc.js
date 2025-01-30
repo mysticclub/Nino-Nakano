@@ -1,4 +1,8 @@
-/* import fetch from 'node-fetch'
+/* 
+- Downloader Ytmp3 By Angel-OFC 
+- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
+*/
+import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text }) => {
 if (!text) throw '• Ingresa un enlace de YouTube.'
@@ -15,9 +19,9 @@ await conn.sendMessage(m.chat, { audio: { url: download.url }, mimetype: 'audio/
 m.reply(`❌ *Error:* ${e.message || 'Ocurrió un error desconocido'}`)
 }}
 handler.command = ['ytmp3']
-export default handler */
+export default handler
 
-import fetch from 'node-fetch'
+/* import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text }) => {
 if (!text) return conn.reply(m.chat, '• Ingresa un enlace de YouTube.', m)
@@ -41,4 +45,4 @@ conn.reply(m.chat, '❌ Error al descargar el video.', m)
 }}
 
 handler.command = ['ytmp7']
-export default handler
+export default handler */
