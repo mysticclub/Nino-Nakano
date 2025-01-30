@@ -8,7 +8,7 @@
 import fetch from 'node-fetch';
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-    // Si no hay argumentos, mostrar un mensaje de ayuda
+
     if (!args.length) {
         return conn.reply(m.chat, `🔍 *Por favor escribe un mod a buscar.*\nEjemplo: ${usedPrefix}${command} armas`, m, rcanal);
     }
