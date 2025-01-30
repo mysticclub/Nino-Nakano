@@ -31,8 +31,6 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
   }
 };
 
-handler.help = ['ytmp3 *<url>*']; 
-handler.command = ['ytmp3'];
-handler.tags = ['dl'];
+handler.command = ['ytmp6'];
 
 export default handler;
