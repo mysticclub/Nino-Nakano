@@ -11,15 +11,16 @@ const handler = async (m, { conn, text }) => {
     if (!json.success) throw '*[❗] Error, no se encontraron resultados para su búsqueda.*';
 
     const { title, version, category, downloadLink } = json.data;
-    const response = `🍟 *Descargador de APK* 🍟\n\n• *Nombre:* ${title}\n• *Versión:* ${version}\n• *Categoría:* ${category}`;
+    const fileExtension = downloadLink.endsWith('.zip') ? 'zip' : 'apk';
+    const mimetype = fileExtension === 'zip' ? 'application/zip' : 'application/vnd.android.package-archive';
 
-   // await conn.sendMessage(m.chat, { text: response }, { quoted: m });
+    const caption = `🍟 *Descargador de APK/ZIP* 🍟\n\n• *Nombre:* ${title}\n• *Versión:* ${version}\n• *Categoría:* ${category}`;
 
     await conn.sendMessage(m.chat, {
       document: { url: downloadLink },
-      mimetype: 'application/vnd.android.package-archive',
-      fileName: `${title}.apk`,
-      caption: response
+      mimetype,
+      fileName: `${title}.${fileExtension}`,
+      caption
     }, { quoted: m });
 
   } catch (e) {
