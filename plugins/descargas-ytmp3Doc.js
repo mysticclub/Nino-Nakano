@@ -13,13 +13,13 @@ const handler = async (m, { conn, text }) => {
     const { title, version, category, downloadLink } = json.data;
     const response = `📲 *Descargador de APK* 📲\n\n📌 *Nombre:* ${title}\n🔢 *Versión:* ${version}\n📂 *Categoría:* ${category}`;
 
-    await conn.sendMessage(m.chat, { text: response }, { quoted: m });
+   // await conn.sendMessage(m.chat, { text: response }, { quoted: m });
 
     await conn.sendMessage(m.chat, {
       document: { url: downloadLink },
       mimetype: 'application/vnd.android.package-archive',
       fileName: `${title}.apk`,
-      caption: null
+      caption: response
     }, { quoted: m });
 
   } catch (e) {
