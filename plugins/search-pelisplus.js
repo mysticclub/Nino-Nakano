@@ -22,10 +22,10 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         let txt = '`乂  P E L I C U L A S  -  B U S Q U E D A`\n\n';
 
         peliculas.forEach(pelicula => {
-            txt += `  ✩   *Título* : ${pelicula.titulo}\n`;
-            txt += `  ✩   *Rating* : ${pelicula.rating}\n`;
-            txt += `  ✩   *Enlace* : ${pelicula.link}\n`;
-            txt += `  ✩   *Imagen* : ${pelicula.imagen}\n\n`;
+            txt += `🍟 *Título* : ${pelicula.titulo}\n`;
+            txt += `🍟 *Rating* : ${pelicula.rating}\n`;
+            txt += `🍟 *Enlace* : ${pelicula.link}\n`;
+            txt += `🍟 *Imagen* : ${pelicula.imagen}\n\n`;
         });
 
         await conn.reply(m.chat, txt.trim(), m);
