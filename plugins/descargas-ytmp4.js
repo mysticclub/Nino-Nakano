@@ -5,6 +5,50 @@
 */
 import fetch from 'node-fetch';
 
+let handler = async (m, { conn, text }) => {
+    if (!text) return conn.reply(m.chat, '❀ Ingresa un link de YouTube', m);
+
+    try {
+        await m.react('🕒');
+
+        const apiKey = 'user1';
+        const apiUrl = `https://dark-core-api.vercel.app/api/download/ytmp4?url=${encodeURIComponent(text)}&type=video&quality=hdHigh&key=${apiKey}`;
+        const response = await fetch(apiUrl);
+        const result = await response.json();
+
+        if (!result.success || !result.downloadLink) {
+            throw new Error('Error al obtener datos de la API.');
+        }
+
+        const videoUrl = result.downloadLink;
+        const fileName = 'video.mp4';
+
+        let HS = `🍃 *Video descargado correctamente*`;
+
+        await conn.sendMessage(m.chat, { 
+            video: { url: videoUrl }, 
+            caption: HS 
+        }, { quoted: m });
+
+        await m.react('✅');
+    } catch (error) {
+        console.error(error);
+        await m.react('✖'); 
+        m.reply(`❌ *Error:* ${error.message || 'Ocurrió un error desconocido'}`);
+    }
+};
+
+handler.help = ['ytmp4 *<url>*']; 
+handler.command = ['ytmp4'];
+handler.tags = ['dl'];
+
+export default handler;
+
+
+
+
+/* import fetch from 'node-fetch';
+
 let handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) return conn.reply(m.chat, '❀ Ingresa un link de YouTube', m);
 
@@ -51,4 +95,4 @@ handler.help = ['ytmp4 *<url>*'];
 handler.command = ['ytmp4'];
 handler.tags = ['dl'];
 
-export default handler;
+export default handler; */
