@@ -23,7 +23,7 @@ let handler = async (m, { conn, text, command, usedPrefix }) => {
   let randomOption = Math.floor(Math.random() * 3)
 
   switch (randomOption) {
-    case 0: // Robo exitoso
+    case 0:
       if (randomUserCorazones >= amountTaken) {
         users[senderId].corazones += amountTaken
         users[randomUserId].corazones -= amountTaken
