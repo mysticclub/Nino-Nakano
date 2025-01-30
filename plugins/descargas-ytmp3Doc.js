@@ -18,7 +18,5 @@ caption
 throw '*[❗] Error al procesar la solicitud.*';
 }
 };
-handler.help = ['apkdroid *<url>*'];
-handler.tags = ['dl'];
 handler.command = /^(apkdroid)$/i;
 export default handler;
