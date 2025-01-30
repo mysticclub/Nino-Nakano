@@ -12,7 +12,7 @@ let handler = async (m, { conn, text }) => {
         }
 
         let push = [];
-        let api = await fetch(`https://dark-core-api.vercel.app/api/search/APKDetails?key=user1&query=${encodeURIComponent(text)}`);
+        let api = await fetch(`https://dark-core-api.vercel.app/api/search/APKDetails?key=777izumi&query=${encodeURIComponent(text)}`);
         let json = await api.json();
 
         if (!json.success || !json.data.length) return m.reply('No se encontraron resultados.');
@@ -64,8 +64,8 @@ let handler = async (m, { conn, text }) => {
     }
 };
 
-handler.help = ["apksearch *<texto>*"];
+handler.help = ["apkdroidsearch *<texto>*"];
 handler.tags = ["search"];
-handler.command = /^(apksearch)$/i;
+handler.command = /^(apkdroidsearch)$/i;
 
 export default handler;
