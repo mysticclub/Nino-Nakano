@@ -15,12 +15,12 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let api = await fetch(`https://api.siputzx.my.id/api/apk/apkpure?search=${encodeURIComponent(text)}`);
         let json = await api.json();
 
-        // Si la API no proporciona iconos en un formato adecuado, puedes usar esta imagen de fallback
-        let fallbackImage = 'https://i.ibb.co/zH2tQMFJ/file.jpg'; // Imagen predeterminada
+        // Imagen predeterminada (asegurada como archivo de imagen)
+        let fallbackImage = 'https://i.ibb.co/zH2tQMFJ/file.jpg'; // Imagen de fallback en formato .jpg
 
         for (let item of json.data) {
             // Usar el icono de la aplicación, o fallback si no se puede acceder
-            let image = await createImage(item.icon || fallbackImage);
+            let image = await createImage(item.icon || fallbackImage); // Si no hay icono, usar la imagen de fallback
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
