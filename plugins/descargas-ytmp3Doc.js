@@ -14,5 +14,5 @@ await conn.sendMessage(m.chat, { audio: { url: download.url }, mimetype: 'audio/
 } catch (e) {
 m.reply(`❌ *Error:* ${e.message || 'Ocurrió un error desconocido'}`)
 }}
-handler.command = ['ytmp6']
+handler.command = ['ytmp3']
 export default handler
