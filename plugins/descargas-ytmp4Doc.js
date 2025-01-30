@@ -1,7 +1,7 @@
 import fetch from 'node-fetch'
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
 
-let handler = async (m, { conn, text, usedPrefix, command }) => {
+let handler = async (m, { conn, text }) => {
     if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en APKMody 🤍');
     await m.react('🕓');
 
@@ -15,17 +15,16 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let api = await fetch(`https://api.siputzx.my.id/api/apk/apkmody?search=${encodeURIComponent(text)}`);
         let json = await api.json();
 
-        for (let item of json.data) {
-            // Asegurándonos de que haya un ícono disponible
-            if (!item.icon) {
-                return m.reply('No se pudo encontrar el ícono de la app.');
-            }
+        if (!json.status || !json.data.length) {
+            return m.reply('No se encontraron resultados.');
+        }
 
-            let image = await createImage(item.icon); // Usamos el ícono proporcionado por la API
+        for (let item of json.data) {
+            let image = await createImage(item.icon);
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
-                    text: `◦ *Título:* ${item.title} \n◦ *Versión:* ${item.version} \n◦ *Género:* ${item.genre} \n◦ *Características:* ${item.features} \n◦ *Enlace:* ${item.link}`
+                    text: `◦ *Título:* ${item.title} \n◦ *Versión:* ${item.version} \n◦ *Género:* ${item.genre} \n◦ *Características:* ${item.features || "No especificado"} \n◦ *Enlace:* ${item.link}`
                 }),
                 footer: proto.Message.InteractiveMessage.Footer.fromObject({
                     text: '' 
@@ -33,20 +32,19 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
                 header: proto.Message.InteractiveMessage.Header.fromObject({
                     title: '',
                     hasMediaAttachment: true,
-                    imageMessage: image // Se adjunta la imagen aquí
+                    imageMessage: image 
                 }),
                 nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
                     buttons: [
                         {
                             "name": "cta_copy",
-                            "buttonParamsJson": `{"display_text":"🎧 ¡Descargar APK! 🎧","id":"123456789","copy_code":".apk ${item.link}"}`
+                            "buttonParamsJson": `{"display_text":"📥 ¡Descargar APK! 📥","id":"123456789","copy_code":".apk ${item.link}"}`
                         }
                     ]
                 })
             });
         }
 
-        // Generamos el mensaje interactivo con el carrusel de resultados
         const msg = generateWAMessageFromContent(m.chat, {
             viewOnceMessage: {
                 message: {
@@ -55,8 +53,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
                         deviceListMetadataVersion: 2
                     },
                     interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-                        body: proto.Message.InteractiveMessage.Body.create({text: '*`\Resultados de:\`* ' + `${text}`}),
-                        footer: proto.Message.InteractiveMessage.Footer.create({text: '_\`ꜱ\` \`ᴘ\`-\`ꜱ\` \`ᴇ\` \`ᴀ\` \`ʀ\` \`c\` \`ʜ\`_'}),
+                        body: proto.Message.InteractiveMessage.Body.create({text: `*Resultados de:* ${text}`}),
+                        footer: proto.Message.InteractiveMessage.Footer.create({text: '_Resultados de APKMody_'}),
                         header: proto.Message.InteractiveMessage.Header.create({hasMediaAttachment: false}),
                         carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({cards: [...push]})
                     })
@@ -69,7 +67,8 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         await m.react('✅');
         await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
     } catch (error) {
-        console.error('Error:', error);  // Asegúrate de ver el error específico para depurar más fácilmente
+        console.error('Error:', error);
+        m.reply('Ocurrió un error al buscar la app. Inténtalo de nuevo.');
     }
 }
 
