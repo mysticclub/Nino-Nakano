@@ -1,41 +1,40 @@
-import fetch from 'node-fetch';
-const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default;
+import fetch from 'node-fetch'
+const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en Bing 🤍');
+    if (!text) return m.reply('Ingresa el texto de lo que quieres buscar en Google 🤍');
     await m.react('🕓');
 
     try {
         async function createImage(url) {
-            const { imageMessage } = await generateWAMessageContent({ image: { url } }, { upload: conn.waUploadToServer });
+            const { imageMessage } = await generateWAMessageContent({image: { url }}, {upload: conn.waUploadToServer});
             return imageMessage;
         }
 
         let push = [];
-        let api = await fetch(`https://vapis.my.id/api/bingimg?q=${encodeURIComponent(text)}`);
+        let api = await fetch(`https://vapis.my.id/api/googlev1?q=${encodeURIComponent(text)}`);
         let json = await api.json();
 
-        for (let img of json.data) {
-            // Usa la URL de la imagen (campo 'photo' de la respuesta API)
-            let image = await createImage(img.photo);
+        for (let item of json.data) {
+            let image = await createImage('https://www.example.com/your-image.jpg'); // Puedes usar una URL de imagen predeterminada si no hay una imagen en la API
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
-                    text: `🌍 *Imagen encontrada en Bing*`
+                    text: `◦ *Título:* ${item.title} \n◦ *Descripción:* ${item.desc} \n◦ *Enlace:* ${item.link}`
                 }),
                 footer: proto.Message.InteractiveMessage.Footer.fromObject({
-                    text: ''
+                    text: '' 
                 }),
                 header: proto.Message.InteractiveMessage.Header.fromObject({
                     title: '',
                     hasMediaAttachment: true,
-                    imageMessage: image // Asigna la imagen aquí
+                    imageMessage: image 
                 }),
                 nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
                     buttons: [
                         {
                             "name": "cta_copy",
-                            "buttonParamsJson": `{"display_text":"🔗 Ver Imagen","id":"123456789","copy_code":"${img.photo}"}`
+                            "buttonParamsJson": `{"display_text":"🎧 ¡Visitar Enlace! 🎧","id":"123456789","copy_code":".google ${item.link}"}`
                         }
                     ]
                 })
@@ -50,24 +49,26 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
                         deviceListMetadataVersion: 2
                     },
                     interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-                        body: proto.Message.InteractiveMessage.Body.create({ text: '*`\Resultados de:\`* ' + `${text}` }),
-                        footer: proto.Message.InteractiveMessage.Footer.create({ text: '_\`B\` \`I\` \`N\` \`G\`_' }),
-                        header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
-                        carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: [...push] })
+                        body: proto.Message.InteractiveMessage.Body.create({text: '*`\Resultados de:\`* ' + `${text}`}),
+                        footer: proto.Message.InteractiveMessage.Footer.create({text: '_\`ꜱ\` \`ᴘ\`-\`ꜱ\` \`ᴇ\` \`ᴀ\` \`ʀ\` \`c\` \`ʜ\`_'}),
+                        header: proto.Message.InteractiveMessage.Header.create({hasMediaAttachment: false}),
+                        carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({cards: [...push]})
                     })
                 }
             }
-        }, { 'quoted': m });
+        }, {
+            'quoted': m
+        });
 
         await m.react('✅');
         await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
     } catch (error) {
         console.error(error);
     }
-};
+}
 
-handler.help = ["bingimg *<texto>*"];
+handler.help = ["googlesearch *<texto>*"];
 handler.tags = ["search"];
-handler.command = /^(bingimg)$/i;
+handler.command = /^(googlesearch)$/i;
 
 export default handler;
