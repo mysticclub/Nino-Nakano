@@ -1,3 +1,9 @@
+/* 
+- Search Apkdroid By Izumi-kzx
+- Power By Team Code Titans
+- https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S
+*/
+// *[ 🍟 APKDROID SEARCH ]*
 import fetch from 'node-fetch'
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default
 
