@@ -12,7 +12,7 @@ let handler = async (m, { conn, text }) => {
         }
 
         let push = [];
-        let api = await fetch(`https://dark-core-api.vercel.app/api/search/APKDetails?key=user1&query=${encodeURIComponent(text)}`);
+        let api = await fetch(`https://dark-core-api.vercel.app/api/search/APKDetails?key=777izumi&query=${encodeURIComponent(text)}`);
         let json = await api.json();
 
         if (!json.success || !json.data.length) return m.reply('No se encontraron resultados.');
@@ -55,7 +55,7 @@ let handler = async (m, { conn, text }) => {
             }
         }, { 'quoted': m });
 
-        await m.react('✅');
+        await m.react('🍟');
         await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
 
     } catch (error) {
