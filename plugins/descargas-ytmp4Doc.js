@@ -15,12 +15,13 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         let api = await fetch(`https://api.siputzx.my.id/api/apk/apkmody?search=${encodeURIComponent(text)}`);
         let json = await api.json();
 
-        // Imagen predeterminada (asegurada como archivo de imagen)
-        let fallbackImage = 'https://i.ibb.co/zH2tQMFJ/file.jpg'; // Imagen de fallback en formato .jpg
-
         for (let item of json.data) {
-            // Usar el icono de la aplicación, o fallback si no se puede acceder
-            let image = await createImage(item.icon || fallbackImage); // Si no hay icono, usar la imagen de fallback
+            // Asegurándonos de que haya un ícono disponible
+            if (!item.icon) {
+                return m.reply('No se pudo encontrar el ícono de la app.');
+            }
+
+            let image = await createImage(item.icon); // Usamos el ícono proporcionado por la API
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
@@ -32,7 +33,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
                 header: proto.Message.InteractiveMessage.Header.fromObject({
                     title: '',
                     hasMediaAttachment: true,
-                    imageMessage: image 
+                    imageMessage: image // Se adjunta la imagen aquí
                 }),
                 nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
                     buttons: [
@@ -45,6 +46,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
             });
         }
 
+        // Generamos el mensaje interactivo con el carrusel de resultados
         const msg = generateWAMessageFromContent(m.chat, {
             viewOnceMessage: {
                 message: {
@@ -67,7 +69,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
         await m.react('✅');
         await conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
     } catch (error) {
-        console.error(error);
+        console.error('Error:', error);  // Asegúrate de ver el error específico para depurar más fácilmente
     }
 }
 
