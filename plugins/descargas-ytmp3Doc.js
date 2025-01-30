@@ -18,7 +18,5 @@ caption
 return conn.reply(m.chat, '*[❗] Error al procesar la solicitud.*', m);
 }
 };
-handler.help = ['apkdroid *<url>*'];
-handler.tags = ['dl'];
 handler.command = /^(apkdroid)$/i;
 export default handler;
