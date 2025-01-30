@@ -16,7 +16,7 @@ let result = await response.json()
 if (!result.status) throw new Error('No se pudo obtener el video.')
 
 let { title, thumbnail, views, duration, download } = result.result
-let info = `🎬 *Título:* ${title}\n👀 *Vistas:* ${views.toLocaleString()}\n⏳ *Duración:* ${duration.timestamp}`
+let info = `• *Título:* ${title}\n• *Vistas:* ${views.toLocaleString()}\n• *Duración:* ${duration.timestamp}`
 
 await conn.sendMessage(m.chat, { image: { url: thumbnail }, caption: info }, { quoted: m })
 await conn.sendMessage(m.chat, { video: { url: download.url }, caption: title }, { quoted: m })
