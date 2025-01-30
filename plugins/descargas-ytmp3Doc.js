@@ -11,7 +11,7 @@ import gplay from "google-play-scraper";
 
 let handler = async (m, { conn, text }) => {
   if (!text) {
-    return conn.reply(m.chat, "*\`🤍 Ingresa el nombre de app que quieres buscar\`*", m, rcanal);
+    return conn.reply(m.chat, "*\`🤍 Ingresa el nombre de app que quieres buscar\`*", m, fake);
   }
   
   let res = await gplay.search({ term: text });
