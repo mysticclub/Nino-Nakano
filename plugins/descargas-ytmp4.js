@@ -12,7 +12,7 @@ let handler = async (m, { conn, text }) => {
         await m.react('🕒');
 
         const apiKey = '777izumi';
-        const apiUrl = `https://dark-core-api.vercel.app/api/download/ytmp4?url=${encodeURIComponent(text)}&type=video&quality=360p&key=${apiKey}`;
+        const apiUrl = `https://dark-core-api.vercel.app/api/download/ytmp4?url=${encodeURIComponent(text)}&type=video&quality=hdHigh&key=${apiKey}`;
         const response = await fetch(apiUrl);
         const result = await response.json();
 
