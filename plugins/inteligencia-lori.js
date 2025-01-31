@@ -17,6 +17,8 @@ else await m.reply(`🍟 Hubo un error al obtener la respuesta.`)
 console.error(error)
 await m.reply(`🍟 Ocurrió un error al procesar tu solicitud.`)
 }}
+handler.help = ['lori *<texto>*']
+handler.tags = ['ai']
 handler.command = ['loriai', 'lori'];
 
 export default handler
