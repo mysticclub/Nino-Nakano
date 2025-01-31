@@ -1,3 +1,9 @@
+/* 
+- Código Creado Por Izumi-kzx
+- Power By Team Code Titans
+- https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S
+*/
+// *[ 🍟 SPOTIFY SEARCH ]*
 import fetch from 'node-fetch'
 
 let handler = async (m, { conn, args, usedPrefix, command }) => {
