@@ -2,7 +2,7 @@
 - Downloader Ytmp3 By Izumi-kzx
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
-import fetch from 'node-fetch';
+/* import fetch from 'node-fetch';
 
 const handler = async (m, { conn, text }) => {
   await m.react('✖️');
@@ -41,12 +41,12 @@ handler.help = ['ytmp3 *<url>*'];
 handler.command = ['ytmp3'];
 handler.tags = ['dl'];
 
-export default handler;
+export default handler; */
 
 
 
 
-/* import fetch from 'node-fetch';
+import fetch from 'node-fetch';
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
   await m.react('✖️');
@@ -83,4 +83,4 @@ handler.help = ['ytmp3 *<url>*'];
 handler.command = ['ytmp3'];
 handler.tags = ['dl'];
 
-export default handler; */
+export default handler;
