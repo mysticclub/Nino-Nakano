@@ -26,6 +26,6 @@ await conn.reply(m.chat, txt.trim(), m)
 console.error(error)
 conn.reply(m.chat, '❌ Hubo un error al procesar la solicitud.', m)
 }}
-handler.command = ['spotifyv2']
+handler.command = ['spotifysearch']
 
 export default handler
