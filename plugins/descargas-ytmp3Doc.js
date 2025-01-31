@@ -2,7 +2,7 @@ import fetch from 'node-fetch'
 
 let handler = async (m, { conn, text }) => {
   if (!text) {
-    return conn.reply(m.chat, `❀ Ingresa un texto para hablar con ChatGPT`, m)
+    return conn.reply(m.chat, `🍟 Ingresa un texto para hablar con Lori Ai`, m)
   }
 
   try {
@@ -12,11 +12,11 @@ let handler = async (m, { conn, text }) => {
     if (json.success) {
       await m.reply(json.response)
     } else {
-      await m.reply(`❀ Hubo un error al obtener la respuesta.`)
+      await m.reply(`🍟 Hubo un error al obtener la respuesta.`)
     }
   } catch (error) {
     console.error(error)
-    await m.reply(`❀ Ocurrió un error al procesar tu solicitud.`)
+    await m.reply(`🍟 Ocurrió un error al procesar tu solicitud.`)
   }
 }
 
