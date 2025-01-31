@@ -16,7 +16,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
             return conn.reply(m.chat, `🚫 No se encontraron resultados para "${query}".`, m);
         }
 
-        let txt = '🎵  R E S U L T A D O S  -  S P O T I F Y\n\n';
+        let txt = '🎵 S E A R C H - S P O T I F Y\n\n';
 
         data.result.forEach(track => {
             txt += `🎼 *Título*: ${track.trackName}\n`;
