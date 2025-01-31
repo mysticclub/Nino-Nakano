@@ -3,7 +3,7 @@
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 - Parchado por DarkCore... vip plus
 */
-import fetch from 'node-fetch';
+/* import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, '🍟 Ingresa un link de YouTube', m);
@@ -42,15 +42,15 @@ handler.help = ['ytmp4 *<url>*'];
 handler.command = ['ytmp4'];
 handler.tags = ['dl'];
 
-export default handler;
+export default handler; */
 
 
 
 
-/* import fetch from 'node-fetch';
+import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-    if (!text) return conn.reply(m.chat, '❀ Ingresa un link de YouTube', m);
+    if (!text) return conn.reply(m.chat, '🍟 Ingresa un link de YouTube', m);
 
     try {
         await m.react('🕒');
@@ -95,4 +95,4 @@ handler.help = ['ytmp4 *<url>*'];
 handler.command = ['ytmp4'];
 handler.tags = ['dl'];
 
-export default handler; */
+export default handler;
