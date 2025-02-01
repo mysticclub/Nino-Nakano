@@ -38,7 +38,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ["twitterdl"];
 handler.tags = ["downloader"];
-handler.command = ["twitterdl", "x", "xdl"];
+handler.command = ["twitterdl2", "x", "xdl"];
 
 export default handler;
 
