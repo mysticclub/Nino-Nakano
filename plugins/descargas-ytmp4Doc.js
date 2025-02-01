@@ -26,7 +26,5 @@ if (processedUrls.size === 0) return conn.reply(m.chat, '⚠️ No se encontraro
 return conn.reply(m.chat, '❌ Ocurrió un error al descargar el contenido.', m)
 }}
 
-handler.help = ['threads *<link>*']
-handler.tags = ['dl']
 handler.command = /^(threads|thdl)$/i
 export default handler
