@@ -1,5 +1,5 @@
 import uploadImage from '../lib/uploadImage.js';
-const baileys = (await import("@adiwajshing/baileys")).default;
+const baileys = (await import("@whiskeysockets/baileys")).default;
 
 if (!baileys.proto.Message.ProtocolMessage.Type.STATUS_MENTION_MESSAGE) {
   throw new Error("No se encontró STATUS_MENTION_MESSAGE en ProtocolMessage (¿Tu WAProto está actualizado?)");
