@@ -6,7 +6,8 @@ let handler = async (m, { conn, args }) => {
         return conn.reply(m.chat, `🌐 Ingresa un link de Threads`, m);
     }
 
-    if (!args[0].match(/^https?:\/\/www\.threads\.net\/t\/([a-zA-Z0-9_-]+)/)) {
+    // Validación de enlaces de Threads
+    if (!args[0].match(/^https?:\/\/www\.threads\.net\/@[\w.]+\/post\/[\w-]+(\?xmt=[\w-]+)?$/)) {
         await m.react('✖️');
         return conn.reply(m.chat, `☁️ Verifica que sea un link válido de Threads`, m);
     }
