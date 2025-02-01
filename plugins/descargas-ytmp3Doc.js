@@ -18,24 +18,15 @@ let handler = async (m, { conn, args }) => {
 
         let processedUrls = new Set();
 
-        for (let media of data.media) {
-            if (!processedUrls.has(media.url)) {
-                processedUrls.add(media.url);
-
-                if (media.type === 'image') {
+        // Envío de imágenes
+        if (data.data.image_urls.length > 0) {
+            for (let imgUrl of data.data.image_urls) {
+                if (!processedUrls.has(imgUrl)) {
+                    processedUrls.add(imgUrl);
                     await conn.sendMessage(
                         m.chat,
                         { 
-                            image: { url: media.url }, 
-                            caption: '*✔️ Descarga de Threads.*' 
-                        },
-                        { quoted: m }
-                    );
-                } else if (media.type === 'video') {
-                    await conn.sendMessage(
-                        m.chat,
-                        { 
-                            video: { url: media.url }, 
+                            image: { url: imgUrl }, 
                             caption: '*✔️ Descarga de Threads.*' 
                         },
                         { quoted: m }
@@ -43,7 +34,29 @@ let handler = async (m, { conn, args }) => {
                 }
             }
         }
-        await m.react('✅'); 
+
+        // Envío de videos
+        if (data.data.video_urls.length > 0) {
+            for (let vid of data.data.video_urls) {
+                if (!processedUrls.has(vid.download_url)) {
+                    processedUrls.add(vid.download_url);
+                    await conn.sendMessage(
+                        m.chat,
+                        { 
+                            video: { url: vid.download_url }, 
+                            caption: '*✔️ Descarga de Threads.*' 
+                        },
+                        { quoted: m }
+                    );
+                }
+            }
+        }
+
+        if (processedUrls.size === 0) {
+            await conn.reply(m.chat, `⚠️ No se encontraron medios en el enlace proporcionado.`, m);
+        } else {
+            await m.react('✅');
+        }
     } catch (error) {
         console.log(error);
         await m.react('❌');
