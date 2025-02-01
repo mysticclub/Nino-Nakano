@@ -1,4 +1,4 @@
-import axios from 'axios';
+/* import axios from 'axios';
 
 let handler = async (m, { conn, args }) => {
     if (!args[0]) {
@@ -65,4 +65,4 @@ handler.help = ['threads *<link>*'];
 handler.tags = ['dl'];
 handler.command = /^(threads|thdl)$/i;
 
-export default handler;
+export default handler; */
