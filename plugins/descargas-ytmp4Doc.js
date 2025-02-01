@@ -7,8 +7,8 @@
 import axios from 'axios'
 
 let handler = async (m, { conn, args }) => {
-if (!args[0]) return conn.reply(m.chat, '🌐 Ingresa un link de Threads.', m)
-if (!args[0].match(/^https?:\/\/www\.threads\.net\/@[\w.]+\/post\/[\w-]+(\?xmt=[\w-]+)?$/)) return conn.reply(m.chat, '☁️ Verifica que sea un link válido de Threads.', m)
+if (!args[0]) return conn.reply(m.chat, '🍟 Ingresa un link de Threads.', m)
+if (!args[0].match(/^https?:\/\/www\.threads\.net\/@[\w.]+\/post\/[\w-]+(\?xmt=[\w-]+)?$/)) return conn.reply(m.chat, '🍟 Verifica que sea un link válido de Threads.', m)
 try {
 let { data } = await axios.get(`https://api.agatz.xyz/api/threads?url=${args[0]}`)
 let processedUrls = new Set()
