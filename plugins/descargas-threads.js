@@ -9,12 +9,12 @@ import axios from 'axios';
 let handler = async (m, { conn, args }) => {
     if (!args[0]) {
         await m.react('✖️');
-        return conn.reply(m.chat, `🌐 Ingresa un link de Threads`, m);
+        return conn.reply(m.chat, `🍟 Ingresa un link de Threads`, m);
     }
 
     if (!args[0].match(/^https?:\/\/www\.threads\.net\/@[\w.]+\/post\/[\w-]+(\?xmt=[\w-]+)?$/)) {
         await m.react('✖️');
-        return conn.reply(m.chat, `☁️ Verifica que sea un link válido de Threads`, m);
+        return conn.reply(m.chat, `🍟 Verifica que sea un link válido de Threads`, m);
     }
 
     try {
@@ -31,7 +31,7 @@ let handler = async (m, { conn, args }) => {
                         m.chat,
                         { 
                             image: { url: imgUrl }, 
-                            caption: '*✔️ Descarga de Threads.*' 
+                            caption: '*✔️🍟 Descarga de Threads.*' 
                         },
                         { quoted: m }
                     );
@@ -47,7 +47,7 @@ let handler = async (m, { conn, args }) => {
                         m.chat,
                         { 
                             video: { url: vid.download_url }, 
-                            caption: '*✔️ Descarga de Threads.*' 
+                            caption: '*✔️🍟 Descarga de Threads.*' 
                         },
                         { quoted: m }
                     );
