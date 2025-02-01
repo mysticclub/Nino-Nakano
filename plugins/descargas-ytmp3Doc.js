@@ -1,4 +1,10 @@
-/* import axios from 'axios';
+/* 
+- Código Creado Por Izumi-kzx
+- Power By Team Code Titans
+- https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S
+*/
+// *[ 🍟 THREADS DOWNLOADER ]*
+import axios from 'axios';
 
 let handler = async (m, { conn, args }) => {
     if (!args[0]) {
@@ -65,4 +71,4 @@ handler.help = ['threads *<link>*'];
 handler.tags = ['dl'];
 handler.command = /^(threads|thdl)$/i;
 
-export default handler; */
+export default handler;
