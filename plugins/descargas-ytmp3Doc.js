@@ -27,7 +27,7 @@ let handler = async (m, { conn, args }) => {
                         m.chat,
                         { 
                             image: { url: imgUrl }, 
-                            caption: '*✔️ Descarga de Threads.*' 
+                            caption: '*✔️🍟 Descarga de Threads.*' 
                         },
                         { quoted: m }
                     );
@@ -44,7 +44,7 @@ let handler = async (m, { conn, args }) => {
                         m.chat,
                         { 
                             video: { url: vid.download_url }, 
-                            caption: '*✔️ Descarga de Threads.*' 
+                            caption: '*✔️🍟 Descarga de Threads.*' 
                         },
                         { quoted: m }
                     );
