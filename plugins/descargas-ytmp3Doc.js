@@ -1,140 +1,89 @@
-import uploadImage from '../lib/uploadImage.js';
-const baileys = (await import("@whiskeysockets/baileys")).default;
-
-if (!baileys.proto.Message.ProtocolMessage.Type.STATUS_MENTION_MESSAGE) {
-  throw new Error("No se encontró STATUS_MENTION_MESSAGE en ProtocolMessage (¿Tu WAProto está actualizado?)");
-}
-
-// Función para obtener los participantes de los grupos
-const fetchParticipants = async (...jids) => {
-  let results = [];
-  for (const jid of jids) {
-    let { participants } = await conn.groupMetadata(jid);
-    participants = participants.map(({ id }) => id);
-    results = results.concat(participants);
-  }
-  return results;
-};
-
-async function mentionStatus(jids, content) {
-  let colors = ['#7ACAA7', '#6E257E', '#5796FF', '#7E90A4', '#736769', '#57C9FF', '#25C3DC', '#FF7B6C', '#55C265', '#FF898B', '#8C6991', '#C69FCC', '#B8B226', '#EFB32F', '#AD8774', '#792139', '#C1A03F', '#8FA842', '#A52C71', '#8394CA', '#243640'];
-  let fonts = [0, 1, 2, 6, 7, 8, 9, 10];
-
-  let users = [];
-  for (let id of jids) {
-    let userId = await conn.groupMetadata(id);
-    users.push(...userId.participants.map(u => conn.decodeJid(u.id)));
-  }
-
-  let message = await conn.sendMessage(
-    "status@broadcast", 
-    content, 
-    {
-      backgroundColor: colors[Math.floor(Math.random() * colors.length)],
-      font: fonts[Math.floor(Math.random() * fonts.length)],
-      statusJidList: users,
-      additionalNodes: [
-        {
-          tag: "meta",
-          attrs: {},
-          content: [
-            {
-              tag: "mentioned_users",
-              attrs: {},
-              content: jids.map((jid) => ({
-                tag: "to",
-                attrs: { jid },
-                content: undefined,
-              })),
-            },
-          ],
-        },
-      ],
-    }
-  );
-
-  jids.forEach(id => {
-    conn.relayMessage(
-      id, 
-      {
-        groupStatusMentionMessage: {
-          message: {
-            protocolMessage: {
-              key: message.key,
-              type: 25,
-            },
-          },
-        },
-      },
-      {
-        userJid: conn.user.jid,
-        additionalNodes: [
-          {
-            tag: "meta",
-            attrs: { is_status_mention: "true" },
-            content: undefined,
-          },
-        ],
-      }
-    );
-  });
-}
+import axios from "axios";
+import cheerio from "cheerio";
+import FormData from "form-data";
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
-  if (command == 'upswimage') {
-    let q = m.quoted ? m.quoted : m;
-    let mime = (q.msg || q).mimetype || '';
-    if (!mime) throw 'No se encontró ningún archivo multimedia.';
-    let media = await q.download();
-    let link = await uploadImage(media);
-    await mentionStatus([m.chat], {
-      image: { url: `${link}` },
-      caption: `${text}`
-    });
+  if (!text) {
+    return m.reply(`¿Dónde está el enlace? Usa el comando:\n${usedPrefix + command} <enlace de Twitter>`);
   }
 
-  if (command == 'upswvideo') {
-    let q = m.quoted ? m.quoted : m;
-    let mime = (q.msg || q).mimetype || '';
-    if (!mime) throw 'No se encontró ningún archivo multimedia.';
-    let media = await q.download();
-    let link = await uploadImage(media);
-    await mentionStatus([m.chat], {
-      video: { url: `${link}` },
-      caption: `${text}`
-    });
-  }
+  try {
+    let res = await x(text);
+    if (res.status !== 200 || (!res.result.video && !res.result.image)) {
+      throw "Error al obtener los datos. Asegúrate de que el enlace es correcto e inténtalo de nuevo.";
+    }
 
-  if (command == 'upswaudio') {
-    let q = m.quoted ? m.quoted : m;
-    let mime = (q.msg || q).mimetype || '';
-    if (!mime) throw 'No se encontró ningún archivo multimedia.';
-    let media = await q.download();
-    let link = await uploadImage(media);
-    await mentionStatus([m.chat], {
-      audio: { url: `${link}` }
-    });
-  }
+    let { title, duration, thumb, video, image } = res.result;
+    let caption = `*📌 Media de Twitter*\n\n📌 *Título:* ${title}\n⏳ *Duración:* ${duration || "-"}\n`;
 
-  if (command == 'upswtext') {
-    await mentionStatus([m.chat], {
-      text: text
-    });
-  }
+    if (image) {
+      caption += `🖼 *Imagen encontrada.* Descargando...`;
+      await conn.sendFile(m.chat, image, "twitter.jpg", caption, m);
+    } else {
+      caption += `🎞 *Descargando video en la mejor calidad disponible...*`;
+      await conn.sendFile(m.chat, thumb, "thumb.jpg", caption, m);
 
-  if (command == 'upsw') {
-    let msg = `¿Qué deseas subir?
-- .upswimage <texto opcional> (para imágenes)
-- .upswvideo <texto opcional> (para videos)
-- .upswaudio (para audios)
-- .upswtext <texto> (para texto)`;
-    m.reply(msg);
+      let videoUrl = video.fhd;
+      if (videoUrl) {
+        await conn.sendFile(m.chat, videoUrl, "twitter.mp4", `🎥 *Video de Twitter*\n\n📌 *Título:* ${title}`, m);
+      } else {
+        throw "El video no está disponible para descargar.";
+      }
+    }
+  } catch (e) {
+    console.error(e);
+    m.reply("Ocurrió un error al obtener los datos.");
   }
 };
 
-handler.help = ['upswimage', 'upswvideo', 'upswtext', 'upswaudio', 'upsw'];
-handler.tags = ['owner'];
-handler.command = /^(upswimage|upswvideo|upswtext|upswaudio|upsw)$/i;
-handler.owner = true;
+handler.help = ["twitterdl"];
+handler.tags = ["downloader"];
+handler.command = ["twitterdl", "x", "xdl"];
 
 export default handler;
+
+const x = async (link) => {
+  const form = new FormData();
+  form.append("q", link);
+  form.append("lang", "es");
+
+  const result = {
+    status: 200,
+    creator: "INS DV",
+    result: {},
+  };
+
+  try {
+    let res = await axios.post("https://x2twitter.com/api/ajaxSearch", form, {
+      headers: {
+        Accept: "*/*",
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+        Origin: "https://x2twitter.com",
+        Referer: "https://x2twitter.com/es",
+        "User-Agent": "GoogleBot",
+      },
+    });
+
+    const $ = cheerio.load(res.data.data);
+    let $$ = $(".tw-right > .dl-action");
+    let _$ = $(".tw-middle > .content > .clearfix");
+
+    result.result = {
+      title: _$.find("h3").text(),
+      duration: _$.find("p").text() + " segundos",
+      thumb: $(".tw-video > .tw-left > .thumbnail > .image-tw.open-popup > img").attr("src"),
+      video: {
+        fhd: $$.find("p").eq(0).find("a").attr("href") || null,
+        hd: $$.find("p").eq(1).find("a").attr("href") || null,
+        sd: $$.find("p").eq(2).find("a").attr("href") || null,
+        audio: $$.find("p").eq(4).find("a").attr("data-audiourl") || null,
+      },
+      image: $$.find("p").eq(5).find("a").attr("href") || null,
+    };
+  } catch (error) {
+    console.error(error);
+    return { status: 500, creator: "INS DV", msg: "Ocurrió un error." };
+  }
+
+  return result;
+};
