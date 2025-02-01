@@ -67,7 +67,7 @@ let handler = async (m, { conn, args }) => {
     }
 };
 
-handler.help = ['threads *<link>*'];
+handler.help = ['threads *<url>*'];
 handler.tags = ['dl'];
 handler.command = /^(threads|thdl)$/i;
 
