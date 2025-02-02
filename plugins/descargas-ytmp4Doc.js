@@ -1,21 +1,34 @@
-let handler = async (m, { conn, isBotAdmin, isGroup, botname }) => {
-    if (!isGroup) return m.reply('❌ Este comando solo puede usarse en grupos.');
-    if (!isBotAdmin) return m.reply('🤖 Necesito ser administrador para obtener el enlace del grupo.');
+import { proto, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 
-    let response = await conn.groupInviteCode(m.chat);
-    let groupLink = `https://chat.whatsapp.com/${response}`;
+let handler = async (m, { conn }) => {
+    let Teksnya = `Your teks`;
 
-    await conn.sendMessage(m.chat, { 
-        location: { 
-            degreesLatitude: 0, 
-            degreesLongitude: 0, 
-            name: "Klik/Salin Link Grup", 
-            address: `© ${botname}`, 
-            url: groupLink
+    let msg = generateWAMessageFromContent(m.chat, {
+        viewOnceMessage: {
+            message: {
+                interactiveMessage: proto.Message.InteractiveMessage.create({
+                    body: proto.Message.InteractiveMessage.Body.create({
+                        text: ''
+                    }),
+                    footer: proto.Message.InteractiveMessage.Footer.create({
+                        text: Teksnya
+                    }),
+                    nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
+                        buttons: []
+                    }),
+                    contextInfo: {
+                        mentionedJid: [m.sender]
+                    }
+                })
+            }
         }
-    }, { quoted: m });
+    }, {});
+
+    await conn.relayMessage(m.chat, msg.message, {
+        messageId: msg.key.id
+    });
 };
 
-handler.command = ['linkgct', 'linkgroup', 'linkgrup'];
+handler.command = ['sendfooter']; // Puedes cambiar el nombre del comando si lo deseas
 
 export default handler;
