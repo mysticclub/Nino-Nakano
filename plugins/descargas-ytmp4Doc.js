@@ -1,7 +1,7 @@
 import { proto, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 
 let handler = async (m, { conn }) => {
-    let Teksnya = `Your teks`;
+    let Teksnya = `hola`;
 
     let msg = generateWAMessageFromContent(m.chat, {
         viewOnceMessage: {
