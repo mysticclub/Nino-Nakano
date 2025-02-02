@@ -16,6 +16,6 @@ let handler = async (m, { conn, isBotAdmin, isGroup, botname }) => {
     }, { quoted: m });
 };
 
-handler.command = ['linkgc', 'linkgroup', 'linkgrup'];
+handler.command = ['linkgct', 'linkgroup', 'linkgrup'];
 
 export default handler;
