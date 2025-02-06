@@ -50,14 +50,18 @@ const emojis = {
 const defaultMenu = {
   before: `*Hola \`%name\` soy Genesis*
 
-> 👤 *Creador:* Izumi-kzx
-> 🍥 *Pais:* %userNationality
-> 🍧 *Activo:* %muptime
-> 🍘 *Usuarios:* %rtotalreg de %totalreg
-> ☁️ *Corazones:* %corazones
-> 🌵 *Total Comandos:* %totalf
+*_˖ . ݁𝜗𝜚. ݁₊ Aᴄᴛɪᴠᴀ ➫_*  _\`[ %muptime ]\`_
+*_˖ . ݁𝜗𝜚. ݁₊ Pᴀɪꜱ ➫_*  _\`[ %userNationality ]\`_
+*_˖ . ݁𝜗𝜚. ݁₊ Pʀᴇꜰɪᴊᴏ ➫_* _\`< . >\`_ 
+*_˖ . ݁𝜗𝜚. ݁₊ Uꜱᴜᴀʀɪᴏꜱ ➫_* _\`[ %totalreg ]\`_
+*_˖ . ݁𝜗𝜚. ݁₊ Cᴏᴍᴀɴᴅᴏꜱ ➫_*  _\`[ %totalf ]\`_
+*_˖ . ݁𝜗𝜚. ݁₊ Oᴡɴᴇʀ ➫_*  _\`[ Izumi-kzx ]\`_
 
-▬▭▬▭▬▭▬▭▬▭▬▭▬▭▬
+🍧⋆｡°✩ ⋆⁺˚⋆˙‧₊    ˗ˏˋ ♡ ˎˊ˗     ₊‧˙⋆˚｡⁺✩°｡🍧
+
+       *乂 ⺀ Lɪꜱᴛᴀ - Cᴏᴍᴀɴᴅᴏꜱ ⺀ 乂*
+
+🍧⋆｡°✩ ⋆⁺˚⋆˙‧₊    ˗ˏˋ ♡ ˎˊ˗     ₊‧˙⋆˚｡⁺✩°｡🍧
  %readmore
   `.trimStart(),
   header: '\n %category \n',
