@@ -18,10 +18,7 @@ await conn.sendMessage(m.chat, { audio: { url: music }, fileName: `${title}.mp3`
 } catch { conn.reply(m.chat, '🚩 Error al procesar la solicitud.', m); }
 };
 
-handler.help = ['spotify *<url>*'];
-handler.tags = ['dl'];
 handler.command = /^(spotify|sp)$/i;
-handler.register = true;
 
 export default handler;
 
