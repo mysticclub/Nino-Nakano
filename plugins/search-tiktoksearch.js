@@ -2,7 +2,7 @@ import axios from 'axios';
 const { proto, generateWAMessageFromContent, generateWAMessageContent } = (await import("@whiskeysockets/baileys")).default;
 
 let handler = async (message, { conn, text }) => {
-    if (!text) return conn.reply(message.chat, '*¿Qué quieres buscar en TikTok?*');
+    if (!text) return conn.reply(message.chat, '*¿Qué quieres buscar en TikTok?*', message);
 
     async function createVideoMessage(url) {
         const { videoMessage } = await generateWAMessageContent({ video: { url } }, { upload: conn.waUploadToServer });
@@ -17,8 +17,10 @@ let handler = async (message, { conn, text }) => {
     }
 
     try {
-        await m.react('🕓');
+        await message.react('🕓');
+        conn.reply(message.chat, '*Descargando su video...*', message);
 
+        // Llamamos a la API actualizada
         let { data: response } = await axios.get(`https://dark-core-api.vercel.app/api/search/tiktok?key=user1&text=${encodeURIComponent(text)}`);
 
         if (!response.success || !response.results || response.results.length === 0) {
@@ -26,9 +28,10 @@ let handler = async (message, { conn, text }) => {
         }
 
         let searchResults = response.results;
-        shuffleArray(searchResults);
+        shuffleArray(searchResults); // Mezclar los resultados
 
-        let selectedResults = searchResults.slice(0, 7);
+        let selectedResults = searchResults.slice(0, 7); // Tomamos los primeros 7 resultados
+        let results = []; // SE INICIALIZA AQUÍ PARA EVITAR EL ERROR
 
         for (let result of selectedResults) {
             results.push({
@@ -54,13 +57,13 @@ let handler = async (message, { conn, text }) => {
                         body: proto.Message.InteractiveMessage.Body.create({ text: `Resultados de: ${text}` }),
                         footer: proto.Message.InteractiveMessage.Footer.create({ text: '🔎 TikTok - Búsquedas' }),
                         header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
-                        carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: [...results] })
+                        carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: results }) // SE USA results AQUÍ
                     })
                 }
             }
         }, { quoted: message });
 
-        await m.react('✅');
+        await message.react('✅');
         await conn.relayMessage(message.chat, responseMessage.message, { messageId: responseMessage.key.id });
 
     } catch (error) {
@@ -70,6 +73,8 @@ let handler = async (message, { conn, text }) => {
 };
 
 handler.help = ['tiktoksearch <texto>'];
+handler.corazones = 1;
+handler.register = true;
 handler.tags = ['search'];
 handler.command = ['tiktoksearch', 'tiktoks'];
 
