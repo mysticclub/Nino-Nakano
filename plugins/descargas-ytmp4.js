@@ -65,10 +65,9 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
     }
 };
 
+handler.help = ['ytmp4 *<url>*']; 
 handler.tags = ['dl'];
 handler.command = /^ytmp4$/i;
-handler.register = true;
-handler.Monedas = 3;
 
 export default handler;
 
