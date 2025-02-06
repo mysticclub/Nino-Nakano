@@ -2,7 +2,7 @@ import axios from 'axios';
 const { proto, generateWAMessageFromContent, generateWAMessageContent } = (await import("@whiskeysockets/baileys")).default;
 
 let handler = async (message, { conn, text }) => {
-    if (!text) return conn.reply(message.chat, '*¿Qué quieres buscar en TikTok?*', message);
+    if (!text) return conn.reply(message.chat, '*¿Qué quieres buscar en TikTok?*');
 
     async function createVideoMessage(url) {
         const { videoMessage } = await generateWAMessageContent({ video: { url } }, { upload: conn.waUploadToServer });
@@ -17,7 +17,7 @@ let handler = async (message, { conn, text }) => {
     }
 
     try {
-        await message.react('🕓');
+        await m.react('🕓');
 
         let { data: response } = await axios.get(`https://dark-core-api.vercel.app/api/search/tiktok?key=user1&text=${encodeURIComponent(text)}`);
 
@@ -60,7 +60,7 @@ let handler = async (message, { conn, text }) => {
             }
         }, { quoted: message });
 
-        await message.react('✅');
+        await m.react('✅');
         await conn.relayMessage(message.chat, responseMessage.message, { messageId: responseMessage.key.id });
 
     } catch (error) {
