@@ -64,7 +64,7 @@ const defaultMenu = {
 🍧⋆｡°✩ ⋆⁺˚⋆˙‧₊  ˗ˏˋ ♡ ˎˊ˗  ₊‧˙⋆˚｡⁺✩°｡🍧
  %readmore
   `.trimStart(),
-  header: '\n %category \n',
+  header: ' %category \n',
   body: '%emoji %cmd %iscorazones %isPremium',
   footer: '\n',
   after: ``,
