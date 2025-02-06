@@ -4,6 +4,33 @@
 */
 import fetch from 'node-fetch';
 
+let handler = async (m, { conn, text }) => {
+if (!text) return conn.reply(m.chat, '🚩 Ingresa el nombre o enlace de *Spotify*.', m);
+try {
+let res = await fetch(`https://api.vreden.web.id/api/spotify?url=${encodeURIComponent(text)}`);
+let json = await res.json();
+if (json.status === 200 && json.result?.status) {
+let { title, artists, cover, music } = json.result;
+let msg = `🎵 *Título*: ${title}\n🎤 *Artista*: ${artists}\n📅 *Lanzamiento*: ${json.result.releaseDate}`;
+await conn.sendFile(m.chat, cover, 'cover.jpg', msg, m);
+await conn.sendMessage(m.chat, { audio: { url: music }, fileName: `${title}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m });
+} else conn.reply(m.chat, '🚩 No se pudo obtener la música.', m);
+} catch { conn.reply(m.chat, '🚩 Error al procesar la solicitud.', m); }
+};
+
+handler.help = ['spotify *<url>*'];
+handler.tags = ['dl'];
+handler.command = /^(spotify|sp)$/i;
+handler.register = true;
+
+export default handler;
+
+
+
+
+
+/* import fetch from 'node-fetch';
+
 let handler = async (m, { conn, command, text, usedPrefix }) => {
   if (!text) {
     return conn.reply(
@@ -62,7 +89,7 @@ handler.tags = ['dl'];
 handler.command = /^(spotify|sp)$/i;
 handler.register = true;
 
-export default handler;
+export default handler; */
 
 
 
