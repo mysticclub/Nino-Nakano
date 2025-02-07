@@ -6,7 +6,7 @@ const handler = async (m, { conn }) => {
     let texting = 'q pasa w';
 
     await conn.sendMessage(m.chat, {
-        image: { url: 'https://files.catbox.moe/brjxwz.jpg' },
+        image: { url: 'https://i.ibb.co/YDGYRhx/file.jpg' },
         caption: texting,
         footer: 'la cosa es seria chavito\nte amo w',
         contextInfo: {
