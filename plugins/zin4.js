@@ -71,7 +71,7 @@ conn.sendMessage(m.chat, {
   }, { quoted: m })
 }
 
-handler.command = ['test'];
+handler.command = ['tesyt'];
 export default handler;
 
 
