@@ -17,7 +17,7 @@ let handler = async (m, { command, conn, usedPrefix }) => {
 
   try {
     // Fetch the JSON data from the URL
-    const res = (await axios.get(`https://raw.githubusercontent.com/WOTCHITA/YaemoriBot-MD/master/src/JSON/anime-${command}.json`)).data;
+    const res = (await axios.get(`https://raw.githubusercontent.com/davidprospero123/api-anime/main/BOT-JSON/anime-${command}.json`)).data;
 
     // Ensure the array contains items
     if (!Array.isArray(res) || res.length === 0) {
