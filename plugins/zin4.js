@@ -1,10 +1,4 @@
-const { prepareWAMessageMedia, generateWAMessageFromContent } = (await import('@whiskeysockets/baileys')).default;
-const { randomBytes } = await import("crypto");
-
-const handler = async (m, { conn }) => {
-    try {
-
-// let handler = async (m, { conn, args, usedPrefix, command }) => {
+let handler = async (m, { conn, args, usedPrefix, command }) => {
   let txt = `Hola`;
   let img = 'https://i.ibb.co/YDGYRhx/file.jpg';
 
@@ -21,41 +15,6 @@ const handler = async (m, { conn }) => {
       {
         buttonId: `.owner`,
         buttonText: { displayText: 'ᯓᡣ𐭩 ᥆ᥕᥒᥱr' },
-      },
-    ],
-    viewOnce: true,
-    headerType: 4,
-  }, { quoted: m });
-
-  // Segunda imagen con información adicional
-  conn.sendMessage(m.chat, {
-    image: { url: 'https://i.ibb.co/YDGYRhx/file.jpg' },
-    caption: dev,
-    footer: `─ Waktu*\n─ Runtime:*`,
-    contextInfo: {
-      mentionedJid: [m.sender],
-      forwardingScore: 999,
-      isForwarded: true,
-      externalAdReply: {
-        showAdAttribution: true,
-        title: `PokPok`,
-        body: "Thezy - Chan",
-        thumbnailUrl: 'https://i.ibb.co/YDGYRhx/file.jpg',
-        sourceUrl: "https://whatsapp.com/channel/0029VawsCnQ9mrGkOuburC1z",
-        mediaType: 1,
-        renderLargerThumbnail: false,
-      },
-    },
-    buttons: [
-      {
-        buttonId: '.tes',
-        buttonText: { displayText: 'Owner Botz' },
-        type: 1,
-      },
-      {
-        buttonId: '.thxto',
-        buttonText: { displayText: 'Supporter' },
-        type: 1,
       },
       {
         type: 4,
@@ -87,9 +46,9 @@ const handler = async (m, { conn }) => {
         },
       },
     ],
-    headerType: 1,
     viewOnce: true,
-  });
+    headerType: 4,
+  }, { quoted: m });
 };
 
 handler.command = ['test'];
