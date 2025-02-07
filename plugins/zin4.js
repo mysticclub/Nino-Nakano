@@ -62,7 +62,7 @@ const handler = async (m, { conn }) => {
             }
         ],
         viewOnce: true,
-        headerType: 1,
+        headerType: 4,
     }, { quoted: m });
 };
 
