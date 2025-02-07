@@ -1,5 +1,5 @@
 let handler = async (m, { conn, args, usedPrefix, command }) => {
-let txt = `Nose?`
+let txt = `Hola`
   let img = 'https://i.ibb.co/YDGYRhx/file.jpg'
 
     await m.react('🤍')
