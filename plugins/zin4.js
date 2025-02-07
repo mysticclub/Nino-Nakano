@@ -3,26 +3,33 @@ const { randomBytes } = await import("crypto");
 
 const handler = async (m, { conn }) => {
     try {
+        const owned = "owner@s.whatsapp.net"; // Define el propietario
+        const pushname = m.pushName || "Usuario"; // Nombre del usuario
         const imageUrl = "https://files.catbox.moe/iejoer.jpg"; // Imagen principal
         const thumbnailUrl = "https://cdn.arifzyn.site/f/sy6tjbzk.jpg"; // Miniatura
+        const sourceUrl = "https://whatsapp.com/channel/0029VawsCnQ9mrGkOuburC1z";
 
-        const { imageMessage } = await prepareWAMessageMedia({
-            image: { url: imageUrl }
-        }, { upload: conn.waUploadToServer });
+        let awal = `Selamat datang kak *${pushname}*`;
+
+        // Prepara la imagen para WhatsApp
+        const { imageMessage } = await prepareWAMessageMedia({ image: { url: imageUrl } }, { upload: conn.waUploadToServer });
 
         const sections = [
             {
-                title: "Opciones Disponibles",
+                title: 'Thezy X Fauzialifatah',
+                highlight_label: '',
                 rows: [
                     {
-                        title: "⌬ Message Owner",
-                        description: "└ Menú del propietario",
-                        id: ".owner",
+                        header: '⌬ Message Owner',
+                        title: '└ Menampilkan Menu Owner',
+                        description: `${global.namabot}`,
+                        id: '',
                     },
                     {
-                        title: "⌬ Message Group",
-                        description: "└ Menú de grupos",
-                        id: ".group",
+                        header: '⌬ Message Group',
+                        title: '└ Menampilkan Menu Group',
+                        description: `${global.namabot}`,
+                        id: '',
                     },
                 ],
             },
@@ -30,7 +37,7 @@ const handler = async (m, { conn }) => {
 
         const messageContent = {
             interactiveMessage: {
-                body: { text: `Hola *${m.pushName}*, bienvenido!` },
+                body: { text: awal },
                 footer: { text: `─ Waktu: *${new Date().toLocaleTimeString()}*\n─ Runtime: *${process.uptime().toFixed(0)}s*` },
                 header: {
                     title: "PokPok",
@@ -40,32 +47,23 @@ const handler = async (m, { conn }) => {
                         ...imageMessage,
                         pageCount: 1,
                         fileLength: 99999999999,
-                        fileName: 'info',
+                        fileName: 'example_file',
                         jpegThumbnail: imageMessage.jpegThumbnail
                     },
                 },
                 nativeFlowMessage: {
                     buttons: [
                         {
-                            buttonParamsJson: JSON.stringify({
-                                display_text: "Owner Botz",
-                                id: ".owner"
-                            }),
+                            buttonParamsJson: JSON.stringify({ display_text: 'Owner Botz', id: '.tes' }),
                             name: "quick_reply"
                         },
                         {
-                            buttonParamsJson: JSON.stringify({
-                                display_text: "Supporter",
-                                id: ".thxto"
-                            }),
+                            buttonParamsJson: JSON.stringify({ display_text: 'Supporter', id: '.thxto' }),
                             name: "quick_reply"
                         },
                         {
                             name: "single_select",
-                            buttonParamsJson: JSON.stringify({
-                                title: "Más opciones",
-                                sections: sections,
-                            }),
+                            buttonParamsJson: JSON.stringify({ title: "Klick Hare!!", sections: sections })
                         }
                     ],
                     messageParamsJson: "{}",
@@ -73,22 +71,11 @@ const handler = async (m, { conn }) => {
                 }
             },
             messageContextInfo: {
-                mentionedJid: [m.sender],
-                forwardingScore: 999,
-                isForwarded: true,
-                externalAdReply: {
-                    showAdAttribution: true,
-                    title: "PokPok",
-                    body: "Thezy - Chan",
-                    thumbnailUrl: thumbnailUrl,
-                    sourceUrl: "https://whatsapp.com/channel/0029VawsCnQ9mrGkOuburC1z",
-                    mediaType: 1,
-                    renderLargerThumbnail: false
-                },
                 messageSecret: randomBytes(32)
             }
         };
 
+        // Genera y envía el mensaje interactivo
         const message = generateWAMessageFromContent(m.chat, messageContent, { userJid: conn.user.id });
         await conn.relayMessage(m.chat, message.message, { messageId: message.key.id });
 
