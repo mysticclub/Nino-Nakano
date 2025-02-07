@@ -27,7 +27,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     caption: dev,
     footer: `─ Waktu*\n─ Runtime:*`,
     contextInfo: {
-      mentionedJid: [m.sender, owned],
+      mentionedJid: [m.sender],
       forwardingScore: 999,
       isForwarded: true,
       externalAdReply: {
