@@ -3,7 +3,7 @@ const { randomBytes } = await import("crypto");
 
 let texting = 'q pasa w'
 
-conn.sendMessage(m.cht, {
+conn.sendMessage(m.chat, {
 
 image: { url: 'https://files.catbox.moe/brjxwz.jpg'},
 
