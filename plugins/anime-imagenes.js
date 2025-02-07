@@ -94,7 +94,7 @@ let handler = async (m, { command, conn, usedPrefix }) => {
         }
       }
     }, {
-      quoted: fakegif3
+      quoted: m
     });
 
     await m.react('✅');
