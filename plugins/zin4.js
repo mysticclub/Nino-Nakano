@@ -3,40 +3,32 @@ const { randomBytes } = await import("crypto");
 
 const handler = async (m, { conn }) => {
     try {
-        let txt = `Hola`;
-        let img = 'https://i.ibb.co/YDGYRhx/file.jpg';
+        let img = 'https://files.catbox.moe/iejoer.jpg'; // Imagen principal
+        let thumbnail = 'https://cdn.arifzyn.site/f/sy6tjbzk.jpg'; // Imagen en el link superior
+        let botname = global.botname || "MiBot"; // Asegurar que `global.botname` esté definido
 
         await m.react('🤍');
 
-        // Crear mensaje con botones normales
-        const message = {
-            image: { url: img },
-            caption: txt,
-            footer: dev,
-            buttons: [
-                {
-                    buttonId: `.ping`,
-                    buttonText: { displayText: 'ᯓᡣ𐭩 ⍴іᥒg' },
-                },
-                {
-                    buttonId: `.owner`,
-                    buttonText: { displayText: 'ᯓᡣ𐭩 ᥆ᥕᥒᥱr' },
-                },
-            ],
-            viewOnce: true,
-            headerType: 4,
-        };
-
-        // Enviar el primer mensaje con botones normales
-        await conn.sendMessage(m.chat, message, { quoted: m });
-
-        // Generar mensaje con nativeFlowInfo
-        const nativeFlowMessage = generateWAMessageFromContent(m.chat, {
+        // Crear mensaje con todo incluido
+        const message = generateWAMessageFromContent(m.chat, {
             viewOnceMessage: {
                 message: {
                     interactiveMessage: {
-                        body: {
-                            text: 'Klick Hare!!',
+                        body: { text: `Selamat datang kak *${m.pushName}*` }, // Mensaje de bienvenida
+                        footer: `─ Waktu: *Selamat Subuh*\n─ Runtime: *3 hours, 7 minutes, 19 seconds*`,
+                        contextInfo: {
+                            mentionedJid: [m.sender],
+                            forwardingScore: 999,
+                            isForwarded: true,
+                            externalAdReply: {
+                                showAdAttribution: true,
+                                title: `PokPok`,
+                                body: "Thezy - Chan",
+                                thumbnailUrl: thumbnail,
+                                sourceUrl: "https://whatsapp.com/channel/0029VawsCnQ9mrGkOuburC1z",
+                                mediaType: 1,
+                                renderLargerThumbnail: false,
+                            },
                         },
                         nativeFlowMessage: {
                             name: 'single_select',
@@ -50,13 +42,13 @@ const handler = async (m, { conn }) => {
                                             {
                                                 header: '⌬ Message Owner',
                                                 title: '└ Menampilkan Menu Owner',
-                                                description: `${global.botname}`,
+                                                description: botname,
                                                 id: randomBytes(6).toString("hex"),
                                             },
                                             {
                                                 header: '⌬ Message Group',
                                                 title: '└ Menampilkan Menu Owner',
-                                                description: `${global.botname}`,
+                                                description: botname,
                                                 id: randomBytes(6).toString("hex"),
                                             },
                                         ],
@@ -64,13 +56,28 @@ const handler = async (m, { conn }) => {
                                 ],
                             }),
                         },
+                        buttons: [
+                            {
+                                buttonId: '.tes',
+                                buttonText: { displayText: 'Owner Botz' },
+                                type: 1,
+                            },
+                            {
+                                buttonId: '.thxto',
+                                buttonText: { displayText: 'Supporter' },
+                                type: 1,
+                            },
+                        ],
+                        header: {
+                            imageMessage: (await prepareWAMessageMedia({ image: { url: img } }, { upload: conn.waUploadToServer })).imageMessage,
+                        },
                     },
                 },
             },
         }, {});
 
-        // Enviar mensaje con nativeFlowInfo
-        await conn.relayMessage(m.chat, nativeFlowMessage.message, { messageId: nativeFlowMessage.key.id });
+        // Enviar mensaje con todo en un solo envío
+        await conn.relayMessage(m.chat, message.message, { messageId: message.key.id });
 
     } catch (e) {
         console.error(e);
