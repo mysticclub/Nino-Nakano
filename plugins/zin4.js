@@ -67,6 +67,7 @@ conn.sendMessage(m.chat, {
         }
     ],
     headerType: 1
+    viewOnce: true
 });
 
 handler.command = ['test'];
