@@ -7,7 +7,7 @@ let txt = `Nose?`
     await m.react('🤍')
     await conn.sendMessage(m.chat, {
       image: { url: img },
-      caption: estilo(text),
+      caption: txt,
       footer: dev,
       buttons: [
         {
