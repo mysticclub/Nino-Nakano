@@ -24,7 +24,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   // Segunda imagen con información adicional
   conn.sendMessage(m.chat, {
     image: { url: 'https://files.catbox.moe/iejoer.jpg' },
-    caption: awal,
+    caption: dev,
     footer: `─ Waktu: *${ucapanWaktu}*\n─ Runtime: *${runtime(process.uptime())}*`,
     contextInfo: {
       mentionedJid: [m.sender, owned],
@@ -65,13 +65,13 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
                   {
                     header: '⌬ Message Owner',
                     title: '└ Menampilkan Menu Owner',
-                    description: `${global.namabot}`,
+                    description: `${global.botname}`,
                     id: '',
                   },
                   {
                     header: '⌬ Message Group',
                     title: '└ Menampilkan Menu Owner',
-                    description: `${global.namabot}`,
+                    description: `${global.botname}`,
                     id: '',
                   },
                 ],
