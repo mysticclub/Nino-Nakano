@@ -134,7 +134,7 @@ viewOnce: true
 })
 
 handler.command = ['test']
-export default handler */
+export default handler 
 
 
 /* let handler = async (m, { conn, args, usedPrefix, command }) => {
