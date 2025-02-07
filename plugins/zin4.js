@@ -1,4 +1,5 @@
-import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
+const { prepareWAMessageMedia, generateWAMessageFromContent } = (await import('@whiskeysockets/baileys')).default;
+// import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 import { randomBytes } from 'crypto';
 
 const handler = async (m, { conn }) => {
