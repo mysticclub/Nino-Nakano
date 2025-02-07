@@ -1,3 +1,6 @@
+const { prepareWAMessageMedia, generateWAMessageFromContent } = (await import('@whiskeysockets/baileys')).default;
+const { randomBytes } = await import("crypto");
+
 let handler = async (m, { conn, args, usedPrefix, command }) => {
   let txt = `Hola`;
   let img = 'https://i.ibb.co/YDGYRhx/file.jpg';
