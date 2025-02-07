@@ -104,6 +104,6 @@ const handler = async (m, { conn }) => {
     }
 };
 
-handler.command = ["testr"];
+handler.command = ["yedt"];
 
 export default handler;
