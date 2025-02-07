@@ -66,9 +66,10 @@ conn.sendMessage(m.chat, {
             }
         }
     ],
-    headerType: 1
-    viewOnce: true
-});
+    viewOnce: true,
+    headerType: 1,
+  }, { quoted: m })
+}
 
 handler.command = ['test'];
 export default handler;
