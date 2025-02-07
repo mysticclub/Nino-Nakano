@@ -1,7 +1,7 @@
 const { prepareWAMessageMedia, generateWAMessageFromContent } = (await import('@whiskeysockets/baileys')).default;
 const { randomBytes } = await import("crypto");
 
-let texting = q pasa w
+let texting = 'q pasa w'
 
 conn.sendMessage(m.cht, {
 
