@@ -34,7 +34,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
         showAdAttribution: true,
         title: `PokPok`,
         body: "Thezy - Chan",
-        thumbnailUrl: 'https://cdn.arifzyn.site/f/sy6tjbzk.jpg',
+        thumbnailUrl: 'https://i.ibb.co/YDGYRhx/file.jpg',
         sourceUrl: "https://whatsapp.com/channel/0029VawsCnQ9mrGkOuburC1z",
         mediaType: 1,
         renderLargerThumbnail: false,
