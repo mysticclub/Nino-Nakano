@@ -23,7 +23,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
 
   // Segunda imagen con información adicional
   conn.sendMessage(m.chat, {
-    image: { url: 'https://files.catbox.moe/iejoer.jpg' },
+    image: { url: 'https://i.ibb.co/YDGYRhx/file.jpg' },
     caption: dev,
     footer: `─ Waktu*\n─ Runtime:*`,
     contextInfo: {
