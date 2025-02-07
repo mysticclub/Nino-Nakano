@@ -9,7 +9,7 @@ image: { url: 'https://files.catbox.moe/brjxwz.jpg'},
 
 caption: texting,
 
-footer: la cosa es seria chavito\nte amo w`,
+footer: 'la cosa es seria chavito\nte amo w',
 
 contextInfo: {
 
