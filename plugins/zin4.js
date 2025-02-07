@@ -25,7 +25,7 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
   conn.sendMessage(m.chat, {
     image: { url: 'https://files.catbox.moe/iejoer.jpg' },
     caption: dev,
-    footer: `─ Waktu: *${ucapanWaktu}*\n─ Runtime: *${runtime(process.uptime())}*`,
+    footer: `─ Waktu*\n─ Runtime: *${runtime(process.uptime())}*`,
     contextInfo: {
       mentionedJid: [m.sender, owned],
       forwardingScore: 999,
