@@ -8,14 +8,7 @@ const handler = async (m, { conn }) => {
         contextInfo: {
             mentionedJid: [m.sender],
             forwardingScore: 999,
-            isForwarded: true,
-            externalAdReply: {
-                showAdAttribution: true,
-                thumbnailUrl: 'https://files.catbox.moe/brjxwz.jpg',
-                sourceUrl: "https://instagram.com/c4rl0s_9e",
-                mediaType: 1,
-                renderLargerThumbnail: false
-            }
+            isForwarded: true
         },
         buttons: [
             {
