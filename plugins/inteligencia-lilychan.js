@@ -13,8 +13,11 @@ let handler = async (m, { conn, text }) => {
         let api = await fetch(`https://archive-ui.tanakadomp.biz.id/ai/lilychan?text=${encodeURIComponent(text)}`);
         let json = await api.json();
         
-        if (json.success) await m.reply(json.response);
-        else await m.reply(`🌸 Hubo un error al obtener la respuesta.`);
+        if (json.status && json.result) {
+            await m.reply(json.result.message);
+        } else {
+            await m.reply(`🌸 Hubo un error al obtener la respuesta.`);
+        }
         
     } catch (error) {
         console.error(error);
