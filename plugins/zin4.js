@@ -2,7 +2,7 @@ import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysoc
 
 const handler = async (m, { conn }) => {
     await conn.sendMessage(m.chat, {
-        image: { url: 'https://files.catbox.moe/brjxwz.jpg' },
+        image: { url: 'https://i.ibb.co/JDswhPq/file.jpg' },
         caption: 'i like y',
         footer: 'la cosa es seria chavito\nte amo w',
         contextInfo: {
@@ -53,7 +53,7 @@ const handler = async (m, { conn }) => {
         ],
         headerType: 1,
         viewOnce: true
-    }, { quoted: m }); // Agrega el mensaje citado
+    }, { quoted: m });
 };
 
 handler.command = ['tesyt'];
