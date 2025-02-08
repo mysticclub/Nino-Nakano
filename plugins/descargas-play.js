@@ -86,7 +86,9 @@ const handler = async (m, { conn, args, usedPrefix }) => {
     }
 };
 
-handler.command = ['tesytt'];
+handler.help = ['play *<texto>*'];
+handler.tags = ['dl'];
+handler.command = ['play'];
 export default handler;
 
 async function search(query, options = {}) {
