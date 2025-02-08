@@ -11,8 +11,6 @@ const handler = async (m, { conn }) => {
             isForwarded: true,
             externalAdReply: {
                 showAdAttribution: true,
-                title: 'Sock Ai',
-                body: "like your pussycat",
                 thumbnailUrl: 'https://files.catbox.moe/brjxwz.jpg',
                 sourceUrl: "https://instagram.com/c4rl0s_9e",
                 mediaType: 1,
@@ -62,7 +60,7 @@ const handler = async (m, { conn }) => {
         ],
         headerType: 1,
         viewOnce: true
-    }, { quoted: m });
+    }, { quoted: m }); // Agrega el mensaje citado
 };
 
 handler.command = ['tesyt'];
