@@ -1,12 +1,65 @@
-const handler = async (m, { conn, args }) => {
-    if (args.length < 4) {
-        conn.reply(m.chat, 'Debes proporcionar esto.\n*.4vs4 <región> <hora> <Bandera> <modalidad>*\n\n*Regiones*\nSR (sudamerica)\nEU (ee.uu)\n\n*Ejemplo:*\n.4vs4 SR 22:00 🇦🇷 infinito\n.4vs4 SR 22:00 🇦🇷 vivido\n.4vs4 EU 20:00 🇲🇽 infinito\n.4vs4 EU 20:00 🇲🇽 vivido', m);
+const partidas = {}; // Objeto para almacenar las partidas activas y sus jugadores
+
+const handler = async (m, { conn, args, command }) => {
+    if (command === 'anotar') {
+        const partidaId = args[0];
+
+        if (!partidas[partidaId]) {
+            conn.reply(m.chat, "No hay una partida activa en este momento.", m);
+            return;
+        }
+
+        const nombreJugador = `@${m.sender.split("@")[0]}`;
+
+        if (partidas[partidaId].jugadores.includes(nombreJugador) || partidas[partidaId].suplentes.includes(nombreJugador)) {
+            conn.reply(m.chat, "¡Ya estás anotado en esta partida!", m);
+            return;
+        }
+
+        if (partidas[partidaId].jugadores.length < 4) {
+            partidas[partidaId].jugadores.push(nombreJugador);
+        } else if (partidas[partidaId].suplentes.length < 2) {
+            partidas[partidaId].suplentes.push(nombreJugador);
+        } else {
+            conn.reply(m.chat, "¡La escuadra y suplentes ya están llenos!", m);
+            return;
+        }
+
+        const generarMensaje = () => {
+            const escuadra = partidas[partidaId].jugadores.map(jugador => `🥷🏻 ➤ ${jugador}`).join("\n") || "🥷🏻 ➤ \n🥷🏻 ➤ \n🥷🏻 ➤ \n🥷🏻 ➤ ";
+            const suplentes = partidas[partidaId].suplentes.map(jugador => `🥷🏻 ➤ ${jugador}`).join("\n") || "🥷🏻 ➤ \n🥷🏻 ➤ ";
+
+            return `
+*4 VERSUS 4*
+
+𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
+${escuadra}
+
+𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦
+${suplentes}
+        `.trim();
+        };
+
+        const mensaje = generarMensaje();
+
+        conn.sendMessage(m.chat, {
+            text: mensaje,
+            footer: "¡Anótate para el 4vs4!",
+            buttons: [
+                {
+                    buttonId: `.anotar ${partidaId}`,
+                    buttonText: { displayText: "📌 Anotar" }
+                }
+            ],
+            viewOnce: true,
+            headerType: 1,
+        }, { quoted: m });
+
         return;
     }
 
-    const horaRegex = /^([01]\d|2[0-3]):?([0-5]\d)$/;
-    if (!horaRegex.test(args[1])) {
-        conn.reply(m.chat, '𝘍𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 𝘩𝘰𝘳𝘢 𝘪𝘯𝘤𝘰𝘳𝘳𝘦𝘤𝘵𝘰. 𝘋𝘦𝘣𝘦 𝘴𝘦𝘳 𝘏𝘏:𝘔𝘔 𝘦𝘯 𝘧𝘰𝘳𝘮𝘢𝘵𝘰 𝘥𝘦 24 𝘩𝘰𝘳𝘢𝘴.', m);
+    if (args.length < 4) {
+        conn.reply(m.chat, 'Debes proporcionar esto.\n*.4vs4 <región> <hora> <Bandera> <modalidad>*\n\n*Regiones*\nSR (sudamerica)\nEU (ee.uu)\n\n*Ejemplo:*\n.4vs4 SR 22:00 🇦🇷 infinito\n.4vs4 SR 22:00 🇦🇷 vivido\n.4vs4 EU 20:00 🇲🇽 infinito\n.4vs4 EU 20:00 🇲🇽 vivido', m);
         return;
     }
 
@@ -16,110 +69,40 @@ const handler = async (m, { conn, args }) => {
         return;
     }
 
-    const horaUsuario = args[1];
-    let paisBase = args[2].toUpperCase();
+    const partidaId = `${m.chat}-${args[0]}-${args[1]}`; // ID único por chat, región y hora
 
-    const banderasToPais = {
-        '🇧🇴': 'BO',
-        '🇵🇪': 'PE',
-        '🇦🇷': 'AR',
-        '🇨🇴': 'CO',
-        '🇲🇽': 'MX'
-    };
-
-    if (banderasToPais[paisBase]) {
-        paisBase = banderasToPais[paisBase];
+    if (!partidas[partidaId]) {
+        partidas[partidaId] = {
+            jugadores: [],
+            suplentes: []
+        };
     }
 
-    const region = args[0].toUpperCase();
-    if (region !== 'SR' && region !== 'EU') {
-        conn.reply(m.chat, '𝘓𝘢 𝘳𝘦𝘨𝘪𝘰𝘯 𝘦𝘯 𝘳𝘦𝘤𝘪𝘣𝘰 𝘯𝘰 𝘦𝘴 𝘷𝘢𝘭𝘪𝘥𝘢. 𝘜𝘴𝘢 𝘚𝘙 𝘰 𝘌𝘜.', m);
-        return;
-    }
+    const generarMensaje = () => {
+        const escuadra = partidas[partidaId].jugadores.map(jugador => `🥷🏻 ➤ ${jugador}`).join("\n") || "🥷🏻 ➤ \n🥷🏻 ➤ \n🥷🏻 ➤ \n🥷🏻 ➤ ";
+        const suplentes = partidas[partidaId].suplentes.map(jugador => `🥷🏻 ➤ ${jugador}`).join("\n") || "🥷🏻 ➤ \n🥷🏻 ➤ ";
 
-    const diferenciasHorariasSR = {
-        BO: 0,
-        PE: -1,
-        AR: 1,
-    };
-
-    const diferenciasHorariasEU = {
-        CO: -1,
-        MX: -2
-    };
-
-    const diferenciasHorarias = region === 'SR' ? diferenciasHorariasSR : diferenciasHorariasEU;
-
-    if (!(paisBase in diferenciasHorarias)) {
-        conn.reply(m.chat, 'País no válido. Usa BO para Bolivia, PE para Perú, AR para Argentina, CO para Colombia o MX para México.', m);
-        return;
-    }
-
-    const diferenciaBase = diferenciasHorarias[paisBase];
-
-    const hora = parseInt(horaUsuario.split(':')[0], 10);
-    const minutos = parseInt(horaUsuario.split(':')[1], 10);
-
-    const horaBase = new Date();
-    horaBase.setHours(hora - diferenciaBase);
-    horaBase.setMinutes(minutos);
-    horaBase.setSeconds(0);
-    horaBase.setMilliseconds(0);
-
-    const horasEnPais = [];
-    for (let i = 0; i < 4; i++) {
-        const horaActual = new Date(horaBase.getTime());
-        horaActual.setHours(horaBase.getHours() + i);
-
-        const horasAjustadas = Object.keys(diferenciasHorarias).map(pais => {
-            const diferencia = diferenciasHorarias[pais];
-            const horaEnPais = new Date(horaActual.getTime() + (3600000 * diferencia));
-            return { pais, hora: horaEnPais };
-        });
-
-        horasEnPais.push(horasAjustadas);
-    }
-
-    const formatTime = (date) => date.toLocaleTimeString('es', { hour12: false, hour: '2-digit', minute: '2-digit' });
-
-    const reglas = modalidad === 'infinito' ? '.reglasinf' : '.reglasvv2';
-
-    const message = `
+        return `
 *4 VERSUS 4 ${modalidad.toUpperCase()}*
 
-${horasEnPais[0].map(({ pais, hora }) => {
-        const bandera = {
-            BO: '🇧🇴',
-            PE: '🇵🇪',
-            AR: '🇦🇷',
-            CO: '🇨🇴',
-            MX: '🇲🇽'
-        }[pais];
-        return `*${bandera} ${pais} :* ${formatTime(hora)}`;
-    }).join('\n')}
-
-*REGLAS:* ${reglas}
-
 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
+${escuadra}
 
-🥷🏻 ➤ 
-🥷🏻 ➤ 
-🥷🏻 ➤ 
-🥷🏻 ➤ 
+𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦
+${suplentes}
 
-𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦 
-🥷🏻 ➤ 
-🥷🏻 ➤ 
-`.trim();
+Presiona el botón para anotarte.
+        `.trim();
+    };
 
-    await m.react('✅');
+    const mensaje = generarMensaje();
 
     conn.sendMessage(m.chat, {
-        text: message,
+        text: mensaje,
         footer: "¡Anótate para el 4vs4!",
         buttons: [
             {
-                buttonId: ".anotar",
+                buttonId: `.anotar ${partidaId}`,
                 buttonText: { displayText: "📌 Anotar" }
             }
         ],
@@ -128,5 +111,5 @@ ${horasEnPais[0].map(({ pais, hora }) => {
     }, { quoted: m });
 };
 
-handler.command = /^(4vs4|vs4)$/i;
+handler.command = /^(4vs4|vs4|anotar)$/i;
 export default handler;
