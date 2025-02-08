@@ -34,15 +34,15 @@ const handler = async (m, { conn }) => {
                                 rows: [
                                     {
                                         header: '⌬ Message',
-                                        title: 'love dog',
+                                        title: 'menu all',
                                         description: 'i like pussydog',
-                                        id: ".love_dog"
+                                        id: ".menu"
                                     },
                                     {
                                         header: '⌬ Message',
                                         title: 'check ping',
                                         description: 'i like pussycat',
-                                        id: ".check_ping"
+                                        id: ".ping"
                                     },
                                 ],
                             },
