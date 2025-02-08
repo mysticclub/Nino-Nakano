@@ -1,9 +1,16 @@
 import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 
 const handler = async (m, { conn }) => {
+
+    let txt = `> *YouTube Play 🍧.*\n\n`;
+    txt += `${video.title}\n\n`;
+    txt += `• *Duración:* ${secondString(video.duration.seconds)}\n`;
+    txt += `• *Autor:* ${video.author.name || 'Desconocido'}\n`;
+    txt += `• *Publicado:* ${eYear(video.ago)}\n`;
+    txt += `• *Url:* _https://youtu.be/${video.videoId}_\n\n`;
     await conn.sendMessage(m.chat, {
         image: { url: 'https://files.catbox.moe/brjxwz.jpg' },
-        caption: 'i like y',
+        caption: txt,
         footer: 'la cosa es seria chavito\nte amo w',
         contextInfo: {
             mentionedJid: [m.sender],
