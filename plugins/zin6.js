@@ -85,7 +85,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
     }
 };
 
-handler.command = ['tesyt'];
+handler.command = ['tesytt'];
 export default handler;
 
 // Función de búsqueda con yt-search
