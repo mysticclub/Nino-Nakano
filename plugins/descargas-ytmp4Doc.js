@@ -46,15 +46,24 @@ let handler = async (m, { conn, text }) => {
   try {
     const result = await checkSocialMedia(text)
 
-    // Preparamos el mensaje de respuesta
-    let message = `- Análisis de Redes Sociales para: ${text}\n\n`
-    result.forEach(i => {
-      message += `*Plataforma*: ${i.platform}\n*Disponible*: ${i.available ? 'Sí' : 'No'}\n*Enlace*: ${i.link}\n\n`
-    })
+    // Filtrar solo las plataformas donde el usuario está disponible
+    const availablePlatforms = result.filter(i => i.available)
 
-    // Enviamos los resultados al usuario
-    await conn.reply(m.chat, message, m)
-    await m.react('✅')
+    // Si hay plataformas disponibles, las agregamos al mensaje
+    if (availablePlatforms.length > 0) {
+      let message = `- Análisis de Redes Sociales para: ${text}\n\n`
+      availablePlatforms.forEach(i => {
+        message += `*Plataforma*: ${i.platform}\n*Disponible*: Sí\n*Enlace*: ${i.link}\n\n`
+      })
+
+      // Enviamos los resultados al usuario
+      await conn.reply(m.chat, message, m)
+      await m.react('✅')
+    } else {
+      await conn.reply(m.chat, `❌ No se encontró el usuario "${text}" en ninguna de las plataformas verificadas.`, m)
+      await m.react('✖️')
+    }
+
   } catch (err) {
     await m.react('✖️')
     await conn.reply(m.chat, '❌ Hubo un error al verificar las redes sociales.', m)
