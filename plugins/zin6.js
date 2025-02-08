@@ -1,4 +1,4 @@
-const partidas = {}; // Objeto para almacenar las partidas activas y sus jugadores
+const partidas = {}; // Almacena las partidas activas y sus jugadores
 
 const handler = async (m, { conn, args, command }) => {
     if (command === 'anotar') {
@@ -25,22 +25,7 @@ const handler = async (m, { conn, args, command }) => {
             return;
         }
 
-        const generarMensaje = () => {
-            const escuadra = partidas[partidaId].jugadores.map(jugador => `🥷🏻 ➤ ${jugador}`).join("\n") || "🥷🏻 ➤ \n🥷🏻 ➤ \n🥷🏻 ➤ \n🥷🏻 ➤ ";
-            const suplentes = partidas[partidaId].suplentes.map(jugador => `🥷🏻 ➤ ${jugador}`).join("\n") || "🥷🏻 ➤ \n🥷🏻 ➤ ";
-
-            return `
-*4 VERSUS 4*
-
-𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
-${escuadra}
-
-𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦
-${suplentes}
-        `.trim();
-        };
-
-        const mensaje = generarMensaje();
+        const mensaje = generarMensaje(partidas[partidaId]);
 
         conn.sendMessage(m.chat, {
             text: mensaje,
@@ -74,28 +59,14 @@ ${suplentes}
     if (!partidas[partidaId]) {
         partidas[partidaId] = {
             jugadores: [],
-            suplentes: []
+            suplentes: [],
+            hora: args[1],
+            modalidad: modalidad.toUpperCase(),
+            reglas: modalidad === 'infinito' ? '.reglasinf' : '.reglasvv2'
         };
     }
 
-    const generarMensaje = () => {
-        const escuadra = partidas[partidaId].jugadores.map(jugador => `🥷🏻 ➤ ${jugador}`).join("\n") || "🥷🏻 ➤ \n🥷🏻 ➤ \n🥷🏻 ➤ \n🥷🏻 ➤ ";
-        const suplentes = partidas[partidaId].suplentes.map(jugador => `🥷🏻 ➤ ${jugador}`).join("\n") || "🥷🏻 ➤ \n🥷🏻 ➤ ";
-
-        return `
-*4 VERSUS 4 ${modalidad.toUpperCase()}*
-
-𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
-${escuadra}
-
-𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦
-${suplentes}
-
-Presiona el botón para anotarte.
-        `.trim();
-    };
-
-    const mensaje = generarMensaje();
+    const mensaje = generarMensaje(partidas[partidaId]);
 
     conn.sendMessage(m.chat, {
         text: mensaje,
@@ -110,6 +81,33 @@ Presiona el botón para anotarte.
         headerType: 1,
     }, { quoted: m });
 };
+
+function generarMensaje(partida) {
+    const escuadra = [
+        partida.jugadores[0] || "🥷🏻 ➤",
+        partida.jugadores[1] || "🥷🏻 ➤",
+        partida.jugadores[2] || "🥷🏻 ➤",
+        partida.jugadores[3] || "🥷🏻 ➤"
+    ].join("\n");
+
+    const suplentes = [
+        partida.suplentes[0] || "🥷🏻 ➤",
+        partida.suplentes[1] || "🥷🏻 ➤"
+    ].join("\n");
+
+    return `
+*4 VERSUS 4 ${partida.modalidad}*
+
+*Hora:* ${partida.hora}
+*REGLAS:* ${partida.reglas}
+
+𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
+${escuadra}
+
+𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦
+${suplentes}
+`.trim();
+}
 
 handler.command = /^(4vs4|vs4|anotar)$/i;
 export default handler;
