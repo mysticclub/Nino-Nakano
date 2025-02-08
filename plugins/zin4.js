@@ -50,53 +50,6 @@ const handler = async (m, { conn }) => {
                     }),
                 },
             },
-            {
-                type: 4,
-                nativeFlowInfo: {
-                    name: 'single_select',
-                    paramsJson: JSON.stringify({
-                        title: 'Another List',
-                        sections: [
-                            {
-                                title: 'Second List',
-                                highlight_label: '',
-                                rows: [
-                                    {
-                                        header: '⌬ Message',
-                                        title: 'status bot',
-                                        description: 'check bot status',
-                                        id: ".status"
-                                    },
-                                    {
-                                        header: '⌬ Message',
-                                        title: 'about us',
-                                        description: 'info about the bot',
-                                        id: ".about"
-                                    },
-                                ],
-                            },
-                            {
-                                title: 'my focking bicht',
-                                highlight_label: '',
-                                rows: [
-                                    {
-                                        header: '⌬ Message',
-                                        title: 'menu all',
-                                        description: 'i like pussydog',
-                                        id: ".menu"
-                                    },
-                                    {
-                                        header: '⌬ Message',
-                                        title: 'check ping',
-                                        description: 'i like pussycat',
-                                        id: ".ping"
-                                    },
-                                ],
-                            },
-                        ],
-                    }),
-                },
-            },
         ],
         headerType: 1,
         viewOnce: true
@@ -105,8 +58,6 @@ const handler = async (m, { conn }) => {
 
 handler.command = ['tesyt'];
 export default handler;
-
-
 
 
 
