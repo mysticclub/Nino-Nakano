@@ -20,7 +20,7 @@ const handler = async (m, { conn, args }) => {
         txt += `• *Duración:* ${secondString(video.duration.seconds)}\n`;
         txt += `• *Autor:* ${video.author.name || 'Desconocido'}\n`;
         txt += `• *Publicado:* ${eYear(video.ago)}\n`;
-        txt += `• *Url:* _https://youtu.be/${video.videoId}_\n\n`;
+        txt += `• *Url:* _https://youtu.be/${video.videoId}_\n`;
 
         // Enviar el mensaje con botones y la imagen
         await conn.sendMessage(m.chat, {
