@@ -82,7 +82,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
     }
 };
 
-handler.command = ['tesyt'];
+handler.command = ['tesytt'];
 export default handler;
 
 async function search(query, options = {}) {
