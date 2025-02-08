@@ -4,10 +4,10 @@ import cheerio from 'cheerio';
 
 const handler = async (m, { conn, text, usedPrefix, command }) => {
     if (!text) {
-        return conn.reply(m.chat, `*🍇 Ingresa un texto* *• Ejemplo :* ${usedPrefix + command} *JoseXrl15k*`, m, rcanal);
+        return conn.reply(m.chat, `*🍟 Ingresa un texto* *• Ejemplo :* ${usedPrefix + command} *JoseXrl15k*`, m, rcanal);
     }
 
-    m.reply("Creando su Logo Porfavor Espere 🍇... ");
+    m.reply("Creando su Logo Porfavor Espere 🍟... ");
 
     const modelos = {
         glitchtext: 'https://en.ephoto360.com/create-digital-glitch-text-effects-online-767.html',
