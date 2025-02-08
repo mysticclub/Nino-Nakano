@@ -9,7 +9,7 @@ const handler = async (m, { conn, args }) => {
     try {
         let res = await search(args.join(" "));
         if (!res.length) return conn.reply(m.chat, '*\`No se encontraron resultados\`*', m);
-        
+
         let video = res[0];
         let img = await (await fetch(video.image)).buffer();
 
@@ -22,7 +22,7 @@ const handler = async (m, { conn, args }) => {
 
         // Generar el mensaje con los botones de YouTube y la imagen
         const buttonsMessage = {
-            image: img,
+            image: { url: video.image },  // Asegúrate de que esta URL sea válida
             caption: txt,
             footer: 'Presiona el botón para el tipo de descarga.',
             buttons: [
@@ -31,12 +31,14 @@ const handler = async (m, { conn, args }) => {
                     buttonText: {
                         displayText: 'ᯓᡣ𐭩 ᥲᥙძі᥆',
                     },
+                    type: 1,
                 },
                 {
                     buttonId: `.ytmp4 https://youtu.be/${video.videoId}`,
                     buttonText: {
                         displayText: 'ᯓᡣ𐭩 ᥎іძᥱ᥆',
                     },
+                    type: 1,
                 },
                 {
                     type: 4,
