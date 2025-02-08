@@ -28,13 +28,13 @@ const handler = async (m, { conn, args, usedPrefix }) => {
             rows: [
                 {
                     header: '🎶 MP3',
-                    title: "",
+                    title: `${v.author.name || 'Desconocido'}`,  // Mostramos el autor en el título del botón
                     description: `Duración: ${secondString(v.duration.seconds)}`, 
                     id: `${usedPrefix}fgmp3 ${v.url}`
                 },
                 {
                     header: "🎥 MP4",
-                    title: "" ,
+                    title: `${v.author.name || 'Desconocido'}`,  // Mostramos el autor en el título del botón
                     description: `Duración: ${secondString(v.duration.seconds)}`, 
                     id: `${usedPrefix}fgmp4 ${v.url}`
                 }
@@ -85,7 +85,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
     }
 };
 
-handler.command = ['tesytt'];
+handler.command = ['tesyt'];
 export default handler;
 
 // Función de búsqueda con yt-search
