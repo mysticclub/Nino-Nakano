@@ -8,7 +8,6 @@ const handler = async (m, { conn, args }) => {
 
     await m.react('🕓');
     try {
-        // Realizamos la búsqueda con yt-search
         let res = await search(args.join(" "));
         if (!res.length) return conn.reply(m.chat, '*\`No se encontraron resultados\`*', m);
 
@@ -22,7 +21,6 @@ const handler = async (m, { conn, args }) => {
         txt += `• *Publicado:* ${eYear(video.ago)}\n`;
         txt += `• *Url:* _https://youtu.be/${video.videoId}_\n`;
 
-        // Enviar el mensaje con botones y la imagen
         await conn.sendMessage(m.chat, {
             image: img,
             caption: txt,
