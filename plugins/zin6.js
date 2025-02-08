@@ -8,6 +8,8 @@ const handler = async (m, { conn, args }) => {
     await m.react('🕓');
     try {
         let res = await search(args.join(" "));
+        if (!res.length) return conn.reply(m.chat, '*\`No se encontraron resultados\`*', m);
+        
         let video = res[0];
         let img = await (await fetch(video.image)).buffer();
 
@@ -18,8 +20,8 @@ const handler = async (m, { conn, args }) => {
         txt += `• *Publicado:* ${eYear(video.ago)}\n`;
         txt += `• *Url:* _https://youtu.be/${video.videoId}_\n\n`;
 
-        // Enviar el mensaje con los botones de YouTube y el texto
-        await conn.sendMessage(m.chat, {
+        // Generar el mensaje con los botones de YouTube y la imagen
+        const buttonsMessage = {
             image: img,
             caption: txt,
             footer: 'Presiona el botón para el tipo de descarga.',
@@ -68,7 +70,10 @@ const handler = async (m, { conn, args }) => {
             ],
             viewOnce: true,
             headerType: 4,
-        }, { quoted: m });
+        };
+
+        // Enviar el mensaje con los botones
+        await conn.sendMessage(m.chat, buttonsMessage, { quoted: m });
 
         await m.react('✅');
     } catch (e) {
@@ -78,7 +83,7 @@ const handler = async (m, { conn, args }) => {
     }
 };
 
-handler.help = ['playtg *<texto>*'];
+handler.help = ['play *<texto>*'];
 handler.tags = ['dl'];
 handler.command = ['playtg'];
 
