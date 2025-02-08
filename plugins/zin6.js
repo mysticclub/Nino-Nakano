@@ -26,7 +26,7 @@ const handler = async (m, { conn, args }) => {
         await conn.sendMessage(m.chat, {
             image: img,
             caption: txt,
-            footer: 'la cosa es seria chavito\nte amo w',
+            footer: 'Presiona el botón para el tipo de descarga.',
             contextInfo: {
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
@@ -88,7 +88,6 @@ const handler = async (m, { conn, args }) => {
 handler.command = ['tesytt'];
 export default handler;
 
-// Función de búsqueda con yt-search
 async function search(query, options = {}) {
     let searchResults = await yts.search({ query, hl: "es", gl: "ES", ...options });
     return searchResults.videos;
