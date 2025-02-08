@@ -1,6 +1,9 @@
 const partidas = {}; // Almacena las partidas activas y sus jugadores
 
 const handler = async (m, { conn, args, command }) => {
+    const who = m.sender; // Obtén el identificador del usuario que manda el mensaje
+    const { name } = global.db.data.users[who]; // Extrae el nombre registrado del usuario
+
     if (command === 'anotar') {
         const partidaId = args[0];
 
@@ -9,10 +12,8 @@ const handler = async (m, { conn, args, command }) => {
             return;
         }
 
-        const nombreJugador = `@${m.sender.split("@")[0]}`;
-
-        // Verifica si el jugador ya está anotado
-        if (partidas[partidaId].jugadores.includes(nombreJugador) || partidas[partidaId].suplentes.includes(nombreJugador)) {
+        // Si el jugador ya está anotado
+        if (partidas[partidaId].jugadores.includes(name) || partidas[partidaId].suplentes.includes(name)) {
             conn.reply(m.chat, "¡Ya estás anotado en esta partida!", m);
 
             // Envía la lista actualizada
@@ -35,9 +36,9 @@ const handler = async (m, { conn, args, command }) => {
 
         // Si aún no está anotado, se añade al jugador
         if (partidas[partidaId].jugadores.length < 4) {
-            partidas[partidaId].jugadores.push(nombreJugador);
+            partidas[partidaId].jugadores.push(name);
         } else if (partidas[partidaId].suplentes.length < 2) {
-            partidas[partidaId].suplentes.push(nombreJugador);
+            partidas[partidaId].suplentes.push(name);
         } else {
             conn.reply(m.chat, "¡La escuadra y suplentes ya están llenos!", m);
             return;
