@@ -163,4 +163,5 @@ ${suplentes}
 }
 
 handler.command = /^(4vs4|vs4|anotar)$/i;
+handler.register = true
 export default handler;
