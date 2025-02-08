@@ -62,7 +62,7 @@ const handler = async (m, { conn }) => {
         ],
         headerType: 1,
         viewOnce: true
-    });
+    }, { quoted: m });
 };
 
 handler.command = ['tesyt'];
