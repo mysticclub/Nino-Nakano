@@ -73,6 +73,22 @@ const handler = async (m, { conn }) => {
                                         description: 'info about the bot',
                                         id: ".about"
                                     },
+                                    {
+                                title: 'my focking bicht',
+                                highlight_label: '',
+                                rows: [
+                                    {
+                                        header: '⌬ Message',
+                                        title: 'menu all',
+                                        description: 'i like pussydog',
+                                        id: ".menu"
+                                    },
+                                    {
+                                        header: '⌬ Message',
+                                        title: 'check ping',
+                                        description: 'i like pussycat',
+                                        id: ".ping"
+                                    },
                                 ],
                             },
                         ],
