@@ -1,134 +1,85 @@
-import axios from 'axios'
+import axios from 'axios';
+import cheerio from 'cheerio';
 
-let handler = async (m, { conn, text, args }) => {
-  if (!text) return conn.reply(m.chat, '🚩 Debes enviar un mensaje de estado o una URL para procesarlo.', m)
+let handler = async (m, { conn, text, usedPrefix, command }) => {
+  if (!text) return conn.reply(m.chat, `🚩 Debes proporcionar una consulta para buscar en Google usando el comando *${usedPrefix + command} <consulta>*`, m)
 
   await m.react('🕓')
 
-  // Función para obtener los participantes de los grupos
-  async function fetchParticipants(...jids) {
-    let results = []
-    for (const jid of jids) {
-      let { participants } = await conn.groupMetadata(jid)
-      participants = participants.map(({ id }) => id)
-      results = results.concat(participants)
-    }
-    return results
-  }
+  // Función de scraping de Google
+  const Google = async (query, maxPages = 3) => {
+    try {
+      const results = [];
+      const currentTime = new Date().toISOString();
 
-  // Función para crear un mensaje con menciones de estado
-  async function mentionStatus(jids, content) {
-    const msg = await baileys.generateWAMessage(baileys.STORIES_JID, content, {
-      upload: conn.waUploadToServer
-    })
+      for (let i = 0; i < maxPages; i++) {
+        const start = i * 10; // Índice de inicio para la paginación
+        const response = await axios.get(`https://www.google.com/search?q=${query}&start=${start}`, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+          },
+        });
 
-    let statusJidList = []
-    for (const _jid of jids) {
-      if (_jid.endsWith("@g.us")) {
-        for (const jid of await fetchParticipants(_jid)) {
-          statusJidList.push(jid)
-        }
-      } else {
-        statusJidList.push(_jid)
+        const $ = cheerio.load(response.data);
+        const language = $('html').attr('lang') || 'id';
+
+        // Parsear resultados de la página
+        $('.g').each((_, element) => {
+          const title = $(element).find('h3').text().trim() || '';
+          const link = $(element).find('a').attr('href') || '';
+          const description = $(element).find('.VwiC3b').text().trim() || '';
+
+          if (title && link) {
+            results.push({
+              created_at: currentTime,
+              modified_at: currentTime,
+              link,
+              is_expanded: true,
+              title,
+              description,
+              description_tokens: description.split(/\s+/).length,
+              expanded_tokens: Math.ceil(description.split(/\s+/).length * 1.5),
+              accept_language: language,
+              engine: 'Google Search',
+              expanded_description: description.length > 100 
+                ? `${description.substring(0, 100)}...` 
+                : description,
+              scraped_at: currentTime,
+            });
+          }
+        });
       }
+
+      return { success: true, totalResults: results.length, results };
+    } catch (error) {
+      return { success: false, error: error.message };
     }
-    statusJidList = [...new Set(statusJidList)]
+  };
 
-    await conn.relayMessage(msg.key.remoteJid, msg.message, {
-      messageId: msg.key.id,
-      statusJidList,
-      additionalNodes: [
-        {
-          tag: "meta",
-          attrs: {},
-          content: [
-            {
-              tag: "mentioned_users",
-              attrs: {},
-              content: jids.map((jid) => ({
-                tag: "to",
-                attrs: { jid },
-                content: undefined
-              }))
-            }
-          ]
-        }
-      ]
-    })
+  try {
+    const query = text; // La consulta proporcionada por el usuario
+    const response = await Google(query);
 
-    for (const jid of jids) {
-      let type = jid.endsWith("@g.us") ? "groupStatusMentionMessage" : "statusMentionMessage"
-      await conn.relayMessage(jid, {
-        [type]: {
-          message: {
-            protocolMessage: {
-              key: msg.key,
-              type: 25
-            }
-          }
-        }
-      }, {
-        additionalNodes: [
-          {
-            tag: "meta",
-            attrs: { is_status_mention: "true" },
-            content: undefined
-          }
-        ]
-      })
-    }
-
-    return msg
-  }
-
-  // Obtener el contenido multimedia o texto
-  let q = m.quoted ? m.quoted : m
-  let mime = (q.msg || q).mimetype || ''
-  let content = {}
-
-  if (mime) {
-    let media = await q.download()
-
-    if (/image/.test(mime)) {
-      content.image = media
-    } else if (/video/.test(mime)) {
-      content.video = media
-    } else if (/audio/.test(mime)) {
-      content.audio = media
+    if (response.success && response.totalResults > 0) {
+      let resultText = `*Resultados de búsqueda en Google para:* ${query}\n\n`;
+      response.results.slice(0, 5).forEach((result, index) => {
+        resultText += `\n*Resultado ${index + 1}:*\n*Titulo:* ${result.title}\n*Descripción:* ${result.expanded_description}\n*Enlace:* ${result.link}\n`;
+      });
+      conn.reply(m.chat, resultText, m);
     } else {
-      return m.reply("¡Tipo de archivo no soportado!")
+      conn.reply(m.chat, `🚩 No se encontraron resultados para "${query}"`, m);
     }
-
-    if (q.text) content.caption = q.text
-  } else if (args[0]) {
-    let url = args[0]
-    let type = args[1] || 'text'
-
-    if (type === 'image') {
-      content.image = { url }
-    } else if (type === 'video') {
-      content.video = { url }
-    } else if (type === 'audio') {
-      content.audio = { url }
-    } else {
-      content.text = args.slice(1).join(" ") || url
-    }
-  } else {
-    return m.reply("¡Responde a un archivo multimedia o ingresa una URL en el formato:\n.status <url> <image/video/audio/text>!")
+  } catch (error) {
+    conn.reply(m.chat, `🚩 Ocurrió un error al realizar la búsqueda: ${error.message}`, m);
   }
+};
 
-  // Enviar el mensaje de estado con menciones
-  mentionStatus([m.chat], content).catch(console.error)
-}
+handler.help = ['google <consulta>'];
+handler.tags = ['tools'];
+handler.command = /^(google)$/i;
+handler.register = true;
 
-handler.help = ['status *<url>*']
-handler.tags = ['media']
-handler.command = /^(status)$/i
-handler.register = true
-
-export default handler
-
-
+export default handler;
 
 
 /* import axios from 'axios'
