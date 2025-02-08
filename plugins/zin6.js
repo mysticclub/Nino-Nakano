@@ -28,13 +28,13 @@ const handler = async (m, { conn, args, usedPrefix }) => {
                     header: '🎶 MP3',
                     title: `${v.author.name || 'Desconocido'}`,
                     description: `Duración: ${secondString(v.duration.seconds)}`, 
-                    id: `${usedPrefix}fgmp3 ${v.url}`
+                    id: `.ytmp3 https://youtu.be/${video.videoId}`
                 },
                 {
                     header: "🎥 MP4",
                     title: `${v.author.name || 'Desconocido'}`,
                     description: `Duración: ${secondString(v.duration.seconds)}`, 
-                    id: `${usedPrefix}fgmp4 ${v.url}`
+                    id: `.ytmp4 https://youtu.be/${video.videoId}`
                 }
             ]
         }));
