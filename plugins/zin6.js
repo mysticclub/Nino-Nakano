@@ -74,7 +74,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
             viewOnce: true
         }, { quoted: m });
 
-        await m.react('✅');
+        await m.react('🍟');
     } catch (e) {
         console.error(e);
         await m.react('✖️');
