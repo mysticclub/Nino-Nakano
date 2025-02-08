@@ -106,6 +106,16 @@ async function ephoto(url, text) {
 };
 
 handler.help = [
+    'glitchtext *<texto>*', 'writetext *<texto>*', 'advancedglow *<texto>*', 'typographytext *<texto>*', 'pixelglitch *<texto>*', 
+    'neonglitch *<texto>*', 'flagtext *<texto>*', 'flag3dtext *<texto>*', 'deletingtext *<texto>*', 'blackpinkstyle *<texto>*', 
+    'glowingtext *<texto>*', 'underwatertext *<texto>*', 'logomaker *<texto>*', 'cartoonstyle *<texto>*', 'papercutstyle *<texto>*', 
+    'watercolortext *<texto>*', 'effectclouds *<texto>*', 'blackpinklogo *<texto>*', 'gradienttext *<texto>*', 'summerbeach *<texto>*', 
+    'luxurygold *<texto>*', 'multicoloredneon *<texto>*', 'sandsummer *<texto>*', 'galaxywallpaper *<texto>*', 'style *<texto>*', 
+    'makingneon *<texto>*', 'royaltext *<texto>*', 'freecreate *<texto>*', 'galaxystyle *<texto>*', 'amongustext *<texto>*', 'rainytext *<texto>*', 
+    'graffititext *<texto>*', 'colorfulltext *<texto>*', 'equalizertext *<texto>*', 'narutotext *<texto>*', 'angeltxt *<texto>*', 'starlight *<texto>*'
+];
+handler.tags = ['ephoto'];
+handler.command = [
     'glitchtext', 'writetext', 'advancedglow', 'typographytext', 'pixelglitch', 
     'neonglitch', 'flagtext', 'flag3dtext', 'deletingtext', 'blackpinkstyle', 
     'glowingtext', 'underwatertext', 'logomaker', 'cartoonstyle', 'papercutstyle', 
@@ -114,8 +124,5 @@ handler.help = [
     'makingneon', 'royaltext', 'freecreate', 'galaxystyle', 'amongustext', 'rainytext', 
     'graffititext', 'colorfulltext', 'equalizertext', 'narutotext', 'angeltxt', 'starlight'
 ];
-
-handler.tags = ['ephoto'];
-handler.command = handler.help;
 
 export default handler;
