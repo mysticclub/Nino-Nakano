@@ -76,7 +76,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
 handler.help = ['google <consulta>'];
 handler.tags = ['tools'];
-handler.command = /^(google)$/i;
+handler.command = /^(googlev2)$/i;
 handler.register = true;
 
 export default handler;
