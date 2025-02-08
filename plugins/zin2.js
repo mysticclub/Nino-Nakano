@@ -1,4 +1,4 @@
-const handler = async (m, { conn, args }) => {
+/* const handler = async (m, { conn, args }) => {
     if (args.length < 4) {
         conn.reply(m.chat, 'Debes proporcionar esto.\n*.4vs4 <región> <hora> <Bandera> <modalidad>*\n\n*Regiones*\nSR (sudamerica)\nEU (ee.uu)\n\n*Ejemplo:*\n.4vs4 SR 22:00 🇦🇷 infinito\n.4vs4 SR 22:00 🇦🇷 vivido\n.4vs4 EU 20:00 🇲🇽 infinito\n.4vs4 EU 20:00 🇲🇽 vivido', m);
         return;
@@ -116,4 +116,4 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 };
 
 handler.command = /^(4vs4|vs4)$/i;
-export default handler;
+export default handler; */
