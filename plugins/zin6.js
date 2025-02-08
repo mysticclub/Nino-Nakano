@@ -62,7 +62,12 @@ const handler = async (m, { conn, args, command }) => {
             suplentes: [],
             hora: args[1],
             modalidad: modalidad.toUpperCase(),
-            reglas: modalidad === 'infinito' ? '.reglasinf' : '.reglasvv2'
+            reglas: modalidad === 'infinito' ? '.reglasinf' : '.reglasvv2',
+            horarios: {
+                BO: "21:00",
+                PE: "20:00",
+                AR: "22:00"
+            }
         };
     }
 
@@ -84,21 +89,23 @@ const handler = async (m, { conn, args, command }) => {
 
 function generarMensaje(partida) {
     const escuadra = [
-        partida.jugadores[0] || "🥷🏻 ➤",
-        partida.jugadores[1] || "🥷🏻 ➤",
-        partida.jugadores[2] || "🥷🏻 ➤",
-        partida.jugadores[3] || "🥷🏻 ➤"
+        `🥷 ${partida.jugadores[0] || ""}`,
+        `🥷 ${partida.jugadores[1] || ""}`,
+        `🥷 ${partida.jugadores[2] || ""}`,
+        `🥷 ${partida.jugadores[3] || ""}`
     ].join("\n");
 
     const suplentes = [
-        partida.suplentes[0] || "🥷🏻 ➤",
-        partida.suplentes[1] || "🥷🏻 ➤"
+        `🥷 ${partida.suplentes[0] || ""}`,
+        `🥷 ${partida.suplentes[1] || ""}`
     ].join("\n");
 
     return `
 *4 VERSUS 4 ${partida.modalidad}*
 
-*Hora:* ${partida.hora}
+*🇧🇴 BO :* ${partida.horarios.BO}
+*🇵🇪 PE :* ${partida.horarios.PE}
+*🇦🇷 AR :* ${partida.horarios.AR}
 *REGLAS:* ${partida.reglas}
 
 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
