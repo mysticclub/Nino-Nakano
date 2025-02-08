@@ -97,6 +97,7 @@ ${horasEnPais[0].map(({ pais, hora }) => {
         }[pais];
         return `*${bandera} ${pais} :* ${formatTime(hora)}`;
     }).join('\n')}
+
 *REGLAS:* ${reglas}
 
 𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔
@@ -111,8 +112,20 @@ ${horasEnPais[0].map(({ pais, hora }) => {
 🥷🏻 ➤ 
 `.trim();
 
-    await m.react('✅')
-    conn.sendMessage(m.chat, { text: message }, { quoted: m });
+    await m.react('✅');
+
+    conn.sendMessage(m.chat, {
+        text: message,
+        footer: "¡Anótate para el 4vs4!",
+        buttons: [
+            {
+                buttonId: ".anotar",
+                buttonText: { displayText: "📌 Anotar" }
+            }
+        ],
+        viewOnce: true,
+        headerType: 1,
+    }, { quoted: m });
 };
 
 handler.command = /^(4vs4|vs4)$/i;
