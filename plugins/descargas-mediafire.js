@@ -4,13 +4,12 @@ let handler = async (m, { conn, text }) => {
 if (!text) return conn.reply(m.chat, '🍟 Ingresa un link de MediaFire.', m)
 await m.react('🕓')
 try {
-let api = await fetch(`https://api.nasirxml.my.id/download/mediafire?url=${encodeURIComponent(text)}`)
+let api = await fetch(`https://api.agungny.my.id/api/mediafire?url=${encodeURIComponent(text)}`)
 let json = await api.json()
-if (json.status !== 200) return m.reply('❌ Error al obtener los detalles del enlace.')
-let { fileName, downloadLink, fileType } = json.result
-let fullName = fileName + (fileType || '') // Asegura que tenga la extensión correcta
-let caption = `*「✐」${fullName}*\n\n> ❒ Tipo » *${fileType || 'No especificado'}*\n> 🔗 [Descargar](${downloadLink})`
-await conn.sendFile(m.chat, downloadLink, fullName, caption, m, null, { asDocument: true }) // No enviar mimetype
+if (json.status !== "true") return m.reply('❌ Error al obtener los detalles del enlace.')
+let { fileName, downloadLink, fileSize, meta } = json.result
+let caption = `*「✐」${fileName || 'Archivo desconocido'}*\n\n> ❒ Tamaño » *${fileSize || 'No especificado'}*\n> 🔗 [Descargar](${downloadLink})`
+await conn.sendFile(m.chat, downloadLink, fileName || 'archivo', caption, m, null, { mimetype: 'application/octet-stream', asDocument: true })
 await m.react('✅')
 } catch {
 await m.react('✖️')
