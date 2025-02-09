@@ -6,10 +6,9 @@ let handler = async (m, { conn, text }) => {
         let url = `https://ytcdn.project-rian.my.id/download?url=${encodeURIComponent(text)}&resolution=360`;
 
         await conn.sendMessage(m.chat, { video: { url }, caption: "🎥 *Aquí está tu video*" }, { quoted: m });
-
+        await m.react('✅');
     } catch (e) {
         console.error(e);
-        await m.react('✅');
     }
 };
 
