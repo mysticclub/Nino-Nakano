@@ -14,7 +14,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
         let video = searchResults[0];
         let thumbnail = await (await fetch(video.miniatura)).buffer();
 
-        let messageText = `> *YouTube Play 🍧.*\n`;
+        let messageText = `> *YouTube Play 🍧.*\n\n`;
         messageText += `• *Título:* ${video.titulo}\n`;
         messageText += `• *Duración:* ${formatDuration(video.duracion)}\n`;
         messageText += `• *Autor:* ${video.canal || 'Desconocido'}\n`;
@@ -49,12 +49,12 @@ const handler = async (m, { conn, args, usedPrefix }) => {
             buttons: [
                 {
                     buttonId: `${usedPrefix}ytmp3 ${video.url}`,
-                    buttonText: { displayText: '🎵 Audio' },
+                    buttonText: { displayText: 'ᯓᡣ𐭩 ᥲᥙძі᥆' },
                     type: 1,
                 },
                 {
                     buttonId: `${usedPrefix}ytmp4 ${video.url}`,
-                    buttonText: { displayText: '🎥 Video' },
+                    buttonText: { displayText: 'ᯓᡣ𐭩 ᥎іძᥱ᥆' },
                     type: 1,
                 },
                 {
