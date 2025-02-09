@@ -1,4 +1,28 @@
-import fetch from 'node-fetch';
+import fetch from 'node-fetch'
+
+let handler = async (m, { conn, text }) => {
+if (!text) return conn.reply(m.chat, '🍟 Ingresa un link de MediaFire.', m)
+await m.react('🕓')
+try {
+let api = await fetch(`https://bk9.fun/download/mediafire?url=${text}`)
+let json = await api.json()
+if (!json.status) return m.reply('❌ Error al obtener los detalles del enlace.')
+let { link, alternativeUrl, name, filetype, mime, uploaded, size } = json.BK9
+let caption = `*「✐」${name || 'Archivo desconocido'}*\n\n> ❒ Tamaño » *${size || 'Desconocido'}*\n> ✰ Fecha » *${uploaded || 'No disponible'}*\n> 🜸 Tipo » *${filetype || mime || 'No especificado'}*\n> 🔗 [Alternativa](${alternativeUrl})`
+await conn.sendFile(m.chat, link, name || 'archivo', caption, m, null, { mimetype: mime || 'application/octet-stream', asDocument: true })
+await m.react('✅')
+} catch {
+await m.react('✖️')
+}}
+handler.help = ['mediafire *<url>*']
+handler.tags = ['dl']
+handler.command = /^(mediafire)$/i
+export default handler
+
+
+
+
+/* import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, `🍟 Ingresa un link de mediafire`, m)
@@ -30,4 +54,4 @@ handler.help = ['mediafire *<url>*']
 handler.tags = ['dl']
 handler.command = ['mediafire']
 
-export default handler;
+export default handler; */
