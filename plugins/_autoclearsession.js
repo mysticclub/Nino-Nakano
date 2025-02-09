@@ -1,10 +1,11 @@
 import { readdirSync, unlinkSync, existsSync, promises as fs } from 'fs';
 import path from 'path';
+import chalk from 'chalk';  // Importa chalk
 
 function autoClearSession() {
     const sessionDir = `./${sessions}/`; 
     const clearInterval = 1 * 60 * 1000; 
-//    const clearInterval = 2 * 60 * 60 * 1000; 
+    // const clearInterval = 2 * 60 * 60 * 1000; 
 
     setInterval(async () => {
         try {
