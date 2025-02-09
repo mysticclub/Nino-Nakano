@@ -309,11 +309,18 @@ const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
 
 function clockString(ms) {
+    let d = Math.floor(ms / 86400000) 
+    let h = Math.floor(ms / 3600000) % 24 
+    let m = Math.floor(ms / 60000) % 60 
+
+    return [d, h, m].map(v => v.toString().padStart(2, '0')).join(':')
+}
+/* function clockString(ms) {
   let d = isNaN(ms) ? '00' : Math.floor(ms / 86400000); // Días
   let h = isNaN(ms) ? '00' : Math.floor(ms / 3600000) % 24; // Horas
   let m = isNaN(ms) ? '00' : Math.floor(ms / 60000) % 60; // Minutos
   return [d, h, m].map(v => v.toString().padStart(2, '0')).join(':');
-}
+} */
 function ucapan() {
     const time = moment.tz('America/Buenos_Aires').format('HH')
     let res = "Buenas Noches🌙"
