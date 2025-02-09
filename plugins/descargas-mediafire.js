@@ -8,8 +8,9 @@ let api = await fetch(`https://api.nasirxml.my.id/download/mediafire?url=${encod
 let json = await api.json()
 if (json.status !== 200) return m.reply('❌ Error al obtener los detalles del enlace.')
 let { fileName, downloadLink, fileType } = json.result
-let caption = `*「✐」${fileName || 'Archivo desconocido'}*\n\n> ❒ Tipo » *${fileType || 'No especificado'}*\n> 🔗 [Descargar](${downloadLink})`
-await conn.sendFile(m.chat, downloadLink, fileName || 'archivo', caption, m, null, { mimetype: 'application/octet-stream', asDocument: true })
+let fullName = fileName + (fileType || '') // Asegura que tenga la extensión correcta
+let caption = `*「✐」${fullName}*\n\n> ❒ Tipo » *${fileType || 'No especificado'}*\n> 🔗 [Descargar](${downloadLink})`
+await conn.sendFile(m.chat, downloadLink, fullName, caption, m, null, { asDocument: true }) // No enviar mimetype
 await m.react('✅')
 } catch {
 await m.react('✖️')
@@ -18,9 +19,6 @@ handler.help = ['mediafire *<url>*']
 handler.tags = ['dl']
 handler.command = /^(mediafire)$/i
 export default handler
-
-
-
 
 
 
