@@ -19,6 +19,6 @@ await m.reply(`🌸 Ocurrió un error al procesar tu solicitud.`)
 }}
 handler.help=['lilychan *<texto>*']
 handler.tags=['ai']
-handler.command=['lilychan']
+handler.command=['lilychanj']
 
 export default handler
