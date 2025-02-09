@@ -6,8 +6,9 @@ let handler = async (m, { conn, text }) => {
 
   try {
       await conn.sendMessage(m.chat, { audio: { url }, mimetype: 'audio/mpeg' }, { quoted: m });
-  } catch (e) {
       await m.react('✅');
+  } catch (e) {
+    console.log(e)
   }
 };
 
