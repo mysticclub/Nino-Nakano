@@ -3,12 +3,13 @@ let handler = async (m, { conn, text }) => {
     if (!text) return conn.reply(m.chat, "❌ *Por favor, ingresa un enlace de YouTube.*", m);
 
     try {
-        let url = `https://ytcdn.project-rian.my.id/download?url=${encodeURIComponent(text)}&resolution=144p`;
+        let url = `https://ytcdn.project-rian.my.id/download?url=${encodeURIComponent(text)}&resolution=360`;
 
-        await conn.sendMessage(m.chat, { video: { url }, caption: "🎥 *Aquí está tu video en 144p.*" }, { quoted: m });
+        await conn.sendMessage(m.chat, { video: { url }, caption: "🎥 *Aquí está tu video*" }, { quoted: m });
 
     } catch (e) {
         console.error(e);
+        await m.react('✅');
     }
 };
 
