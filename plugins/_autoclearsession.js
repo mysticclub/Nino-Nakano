@@ -19,7 +19,7 @@ function autoClearSession() {
 
             if (global.owner) {
                 await Raol404.sendMessage(
-                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
+                    `${global.owner.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
                     { text: `🔄 *Limpieza Automática de Sesión*\nEl proceso de eliminación de sesiones ha comenzado...` }
                 );
             }
@@ -32,7 +32,7 @@ function autoClearSession() {
 
             if (global.owner) {
                 await Raol404.sendMessage(
-                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
+                    `${global.owner.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
                     { text: `🔄 *Reporte de Limpieza Automática*\nSe eliminaron ${filteredFiles.length} archivos de sesión, excepto creds.json.` }
                 );
             }
@@ -42,7 +42,7 @@ function autoClearSession() {
 
             if (global.owner) {
                 await Raol404.sendMessage(
-                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
+                    `${global.owner.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
                     { text: `❌ *Error en Limpieza Automática*\n${error.message}` }
                 );
             }
