@@ -16,7 +16,7 @@ function autoClearSession() {
 
             console.log(chalk.yellow(`[LIMPIEZA AUTOMÁTICA] Iniciando limpieza de sesiones...`));
 
-            if (global.ownNumb) {
+            if (global.owner) {
                 await Raol404.sendMessage(
                     `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
                     { text: `🔄 *Limpieza Automática de Sesión*\nEl proceso de eliminación de sesiones ha comenzado...` }
@@ -29,7 +29,7 @@ function autoClearSession() {
 
             console.log(chalk.green(`[LIMPIEZA AUTOMÁTICA] Se eliminaron ${filteredFiles.length} archivos de sesión (excepto creds.json)`));
 
-            if (global.ownNumb) {
+            if (global.owner) {
                 await Raol404.sendMessage(
                     `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
                     { text: `🔄 *Reporte de Limpieza Automática*\nSe eliminaron ${filteredFiles.length} archivos de sesión, excepto creds.json.` }
@@ -39,7 +39,7 @@ function autoClearSession() {
         } catch (error) {
             console.error(chalk.red('[ERROR EN LIMPIEZA AUTOMÁTICA]'), error);
 
-            if (global.ownNumb) {
+            if (global.owner) {
                 await Raol404.sendMessage(
                     `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
                     { text: `❌ *Error en Limpieza Automática*\n${error.message}` }
