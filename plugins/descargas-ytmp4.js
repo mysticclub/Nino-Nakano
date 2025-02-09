@@ -1,4 +1,5 @@
 let handler = async (m, { conn, text }) => {
+    await m.react('🕓');
     if (!text) return conn.reply(m.chat, "❌ *Por favor, ingresa un enlace de YouTube.*", m);
 
     try {
