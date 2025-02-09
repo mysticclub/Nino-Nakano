@@ -3,7 +3,7 @@
 - Power By Team Code Titans
 - https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S
 */
-// *[ 🍟 LILYCHAN AI ]*
+// *[ 🍨 LILYCHAN AI ]*
 import fetch from 'node-fetch'
 
 let handler=async(m,{conn,text})=>{
@@ -19,6 +19,6 @@ await m.reply(`🌸 Ocurrió un error al procesar tu solicitud.`)
 }}
 handler.help=['lilychan *<texto>*']
 handler.tags=['ai']
-handler.command=['lilychanj']
+handler.command=['lilychan']
 
 export default handler
