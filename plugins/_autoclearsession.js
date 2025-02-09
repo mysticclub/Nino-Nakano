@@ -1,6 +1,6 @@
 // Auto Clear Session System
 function autoClearSession() {
-    const sessionDir = './session'; // Sesuaikan dengan path session
+    const sessionDir = './${sessions}/'; // Sesuaikan dengan path session
     const clearInterval = 2 * 60 * 60 * 1000; // 2 jam dalam milidetik
     
     setInterval(async () => {
