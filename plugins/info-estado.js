@@ -5,15 +5,15 @@ let handler = async (m, { conn, usedPrefix, isRowner }) => {
     let totalchats = Object.keys(global.db.data.chats).length
     let pp = 'https://i.ibb.co/CKggFFc/file.jpg'
 
-    // Inicializar `_muptime` con `process.uptime()`
-    let _muptime = process.uptime() * 1000 
+    // Obtener el tiempo de actividad del bot
+    let _muptime = process.uptime() * 1000 // Convertir a milisegundos
 
     if (process.send) {
         process.send('uptime')
         _muptime = await new Promise(resolve => {
             process.once('message', resolve)
-            setTimeout(() => resolve(process.uptime()), 1000) // Backup en caso de error
-        }) * 1000
+            setTimeout(() => resolve(process.uptime() * 1000), 1000) // Backup en caso de error
+        })
     }
 
     // Asegurar que `_muptime` es un número válido
@@ -58,16 +58,15 @@ handler.command = ['estado', 'status', 'estate', 'state', 'stado', 'stats']
 handler.register = true
 export default handler
 
+// Función para convertir milisegundos a Días, Horas y Minutos
 function clockString(ms) {
-    let h = Math.floor(ms / 3600000)
-    let m = Math.floor(ms / 60000) % 60
-    let s = Math.floor(ms / 1000) % 60
-    console.log({ ms, h, m, s }) // Debug para revisar valores en la consola
-    return [h, m, s].map(v => v.toString().padStart(2, '0')).join(':')
+    let d = Math.floor(ms / 86400000) // Días
+    let h = Math.floor(ms / 3600000) % 24 // Horas
+    let m = Math.floor(ms / 60000) % 60 // Minutos
+    console.log({ ms, d, h, m }) // Debug en consola
+
+    return `${d} días, ${h} horas, ${m} minutos`
 }
-
-
-
 
 
 
