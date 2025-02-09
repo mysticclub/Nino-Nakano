@@ -313,7 +313,7 @@ const readMore = more.repeat(4001)
   let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
   let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
   return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
-} *)
+} */
 function clockString(ms) {
   let d = isNaN(ms) ? '00' : Math.floor(ms / 86400000); // Días
   let h = isNaN(ms) ? '00' : Math.floor(ms / 3600000) % 24; // Horas
