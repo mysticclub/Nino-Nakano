@@ -1,7 +1,5 @@
-/* 
-- Autoclearsession By Izumi.kzx
-- https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
-*/
+/* - Autoclearsession By Izumi.kzx
+   - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y*/
 import { readdirSync, unlinkSync, existsSync, promises as fs } from 'fs';
 import path from 'path';
 import chalk from 'chalk';
