@@ -136,7 +136,9 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       minute: 'numeric',
       second: 'numeric'
     })
-    let _uptime = process.uptime() * 1000
+    let _muptime = process.uptime() * 1000;
+    let muptime = clockString(_muptime);
+/*    let _uptime = process.uptime() * 1000
     let _muptime
     if (process.send) {
       process.send('uptime')
@@ -144,7 +146,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
         process.once('message', resolve)
         setTimeout(resolve, 1000)
       }) * 1000
-    }
+    } */
     let muptime = clockString(_muptime)
     let uptime = clockString(_uptime)
     let _mpt
@@ -240,7 +242,7 @@ let totalf = Object.values(global.plugins).reduce((total, plugin) => {
     let text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
     let replace = {
       '%': '%',
-      p: uptime, muptime,
+      p: uptime, muptime: muptime,
       me: conn.getName(conn.user.jid),
       npmname: _package.name,
       npmdesc: _package.description,
