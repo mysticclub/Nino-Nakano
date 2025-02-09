@@ -240,7 +240,7 @@ let totalf = Object.values(global.plugins).reduce((total, plugin) => {
     let text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
     let replace = {
       '%': '%',
-      p: muptime, uptime,
+      p: uptime, muptime,
       me: conn.getName(conn.user.jid),
       npmname: _package.name,
       npmdesc: _package.description,
