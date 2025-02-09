@@ -136,23 +136,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       minute: 'numeric',
       second: 'numeric'
     })
-    let _uptime = process.uptime() * 1000
-    let _muptime = process.uptime() * 1000 
-
-    if (process.send) {
-        process.send('uptime')
-        _muptime = await new Promise(resolve => {
-            process.once('message', resolve)
-            setTimeout(() => resolve(process.uptime() * 1000), 1000)
-        })
-    }
-
-    if (isNaN(_muptime)) {
-        _muptime = process.uptime() * 1000
-    }
-
-    let muptime = clockString(_muptime)
-    /* let _muptime
+     let _uptime = process.uptime() * 1000
+    let _muptime
     if (process.send) {
       process.send('uptime')
       _muptime = await new Promise(resolve => {
@@ -160,7 +145,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
         setTimeout(resolve, 1000)
       }) * 1000
     }
-    let muptime = clockString(_muptime) */
+    let muptime = clockString(_muptime)
     let uptime = clockString(_uptime)
     let _mpt
     if (process.send) {
@@ -324,11 +309,10 @@ const more = String.fromCharCode(8206)
 const readMore = more.repeat(4001)
 
 function clockString(ms) {
-    let d = Math.floor(ms / 86400000) 
-    let h = Math.floor(ms / 3600000) % 24 
-    let m = Math.floor(ms / 60000) % 60 
-
-    return [d, h, m].map(v => v.toString().padStart(2, '0')).join(':')
+  let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
+  let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+  let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+  return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')
 }
 /* function clockString(ms) {
   let d = isNaN(ms) ? '00' : Math.floor(ms / 86400000); // Días
