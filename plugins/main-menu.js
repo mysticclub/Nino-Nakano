@@ -52,7 +52,7 @@ const emojis = {
 const defaultMenu = {
   before: `*Hola \`%name\` soy Genesis*
 
-*_˖ . ݁𝜗𝜚. ݁₊ Aᴄᴛɪᴠᴀ ➫_*  _\`[ %muptime ]\`_
+*_˖ . ݁𝜗𝜚. ݁₊ Aᴄᴛɪᴠᴀ ➫_*  _\`[ %uptime ]\`_
 *_˖ . ݁𝜗𝜚. ݁₊ Pᴀɪꜱ ➫_*  _\`[ %userNationality ]\`_
 *_˖ . ݁𝜗𝜚. ݁₊ Pʀᴇꜰɪᴊᴏ ➫_* _\`< . >\`_ 
 *_˖ . ݁𝜗𝜚. ݁₊ Uꜱᴜᴀʀɪᴏꜱ ➫_* _\`[ %totalreg ]\`_
@@ -136,9 +136,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
       minute: 'numeric',
       second: 'numeric'
     })
-    let _muptime = process.uptime() * 1000;
-    let muptime = clockString(_muptime);
-/*    let _uptime = process.uptime() * 1000
+    let _uptime = process.uptime() * 1000
     let _muptime
     if (process.send) {
       process.send('uptime')
@@ -146,7 +144,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
         process.once('message', resolve)
         setTimeout(resolve, 1000)
       }) * 1000
-    } */
+    }
     let muptime = clockString(_muptime)
     let uptime = clockString(_uptime)
     let _mpt
@@ -242,7 +240,7 @@ let totalf = Object.values(global.plugins).reduce((total, plugin) => {
     let text = typeof conn.menu == 'string' ? conn.menu : typeof conn.menu == 'object' ? _text : ''
     let replace = {
       '%': '%',
-      p: uptime, muptime: muptime,
+      p: uptime, muptime,
       me: conn.getName(conn.user.jid),
       npmname: _package.name,
       npmdesc: _package.description,
