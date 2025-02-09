@@ -2,12 +2,12 @@ import fetch from 'node-fetch';
 const { generateWAMessageContent, generateWAMessageFromContent, proto } = (await import('@whiskeysockets/baileys')).default;
 
 let handler = async (m, { conn, text }) => {
-    if (!text) return m.reply('Ingresa el nombre de la app que quieres buscar en APKFab 📱');
+    if (!text) return m.reply('📌 Ingresa el nombre de la app que quieres buscar en APKFab.');
     await m.react('🕓');
 
     try {
         async function createImage(url) {
-            const { imageMessage } = await generateWAMessageContent({ image: { url } }, { upload: conn.waUploadToServer });
+            const { imageMessage } = await generateWAMessageContent({ image: { url }, caption: '' }, { upload: conn.waUploadToServer });
             return imageMessage;
         }
 
@@ -22,7 +22,7 @@ let handler = async (m, { conn, text }) => {
 
             push.push({
                 body: proto.Message.InteractiveMessage.Body.fromObject({
-                    text: `◦ *Nombre:* ${app.title}\n◦ *Calificación:* ${app.rating}\n◦ *Reseñas:* ${app.review}`
+                    text: `📌 *Nombre:* ${app.title}\n⭐ *Calificación:* ${app.rating}\n💬 *Reseñas:* ${app.review}`
                 }),
                 footer: proto.Message.InteractiveMessage.Footer.fromObject({
                     text: '' 
@@ -30,13 +30,13 @@ let handler = async (m, { conn, text }) => {
                 header: proto.Message.InteractiveMessage.Header.fromObject({
                     title: '',
                     hasMediaAttachment: true,
-                    imageMessage: image 
+                    imageMessage: image
                 }),
                 nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({
                     buttons: [
                         {
-                            "name": "cta_open_url",
-                            "buttonParamsJson": `{\"display_text\":\"📥 Descargar\",\"url\":\"${app.link}\"}`
+                            "name": "cta_copy",
+                            "buttonParamsJson": `{\"display_text\":\"📋 Copiar Link\",\"id\":\"123456\",\"copy_code\":\"${app.link}\"}`
                         }
                     ]
                 })
@@ -51,8 +51,8 @@ let handler = async (m, { conn, text }) => {
                         deviceListMetadataVersion: 2
                     },
                     interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-                        body: proto.Message.InteractiveMessage.Body.create({ text: `*🔎 Resultados de:* ${text}` }),
-                        footer: proto.Message.InteractiveMessage.Footer.create({ text: '_\`APK Fab Search\`_' }),
+                        body: proto.Message.InteractiveMessage.Body.create({ text: `🔎 *Resultados de:* ${text}` }),
+                        footer: proto.Message.InteractiveMessage.Footer.create({ text: '_\`APKFab Search\`_' }),
                         header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
                         carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: [...push] })
                     })
@@ -68,7 +68,7 @@ let handler = async (m, { conn, text }) => {
     }
 };
 
-handler.help = ["apkfabsearch *<texto>*"];
+handler.help = ["apksearch *<texto>*"];
 handler.tags = ["search"];
 handler.command = /^(apkfabsearch)$/i;
 
