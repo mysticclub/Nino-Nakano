@@ -14,12 +14,12 @@ const handler = async (m, { conn, args, usedPrefix }) => {
         let video = searchResults[0];
         let thumbnail = await (await fetch(video.miniatura)).buffer();
 
-        let messageText = `┊▸ ✦ *YouTube Play 🍧.*\n`;
-        messageText += `┊▸ ✦ *Título:* ${video.titulo}\n`;
-        messageText += `┊▸ ✦ *Duración:* ${formatDuration(video.duracion)}\n`;
-        messageText += `┊▸ ✦ *Autor:* ${video.canal || 'Desconocido'}\n`;
-        messageText += `┊▸ ✦ *Publicado:* ${convertTimeToSpanish(video.publicado)}\n`;
-        messageText += `┊▸ ✦ *Enlace:* ${video.url}\n`;
+        let messageText = `> *YouTube Play 🍧.*\n`;
+        messageText += `• *Título:* ${video.titulo}\n`;
+        messageText += `• *Duración:* ${formatDuration(video.duracion)}\n`;
+        messageText += `• *Autor:* ${video.canal || 'Desconocido'}\n`;
+        messageText += `• *Publicado:* ${convertTimeToSpanish(video.publicado)}\n`;
+        messageText += `• *Enlace:* ${video.url}\n`;
 
         let sections = searchResults.slice(1, 11).map((v, index) => ({
             title: `${index + 1}┃ ${v.titulo}`,
