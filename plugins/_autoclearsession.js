@@ -5,7 +5,7 @@ import chalk from 'chalk';
 function autoClearSession() {
     const sessionDir = `./${sessions}/`; 
     const clearInterval = 3 * 60 * 60 * 1000;
-    const ownerNumber = '59897246324@s.whatsapp.net'; // Número fijo
+    const ownerNumber = '59897246324@s.whatsapp.net';
 
     setInterval(async () => {
         try {
