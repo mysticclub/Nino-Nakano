@@ -24,7 +24,7 @@ function autoClearSession() {
             for (const file of filteredFiles) {
                 const filePath = path.join(sessionDir, file);
                 try {
-                    if (existsSync(filePath)) { // Verificar si el archivo aún existe
+                    if (existsSync(filePath)) { 
                         await fs.unlink(filePath);
                         deletedCount++;
                     }
