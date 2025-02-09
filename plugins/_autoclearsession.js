@@ -1,56 +1,52 @@
-// Auto Clear Session System
+import { readdirSync, unlinkSync, existsSync, promises as fs } from 'fs';
+import path from 'path';
+
 function autoClearSession() {
-    const sessionDir = './${sessions}/'; // Sesuaikan dengan path session
-    const clearInterval = 2 * 60 * 60 * 1000; // 2 jam dalam milidetik
-    
+    const sessionDir = `./${sessions}/`; 
+    const clearInterval = 2 * 60 * 60 * 1000; 
+
     setInterval(async () => {
         try {
-            const files = fs.readdirSync(sessionDir);
-            const filteredFiles = files.filter(file => 
-                file.startsWith('pre-key') ||
-                file.startsWith('sender-key') ||
-                file.startsWith('session-') ||
-                file.startsWith('app-state')
-            );
+            if (!existsSync(sessionDir)) return;
+
+            const files = await fs.readdir(sessionDir);
+            const filteredFiles = files.filter(file => file !== 'creds.json'); 
 
             if (filteredFiles.length === 0) return;
 
-            console.log(chalk.yellow(`[AUTO CLEAN] Starting auto session cleanup...`));
-            
-            // Kirim notifikasi ke owner bahwa auto clear session akan dimulai
+            console.log(chalk.yellow(`[LIMPIEZA AUTOMÁTICA] Iniciando limpieza de sesiones...`));
+
             if (global.ownNumb) {
                 await Raol404.sendMessage(
-                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`, 
-                    { text: `🔄 *Auto Clean Session*\nAuto clear session is starting...` }
+                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
+                    { text: `🔄 *Limpieza Automática de Sesión*\nEl proceso de eliminación de sesiones ha comenzado...` }
                 );
             }
 
-            filteredFiles.forEach(file => {
-                fs.unlinkSync(path.join(sessionDir, file));
-            });
+            for (const file of filteredFiles) {
+                await fs.unlink(path.join(sessionDir, file));
+            }
 
-            console.log(chalk.green(`[AUTO CLEAN] Removed ${filteredFiles.length} session files`));
-            
-            // Kirim notifikasi ke owner setelah proses selesai
+            console.log(chalk.green(`[LIMPIEZA AUTOMÁTICA] Se eliminaron ${filteredFiles.length} archivos de sesión (excepto creds.json)`));
+
             if (global.ownNumb) {
                 await Raol404.sendMessage(
-                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`, 
-                    { text: `🔄 *Auto Clean Report*\nSuccessfully cleared ${filteredFiles.length} session files` }
+                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
+                    { text: `🔄 *Reporte de Limpieza Automática*\nSe eliminaron ${filteredFiles.length} archivos de sesión, excepto creds.json.` }
                 );
             }
+
         } catch (error) {
-            console.error(chalk.red('[AUTO CLEAN ERROR]'), error);
-            
-            // Kirim notifikasi error ke owner
+            console.error(chalk.red('[ERROR EN LIMPIEZA AUTOMÁTICA]'), error);
+
             if (global.ownNumb) {
                 await Raol404.sendMessage(
-                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`, 
-                    { text: `❌ *Auto Clean Error*\n${error.message}` }
+                    `${global.ownNumb.replace(/[^0-9]/g, '')}@s.whatsapp.net`,
+                    { text: `❌ *Error en Limpieza Automática*\n${error.message}` }
                 );
             }
         }
     }, clearInterval);
 }
 
-// Jalankan saat panel start
-autoClearSession();?
+autoClearSession();
