@@ -7,8 +7,7 @@ let handler = async (m, { conn, text }) => {
   try {
       await conn.sendMessage(m.chat, { audio: { url }, mimetype: 'audio/mpeg' }, { quoted: m });
   } catch (e) {
-      conn.reply(m.chat, "❌ *Error al descargar el audio.*", m);
-      console.error(e);
+      await m.react('✅');
   }
 };
 
