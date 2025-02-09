@@ -3,8 +3,8 @@ import path from 'path';
 
 function autoClearSession() {
     const sessionDir = `./${sessions}/`; 
-    const clearInterval = 2 * 60 * 60 * 1000; 
-//    const clearInterval = 1 * 60 * 1000; 
+    const clearInterval = 1 * 60 * 1000; 
+//    const clearInterval = 2 * 60 * 60 * 1000; 
 
     setInterval(async () => {
         try {
