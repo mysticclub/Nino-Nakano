@@ -49,18 +49,18 @@ global.packname = '⪛✰ Genesis Ai - Ultra ✰⪜'
 global.botname = 'gᥱᥒᥱsіs-ᥲі'
 global.wm = 'Genesis-Ultra 🤍'
 global.author = 'mᥲძᥱ ᑲᥡ : іzᥙmі.kz᥊ ☕'
-global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ іzᥙmі.kz᥊'
+global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ᥴ᥆ძᥱ 𝗍і𝗍ᥲᥒs'
 global.textbot = 'Genesis Ai : Izumi.kzx 🤍'
 global.namebot = 'Genesis Ai'
-global.stickpack = `© ⍴᥆ᥕᥱrᥱძ ᑲᥡ іzᥙmі.kz᥊`
+global.stickpack = `© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ᥴ᥆ძᥱ 𝗍і𝗍ᥲᥒs`
 global.titulowm = '-❀ᩙ̈͟༚̮ ⡞᪲=͟͟͞🄶𝚎᪶۫۫𝚗᪶۫۫𝚎᪶۫۫𝚜᪶۫۫𝚒᪶۫۫𝚜᪶۫ 𝚊᪶۫𝚒᪶۫͜ ≼᳞ׄ ᵎ ˚꙳꤬ꨪ'
 global.titulowm2 = '.‧·ீ੭ ¡ ᗃᮢ፝֟͡Gᴇɴᴇsɪs B۵ᴛ ʟᴀ ᴍᴇᴊ꧔ʀ !˚̩̩̥͙°̩̥༅˚'
-global.igfg = '@usxr_angelito0'
+global.igfg = '@angelito.kzx'
 global.titu = '©️ ρσωε૨ ɓყ ɠαℓαאყ ƭεαɱ'
 global.listo = '*Aqui tiene ฅ^•ﻌ•^ฅ*'
 global.vs = '2.0.7'
 global.namechannel = '𝑮𝒆𝒏𝒆𝒔𝒊𝒔-𝑩𝒐𝒕 - 𝑪𝒉𝒂𝒏𝒏𝒆𝒍'
-global.stickauth = `© Genesis Ai By Angelito-OFC`
+global.stickauth = `© Genesis Ai By Izumi.kzx`
 global.dis = ':⁖֟⊱┈֟፝❥'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
@@ -90,7 +90,8 @@ global.fakegif4 = { key: { participant: `0@s.whatsapp.net`, ...(false ? { remote
 
 global.ch = {
 ch1: '120363220939514640@newsletter',
-ch2: '120363343366246815@newsletter'
+ch2: '120363343366246815@newsletter',
+ch3: '120363371366801178@newsletter'
 }
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
