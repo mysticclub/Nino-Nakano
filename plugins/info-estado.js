@@ -5,37 +5,31 @@ let handler = async (m, { conn, usedPrefix, isRowner }) => {
     let totalchats = Object.keys(global.db.data.chats).length
     let pp = 'https://i.ibb.co/CKggFFc/file.jpg'
 
-    // Obtener el tiempo de actividad del bot
-    let _muptime = process.uptime() * 1000 // Convertir a milisegundos
+    let _muptime = process.uptime() * 1000 
 
     if (process.send) {
         process.send('uptime')
         _muptime = await new Promise(resolve => {
             process.once('message', resolve)
-            setTimeout(() => resolve(process.uptime() * 1000), 1000) // Backup en caso de error
+            setTimeout(() => resolve(process.uptime() * 1000), 1000)
         })
     }
 
-    // Asegurar que `_muptime` es un número válido
     if (isNaN(_muptime)) {
-        console.log('Error: _muptime es NaN. Usando process.uptime()');
         _muptime = process.uptime() * 1000
     }
 
     let muptime = clockString(_muptime)
 
-    // SubBots Activos (Conexiones WebSocket activas)
     let users = [...new Set([...global.conns.filter((conn) => conn.user && conn.ws.socket && conn.ws.socket.readyState !== ws.CLOSED).map((conn) => conn)])]
     const totalUsers = users.length
 
-    // Chats y Grupos
     const chats = Object.entries(conn.chats).filter(([id, data]) => id && data.isChats)
     const groupsIn = chats.filter(([id]) => id.endsWith('@g.us'))
 
-    // Calcular velocidad
     let old = performance.now()
     let neww = performance.now()
-    let speed = (neww - old).toFixed(3) // Redondeado a 3 decimales
+    let speed = (neww - old).toFixed(3)
 
     let txt = `☁️ \`\`\`Información - Genesis\`\`\` ☁️\n\n`
     txt += `☁️꙰᠁❥ *◜Creador◞* ⇢ Izumi.kzx\n`
@@ -58,15 +52,18 @@ handler.command = ['estado', 'status', 'estate', 'state', 'stado', 'stats']
 handler.register = true
 export default handler
 
-// Función para convertir milisegundos a Días, Horas y Minutos
 function clockString(ms) {
-    let d = Math.floor(ms / 86400000) // Días
-    let h = Math.floor(ms / 3600000) % 24 // Horas
-    let m = Math.floor(ms / 60000) % 60 // Minutos
-    console.log({ ms, d, h, m }) // Debug en consola
+    let d = Math.floor(ms / 86400000) 
+    let h = Math.floor(ms / 3600000) % 24 
+    let m = Math.floor(ms / 60000) % 60 
 
-    return `${d} días, ${h} horas, ${m} minutos`
+    return [d, h, m].map(v => v.toString().padStart(2, '0')).join(':')
 }
+
+
+
+
+
 
 
 
