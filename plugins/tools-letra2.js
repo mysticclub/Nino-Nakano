@@ -62,7 +62,6 @@ const handler = async (m, { conn, args, command }) => {
       horarios: horarios
     };
   } else {
-    // Aquí aseguramos que no se sobrescriba la modalidad si ya existe
     partidas[partidaId].modalidad = modalidad.toUpperCase();
     partidas[partidaId].reglas = modalidad === 'infinito' ? '.reglasinf' : '.reglasvv2';
   }
@@ -85,5 +84,8 @@ function generarMensaje(partida) {
   return `*4 VERSUS 4 ${partida.modalidad}*\n${horarios}\n*REGLAS:* ${partida.reglas}\n𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔\n${escuadra}\n𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦\n${suplentes}`.trim();
 }
 
-handler.command = /^(4vs4|vs4|anotar)$/i;
+handler.help = ['4vs4 <región> <hora> <Bandera> <modalidad>']
+handler.tags = ['main']
+handler.command = /^(4vs4|anotar)$/i;
+handler.group = true
 export default handler;
