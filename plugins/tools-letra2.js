@@ -36,12 +36,12 @@ return;
 }
 const modalidad = args[3].toLowerCase();
 if (modalidad !== 'infinito' && modalidad !== 'vivido') {
-conn.reply(m.chat, '𝘔𝘰𝘥𝘢𝘭𝘪𝘥𝘢𝘥 𝘯𝘰 𝘷𝘢́𝘭𝘪𝘥𝘢. 𝘌𝘴𝘤𝘳𝘪𝘣𝘦 "𝘪𝘯𝘧𝘪𝘯𝘪𝘵𝘰" 𝘰 "𝘷𝘪́𝘷𝘪𝘥𝘰".', m);
+conn.reply(m.chat, 'Modalidad no válida. Escribe "infinito" o "vivido".', m);
 return;
 }
 const region = args[0].toUpperCase();
 if (region !== 'SR' && region !== 'EU') {
-conn.reply(m.chat, '𝘓𝘢 𝘳𝘦𝘨𝘪𝘰́𝘯 𝘯𝘰 𝘦𝘴 𝘷𝘢́𝘭𝘪𝘥𝘢. 𝘜𝘴𝘢 𝘚𝘙 𝘰 𝘌𝘜.', m);
+conn.reply(m.chat, 'La región no es válida. Usa SR o EU.', m);
 return;
 }
 const partidaId = `${m.chat}-${args[0]}-${args[1]}`;
