@@ -84,7 +84,7 @@ function generarMensaje(partida) {
   return `*4 VERSUS 4 ${partida.modalidad}*\n${horarios}\n*REGLAS:* ${partida.reglas}\n𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔\n${escuadra}\n𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦\n${suplentes}`.trim();
 }
 
-handler.help = ['4vs4 *<region|hora|Bandera|mod>*']
+handler.help = ['4vs4 *<Reg|Hr|Bnd|Mod>*']
 handler.tags = ['main']
 handler.command = /^(4vs4|anotar)$/i;
 handler.group = true
