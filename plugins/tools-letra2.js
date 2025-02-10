@@ -1,3 +1,9 @@
+/* 
+- Código Creado Por Izumi-kzx
+- Power By Team Code Titans
+- https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S
+*/
+// *[ 🍧 4VS4 FREE FIRE ]*
 const partidas = {};
 const handler = async (m, { conn, args, command }) => {
   if (command === 'anotar') {
