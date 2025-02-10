@@ -68,5 +68,8 @@ const escuadra = [`🥷 ${partida.jugadores[0] || ""}`, `🥷 ${partida.jugadore
 const suplentes = [`🥷 ${partida.suplentes[0] || ""}`, `🥷 ${partida.suplentes[1] || ""}`].join("\n");
 return `*4 VERSUS 4 ${partida.modalidad}*\n${horarios}\n*REGLAS:* ${partida.reglas}\n𝗘𝗦𝗖𝗨𝗔𝗗𝗥𝗔\n${escuadra}\n𝗦𝗨𝗣𝗟𝗘𝗡𝗧𝗘𝗦\n${suplentes}`.trim();
 }
+handler.help = ['4vs4']
+handler.tags = ['tools']
 handler.command = /^(4vs4|vs4|anotar)$/i;
+handler.group = true
 export default handler;
