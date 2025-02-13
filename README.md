@@ -41,6 +41,18 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 
 ### <img src="https://i.pinimg.com/originals/19/80/6e/19806e91932e6054965fc83b85241270.gif" alt="Prueba La Bot Aqui" width="42" height="42"> **`Instala Genesis Aqui`**
 
+### Host Sky Ultra Plus
+- **Dashboard:** [`Aqui`](https://dash.skyultraplus.com)
+- **Panel:** [`Aqui`](https://panel.skyultraplus.com)
+- **Estado de servicios:** [`Aqui`](https://estado.skyultraplus.com)
+- **Canal de WhatsApp:** [`AquÃ­`](https://whatsapp.com/channel/0029VakUvreFHWpyWUr4Jr0g)
+- **Comunidad:** [`Aqui`](https://chat.whatsapp.com/KGPhTIfgOzZCMNqoc3R7OW)
+- **Contacto(s):** [`Gata Dios`](https://wa.me/message/B3KTM5XN2JMRD1) / [`Russell`](https://api.whatsapp.com/send/?phone=15167096032&text&type=phone_number&app_absent=0) / [`elrebelde21`](https://facebook.com/elrebelde21)
+- **Discord:** [`SkyUltraPlus`](https://discord.gg/Ph4eWsZ8)
+----
+
+
+
 ### **`TK HOST 📲`**
 <a href="https://dash.tk-joanhost.com"><img src="https://i.ibb.co/pr8TnWJ/SAVE-20240915-183758.jpg" height="125px"></a>
 
