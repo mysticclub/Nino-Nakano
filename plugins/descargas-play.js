@@ -1,7 +1,7 @@
-import fetch from 'node-fetch';
+oiimport fetch from 'node-fetch';
 import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 
-const API_URL = 'https://dark-core-api.vercel.app/api/search/youtube?key=user1&text=';
+const API_URL = 'https://dark-core-api.vercel.app/api/search/youtube?key=Darkito&text=';
 
 const handler = async (m, { conn, args, usedPrefix }) => {
     if (!args[0]) return conn.reply(m.chat, '*`Por favor ingresa un término de búsqueda`*', m);
