@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import yts from 'yt-search';
 import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 
 const API_URL = 'https://dark-core-api.vercel.app/api/search/youtube?key=api&text=';
@@ -89,10 +90,24 @@ async function searchVideos(query) {
     try {
         let response = await fetch(`${API_URL}${encodeURIComponent(query)}`);
         let json = await response.json();
-        return json.success ? json.results : [];
-    } catch (e) {
-        console.error('Error al obtener videos:', e);
-        return [];
+        if (json.success && json.results.length) return json.results;
+    } catch (apiError) {
+        console.warn('API falló, usando yt-search:', apiError.message);
+        try {
+            const res = await yts(query);
+            return res.videos.slice(0, 10).map(video => ({
+                titulo: video.title,
+                url: video.url,
+                miniatura: video.thumbnail,
+                canal: video.author.name,
+                publicado: video.timestamp || 'No disponible',
+                vistas: video.views || 'No disponible',
+                duracion: video.duration.timestamp || 'No disponible'
+            }));
+        } catch (ytSearchError) {
+            console.error('yt-search también falló:', ytSearchError.message);
+            return [];
+        }
     }
 }
 
