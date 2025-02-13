@@ -59,7 +59,6 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 ***
 ### ☁️ COLABORADORES
 
-<a href="https://github.com/MauroAzcurra"><img src="https://github.com/MauroAzcurra.png" width="100" height="100" alt="MauroAzcurra"/></a>
 <a href="https://github.com/Manuel12yt"><img src="https://github.com/Manuel12yt.png" width="100" height="100" alt="DarkCore"/></a>
 
 ### **`🤍 CREADOR`**
