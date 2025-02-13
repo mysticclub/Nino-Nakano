@@ -1,4 +1,4 @@
-oiimport fetch from 'node-fetch';
+import fetch from 'node-fetch';
 import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
 
 const API_URL = 'https://dark-core-api.vercel.app/api/search/youtube?key=Darkito&text=';
