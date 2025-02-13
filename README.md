@@ -45,9 +45,6 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 ### ☁️ SKY ULTRA PLUS
 <a href="https://dash.corinplus.com"><img src="https://qu.ax/zFzXF.png" height="125px"></a>
 
-<details>
- <summary><b>:paperclip: Enlaces Importantes</b></summary>
-
 - **Dashboard:** [`Aquí`](https://dash.skyultraplus.com)
 - **Panel:** [`Aquí`](https://panel.skyultraplus.com)
 - **Canal de WhatsApp:** [`Aquí`](https://whatsapp.com/channel/0029VakUvreFHWpyWUr4Jr0g)
