@@ -54,7 +54,7 @@ GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivame
 - **Discord:** [`SkyUltraPlus`](https://discord.gg/Ph4eWsZ8)
 
 <details>
-<summary>☁️ Ajustes del Servidor - YaemoriBot</summary><img src="https://qu.ax/CepDu.jpg">
+<summary>☁️ Ajustes del Servidor - Genesis-Ai</summary><img src="https://qu.ax/CepDu.jpg">
 
 </details>
 
