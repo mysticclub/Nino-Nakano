@@ -1,8 +1,6 @@
-import fetch from 'node-fetch';
 import yts from 'yt-search';
+import fetch from 'node-fetch';
 import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
-
-const API_URL = 'https://dark-core-api.vercel.app/api/search/youtube?key=api&text=';
 
 const handler = async (m, { conn, args, usedPrefix }) => {
     if (!args[0]) return conn.reply(m.chat, '*`Por favor ingresa un término de búsqueda`*', m);
@@ -17,7 +15,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
 
         let messageText = `> *YouTube Play 🍧.*\n\n`;
         messageText += `• *Título:* ${video.titulo}\n`;
-        messageText += `• *Duración:* ${formatDuration(video.duracion)}\n`;
+        messageText += `• *Duración:* ${video.duracion || 'No disponible'}\n`;
         messageText += `• *Autor:* ${video.canal || 'Desconocido'}\n`;
         messageText += `• *Publicado:* ${convertTimeToSpanish(video.publicado)}\n`;
         messageText += `• *Enlace:* ${video.url}\n`;
@@ -27,12 +25,12 @@ const handler = async (m, { conn, args, usedPrefix }) => {
             rows: [
                 {
                     title: `🎶 Descargar MP3`,
-                    description: `Duración: ${formatDuration(v.duracion)}`, 
+                    description: `Duración: ${v.duracion || 'No disponible'}`, 
                     id: `${usedPrefix}ytmp3 ${v.url}`
                 },
                 {
                     title: `🎥 Descargar MP4`,
-                    description: `Duración: ${formatDuration(v.duracion)}`, 
+                    description: `Duración: ${v.duracion || 'No disponible'}`, 
                     id: `${usedPrefix}ytmp4 ${v.url}`
                 }
             ]
@@ -88,35 +86,20 @@ export default handler;
 
 async function searchVideos(query) {
     try {
-        let response = await fetch(`${API_URL}${encodeURIComponent(query)}`);
-        let json = await response.json();
-        if (json.success && json.results.length) return json.results;
-    } catch (apiError) {
-        console.warn('API falló, usando yt-search:', apiError.message);
-        try {
-            const res = await yts(query);
-            return res.videos.slice(0, 10).map(video => ({
-                titulo: video.title,
-                url: video.url,
-                miniatura: video.thumbnail,
-                canal: video.author.name,
-                publicado: video.timestamp || 'No disponible',
-                vistas: video.views || 'No disponible',
-                duracion: video.duration.timestamp || 'No disponible'
-            }));
-        } catch (ytSearchError) {
-            console.error('yt-search también falló:', ytSearchError.message);
-            return [];
-        }
+        const res = await yts(query);
+        return res.videos.slice(0, 10).map(video => ({
+            titulo: video.title,
+            url: video.url,
+            miniatura: video.thumbnail,
+            canal: video.author.name,
+            publicado: video.timestamp || 'No disponible',
+            vistas: video.views || 'No disponible',
+            duracion: video.duration.timestamp || 'No disponible'
+        }));
+    } catch (error) {
+        console.error('Error en yt-search:', error.message);
+        return [];
     }
-}
-
-function formatDuration(duration) {
-    let match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-    let hours = match[1] ? match[1].replace('H', 'h ') : '';
-    let minutes = match[2] ? match[2].replace('M', 'm ') : '';
-    let seconds = match[3] ? match[3].replace('S', 's') : '';
-    return `${hours}${minutes}${seconds}`.trim();
 }
 
 function convertTimeToSpanish(timeText) {
