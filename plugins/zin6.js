@@ -56,7 +56,7 @@ let handler = async (m, { conn, text }) => {
   const respuesta = respuestas[Math.floor(Math.random() * respuestas.length)]
   const imagen = imagenes[Math.floor(Math.random() * imagenes.length)]
 
-  conn.sendMessage(m.chat, { image: { url: imagen }, caption: `🔮 ${respuesta}` }, { quoted: m })
+  conn.sendMessage(m.chat, { image: { url: imagen }, caption: `🔮 *${respuesta}*` }, { quoted: m })
 }
 
 handler.tags = ['fun']
