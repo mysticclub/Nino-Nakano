@@ -44,8 +44,19 @@ let handler = async (m, { conn, text }) => {
     'Prefiero no responder.',
   ]
 
+  const imagenes = [
+    'https://i.ibb.co/C575Z2ph/file.jpg',
+    'https://i.ibb.co/wFmxF4L1/file.jpg',
+    'https://i.ibb.co/LDMRv0VP/file.jpg',
+    'https://i.ibb.co/9jzZsMt/file.jpg',
+    'https://i.ibb.co/sJcvHqY2/file.jpg',
+    'https://i.ibb.co/04cyVCF/file.jpg',
+  ]
+
   const respuesta = respuestas[Math.floor(Math.random() * respuestas.length)]
-  conn.reply(m.chat, `🔮 ${respuesta}`, m)
+  const imagen = imagenes[Math.floor(Math.random() * imagenes.length)]
+
+  conn.sendMessage(m.chat, { image: { url: imagen }, caption: `🔮 ${respuesta}` }, { quoted: m })
 }
 
 handler.tags = ['fun']
