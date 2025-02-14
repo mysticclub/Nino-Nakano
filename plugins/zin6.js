@@ -1,51 +1,51 @@
-import fs from 'fs'
-import { createCanvas, loadImage } from 'canvas'
-
 let handler = async (m, { conn, text }) => {
-  if (!text) return conn.reply(m.chat, '🚩 Por favor, haz una pregunta.', m)
+  if (!text) return conn.reply(m.chat, '🔮 Por favor, haz una pregunta.', m)
 
-  // Lista de respuestas como la Bola 8 Mágica
   const respuestas = [
     'Sí.',
+    'Será mejor que no te lo diga ahora.',
+    'Sí, definitivamente.',
+    'Debes confiar en ello.',
+    'Mis fuentes me dicen que no.',
     'No cuentes con ello.',
+    'No puedo predecirlo ahora.',
+    'Muy dudoso.',
     'Las perspectivas no son buenas.',
-    'Sin duda.',
-    'Pregunta de nuevo más tarde.',
+    'Concéntrate y vuelve a preguntar.',
+    'En mi opinión, sí.',
     'Es cierto.',
     'Probablemente.',
     'Todo apunta a que sí.',
     'Mi respuesta es no.',
-    'Muy dudoso.',
-    'No puedo predecirlo ahora.',
+    'Definitivamente no.',
+    'Pregunta en otro momento.',
+    'No estoy seguro, intenta de nuevo.',
+    'Claro que sí.',
+    'Las señales apuntan a que sí.',
+    'Tal vez.',
+    'Lo dudo mucho.',
+    'No lo veo posible.',
+    'Podría ser, pero no te confíes.',
+    'Cuenta con ello.',
+    'No sabría decirte.',
+    'Confía en tu intuición.',
+    'Parece que sí, pero con precaución.',
+    'Mis sensores dicen que sí.',
+    'No puedo responder a eso.',
+    'Por supuesto.',
+    'Solo el tiempo lo dirá.',
+    'No hay duda alguna.',
+    'No es el momento adecuado para saberlo.',
+    'Es altamente probable.',
+    'No te hagas ilusiones.',
+    'Definitivamente sí.',
+    'No está claro en este momento.',
+    'Depende de cómo lo veas.',
+    'Prefiero no responder.',
   ]
 
-  let respuesta = respuestas[Math.floor(Math.random() * respuestas.length)]
-
-  // Crear imagen con la respuesta
-  const stickerPath = '/mnt/data/bola8.png'
-  await generarImagenBola8(respuesta, stickerPath)
-
-  // Enviar como sticker
-  await conn.sendMessage(m.chat, { sticker: fs.readFileSync(stickerPath) }, { quoted: m })
-}
-
-// Función para generar imagen con la respuesta en la Bola 8 Mágica
-async function generarImagenBola8(texto, path) {
-  const canvas = createCanvas(500, 500)
-  const ctx = canvas.getContext('2d')
-
-  const bola8 = await loadImage('https://i.imgur.com/6pO1hHz.png') // Imagen base de la bola
-  ctx.drawImage(bola8, 0, 0, 500, 500)
-
-  // Configurar texto en la bola
-  ctx.font = 'bold 30px Arial'
-  ctx.fillStyle = 'white'
-  ctx.textAlign = 'center'
-  ctx.fillText(texto, 250, 270)
-
-  // Guardar la imagen generada
-  const buffer = canvas.toBuffer('image/png')
-  fs.writeFileSync(path, buffer)
+  const respuesta = respuestas[Math.floor(Math.random() * respuestas.length)]
+  conn.reply(m.chat, `🔮 ${respuesta}`, m)
 }
 
 handler.tags = ['fun']
