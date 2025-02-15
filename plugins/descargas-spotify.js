@@ -21,9 +21,12 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
     const result = await response.json();
 
     if (result.status === 200 && result.result?.status) {
-      const { title, artists, releaseDate, cover, music } = result.result;
+      const { title, type, artists, releaseDate, cover, music } = result.result;
 
-      const mensaje = `🎵 *Título*: ${title}\n🎤 *Artista*: ${artists}\n📅 *Lanzamiento*: ${releaseDate}`;
+      const mensaje = `🎵 *Título:* ${title}\n` +
+                      `🎶 *Tipo:* ${type.charAt(0).toUpperCase() + type.slice(1)}\n` +
+                      `🎤 *Artista:* ${artists}\n` +
+                      `📅 *Lanzamiento:* ${releaseDate}`;
 
       await conn.sendFile(m.chat, cover, 'cover.jpg', mensaje, m);
 
