@@ -17,20 +17,20 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   await m.react('🕓');
 
   try {
-    const response = await fetch(`https://api.vreden.web.id/api/spotify?url=${encodeURIComponent(text)}`);
+    const response = await fetch(`https://api.diioffc.web.id/api/download/spotify?url=${encodeURIComponent(text)}`);
     const result = await response.json();
 
-    if (result.status === 200 && result.result?.status) {
-      const { title, artists, cover, music } = result.result;
+    if (result.status && result.result) {
+      const { title, artists, releaseDate, thumbnail, audio } = result.result;
 
-      const mensaje = `🎵 *Título*: ${title}\n🎤 *Artista*: ${artists}\n📅 *Lanzamiento*: ${result.result.releaseDate}`;
+      const mensaje = `🎵 *Título*: ${title}\n🎤 *Artista*: ${artists}\n📅 *Lanzamiento*: ${releaseDate}`;
 
-      await conn.sendFile(m.chat, cover, 'cover.jpg', mensaje, m);
+      await conn.sendFile(m.chat, thumbnail, 'cover.jpg', mensaje, m);
 
       await conn.sendMessage(
         m.chat,
         { 
-          audio: { url: music }, 
+          audio: { url: audio }, 
           fileName: `${title}.mp3`, 
           mimetype: 'audio/mpeg' 
         }, 
@@ -67,13 +67,9 @@ export default handler;
 
 
 
-
-
 /* import fetch from 'node-fetch';
 
 let handler = async (m, { conn, command, text, usedPrefix }) => {
-  const apiKey = 'xenzpedo';
-
   if (!text) {
     return conn.reply(
       m.chat,
@@ -86,22 +82,20 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   await m.react('🕓');
 
   try {
-    const response = await fetch(
-      `https://api.botcahx.eu.org/api/download/spotify?url=${encodeURIComponent(text)}&apikey=${apiKey}`
-    );
+    const response = await fetch(`https://api.vreden.web.id/api/spotify?url=${encodeURIComponent(text)}`);
     const result = await response.json();
 
-    if (result.status && result.result?.data) {
-      const { title, artist, thumbnail, url } = result.result.data;
+    if (result.status === 200 && result.result?.status) {
+      const { title, artists, cover, music } = result.result;
 
-      const mensaje = `🎵 *Título*: ${title}\n🎤 *Artista*: ${artist.name}\n🔗 *Spotify*: ${artist.external_urls.spotify}\n🕒 *Duración*: ${result.result.data.duration}`;
+      const mensaje = `🎵 *Título*: ${title}\n🎤 *Artista*: ${artists}\n📅 *Lanzamiento*: ${result.result.releaseDate}`;
 
-      await conn.sendFile(m.chat, thumbnail, 'cover.jpg', mensaje, m);
+      await conn.sendFile(m.chat, cover, 'cover.jpg', mensaje, m);
 
       await conn.sendMessage(
         m.chat,
         { 
-          audio: { url }, 
+          audio: { url: music }, 
           fileName: `${title}.mp3`, 
           mimetype: 'audio/mpeg' 
         }, 
