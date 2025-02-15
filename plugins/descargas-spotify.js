@@ -17,20 +17,20 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   await m.react('🕓');
 
   try {
-    const response = await fetch(`https://api.diioffc.web.id/api/download/spotify?url=${encodeURIComponent(text)}`);
+    const response = await fetch(`https://api.vreden.my.id/api/spotify?url=${encodeURIComponent(text)}`);
     const result = await response.json();
 
-    if (result.status && result.result) {
-      const { title, artists, releaseDate, thumbnail, audio } = result.result;
+    if (result.status === 200 && result.result?.status) {
+      const { title, artists, releaseDate, cover, music } = result.result;
 
       const mensaje = `🎵 *Título*: ${title}\n🎤 *Artista*: ${artists}\n📅 *Lanzamiento*: ${releaseDate}`;
 
-      await conn.sendFile(m.chat, thumbnail, 'cover.jpg', mensaje, m);
+      await conn.sendFile(m.chat, cover, 'cover.jpg', mensaje, m);
 
       await conn.sendMessage(
         m.chat,
         { 
-          audio: { url: audio }, 
+          audio: { url: music }, 
           fileName: `${title}.mp3`, 
           mimetype: 'audio/mpeg' 
         }, 
@@ -63,6 +63,8 @@ handler.command = /^(spotify|sp)$/i;
 handler.register = true;
 
 export default handler;
+
+
 
 
 
