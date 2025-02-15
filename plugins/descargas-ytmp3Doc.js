@@ -1,61 +1,71 @@
 import axios from 'axios';
-import fs from 'fs';
 
 let handler = async (m, { conn, args }) => {
     if (!args[0]) {
         return conn.reply(m.chat, `[ ✰ ] Ingresa un enlace válido para descargar el archivo.`, m);
     }
 
-    await m.react('🕓');
+    await conn.sendMessage(m?.chat, { react: { text: `🌟`, key: m?.key } });
 
-    try {
-        // Llamada a la API de BK9
-        const response = await axios.get(`https://bk9.fun/download/alldownload?url=${encodeURIComponent(args[0])}`);
-        const data = response.data;
-
-        if (data.status) {
-            const { title, low, high } = data.BK9;
-            const fileUrl = high || low || data.BK9.download;
-            
-            // Obtener la extensión del archivo
-            const extension = fileUrl.split('.').pop().split('?')[0];
-
-            // Determinar el tipo de archivo a enviar
-            let fileType = 'document';
-            if (['mp4', 'mov', 'avi'].includes(extension)) {
-                fileType = 'video';
-            } else if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(extension)) {
-                fileType = 'image';
-            }
-
-            // Descargar el archivo
-            const fileResponse = await axios.get(fileUrl, { responseType: 'arraybuffer' });
-            const fileName = `file.${extension}`;
-            fs.writeFileSync(fileName, fileResponse.data);
-
-            // Mensaje con información del archivo
-            const message = `🏷️ *Título*: ${title}\n` +
-                            `📄 *Tipo*: ${fileType.toUpperCase()}\n` +
-                            `🔗 *Enlace Original*: ${args[0]}`;
-
-            // Enviar el archivo según el tipo
-            if (fileType === 'video') {
-                await conn.sendFile(m.chat, fileResponse.data, fileName, message, m);
-            } else if (fileType === 'image') {
-                await conn.sendFile(m.chat, fileResponse.data, fileName, message, m, { mimetype: 'image/jpeg' });
-            } else {
-                await conn.sendMessage(m.chat, { document: fileResponse.data, fileName, mimetype: 'application/octet-stream', caption: message }, { quoted: m });
-            }
-
-            await m.react('✅');
-        } else {
-            await conn.reply(m.chat, `[ ✰ ] Ocurrió un error: No se pudo descargar el archivo.`, m);
-            await m.react('✖️');
+    class APIError extends Error {
+        constructor(message) {
+            super(message);
+            this.name = "APIError";
         }
+    }
+
+    class BK9Downloader {
+        constructor() {
+            this.apiUrl = 'https://bk9.fun/download/alldownload?url=';
+        }
+
+        async fetch(url) {
+            try {
+                const response = await axios.get(`${this.apiUrl}${encodeURIComponent(url)}`);
+                if (!response.data.status) throw new APIError("No se pudo obtener un enlace de descarga.");
+                return this.parseData(response.data.BK9);
+            } catch (error) {
+                console.error(`[BK9] Error: ${error.message}`);
+                throw new APIError(error.message);
+            }
+        }
+
+        parseData(data) {
+            return {
+                title: data.title || "Sin título",
+                videoLinks: [
+                    { quality: 'Alta', url: data.high || null },
+                    { quality: 'Baja', url: data.low || null }
+                ].filter(v => v.url),
+                audioLink: data.audio || null,
+                downloadLink: data.download || null
+            };
+        }
+    }
+
+    const bk9 = new BK9Downloader();
+    try {
+        const result = await bk9.fetch(args[0]);
+
+        let message = `🏷️ *Título*: ${result.title}\n`;
+        if (result.videoLinks.length > 0) {
+            message += `🎥 *Videos Disponibles*:\n`;
+            result.videoLinks.forEach(v => message += `🔹 *${v.quality}*: ${v.url}\n`);
+        }
+        if (result.audioLink) message += `🎵 *Audio*: ${result.audioLink}\n`;
+
+        await conn.reply(m.chat, message, m);
+
+        // Enviar el mejor video disponible
+        if (result.videoLinks.length > 0) {
+            const bestVideo = result.videoLinks[0].url;
+            await conn.sendMessage(m.chat, { video: { url: bestVideo }, caption: `🎥 ${result.title}` }, { quoted: m });
+        } else {
+            await conn.reply(m.chat, `[ ✰ ] No se encontró un video descargable.`, m);
+        }
+
     } catch (error) {
-        console.error(error);
-        await conn.reply(m.chat, `[ ✰ ] Ocurrió un error al procesar tu solicitud.`, m);
-        await m.react('✖️');
+        await conn.reply(m.chat, `❌ Error: ${error.message}`, m);
     }
 };
 
