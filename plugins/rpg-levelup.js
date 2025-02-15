@@ -21,7 +21,7 @@ txt += `• 🧬 Nivel anterior : ${before}\n`
 txt += `• 🧬 Nuevos niveles : ${user.level}\n`
 txt += `• 📅 Fecha : ${new Date().toLocaleString('id-ID')}\n\n`
 txt += `🚩 *Nota:* _Cuanto más a menudo interactúes con *Ai Genesis*, mayor será tu nivel_`
-await conn.sendFile(m.chat, img, txt, m, null, fake)}}
+await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m, null, fake)}}
 
 handler.help = ['levelup']
 handler.tags = ['rpg']
