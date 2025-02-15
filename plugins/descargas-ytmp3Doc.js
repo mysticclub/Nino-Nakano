@@ -16,7 +16,7 @@ let handler = async (m, { conn, args }) => {
 
     class BK9Downloader {
         constructor() {
-            this.apiUrl = 'https://bk9.fun/download/alldownload?url=';
+            this.apiUrl = 'https://bk9.fun/download/alldownload2?url=';
         }
 
         async fetch(url) {
