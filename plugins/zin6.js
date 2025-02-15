@@ -1,12 +1,4 @@
-/*
- • Fitur By Anomaki Team
- • Created : xyzan code
- • misteri 💀
- • Jangan Hapus Wm
- • https://whatsapp.com/channel/0029Vaio4dYC1FuGr5kxfy2l
 
-Note: scrape lengkap by sxyz, dan disesuaikan lagi oleh xyzan(nambah agar mengambil konten dari hasil link random doang)
-*/
 import axios from "axios";
 import * as cheerio from "cheerio";
 
