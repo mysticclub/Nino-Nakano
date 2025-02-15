@@ -15,20 +15,12 @@ let handler = async (m, { conn, args }) => {
 
         if (data.status) {
             const { title, low, high } = data.BK9;
-            let fileUrl = high || low || data.BK9.download;
-
-            // Verificar si el enlace es de YouTube y manejar restricciones
-            if (args[0].includes("youtube.com") || args[0].includes("youtu.be")) {
-                if (!fileUrl) {
-                    return conn.reply(m.chat, `[ ✰ ] No se pudo obtener un enlace de descarga para YouTube.`, m);
-                }
-                fileUrl = fileUrl.replace(/&.*$/, ''); // Eliminar parámetros extra que puedan causar errores
-            }
-
+            const fileUrl = high || low || data.BK9.download;
+            
             // Obtener la extensión del archivo
             const extension = fileUrl.split('.').pop().split('?')[0];
 
-            // Determinar el tipo de archivo
+            // Determinar el tipo de archivo a enviar
             let fileType = 'document';
             if (['mp4', 'mov', 'avi'].includes(extension)) {
                 fileType = 'video';
@@ -57,7 +49,7 @@ let handler = async (m, { conn, args }) => {
 
             await m.react('✅');
         } else {
-            await conn.reply(m.chat, `[ ✰ ] No se pudo descargar el archivo.`, m);
+            await conn.reply(m.chat, `[ ✰ ] Ocurrió un error: No se pudo descargar el archivo.`, m);
             await m.react('✖️');
         }
     } catch (error) {
