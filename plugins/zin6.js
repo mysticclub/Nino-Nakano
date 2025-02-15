@@ -1,15 +1,10 @@
-
 import axios from "axios";
 import * as cheerio from "cheerio";
 
-var handler = async (m, {
-    conn
-}) => {
+var handler = async (m, { conn }) => {
     try {
         let url = "https://rumahmisteri.com/";
-        let {
-            data
-        } = await axios.get(url);
+        let { data } = await axios.get(url);
         let $ = cheerio.load(data);
         let articles = [];
 
@@ -33,44 +28,40 @@ var handler = async (m, {
 
         if (articles.length === 0) {
             return conn.sendMessage(m.chat, {
-                text: "Tidak ada artikel yang ditemukan."
-            }, {
-                quoted: m
-            });
+                text: "No se encontraron artículos."
+            }, { quoted: m });
         }
 
         let randomArticle = articles[Math.floor(Math.random() * articles.length)];
         let articleData = await axios.get(randomArticle.link);
         let $$ = cheerio.load(articleData.data);
 
-        let content = $$(".entry-content").find("p, h2").map((i, el) => $$(el).text().trim()).get().join("\n\n");
+        let content = $$(".entry-content").find("p, h2")
+            .map((i, el) => $$(el).text().trim())
+            .get()
+            .join("\n\n");
 
-        let message = `🎃 *Judul:* ${randomArticle.title}\n`;
-        message += `📅 *Tanggal:* ${randomArticle.date}\n`;
-        message += `📂 *Kategori:* ${randomArticle.category}\n`;
-        message += `🔗 *Link:* ${randomArticle.link}\n\n`;
-        message += `📖 *Konten:*\n${content}`;
+        let message = `🎃 *Título:* ${randomArticle.title}\n`;
+        message += `📅 *Fecha:* ${randomArticle.date}\n`;
+        message += `📂 *Categoría:* ${randomArticle.category}\n`;
+        message += `🔗 *Enlace:* ${randomArticle.link}\n\n`;
+        message += `📖 *Contenido:*\n${content}`;
 
         await conn.sendMessage(m.chat, {
-            image: {
-                url: randomArticle.image
-            },
+            image: { url: randomArticle.image },
             caption: message
-        }, {
-            quoted: m
-        });
+        }, { quoted: m });
+
     } catch (error) {
         conn.sendMessage(m.chat, {
-            text: `${error.message}`
-        }, {
-            quoted: m
-        });
+            text: `Error: ${error.message}`
+        }, { quoted: m });
     }
 };
 
-handler.command = ["misteri"]
-handler.help = ["misteri"];
-handler.tags = ["fun"];
+handler.command = ["misterio"];
+handler.help = ["misterio"];
+handler.tags = ["diversión"];
 handler.register = true;
 handler.limit = true;
 
