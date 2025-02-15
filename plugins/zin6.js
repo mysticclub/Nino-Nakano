@@ -1,6 +1,7 @@
+
 import fetch from "node-fetch";
 
-const kamu3 = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, como Gecko) Chrome/110.0.0.0 Safari/537.36";
+const kamu3 = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36";
 
 function generateApiKey() {
     var randomValue = Math.round(Math.random() * 100000000000) + "";
@@ -47,7 +48,7 @@ async function generateContent(prompt, type) {
         let data = await response.json();
         return data;
     } catch (error) {
-        console.error("Error al generar:", error);
+        console.error("Error saat menggenerate:", error);
         return null;
     }
 }
@@ -58,21 +59,21 @@ var handler = async (m, {
     command
 }) => {
     if (!text) return conn.sendMessage(m.chat, {
-        text: "¿Texto?"
+        text: "text?"
     }, {
         quoted: m
     });
 
-    let type = command.includes("video") ? "video" : "imagen";
+    let type = command.includes("video") ? "video" : "image";
     let result = await generateContent(text, type);
 
     if (result && result.output_url) {
-        if (type === "imagen") {
+        if (type === "image") {
             conn.sendMessage(m.chat, {
                 image: {
                     url: result.output_url
                 },
-                caption: "Aquí tienes."
+                caption: "nih."
             }, {
                 quoted: m
             });
@@ -81,14 +82,14 @@ var handler = async (m, {
                 video: {
                     url: result.output_url
                 },
-                caption: "Aquí tienes."
+                caption: "nih."
             }, {
                 quoted: m
             });
         }
     } else {
         conn.sendMessage(m.chat, {
-            text: "Falló."
+            text: "Gagal."
         }, {
             quoted: m
         });
