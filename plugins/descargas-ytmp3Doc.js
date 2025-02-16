@@ -1,76 +1,40 @@
 import axios from 'axios';
 
 let handler = async (m, { conn, args }) => {
-    if (!args[0]) {
-        return conn.reply(m.chat, `[ ✰ ] Ingresa un enlace válido para descargar el archivo.`, m);
-    }
+    if (!args[0]) throw m.reply('✧ Ingresa un link de:\n- YouTube\n- Instagram\n- TikTok\n- Facebook\n- Twitter');
 
-    await conn.sendMessage(m?.chat, { react: { text: `🌟`, key: m?.key } });
+    await conn.sendMessage(m.chat, { react: { text: `🌟`, key: m.key } });
 
-    class APIError extends Error {
-        constructor(message) {
-            super(message);
-            this.name = "APIError";
-        }
-    }
-
-    class BK9Downloader {
-        constructor() {
-            this.apiUrl = 'https://bk9.fun/download/alldownload2?url=';
-        }
-
-        async fetch(url) {
-            try {
-                const response = await axios.get(`${this.apiUrl}${encodeURIComponent(url)}`);
-                if (!response.data.status) throw new APIError("No se pudo obtener un enlace de descarga.");
-                return this.parseData(response.data.BK9);
-            } catch (error) {
-                console.error(`[BK9] Error: ${error.message}`);
-                throw new APIError(error.message);
-            }
-        }
-
-        parseData(data) {
-            return {
-                title: data.title || "Sin título",
-                videoLinks: [
-                    { quality: 'Alta', url: data.high || null },
-                    { quality: 'Baja', url: data.low || null }
-                ].filter(v => v.url),
-                audioLink: data.audio || null,
-                downloadLink: data.download || null
-            };
-        }
-    }
-
-    const bk9 = new BK9Downloader();
     try {
-        const result = await bk9.fetch(args[0]);
+        let url = args[0];
+        let apiUrl = `https://api.nasirxml.my.id/download/aio?{"url":"${encodeURIComponent(url)}"}`;
 
-        let message = `🏷️ *Título*: ${result.title}\n`;
-        if (result.videoLinks.length > 0) {
-            message += `🎥 *Videos Disponibles*:\n`;
-            result.videoLinks.forEach(v => message += `🔹 *${v.quality}*: ${v.url}\n`);
-        }
-        if (result.audioLink) message += `🎵 *Audio*: ${result.audioLink}\n`;
+        let { data } = await axios.get(apiUrl);
+        
+        if (!data.result || data.result.length === 0) throw new Error('No se encontraron resultados.');
 
-        await conn.reply(m.chat, message, m);
+        let info = data.result[0];
+        let caption = `*🎬 Título:* ${info.title}\n👤 *Dueño:* ${info.owner}\n⭐ *Fans:* ${info.fans}\n👀 *Vistas:* ${info.views}\n🔄 *Compartidos:* ${info.shares}\n\n📥 *Enlaces de descarga:*`;
 
-        // Enviar el mejor video disponible
-        if (result.videoLinks.length > 0) {
-            const bestVideo = result.videoLinks[0].url;
-            await conn.sendMessage(m.chat, { video: { url: bestVideo }, caption: `🎥 ${result.title}` }, { quoted: m });
-        } else {
-            await conn.reply(m.chat, `[ ✰ ] No se encontró un video descargable.`, m);
-        }
+        info.dlink.forEach((item, index) => {
+            caption += `\n${index + 1}. *${item.title}* ➤ ${item.link}`;
+        });
+
+        await conn.sendMessage(m.chat, { 
+            image: { url: info.image }, 
+            caption: caption 
+        }, { quoted: m });
 
     } catch (error) {
-        await conn.reply(m.chat, `❌ Error: ${error.message}`, m);
+        await m.reply(`❌ Error: ${error.message}`);
     }
 };
 
-handler.help = ['download *<url>*'];
+handler.help = ['aio'].map(v => v + ' <link>');
 handler.tags = ['dl'];
-handler.command = ['download', 'video', 'image', 'doc'];
+handler.command = /^(aio)$/i;
+
+handler.limit = true;
+handler.register = true;
 
 export default handler;
