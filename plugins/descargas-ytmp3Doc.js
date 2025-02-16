@@ -1,37 +1,62 @@
 import axios from 'axios';
 
 let handler = async (m, { conn, args }) => {
-    if (!args[0]) throw m.reply('✧ Ingresa un link de:\n- YouTube\n- Instagram\n- TikTok\n- Facebook\n- Twitter');
+    if (!args[0]) throw "✧ Ingresa un link válido de:\n- YouTube\n- Instagram\n- TikTok\n- Facebook\n- Twitter";
 
-    await conn.sendMessage(m.chat, { react: { text: `🌟`, key: m.key } });
+    await conn.sendMessage(m.chat, { react: { text: "🌟", key: m.key } });
 
     try {
-        let url = args[0];
-        let apiUrl = `https://api.nasirxml.my.id/download/aio?{"url":"${encodeURIComponent(url)}"}`;
+        // Realizar la petición a la API
+        let url = `https://api.nasirxml.my.id/download/aio?url=${encodeURIComponent(args[0])}`;
+        let response = await axios.get(url);
+        let data = response.data;
 
-        let { data } = await axios.get(apiUrl);
-        
-        if (!data.result || data.result.length === 0) throw new Error('No se encontraron resultados.');
+        // Verificar si la API devolvió resultados
+        if (!data.result || data.result.length === 0) {
+            throw "❌ No se encontraron resultados.";
+        }
 
-        let info = data.result[0];
-        let caption = `*🎬 Título:* ${info.title}\n👤 *Dueño:* ${info.owner}\n⭐ *Fans:* ${info.fans}\n👀 *Vistas:* ${info.views}\n🔄 *Compartidos:* ${info.shares}\n\n📥 *Enlaces de descarga:*`;
+        let result = data.result[0]; // Obtener el primer resultado
+        let message = `*🎥 Título:* ${result.title}\n`;
+        message += `👤 *Dueño:* ${result.owner}\n`;
+        message += `👀 *Vistas:* ${result.views}\n`;
+        message += `🔄 *Compartidos:* ${result.shares}\n\n`;
 
-        info.dlink.forEach((item, index) => {
-            caption += `\n${index + 1}. *${item.title}* ➤ ${item.link}`;
-        });
+        // Si hay una imagen en la respuesta, enviarla
+        if (result.image) {
+            await conn.sendMessage(m.chat, { image: { url: result.image }, caption: message });
+        } else {
+            await m.reply(message);
+        }
 
-        await conn.sendMessage(m.chat, { 
-            image: { url: info.image }, 
-            caption: caption 
-        }, { quoted: m });
+        // Obtener los enlaces de descarga disponibles
+        let videoLinks = result.dlink.filter(link => link.title.toLowerCase().includes("watermark"));
+        let audioLinks = result.dlink.filter(link => link.title.toLowerCase().includes("mp3"));
+
+        // Enviar el video con mejor calidad si está disponible
+        if (videoLinks.length > 0) {
+            await conn.sendMessage(m.chat, {
+                video: { url: videoLinks[0].link },
+                caption: "🎬 *Aquí está tu video:*"
+            });
+        } else if (audioLinks.length > 0) {
+            await conn.sendMessage(m.chat, {
+                audio: { url: audioLinks[0].link },
+                mimetype: 'audio/mp3',
+                ptt: false
+            }, { quoted: m });
+        } else {
+            await m.reply("⚠️ No se encontró un enlace de descarga disponible.");
+        }
 
     } catch (error) {
-        await m.reply(`❌ Error: ${error.message}`);
+        console.error(error);
+        await m.reply(`❌ Error: ${error.message || error}`);
     }
-};
+}
 
-handler.help = ['aio'].map(v => v + ' <link>');
-handler.tags = ['dl'];
+handler.help = ['aio <link>'];
+handler.tags = ['descargas'];
 handler.command = /^(aio)$/i;
 
 handler.limit = true;
