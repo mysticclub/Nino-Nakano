@@ -20,7 +20,7 @@ await conn.sendMessage(
 m.chat,
 { 
 image:{url:downloadLink}, 
-caption:'*✔️🍟Downloader TikTok.*' 
+caption:'*✔️ Downloader TikTok.*' 
 },
 {quoted:m}
 )
@@ -29,7 +29,7 @@ await conn.sendMessage(
 m.chat,
 { 
 video:{url:downloadLink}, 
-caption:'*✔️🍟Downloader TikTok.*' 
+caption:'*✔️ Downloader TikTok.*' 
 },
 {quoted:m}
 )
