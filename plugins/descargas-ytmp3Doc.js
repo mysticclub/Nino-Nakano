@@ -39,5 +39,5 @@ console.error(error)
 m.reply('❌ Ocurrió un error al procesar la solicitud.')
 }
 }
-handler.command=['tiktokv2']
+handler.command=['tiktok']
 export default handler
