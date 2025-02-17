@@ -15,8 +15,25 @@ return m.reply('❌ Error al obtener los detalles del video. Asegúrate de que e
 }
 let {urls}=json.data.data
 let downloadLink=urls[0]
-let caption=`*TikTok Downloader*`
-await conn.sendFile(m.chat,downloadLink,'tiktok.mp4',caption,m)
+if(downloadLink.includes('jpg')||downloadLink.includes('png')||downloadLink.includes('jpeg')||downloadLink.includes('webp')||downloadLink.includes('heic')||downloadLink.includes('tiff')||downloadLink.includes('bmp')){
+await conn.sendMessage(
+m.chat,
+{ 
+image:{url:downloadLink}, 
+caption:'*✔️🍟Downloader TikTok.*' 
+},
+{quoted:m}
+)
+}else{
+await conn.sendMessage(
+m.chat,
+{ 
+video:{url:downloadLink}, 
+caption:'*✔️🍟Downloader TikTok.*' 
+},
+{quoted:m}
+)
+}
 }catch(error){
 console.error(error)
 m.reply('❌ Ocurrió un error al procesar la solicitud.')
@@ -24,5 +41,5 @@ m.reply('❌ Ocurrió un error al procesar la solicitud.')
 }
 handler.help=['tiktok *<url>*']
 handler.tags=['dl']
-handler.command=['tiktokv3']
+handler.command=['tiktok']
 export default handler
