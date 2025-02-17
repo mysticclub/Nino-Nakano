@@ -10,7 +10,7 @@ const { generateWAMessageFromContent, proto, getDevice } = (await import('@whisk
 let estilo = (text, style = 1) => {
   var xStr = 'abcdefghijklmnopqrstuvwxyz1234567890'.split('');
   var yStr = Object.freeze({
-    1: 'ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘqʀꜱᴛᴜᴠᴡxʏᴢ1234567890'
+    1: '𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓1234567890'
   });
   var replacer = [];
   xStr.map((v, i) => replacer.push({
