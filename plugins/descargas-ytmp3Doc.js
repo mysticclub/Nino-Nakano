@@ -1,3 +1,9 @@
+/* 
+- Código Creado Por Izumi-kzx
+- Power By Team Code Titans
+- https://whatsapp.com/channel/0029ValMlRS6buMFL9d0iQ0S
+*/
+// *[ 🍨 TIKTOK DOWNLOADER (vídeo/img)]*
 import fetch from 'node-fetch'
 let handler = async (m,{conn,text})=>{
 if(!text)return conn.reply(m.chat,'🎵 Ingresa un link de TikTok.',m)
