@@ -28,7 +28,7 @@ let estilo = (text, style = 1) => {
 
 const emojis = {
   "main": "☁️",
-  "info": "✨",
+  "info": "🍮",
   "search": "🎋",
   "rpg": "🌵",
   "nable": "🌀",
@@ -66,9 +66,9 @@ const defaultMenu = {
 🍧⋆｡°✩ ⋆⁺˚⋆˙‧₊  ˗ˏˋ ♡ ˎˊ˗  ₊‧˙⋆˚｡⁺✩°｡🍧
  %readmore
   `.trimStart(),
-  header: '*⏜︵⏜੭ %emoji ୧ֹ⏜︵⏜*\n𓂂𓏸  𐅹੭੭   *`%category`*  %emoji ᦡᦡ\n',
+  header: '%category\n',
   body: 'ര ׄ %emoji ׅ %cmd %iscorazones %isPremium',
-  footer: '︶⏝︶ ᢄ %emoji ᢃ ︶⏝︶\n',
+  footer: '\n',
   after: ``,
 }
 
@@ -76,8 +76,8 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
   let tags = {
     "main": "𓂂𓏸  𐅹੭੭   *`𝖯ꭇ𝗂𝗇𝖼𝗂𝗉𝖺𝗅`* ☁️ ᦡᦡ",
-    "info": "✨「 *`ＩＮＦＯ`* 」✨",
-    "search": "🎋「 *`ＳＥＡＲＣＨ`* 」🎋",
+    "info": "𓂂𓏸  𐅹੭੭   *`𝖨𝗇ẜᨣ`* 🍮 ᦡᦡ",
+    "search": "𓂂𓏸  𐅹੭੭   *`𝖲ᧉ𝖺ꭇ𝖼𝗁`* 🎋 ᦡᦡ",
     "rpg": "🌵「 *`ＲＰＧ`* 」🌵",
     "nable": "🌀「 *`ＯＮ－ＯＦＦ`* 」🌀",
     "start": "🌱「 *`ＳＴＡＲＴ`* 」🌱",
