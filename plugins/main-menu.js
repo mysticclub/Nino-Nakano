@@ -75,7 +75,7 @@ const defaultMenu = {
 let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
 
   let tags = {
-    "main": "☁️「 *`ＰＲＩＮＣＩＰＡＬ`* 」☁️",
+    "main": "𓂂𓏸  𐅹੭੭   *`𝖯ꭇ𝗂𝗇𝖼𝗂𝗉𝖺𝗅`* ☁️ ᦡᦡ",
     "info": "✨「 *`ＩＮＦＯ`* 」✨",
     "search": "🎋「 *`ＳＥＡＲＣＨ`* 」🎋",
     "rpg": "🌵「 *`ＲＰＧ`* 」🌵",
