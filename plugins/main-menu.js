@@ -47,7 +47,7 @@ const emojis = {
   "ephoto": "🍃",
   "group": "☕",
   "owner": "🧇",
-  "nsfw": "🔞",
+  "nsfw": "🪼",
 };
 
 const defaultMenu = {
