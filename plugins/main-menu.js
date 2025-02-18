@@ -44,7 +44,7 @@ const emojis = {
   "confesar": "🍪",
   "internet": "🍟",
   "anime": "🥞",
-  "ephoto": "🍃",
+  "ephoto": "🍦",
   "group": "☕",
   "owner": "🧇",
   "nsfw": "🪼",
