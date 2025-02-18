@@ -66,7 +66,8 @@ try {
 
 }
 
-handler.help = ["fdroidsearch <texto>"] handler.tags = ["search"] handler.command = /^(fdroidsearch)$/i
+handler.help = ["fdroidsearch <texto>"] handler.tags = ["search"] 
+handler.command = /^(fdroidsearch)$/i
 
 export default handler;
 
