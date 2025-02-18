@@ -29,7 +29,7 @@ let estilo = (text, style = 1) => {
 const emojis = {
   "main": "☁️",
   "info": "🍮",
-  "search": "🎋",
+  "search": "🧃",
   "rpg": "🌵",
   "nable": "🌀",
   "start": "🌱",
@@ -77,7 +77,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
   let tags = {
     "main": "𓂂𓏸  𐅹੭੭   *`𝖯ꭇ𝗂𝗇𝖼𝗂𝗉𝖺𝗅`* ☁️ ᦡᦡ",
     "info": "𓂂𓏸  𐅹੭੭   *`𝖨𝗇ẜᨣ`* 🍮 ᦡᦡ",
-    "search": "𓂂𓏸  𐅹੭੭   *`𝖲ᧉ𝖺ꭇ𝖼𝗁`* 🎋 ᦡᦡ",
+    "search": "𓂂𓏸  𐅹੭੭   *`𝖲ᧉ𝖺ꭇ𝖼𝗁`* 🧃 ᦡᦡ",
     "rpg": "𓂂𓏸  𐅹੭੭   *`𝖱𝗉𝗀`* 🌵 ᦡᦡ",
     "nable": "𓂂𓏸  𐅹੭੭   *`𝖮𝗇-𝖮ẜẜ`* 🌀 ᦡᦡ",
     "start": "𓂂𓏸  𐅹੭੭   *`𝖲ƚ𝖺ꭇƚ`* 🌱 ᦡᦡ",
