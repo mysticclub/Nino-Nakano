@@ -3,7 +3,9 @@
 - Welcome con imagen Card
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
-import { WAMessageStubType } from '@whiskeysockets/baileys'; import fetch from 'node-fetch'; import { welcomeImage } from 'ultrax';
+import { WAMessageStubType } from '@whiskeysockets/baileys'; 
+import fetch from 'node-fetch'; 
+import { welcomeImage } from 'ultrax';
 
 export async function before(m, { conn, participants, groupMetadata }) { if (!m.messageStubType || !m.isGroup) return !0;
 
