@@ -16,35 +16,41 @@ let handler = async (message, { conn, text }) => {
         }
     }
 
+    const searchInFirstAPI = async (query) => {
+        const apiUrl = `https://dark-core-api.vercel.app/api/search/tiktok?key=user1&text=${encodeURIComponent(query)}`;
+        return await axios.get(apiUrl);
+    };
+
+    const searchInSecondAPI = async (query) => {
+        const apiUrl = `https://delirius-apiofc.vercel.app/search/tiktoksearch?query=${encodeURIComponent(query)}`;
+        return await axios.get(apiUrl);
+    };
+
     try {
         await message.react('🕓');
         conn.reply(message.chat, '*Descargando su video...*', message);
 
-        // Llamamos a la API actualizada
-        let { data: response } = await axios.get(`https://dark-core-api.vercel.app/api/search/tiktok?key=user1&text=${encodeURIComponent(text)}`);
+        let response;
+        try {
+            response = await searchInFirstAPI(text);
+        } catch (error) {
+            response = await searchInSecondAPI(text);
+        }
 
-        if (!response.success || !response.results || response.results.length === 0) {
+        if (!response || response.status !== 200 || !response.meta || response.meta.length === 0) {
             return conn.reply(message.chat, '*No se encontraron resultados para tu búsqueda.*', message);
         }
 
-        let searchResults = response.results;
-        shuffleArray(searchResults); // Mezclar los resultados
-
-        let selectedResults = searchResults.slice(0, 7); // Tomamos los primeros 7 resultados
-        let results = []; // SE INICIALIZA AQUÍ PARA EVITAR EL ERROR
-
-        for (let result of selectedResults) {
-            results.push({
-                body: proto.Message.InteractiveMessage.Body.fromObject({ text: null }),
-                footer: proto.Message.InteractiveMessage.Footer.fromObject({ text: '🔎 TikTok - Búsquedas' }),
-                header: proto.Message.InteractiveMessage.Header.fromObject({
-                    title: result.title,
-                    hasMediaAttachment: true,
-                    videoMessage: await createVideoMessage(result.play_url) // URL del video sin marca de agua
-                }),
-                nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({ buttons: [] })
-            });
-        }
+        let results = response.meta.map(result => ({
+            body: proto.Message.InteractiveMessage.Body.fromObject({ text: null }),
+            footer: proto.Message.InteractiveMessage.Footer.fromObject({ text: '🔎 TikTok - Búsquedas' }),
+            header: proto.Message.InteractiveMessage.Header.fromObject({
+                title: result.title || "Sin título",
+                hasMediaAttachment: true,
+                videoMessage: await createVideoMessage(result.hd || result.play) // URL del video sin marca de agua
+            }),
+            nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({ buttons: [] })
+        }));
 
         const responseMessage = generateWAMessageFromContent(message.chat, {
             viewOnceMessage: {
@@ -57,7 +63,7 @@ let handler = async (message, { conn, text }) => {
                         body: proto.Message.InteractiveMessage.Body.create({ text: `Resultados de: ${text}` }),
                         footer: proto.Message.InteractiveMessage.Footer.create({ text: '🔎 TikTok - Búsquedas' }),
                         header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
-                        carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: results }) // SE USA results AQUÍ
+                        carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: results })
                     })
                 }
             }
@@ -68,14 +74,12 @@ let handler = async (message, { conn, text }) => {
 
     } catch (error) {
         console.error('Error en la búsqueda de TikTok:', error);
-        await conn.reply(message.chat, '*Ocurrió un error al buscar en TikTok.*', message);
     }
 };
 
 handler.help = ['tiktoksearch <texto>'];
-handler.corazones = 1;
-handler.register = true;
 handler.tags = ['search'];
-handler.command = ['tiktoksearch', 'tiktoks'];
-
+handler.command = ['tiktoksearch'];
+handler.register = true;
+handler.monedas = 1;
 export default handler;
