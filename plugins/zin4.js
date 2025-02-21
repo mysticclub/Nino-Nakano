@@ -9,7 +9,7 @@ txt += `• *Autor:*\n`;
 txt += `• *Publicado:*\n`;
 txt += `• *Url:*\n\n`;
 await conn.sendMessage(m.chat, {
-    image: { url: 'https://files.catbox.moe/brjxwz.jpg' },
+    image: { url: 'https://i.ibb.co/Rpsxjb5t/file.jpg' },
     caption: txt,
     footer: 'la cosa es seria chavito\nte amo w',
     contextInfo: {
