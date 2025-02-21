@@ -78,12 +78,12 @@ await conn.sendMessage(m.chat, {
         },
         {
             buttonId: '.ping',
-            buttonText: { displayText: 'ping' },
+            buttonText: { displayText: 'ᯓᡣ𐭩 ᥲᥙძі᥆' },
             type: 1,
         },
         {
             buttonId: '.tqto',
-            buttonText: { displayText: 'tqto' },
+            buttonText: { displayText: 'ᯓᡣ𐭩 ᥎іძᥱ᥆' },
             type: 1,
         },
     ],
