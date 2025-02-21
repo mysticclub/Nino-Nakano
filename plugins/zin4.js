@@ -93,5 +93,6 @@ await conn.sendMessage(m.chat, {
 
 };
 
-handler.command = ['tesyt']; export default handler;
+handler.command = ['tesyt']; 
+export default handler;
 
