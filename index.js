@@ -11,7 +11,7 @@ import chalk from 'chalk'
 import path from 'path'
 import os from 'os'
 import { promises as fsPromises } from 'fs'
-import { execSync } from 'child_process'; // Importar para ejecutar comandos
+import { execSync } from 'child_process';
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const require = createRequire(__dirname)
@@ -35,7 +35,6 @@ async function start(file) {
   if (isRunning) return
   isRunning = true
 
-  // Verificar si canvas está bien instalado o necesita recompilar
   try {
     import("canvas");
   } catch (error) {
