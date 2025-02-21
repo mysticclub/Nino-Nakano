@@ -16,26 +16,12 @@ let handler = async (message, { conn, text }) => {
         }
     }
 
-    const searchInFirstAPI = async (query) => {
-        const apiUrl = `https://dark-core-api.vercel.app/api/search/tiktok?key=user1&text=${encodeURIComponent(query)}`;
-        return await axios.get(apiUrl);
-    };
-
-    const searchInSecondAPI = async (query) => {
-        const apiUrl = `https://delirius-apiofc.vercel.app/search/tiktoksearch?query=${encodeURIComponent(query)}`;
-        return await axios.get(apiUrl);
-    };
-
     try {
         await message.react('🕓');
         conn.reply(message.chat, '*Descargando su video...*', message);
 
-        let response;
-        try {
-            response = await searchInFirstAPI(text);
-        } catch (error) {
-            response = await searchInSecondAPI(text);
-        }
+        let apiUrl = `https://delirius-apiofc.vercel.app/search/tiktoksearch?query=${encodeURIComponent(text)}`;
+        let { data: response } = await axios.get(apiUrl);
 
         if (!response || response.status !== 200 || !response.meta || response.meta.length === 0) {
             return conn.reply(message.chat, '*No se encontraron resultados para tu búsqueda.*', message);
@@ -47,7 +33,7 @@ let handler = async (message, { conn, text }) => {
             header: proto.Message.InteractiveMessage.Header.fromObject({
                 title: result.title || "Sin título",
                 hasMediaAttachment: true,
-                videoMessage: await createVideoMessage(result.hd || result.play) // URL del video sin marca de agua
+                videoMessage: await createVideoMessage(result.hd) // URL del video sin marca de agua
             }),
             nativeFlowMessage: proto.Message.InteractiveMessage.NativeFlowMessage.fromObject({ buttons: [] })
         }));
@@ -63,7 +49,7 @@ let handler = async (message, { conn, text }) => {
                         body: proto.Message.InteractiveMessage.Body.create({ text: `Resultados de: ${text}` }),
                         footer: proto.Message.InteractiveMessage.Footer.create({ text: '🔎 TikTok - Búsquedas' }),
                         header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
-                        carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: results })
+                        carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: results }) // SE USA results AQUÍ
                     })
                 }
             }
@@ -81,5 +67,5 @@ handler.help = ['tiktoksearch <texto>'];
 handler.tags = ['search'];
 handler.command = ['tiktoksearch'];
 handler.register = true;
-handler.monedas = 1;
+handler.corazones = 1;
 export default handler;
