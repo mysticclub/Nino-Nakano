@@ -46,6 +46,7 @@
 "rahad-media-downloader": "^2.1.14",
 "google-play-scraper": "latest",
 "discord-card-canvas": "^2.0.0",
+"canvas": "2.8.0",
 "canvafy": "latest",
 "gradient-string": "^2.0.2",
 "axios": "^1.1.2",
