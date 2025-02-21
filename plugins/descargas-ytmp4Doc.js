@@ -25,7 +25,7 @@ try {
 
 };
 
-handler.command = ['ytmp4v3', 'ytav3'];
+handler.command = ['ytmp4tg', 'ytatg'];
 
 export default handler;
 
