@@ -23,7 +23,7 @@ await conn.sendMessage(m.chat, {
             nativeFlowInfo: {
                 name: 'single_select',
                 paramsJson: JSON.stringify({
-                    title: '[Resultado YouTube]',
+                    title: '⊹₊ ⋆ᯓᡣ𐭩 rᥱsᥙᥣ𝗍ᥲძ᥆s ᥡ᥆ᥙ𝗍ᥙᑲᥱ',
                     sections: [
                         {
                             title: 'my focking bicht',
@@ -52,7 +52,7 @@ await conn.sendMessage(m.chat, {
             nativeFlowInfo: {
                 name: 'single_select',
                 paramsJson: JSON.stringify({
-                    title: '[Resultados Spotify]',
+                    title: '⊹₊ ⋆ᯓᡣ𐭩 rᥱsᥙᥣ𝗍ᥲძ᥆s s⍴᥆𝗍і𝖿ᥡ',
                     sections: [
                         {
                             title: 'Options',
