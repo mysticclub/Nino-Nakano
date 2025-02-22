@@ -29,6 +29,18 @@ import NodeCache from 'node-cache'
 const {CONNECTING} = ws
 const {chain} = lodash
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
+const { say } = cfonts
+
+console.log('\n🚀 Iniciando Génesis-Ultra...');
+
+say('Genesis\nUltra', {
+font: 'chrome',
+align: 'center',
+gradient: ['red', 'magenta']})
+say(`Made By - Izumi-kzx`, {
+font: 'console',
+align: 'center',
+gradient: ['red', 'magenta']})
 
 protoType()
 serialize()
