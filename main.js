@@ -28,6 +28,7 @@ import readline from 'readline'
 import NodeCache from 'node-cache'
 const {CONNECTING} = ws
 const {chain} = lodash
+import cfonts from 'cfonts';
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
 const { say } = cfonts
 
