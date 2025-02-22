@@ -41,6 +41,7 @@
 "ultrax": "^2.0.5",
 "neastooapi": "^1.0.2",
 "ruhend-scraper": "^7.0.4",
+"google-play-scraper": "10.0.1",
 "gradient-string": "^2.0.2",
 "axios": "^1.1.2",
 "acrcloud": "^1.4.0",
