@@ -11,7 +11,7 @@ Contenido adaptado por:
 - Izumi-kzx >> https://github.com/Izumi-kzx
 */
 
-import axios from 'axios';
+/*import axios from 'axios';
 import { franc } from 'franc-min';
 
 let handler = m => m;
@@ -144,4 +144,4 @@ handler.all = async function (m, { conn }) {
     return true;
 };
 
-export default handler;
+export default handler; */
