@@ -1,43 +1,39 @@
 import fetch from 'node-fetch';
 
-let handler = async (m, { conn, text }) => {
-    if (!text) return m.reply('❌ Ingresa una URL de YouTube.');
-    if (!text.match(/youtu\.be|youtube\.com/i)) return m.reply('❌ URL de YouTube no válida.');
+const MP3_API = 'https://1018-2803-a3e0-133f-38e0-3137-1a3e-7a0d-996a.ngrok-free.app/download/mp3?url=';
 
-    await m.react('⏳');
+const handler = async (m, { conn, args, usedPrefix }) => {
+    if (!args[0]) return conn.reply(m.chat, '*`Por favor ingresa un enlace de YouTube válido.`*', m);
 
+    await m.react('🕓');
     try {
-        const apiUrl = `https://dark-core-api.vercel.app/api/download/ytmp4?key=api&url=${encodeURIComponent(text)}`;
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        if (!data.downloads || data.downloads.length === 0) throw new Error('⚠️ No se encontraron enlaces de descarga.');
-
-        const video = data.downloads[0]; // Solo el primer resultado
-        const sizeMB = parseFloat(video.size.replace('MB', '').trim());
-
-        const messageOptions = {
-            mimetype: 'video/mp4',
-            fileName: `${data.title || "video"}.mp4`,
-            caption: `🎥 *${data.title || "Video"}*\n📦 *Tamaño:* ${video.size}\n🔹 *Calidad:* ${video.quality}`
-        };
-
-        if (sizeMB > 50) {
-            await conn.sendMessage(m.chat, { document: { url: video.link }, ...messageOptions }, { quoted: m });
-        } else {
-            await conn.sendMessage(m.chat, { video: { url: video.link }, ...messageOptions }, { quoted: m });
+        let url = args[0];
+        if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
+            return conn.reply(m.chat, '*`El enlace no es válido. Debe ser un enlace de YouTube.`*', m);
         }
 
-        await m.react('✅');
+        let response = await fetch(`${MP3_API}${encodeURIComponent(url)}`);
+        let data = await response.json();
 
-    } catch (error) {
-        await m.react('❌');
-        m.reply('❌ Error al procesar la solicitud.');
+        if (!data.download_url) throw new Error('No se pudo obtener el audio.');
+
+        let caption = `🎵 *Título:* ${data.title}\n🔗 *Enlace:* ${data.download_url}`;
+        await conn.sendMessage(m.chat, {
+            audio: { url: data.download_url },
+            mimetype: 'audio/mp4',
+            fileName: `${data.title}.mp3`
+        }, { quoted: m });
+
+        await m.react('✅');
+    } catch (e) {
+        console.error(e);
+        await m.react('✖️');
+        conn.reply(m.chat, '*`Error al descargar el audio.`*', m);
     }
 };
 
-handler.help = ['ytmp4 *<url>*'];
+handler.help = ['ytmp3 <url>'];
 handler.tags = ['dl'];
-handler.command = /^ytmp4$/i;
+handler.command = ['ytmp3'];
 
 export default handler;
