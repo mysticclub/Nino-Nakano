@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-const MP3_API = ' https://38fb-2800-200-f180-b59-4f2-6eae-a8fc-7658.ngrok-free.app/download/mp3?url=';
+const MP3_API = 'https://38fb-2800-200-f180-b59-4f2-6eae-a8fc-7658.ngrok-free.app/download/mp3?url=';
 
 const handler = async (m, { conn, args }) => {
     if (!args[0]) return conn.reply(m.chat, '*`Por favor ingresa un enlace de YouTube válido.`*', m);
