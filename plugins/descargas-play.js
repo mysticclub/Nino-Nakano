@@ -1,16 +1,3 @@
-> *YouTube Play 🧇.*
-
-JISOO - Hugs & Kisses (Official Audio)
-
-• *Duración:* 3:10
-• *Autor:* JISOO
-• *Publicado:* 3:10
-• *Enlace:* https://youtube.com/watch?v=lI-ocK5wWMQ
-
-Presiona el botón para el tipo de descarga.
-
-
-
 import yts from 'yt-search';
 import fetch from 'node-fetch';
 import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
