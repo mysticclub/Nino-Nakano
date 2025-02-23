@@ -1,3 +1,16 @@
+> *YouTube Play 🧇.*
+
+JISOO - Hugs & Kisses (Official Audio)
+
+• *Duración:* 3:10
+• *Autor:* JISOO
+• *Publicado:* 3:10
+• *Enlace:* https://youtube.com/watch?v=lI-ocK5wWMQ
+
+Presiona el botón para el tipo de descarga.
+
+
+
 import yts from 'yt-search';
 import fetch from 'node-fetch';
 import { prepareWAMessageMedia, generateWAMessageFromContent } from '@whiskeysockets/baileys';
@@ -13,8 +26,8 @@ const handler = async (m, { conn, args, usedPrefix }) => {
         let video = searchResults[0];
         let thumbnail = await (await fetch(video.miniatura)).buffer();
 
-    let messageText = `Y O U T U B E _ P L A Y\n\n`;
-        messageText += `• *Título:* ${video.titulo}\n`;
+    let messageText = `> *YouTube Play 🧇.*\n\n`;
+        messageText += `${video.titulo}\n\n`;
         messageText += `• *Duración:* ${video.duracion || 'No disponible'}\n`;
         messageText += `• *Autor:* ${video.canal || 'Desconocido'}\n`;
         messageText += `• *Publicado:* ${convertTimeToSpanish(video.publicado)}\n`;
@@ -39,7 +52,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
         await conn.sendMessage(m.chat, {
             image: thumbnail,
             caption: messageText,
-            footer: 'Presiona el botón para el tipo de descarga.',
+            footer: 'ᴘʀᴇꜱɪᴏɴᴀ ᴇʟ ʙᴏᴛᴏɴ ᴘᴀʀᴀ ᴇʟ ᴛɪᴘᴏ ᴅᴇ ᴅᴇꜱᴄᴀʀɢᴀ.',
             contextInfo: {
                 mentionedJid: [m.sender],
                 forwardingScore: 999,
