@@ -13,21 +13,28 @@ const handler = async (m, { conn, args }) => {
         }
 
         let response = await fetch(`${MP3_API}${encodeURIComponent(url)}`);
+        
+        // Verifica si la API respondió correctamente
+        if (!response.ok) {
+            throw new Error(`Error en la API: ${response.status} ${response.statusText}`);
+        }
+
         let data = await response.json();
 
-        if (!data.download_url) throw new Error('No se pudo obtener el audio.');
+        console.log("Respuesta de la API:", data);
+        if (!data.download_url) throw new Error('La API no devolvió un enlace de descarga.');
 
         await conn.sendMessage(m.chat, {
             audio: { url: data.download_url },
             mimetype: 'audio/mp4',
-            fileName: `${data.title}.mp3`
+            fileName: `${data.title || "audio"}.mp3`
         }, { quoted: m });
 
         await m.react('✅');
     } catch (e) {
-        console.error(e);
+        console.error("Error en el handler:", e);
         await m.react('✖️');
-        conn.reply(m.chat, '*`Error al descargar el audio.`*', m);
+        conn.reply(m.chat, `*Error al descargar el audio:*\n\`${e.message}\``, m);
     }
 };
 
