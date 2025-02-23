@@ -17,26 +17,21 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
   await m.react('🕓');
 
   try {
-    const response = await fetch(`https://api.vreden.my.id/api/spotify?url=${encodeURIComponent(text)}`);
+    const response = await fetch(`https://dark-core-api.vercel.app/api/download/spotify?key=api&url=${encodeURIComponent(text)}`);
     const result = await response.json();
 
-    if (result.status === 200 && result.result?.status) {
-      const { title, type, artists, releaseDate, cover, music } = result.result;
+    if (result.success) {
+      const { title, thumbnail, downloadLink } = result;
 
-      const mensaje = `🎵 *Título:* ${title}\n` +
-                      `🎶 *Tipo:* ${type.charAt(0).toUpperCase() + type.slice(1)}\n` +
-                      `🎤 *Artista:* ${artists}\n` +
-                      `📅 *Lanzamiento:* ${releaseDate}`;
+      const mensaje = `🎵 *Título:* ${title}`;
 
-      await conn.sendFile(m.chat, cover, 'cover.jpg', mensaje, m);
+      await conn.sendFile(m.chat, thumbnail, 'cover.jpg', mensaje, m);
 
       await conn.sendMessage(
         m.chat,
-        { 
-          audio: { url: music }, 
-          fileName: `${title}.mp3`, 
-          mimetype: 'audio/mpeg' 
-        }, 
+        {
+          text: `🔗 *Enlace de descarga:* ${downloadLink}`
+        },
         { quoted: m }
       );
 
@@ -66,6 +61,9 @@ handler.command = /^(spotify|sp)$/i;
 handler.register = true;
 
 export default handler;
+
+Este es el código limpio sin los comentarios que no son necesarios para su funcionamiento.
+
 
 
 
