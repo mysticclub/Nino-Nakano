@@ -62,8 +62,6 @@ handler.register = true;
 
 export default handler;
 
-Este es el código limpio sin los comentarios que no son necesarios para su funcionamiento.
-
 
 
 
