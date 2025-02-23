@@ -17,7 +17,6 @@ const handler = async (m, { conn, args, usedPrefix }) => {
 
         if (!data.download_url) throw new Error('No se pudo obtener el audio.');
 
-        let caption = `🎵 *Título:* ${data.title}\n🔗 *Enlace:* ${data.download_url}`;
         await conn.sendMessage(m.chat, {
             audio: { url: data.download_url },
             mimetype: 'audio/mp4',
