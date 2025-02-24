@@ -26,6 +26,7 @@ let handler = async (m, { conn, args }) => {
      await m.react('❌');
     }
 };
-
+handler.help = ['ytmp3 *<url>*']
+handler.tags = ['dl']
 handler.command = /^(ytmp3|yta)$/i;
 module.exports = handler;
