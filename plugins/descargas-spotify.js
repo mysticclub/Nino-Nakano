@@ -27,7 +27,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
     await conn.sendMessage(m.chat, {
       audio: {
-        url: download
+        url: downloadLink
       },
       mimetype: 'audio/mpeg',
       contextInfo: {
@@ -37,7 +37,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
           mediaType: 1,
           mediaUrl: null,
           thumbnailUrl: thumbnail,
-          sourceUrl: downloadLink,
+          sourceUrl: null,
           containsAutoReply: true,
           renderLargerThumbnail: true,
           showAdAttribution: false,
