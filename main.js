@@ -429,7 +429,7 @@ setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return
   await purgeOldFiles()
 }, 1000 * 60 * 60);
-_quickTest().then(() => conn.logger.info(chalk.bold(`☁️ HECHO\n`.trim()))).catch(console.error)
+_quickTest().then(() => conn.logger.info(chalk.bold(`🍮 HECHO\n`.trim()))).catch(console.error)
 
 async function joinChannels(conn) {
 for (const channelId of Object.values(global.ch)) {
