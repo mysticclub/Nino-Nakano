@@ -122,12 +122,12 @@ console.log(chalk.bold.redBright(`🚩 No se permiten numeros que no sean 1 o 2,
 } 
 
 const filterStrings = [
-"Q2xvc2luZyBzdGFsZSBvcGVu", // "Closing stable open"
-"Q2xvc2luZyBvcGVuIHNlc3Npb24=", // "Closing open session"
-"RmFpbGVkIHRvIGRlY3J5cHQ=", // "Failed to decrypt"
-"U2Vzc2lvbiBlcnJvcg==", // "Session error"
-"RXJyb3I6IEJhZCBNQUM=", // "Error: Bad MAC" 
-"RGVjcnlwdGVkIG1lc3NhZ2U=" // "Decrypted message" 
+"Q2xvc2luZyBzdGFsZSBvcGVu",
+"Q2xvc2luZyBvcGVuIHNlc3Npb24=",
+"RmFpbGVkIHRvIGRlY3J5cHQ=",
+"U2Vzc2lvbiBlcnJvcg==",
+"RXJyb3I6IEJhZCBNQUM=",
+"RGVjcnlwdGVkIG1lc3NhZ2U="
 ]
 
 console.info = () => {} 
