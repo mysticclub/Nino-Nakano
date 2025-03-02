@@ -1,7 +1,35 @@
+/*
+Jangan Hapus Wm Bang 
+
+*Free Fire Stalker  Plugins Esm*
+
+Untuk Bang Rian MFK Ini Bukan Recode Atau Gmn Tapi Share Kita Tabrakan :v
+
+*[Sumber]*
+https://whatsapp.com/channel/0029Vb3u2awADTOCXVsvia28
+
+*[Sumber Scrape]*
+
+https://whatsapp.com/channel/0029VafnytH2kNFsEp5R8Q3n/229
+*/
+
 import axios from 'axios'
 import cheerio from 'cheerio'
 import FormData from 'form-data'
 
+/**
+ * FFStalk Scraper
+ * @author Lang
+ * @package axios, cheerio
+ * @function ffStalk('yourID')
+ * Jgn delete wm dan saluran yh
+ */
+
+/**
+ * Get Account info
+ * @param {string} id 
+ * @returns {Promise <Object>}
+ */
 async function ffStalk(id) {
     let formdata = new FormData()
     formdata.append('uid', id)
