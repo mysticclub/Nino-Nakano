@@ -6,7 +6,6 @@ import {fileURLToPath, pathToFileURL} from 'url'
 import {platform} from 'process'
 import * as ws from 'ws'
 import {readdirSync, statSync, unlinkSync, existsSync, readFileSync, rmSync, watch} from 'fs'
-import punycode from 'punycode';
 import yargs from 'yargs';
 import {spawn} from 'child_process'
 import lodash from 'lodash'
@@ -29,20 +28,7 @@ import readline from 'readline'
 import NodeCache from 'node-cache'
 const {CONNECTING} = ws
 const {chain} = lodash
-import cfonts from 'cfonts';
 const PORT = process.env.PORT || process.env.SERVER_PORT || 3000
-const { say } = cfonts
-
-console.log('\n🚀 Iniciando Génesis-Ultra...');
-
-say('Genesis\nUltra', {
-font: 'chrome',
-align: 'center',
-gradient: ['red', 'magenta']})
-say(`Made By - Izumi-kzx`, {
-font: 'console',
-align: 'center',
-gradient: ['red', 'magenta']})
 
 protoType()
 serialize()
