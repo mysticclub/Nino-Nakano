@@ -1,112 +1,118 @@
-import fetch from 'node-fetch';
+import axios from 'axios';
 import cheerio from 'cheerio';
 import FormData from 'form-data';
 
 async function ffStalk(id) {
-    let formdata = new FormData();
-    formdata.append('uid', id);
-    
-    let res = await fetch('https://tools.freefireinfo.in/profileinfo.php?success=1', {
-        method: 'POST',
-        body: formdata,
-        headers: {
-            "origin": "https://tools.freefireinfo.in",
-            "referer": "https://tools.freefireinfo.in/profileinfo.php?success=1",
-            "user-agent": "Mozilla/5.0",
+    try {
+        let formdata = new FormData();
+        formdata.append('uid', id);
+
+        let { data } = await axios.post('https://tools.freefireinfo.in/profileinfo.php?success=1', formdata, {
+            headers: {
+                "content-type": "application/x-www-form-urlencoded",
+                "origin": "https://tools.freefireinfo.in",
+                "referer": "https://tools.freefireinfo.in/profileinfo.php?success=1",
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+            }
+        });
+
+        const $ = cheerio.load(data);
+        let tr = $('div.result').html()?.split('<br>') || [];
+
+        if (tr.length < 10 || !tr[0]?.includes("Name: ")) {
+            throw new Error("No se encontró información para este ID.");
         }
-    });
 
-    let data = await res.text();
-    const $ = cheerio.load(data);
-    
-    let tr = $('div.result').html().split('<br>');
-    if (!tr[0].includes("Name: ")) throw new Error("ID no encontrado o incorrecto.");
-
-    return {
-        name: tr[0].split('Name: ')[1],
-        bio: tr[14].split(': ')[1],
-        like: tr[2].split(': ')[1],
-        level: tr[3].split(': ')[1],
-        exp: tr[4].split(': ')[1],
-        region: tr[5].split(': ')[1],
-        honorScore: tr[6].split(': ')[1],
-        brRank: tr[7].split(': ')[1],
-        brRankPoint: tr[8].split(': ')[1],
-        csRankPoint: tr[9].split(': ')[1],
-        accountCreated: tr[10].split(': ')[1],
-        lastLogin: tr[11].split(': ')[1],
-        preferMode: tr[12].split(': ')[1],
-        language: tr[13].split(': ')[1],
-        booyahPassPremium: tr[16].split(': ')[1],
-        booyahPassLevel: tr[17].split(': ')[1],
-        petInformation: {
-            name: tr[20]?.split(': ')[1] || 'No tiene mascota',
-            level: tr[21]?.split(': ')[1] || 'No tiene mascota',
-            exp: tr[22]?.split(': ')[1] || 'No tiene mascota',
-        },
-        guild: tr[26]?.includes('Guild:') ? tr[26].split('Guild: ')[1] : 'Sin guild',
-        equippedItems: $('.equipped-items .equipped-item').map((i, e) => ({
-            name: $(e).find('p').text().trim(),
-            img: $(e).find('img').attr('src')
-        })).get()
-    };
+        return {
+            name: tr[0]?.split('Name: ')[1] || "Desconocido",
+            bio: tr[14]?.split(': ')[1] || "Sin bio",
+            like: tr[2]?.split(': ')[1] || "0",
+            level: tr[3]?.split(': ')[1] || "0",
+            exp: tr[4]?.split(': ')[1] || "0",
+            region: tr[5]?.split(': ')[1] || "Desconocido",
+            honorScore: tr[6]?.split(': ')[1] || "0",
+            brRank: tr[7]?.split(': ')[1] || "No rank",
+            brRankPoint: tr[8]?.split(': ')[1] || "0",
+            csRankPoint: tr[9]?.split(': ')[1] || "0",
+            accountCreated: tr[10]?.split(': ')[1] || "Desconocido",
+            lastLogin: tr[11]?.split(': ')[1] || "Desconocido",
+            preferMode: tr[12]?.split(': ')[1] || "Desconocido",
+            language: tr[13]?.split(': ')[1] || "Desconocido",
+            booyahPassPremium: tr[16]?.split(': ')[1] || "No",
+            booyahPassLevel: tr[17]?.split(': ')[1] || "0",
+            pet: {
+                name: tr[20]?.split(': ')[1] || "No tiene mascota",
+                level: tr[21]?.split(': ')[1] || "0",
+                exp: tr[22]?.split(': ')[1] || "0",
+                starMarked: tr[23]?.split(': ')[1] || "No",
+                selected: tr[24]?.split(': ')[1] || "No",
+            },
+            guild: (tr.length > 26 && tr[26]?.includes('Guild:')) ? tr[26].split('Guild: ')[1] : "Sin guild",
+            equippedItems: $('.equipped-item').map((i, e) => ({
+                name: $(e).find('p').text().trim(),
+                img: $(e).find('img').attr('src')
+            })).get()
+        };
+    } catch (error) {
+        console.error("❌ Error en ffStalk:", error.message);
+        return null;
+    }
 }
 
-let handler = async (m, { conn, args }) => {
-    if (!args[0]) return m.reply('✧ Ingresa el ID de Free Fire.');
+export const handler = async (m, { conn, text }) => {
+    if (!text) return m.reply('❌ Ingresa un ID de Free Fire.');
     
-    await m.reply('⏳ Buscando información...');
-    
-    try {
-        const result = await ffStalk(args[0]);
+    m.reply('🔎 Buscando información...');
 
-        let equippedItemsText = result.equippedItems.length
-            ? result.equippedItems.map(item => `• ${item.name}`).join('\n')
-            : 'No hay objetos equipados';
+    let result = await ffStalk(text);
+    if (!result) return m.reply('❌ No se pudo obtener información. Verifica el ID ingresado.');
 
-        let caption = `
-*「 🏆 FREE FIRE STALK 」*
+    let equippedItemsText = result.equippedItems.length
+        ? result.equippedItems.map(item => `• ${item.name}`).join('\n')
+        : 'No tiene objetos equipados';
 
-*👤 Perfil:*
-• 🎮 Nombre: ${result.name}
-• 💬 Bio: ${result.bio}
-• ❤️ Me Gusta: ${result.like}
-• 🔥 Nivel: ${result.level}
-• ⭐ EXP: ${result.exp}
-• 🌍 Región: ${result.region}
-• 🏅 Honor Score: ${result.honorScore}
-• 🏆 BR Rank: ${result.brRank} (${result.brRankPoint} puntos)
-• 🎖️ CS Rank: ${result.csRankPoint} puntos
-• 📅 Creado: ${result.accountCreated}
-• ⏳ Última conexión: ${result.lastLogin}
-• 🎮 Modo favorito: ${result.preferMode}
-• 🌐 Idioma: ${result.language}
+    let caption = `
+*🎮 FREE FIRE STALK*
 
-*🎖️ Booyah Pass:*
-• 🔹 Premium: ${result.booyahPassPremium}
-• 📊 Nivel: ${result.booyahPassLevel}
+👤 *Perfil*
+• *Nombre:* ${result.name}
+• *Bio:* ${result.bio}
+• *Likes:* ${result.like}
+• *Nivel:* ${result.level}
+• *Exp:* ${result.exp}
+• *Región:* ${result.region}
+• *Honor Score:* ${result.honorScore}
 
-*🐾 Mascota:*
-• 🐶 Nombre: ${result.petInformation.name}
-• 🎚️ Nivel: ${result.petInformation.level}
-• ✨ EXP: ${result.petInformation.exp}
+🏆 *Clasificaciones*
+• *BR Rank:* ${result.brRank} (${result.brRankPoint})
+• *CS Rank:* ${result.csRankPoint}
 
-*🏰 Guild:*
-• 🔰 ${result.guild}
+📆 *Actividad*
+• *Creación:* ${result.accountCreated}
+• *Último login:* ${result.lastLogin}
+• *Modo favorito:* ${result.preferMode}
+• *Idioma:* ${result.language}
 
-*🎮 Objetos equipados:*
+🎖️ *Booyah Pass*
+• *Premium:* ${result.booyahPassPremium}
+• *Nivel:* ${result.booyahPassLevel}
+
+🐾 *Mascota*
+• *Nombre:* ${result.pet.name}
+• *Nivel:* ${result.pet.level}
+• *EXP:* ${result.pet.exp}
+• *Star Marked:* ${result.pet.starMarked}
+• *Seleccionada:* ${result.pet.selected}
+
+🎽 *Guild:* ${result.guild}
+
+🎮 *Objetos Equipados*
 ${equippedItemsText}
 `.trim();
 
-        await conn.sendMessage(m.chat, { text: caption, mentions: [m.sender] }, { quoted: m });
-    } catch (error) {
-        console.error(error);
-        await m.reply('❌ No se pudo obtener información. Verifica el ID ingresado.');
-    }
+    conn.sendMessage(m.chat, { text: caption }, { quoted: m });
 };
 
-handler.help = ['ffstalk <ID>'];
-handler.tags = ['freefire'];
-handler.command = /^ffstalk$/i;
+handler.command = ["ffstalk"];
 
 export default handler;
