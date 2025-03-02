@@ -33,9 +33,9 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
       contextInfo: {
         externalAdReply: {
           title: title,
-          body: null,
+          body: 'Audio Descargado de Genesis-Ai',
           mediaType: 1,
-          mediaUrl: null,
+          mediaUrl: canal,
           thumbnailUrl: thumbnail,
           sourceUrl: null,
           containsAutoReply: true,
