@@ -11,7 +11,7 @@ let handler = async (m, { conn, args, command }) => {
             const res = await fetch(apiUrl);
             const response = await res.json();
 
-            if (!response.result) throw new Error("No se encontró el video.");
+            if (!response.result || !response.result.url) throw new Error("No se encontró el video.");
 
             let { url, title, description, views, thumbnail } = response.result;
             let caption = `🎶 *Título:* ${title}\n📄 *Descripción:* ${description}\n👀 *Vistas:* ${views}`;
@@ -41,12 +41,14 @@ let handler = async (m, { conn, args, command }) => {
             const res = await fetch(apiUrl);
             const response = await res.json();
 
+            console.log("Respuesta API YTMP3:", response);
+
             if (!response.data || !response.data.dl) throw new Error("No se pudo descargar el audio.");
 
             await conn.sendMessage(m.chat, {
                 audio: { url: response.data.dl },
-                mimeType: "audio/mpeg",
-                fileName: `${response.data.title}.mp3`
+                mimetype: "audio/mpeg",
+                fileName: `${response.data.title || "audio"}.mp3`
             }, { quoted: m });
 
         } else if (command === "ytmp4") {
@@ -54,16 +56,18 @@ let handler = async (m, { conn, args, command }) => {
             const res = await fetch(apiUrl);
             const response = await res.json();
 
+            console.log("Respuesta API YTMP4:", response);
+
             if (!response.data || !response.data.dl) throw new Error("No se pudo descargar el video.");
 
             await conn.sendMessage(m.chat, {
                 video: { url: response.data.dl },
-                mimeType: 'video/mp4',
+                mimetype: 'video/mp4',
                 caption: '✅ Descarga completada.'
             }, { quoted: m });
         }
     } catch (error) {
-        console.error(error);
+        console.error("Error en descarga:", error);
         await m.reply(`❌ Error: ${error.message}`);
     }
 };
