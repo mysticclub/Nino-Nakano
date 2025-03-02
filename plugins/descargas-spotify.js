@@ -35,7 +35,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
           title: title,
           body: 'Audio Descargado de Genesis-Ai',
           mediaType: 1,
-          mediaUrl: canal,
+          mediaUrl: null,
           thumbnailUrl: thumbnail,
           sourceUrl: null,
           containsAutoReply: true,
@@ -44,21 +44,6 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
         }
       }
     }, { quoted: m });
-
-
-
-    /*  await conn.sendFile(m.chat, thumbnail, 'cover.jpg', mensaje, m);
-
-      await conn.sendMessage(
-        m.chat,
-        { 
-          audio: { url: downloadLink }, 
-          mimetype: 'audio/mp4', 
-          fileName: `${title}.mp3` 
-        },
-        { quoted: m }
-      ); */
-
       await m.react('✅');
     } else {
       await m.react('❌');
