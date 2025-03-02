@@ -25,7 +25,29 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
 
       const mensaje = `🎵 *Título:* ${title}`;
 
-      await conn.sendFile(m.chat, thumbnail, 'cover.jpg', mensaje, m);
+    await conn.sendMessage(m.chat, {
+      audio: {
+        url: download
+      },
+      mimetype: 'audio/mpeg',
+      contextInfo: {
+        externalAdReply: {
+          title: title,
+          body: null,
+          mediaType: 1,
+          mediaUrl: null,
+          thumbnailUrl: thumbnail,
+          sourceUrl: downloadLink,
+          containsAutoReply: true,
+          renderLargerThumbnail: true,
+          showAdAttribution: false,
+        }
+      }
+    }, { quoted: m });
+
+
+
+    /*  await conn.sendFile(m.chat, thumbnail, 'cover.jpg', mensaje, m);
 
       await conn.sendMessage(
         m.chat,
@@ -34,7 +56,7 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
           mimetype: 'audio/mp4', 
           fileName: `${title}.mp3` 
         },
-        { quoted: m }
+        { quoted: m } */
       );
 
       await m.react('✅');
