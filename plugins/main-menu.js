@@ -174,7 +174,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     let prems = `${premium > 0 ? 'Premium' : 'Free'}`
     let platform = os.platform()
 
-let api = await axios.get(`https://delirius-apiofc.vercel.app/tools/country?text=${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}`)
+let api = await axios.get(`https://dark-core-api.vercel.app/api/pais?numero=${PhoneNumber('+' + who.replace('@s.whatsapp.net', '')).getNumber('international')}`)
 let userNationalityData = api.data.result
 let userNationality = userNationalityData ? `${userNationalityData.name} ${userNationalityData.emoji}` : 'Desconocido'
 
