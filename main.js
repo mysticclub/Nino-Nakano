@@ -88,9 +88,9 @@ let phoneNumber = global.botNumberCode
 const methodCodeQR = process.argv.includes("qr")
 const methodCode = !!phoneNumber || process.argv.includes("code")
 const MethodMobile = process.argv.includes("mobile")
-const colores = chalk.bgBlue.white
-const opcionQR = chalk.bold.yellowBright
-const opcionTexto = chalk.bold.blueBright
+const colores = chalk.bgMagenta.white
+const opcionQR = chalk.bold.green
+const opcionTexto = chalk.bold.cyan
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 const question = (texto) => new Promise((resolver) => rl.question(texto, resolver))
 
@@ -100,20 +100,20 @@ opcion = '1'
 }
 if (!methodCodeQR && !methodCode && !fs.existsSync(`./${sessions}/creds.json`)) {
 do {
-opcion = await question(colores('Seleccione una opción:\n') + opcionQR('1. Con código QR\n') + opcionTexto('2. Con código de texto de 8 dígitos\n'))
+opcion = await question(colores('Seleccione una opción:\n') + opcionQR('1. Con código QR\n') + opcionTexto('2. Con código de texto de 8 dígitos\n--> '))
 
 if (!/^[1-2]$/.test(opcion)) {
-console.log(chalk.bold.redBright(`🚩 No se permiten numeros que no sean 1 o 2, tampoco letras o símbolos especiales.`))
+console.log(chalk.bold.redBright(`🍭 No se permiten numeros que no sean 1 o 2, tampoco letras o símbolos especiales.`))
 }} while (opcion !== '1' && opcion !== '2' || fs.existsSync(`./${sessions}/creds.json`))
 } 
 
 const filterStrings = [
-"Q2xvc2luZyBzdGFsZSBvcGVu",
-"Q2xvc2luZyBvcGVuIHNlc3Npb24=",
-"RmFpbGVkIHRvIGRlY3J5cHQ=",
-"U2Vzc2lvbiBlcnJvcg==",
-"RXJyb3I6IEJhZCBNQUM=",
-"RGVjcnlwdGVkIG1lc3NhZ2U="
+"Q2xvc2luZyBzdGFsZSBvcGVu", // "Closing stable open"
+"Q2xvc2luZyBvcGVuIHNlc3Npb24=", // "Closing open session"
+"RmFpbGVkIHRvIGRlY3J5cHQ=", // "Failed to decrypt"
+"U2Vzc2lvbiBlcnJvcg==", // "Session error"
+"RXJyb3I6IEJhZCBNQUM=", // "Error: Bad MAC" 
+"RGVjcnlwdGVkIG1lc3NhZ2U=" // "Decrypted message" 
 ]
 
 console.info = () => {} 
@@ -124,7 +124,7 @@ const connectionOptions = {
 logger: pino({ level: 'silent' }),
 printQRInTerminal: opcion == '1' ? true : methodCodeQR ? true : false,
 mobile: MethodMobile, 
-browser: opcion == '1' ? [`Genesis-Ultra`, 'Chrome', '20.0.04'] : methodCodeQR ? [`Genesis-Ultra`, 'Chrome', '20.0.04'] : ['Ubuntu', 'Chrome', '20.0.04'], 
+browser: opcion == '1' ? [`${nameqr}`, 'Edge', '20.0.04'] : methodCodeQR ? [`${nameqr}`, 'Edge', '20.0.04'] : ['Ubuntu', 'Edge', '110.0.1587.56'], 
 auth: {
 creds: state.creds,
 keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
@@ -173,7 +173,7 @@ rl.close()
 setTimeout(async () => {
 let codigo = await conn.requestPairingCode(numeroTelefono)
 codigo = codigo?.match(/.{1,4}/g)?.join("-") || codigo
-console.log(chalk.bold.white(chalk.bgMagenta(`🥞 Codigo: `)), chalk.bold.white(chalk.white(codigo)))
+console.log(chalk.bold.white(chalk.bgMagenta(`⭐️ Código: `)), chalk.bold.white(chalk.white(codigo)))
 }, 3000)
 }}
 }
@@ -186,7 +186,7 @@ if (!opts['test']) {
 if (global.db) setInterval(async () => {
 if (global.db.data) await global.db.write()
 if (opts['autocleartmp'] && (global.support || {}).find) (tmp = [os.tmpdir(), 'tmp', `${jadi}`], tmp.forEach((filename) => cp.spawn('find', [filename, '-amin', '3', '-type', 'f', '-delete'])));
-}, 60 * 1000);
+}, 30 * 1000);
 }
 
 if (opts['server']) (await import('./server.js')).default(global.conn, PORT);
@@ -206,8 +206,7 @@ if (opcion == '1' || methodCodeQR) {
 console.log(chalk.bold.yellow(`\n✅ ESCANEA EL CÓDIGO QR EXPIRA EN 45 SEGUNDOS`))}
 }
 if (connection == 'open') {
-console.log(boxen(chalk.bold(' ¡CONECTADO CON WHATSAPP! '), { borderStyle: 'round', borderColor: 'green', title: chalk.green.bold('● CONEXIÓN ●'), titleAlignment: '', float: '' }))
-await joinChannels(conn)}
+console.log(boxen(chalk.bold(' ¡CONECTADO CON WHATSAPP! '), { borderStyle: 'round', borderColor: 'green', title: chalk.green.bold('● CONEXIÓN ●'), titleAlignment: '', float: '' }))}
 let reason = new Boom(lastDisconnect?.error)?.output?.statusCode
 if (connection === 'close') {
 if (reason === DisconnectReason.badSession) {
@@ -429,7 +428,7 @@ setInterval(async () => {
   if (stopped === 'close' || !conn || !conn.user) return
   await purgeOldFiles()
 }, 1000 * 60 * 60);
-_quickTest().then(() => conn.logger.info(chalk.bold(`🍮 HECHO\n`.trim()))).catch(console.error)
+_quickTest().then(() => conn.logger.info(chalk.bold(`☕  H E C H O\n`.trim()))).catch(console.error)
 
 async function joinChannels(conn) {
 for (const channelId of Object.values(global.ch)) {
