@@ -56,8 +56,8 @@ let handler = async (m, { conn, command, text, usedPrefix }) => {
           mimetype: 'audio/mp4', 
           fileName: `${title}.mp3` 
         },
-        { quoted: m } */
-      );
+        { quoted: m }
+      ); */
 
       await m.react('✅');
     } else {
