@@ -29,4 +29,4 @@ let handler = async (m, { conn, args }) => {
 handler.help = ['ytmp3 *<url>*']
 handler.tags = ['dl']
 handler.command = /^(ytmp3|yta)$/i;
-module.exports = handler;
+export default handler;
