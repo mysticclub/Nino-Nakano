@@ -3,7 +3,7 @@
 - Welcome con imagen Card
 - https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y
 */
-import { WAMessageStubType } from '@whiskeysockets/baileys'; 
+/* import { WAMessageStubType } from '@whiskeysockets/baileys'; 
 import fetch from 'node-fetch'; 
 import { welcomeImage } from 'ultrax';
 
@@ -50,5 +50,5 @@ let img = await generateImage(
 
 await conn.sendAi(m.chat, 'ＳＡＹＯＮＡＲＡ － ＵＳＥＲ', dev, kick, img, img, web, null);
 
-} }
+} } */
 
