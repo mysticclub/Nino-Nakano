@@ -14,6 +14,7 @@ import syntaxerror from 'syntax-error'
 import {tmpdir} from 'os'
 import {format} from 'util'
 import boxen from 'boxen'
+import punycode from 'punycode/';
 import P from 'pino'
 import pino from 'pino'
 import Pino from 'pino'
