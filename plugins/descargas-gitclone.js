@@ -31,7 +31,7 @@ let handler = async (m, { args, usedPrefix, command }) => {
        txt += `🚩 *${textbot}*`
 
 await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m, null, fake)
-await conn.sendFile(m.chat, await zipResponse.arrayBuffer(), filename, null, m)
+await conn.sendFile(m.chat, await zipResponse.buffer(), filename, null, m)
 await m.react('✅')
   } catch {
 await m.react('✖️')
