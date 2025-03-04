@@ -10,7 +10,7 @@ const response = await fetch(`https://eliasar-yt-api.vercel.app/api/ai/text2img?
 
 if (!response.ok) throw new Error('Network response was not ok');
 
-const buffer = await response.arrayBuffer();
+const buffer = await response.buffer();
 
 m.react('✅');
 
