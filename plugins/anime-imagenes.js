@@ -3,7 +3,6 @@ import fs from 'fs/promises';
 import path from 'path';
 import axios from 'axios';
 import FormData from "form-data"
-import Jimp from "jimp"
 const {
   proto,
   generateWAMessageFromContent,
