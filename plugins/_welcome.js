@@ -56,7 +56,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/1fVJfvxk/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, bienvenida, img, img, web, null);
+    await conn.sendAi(m.chat, botname, dev, bienvenida, img, img, web, null);
   }
 
   if (chat.welcome && m.messageStubType == 28) {
@@ -68,7 +68,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/Kcf0xdrQ/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, bye, img, img, webb, null);
+    await conn.sendAi(m.chat, botname, dev, bye, img, img, webb, null);
   }
 
   if (chat.welcome && m.messageStubType == 32) {
@@ -80,6 +80,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/Kcf0xdrQ/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, kick, img, img, web, null);
+    await conn.sendAi(m.chat, botname, dev, kick, img, img, web, null);
   }
 }
