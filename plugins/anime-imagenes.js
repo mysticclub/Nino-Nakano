@@ -43,7 +43,7 @@ let handler = async (m, { command, conn, usedPrefix }) => {
       if (!imageResponse.ok) {
         throw new Error('Error al descargar la imagen');
       }
-      const imageBuffer = await imageResponse.buffer();
+      const imageBuffer = await imageResponse.arrayBuffer();
       let pr = await remini(imageBuffer, "enhance")
       const mediaMessage = await prepareWAMessageMedia({ image: pr }, { upload: conn.waUploadToServer });
       return {
