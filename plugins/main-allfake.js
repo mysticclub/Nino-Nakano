@@ -85,7 +85,7 @@ const db_ = JSON.parse(fs.readFileSync(db))
 const random = Math.floor(Math.random() * db_.links[category].length)
 const randomlink = db_.links[category][random]
 const response = await fetch(randomlink)
-const rimg = await response.buffer()
+const rimg = await response.arrayBuffer()
 global.icons = rimg
 
 //• ↳ ◜𝑻𝑰𝑬𝑴𝑷𝑶 𝑹𝑷𝑮◞ • ⚔
