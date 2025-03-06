@@ -53,9 +53,6 @@ global.textbot = 'Genesis Channel'
 global.listo = '*Aqui tiene ฅ^•ﻌ•^ฅ*'
 global.vs = '2.0.0'
 global.dis = ':⁖֟⊱┈֟፝❥'
-global.channels = 'https://whatsapp.com/channel/0029Vaxb5xr7z4koGtOAAc1Q';
-global.canal = 'https://whatsapp.com/channel/0029Vaxb5xr7z4koGtOAAc1Q'
-
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
@@ -65,60 +62,12 @@ global.icons = fs.readFileSync('./src/img/Sofia.jpg')
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.apis = [
-  'https://dark-core-api.vercel.app/docs', 'user1',
-];
-
-global.rcanal = {
-  contextInfo: {
-    isForwarded: true,
-    forwardedNewsletterMessageInfo: {
-       newsletterJid: "120363374486687514@newsletter",
-       serverMessageId: 100,
-       newsletterName: textbot,
-    },
-  },
- }
-
-global.menu = { 
-  contextInfo: { 
-    isForwarded: true, 
-    forwardedNewsletterMessageInfo: { 
-      newsletterJid: "120363374486687514@newsletter", 
-      serverMessageId: 100, 
-      newsletterName: 'Lyᥒ᥊ ᥴһᥲᥒᥒᥱᥣ', 
-    }, 
-    externalAdReply: { 
-      showAdAttribution: true, 
-      title: textbot,
-      body: '( ´͈ ᵕ `͈ )◞♡ Sɪᴍᴘʟᴇ ʙᴏᴛ ᴡʜᴀᴛsᴀᴘᴘ', 
-      mediaUrl: null, 
-      description: null, 
-      previewType: "", 
-      thumbnailUrl: global.img,
-      sourceUrl: "https://dark-core-api.vercel.app/docs",
-      mediaType: 1, 
-      renderLargerThumbnail: true 
-    }, 
-  }, 
-};
-
-global.img = [ 
-  'https://i.ibb.co/B27X8xH9/yerry1.webp',
-  'https://i.ibb.co/ZznTVpz6/yerry2.webp',
-]
-
-global.fake = {
-  contextInfo: {
-    isForwarded: true,
-    forwardedNewsletterMessageInfo: {
-       newsletterJid: "120363374486687514@newsletter",
-       serverMessageId: 100,
-       newsletterName: textbot,
-    },
-  },
- }
-
+global.group = 'https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX'
+global.group2 = 'https://chat.whatsapp.com/Fn5Ipyxu6mE6qEQlwWZTwU'
+global.canal = 'https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y'
+global.github = 'https://github.com/Angelito-OFC/Genesis-AI' 
+global.instagram = 'https://www.instagram.com/angelito.kzx' 
+global.whatsApp = 'https://wa.me/59168683798'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "51968382008-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: '⚘ DARK CORE VIP✨', orderTitle: 'packname', thumbnail: catalogo, sellerJid: '0@s.whatsapp.net'}}}
