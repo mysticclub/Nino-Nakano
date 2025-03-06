@@ -47,7 +47,7 @@ global.team = '> © ⍴᥆ᥕᥱrᥱძ ᑲᥡ 𝗍ᥱᥲm ᥴ᥆ძᥱ 𝗍і�
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 global.namebot = 'Genesis - AI'
 global.wait = '*Aɢᴜᴀʀᴅᴇ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ ฅ^•ﻌ•^ฅ*'
-global.titulowm2 = 'U S U A R I O - S O F I A'
+global.titulowm2 = 'U S U A R I O - G E N E S I S'
 global.botname = '۟Genesis - AI'
 global.textbot = 'Genesis Channel'
 global.listo = '*Aqui tiene ฅ^•ﻌ•^ฅ*'
