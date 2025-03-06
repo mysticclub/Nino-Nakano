@@ -10,7 +10,7 @@ import './plugins/_content.js'
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.owner = [
-  ['51928616320', 'DARK CORE', true],
+  ['59168683798', 'Izumi', true],
 ]
 
 global.rowner =[
@@ -25,18 +25,18 @@ global.prems = []
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.packsticker = `Sofia Bot` //stiker
-global.author = 'Sofia - AI' //rcanal 
-global.packname = 'Sofia - AI' //stiker
+global.author = 'Genesis - AI' //rcanal 
+global.packname = 'Genesis - AI' //stiker
 global.redes = ''
 global.isBaileysFail = false
 global.ev = ''
 
-global.jadi = 'SofiaJadiBot';
+global.jadi = 'GenesisJadiBot';
 global.libreria = 'Baileys'
 global.baileys = 'V 6.7.5'
 global.vs = '2.0.7'
 global.vsJB = '5.0'
-global.sessions = 'SofiaSession'
+global.sessions = 'GenesisSession'
 
 
 global.wm = '𝗗𝗲𝘀𝗮𝗿𝗿𝗼𝗹𝗹𝗮𝗱𝗼𝗿 : '
@@ -45,11 +45,11 @@ global.igfg = '𝗗𝗲𝘀𝗮𝗿𝗿𝗼𝗹𝗹𝗮𝗱𝗼𝗿'
 global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ 𝗍ᥱᥲm ᥴ᥆ძᥱ 𝗍і𝗍ᥲᥒs'
 global.team = '> © ⍴᥆ᥕᥱrᥱძ ᑲᥡ 𝗍ᥱᥲm ᥴ᥆ძᥱ 𝗍і𝗍ᥲᥒs'
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
-global.namebot = 'Sofia - AI'
+global.namebot = 'Genesis - AI'
 global.wait = '*Aɢᴜᴀʀᴅᴇ ᴜɴ ᴍᴏᴍᴇɴᴛᴏ ฅ^•ﻌ•^ฅ*'
 global.titulowm2 = 'U S U A R I O - S O F I A'
-global.botname = '۟Sofia - AI'
-global.textbot = 'Sofia Channel'
+global.botname = '۟Genesis - AI'
+global.textbot = 'Genesis Channel'
 global.listo = '*Aqui tiene ฅ^•ﻌ•^ฅ*'
 global.vs = '2.0.0'
 global.dis = ':⁖֟⊱┈֟፝❥'
