@@ -18,7 +18,7 @@
         "eslint": "eslint .",
         "eslintfix": "eslint --fix ."
     },
-    "homepage": "https://github.com/DanielDiod/Ai-Otho",
+    "homepage": "https://github.com/Izumi-kzx/Genesis-AI",
     "author": {
         "name": "Izumi-kzx"
     },
@@ -28,10 +28,10 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/DanielDiod/Ai-Otho.git"
+        "url": "git+https://github.com/Izumi-kzx/Genesis-AI.git"
     },
     "bugs": {
-        "url": "https://github.com/DanielDiod/Ai-Otho/issues"
+        "url": "https://github.com/Izumi-kzx/Genesis-AI/issues"
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
