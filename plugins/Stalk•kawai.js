@@ -2,11 +2,7 @@ import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text, usedPrefix, command }) => {
   if (!text) {
-    return conn.reply(
-      m.chat,
-      `🚩 Por favor, ingrese un nombre de usuario para buscar.\n\nEjemplo:\n> *${usedPrefix + command}* Vegeta_Sola`,
-      m
-    );
+    return conn.reply(m.chat, `🚩 Por favor, ingrese un nombre de usuario para buscar.\n\nEjemplo:\n> *${usedPrefix + command}* Vegeta_Sola`, m);
   }
 
   await m.react('🕓');
@@ -16,45 +12,39 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 
     if (!json.status || !json.resultado) {
       await m.react('✖️');
-      return await conn.reply(m.chat, 'No se encontraron resultados para esta búsqueda.', m);
+      return await conn.reply(m.chat, '❌ No se encontraron resultados para esta búsqueda.', m);
     }
 
     const user = json.resultado;
-    let txt = `*K W A I  -  S T A L K*\n\n`;
-    txt += `✩ *Nombre:* ${user.nome}\n`;
-    txt += `✩ *Usuario:* ${user.nome_usuario}\n`;
-    txt += `✩ *Bio:* ${user.bio || 'No disponible'}\n`;
-    txt += `✩ *Seguidores:* ${user.seguidores.toLocaleString()}\n`;
-    txt += `✩ *Siguiendo:* ${user.seguindo.toLocaleString()}\n`;
-    txt += `✩ *Total de Videos:* ${user.total_videos}\n`;
-    txt += `✩ *Perfil:* ${user.url_perfil}\n\n`;
+    let txt = `📌 *K W A I  -  S T A L K*\n\n`;
+    txt += `👤 *Nombre:* ${user.nome}\n`;
+    txt += `🔖 *Usuario:* ${user.nome_usuario}\n`;
+    txt += `📅 *Cuenta creada:* ${new Date(user.data_criacao).toLocaleDateString('es-ES')}\n`;
+    txt += `📜 *Bio:* ${user.bio || 'Sin descripción'}\n`;
+    txt += `👥 *Seguidores:* ${user.seguidores.toLocaleString()}\n`;
+    txt += `🔄 *Siguiendo:* ${user.seguindo.toLocaleString()}\n`;
+    txt += `❤️ *Me gusta totales:* ${user.curtidas.toLocaleString()}\n`;
+    txt += `🎥 *Videos publicados:* ${user.total_videos}\n`;
+    txt += `🔗 *Perfil:* ${user.url_perfil}\n\n`;
 
-    if (user.videos.length > 0) {
-      txt += '*🎥 Últimos videos:*\n\n';
-      user.videos.slice(0, 3).forEach((video, i) => {
-        txt += `📹 *Video ${i + 1}:*\n`;
-        txt += `✩ *Título:* ${video.titulo}\n`;
-        txt += `✩ *Descripción:* ${video.descricao}\n`;
-        txt += `✩ *Duración:* ${video.duracao.replace('PT', '').toLowerCase()}\n`;
-        txt += `✩ *Likes:* ${video.curtidas.toLocaleString()}\n`;
-        txt += `✩ *Comentarios:* ${video.comentarios.toLocaleString()}\n`;
-        txt += `✩ *Compartidos:* ${video.compartilhamentos.toLocaleString()}\n`;
-        txt += `✩ *🔗 [Ver Video]( ${video.url} )*\n\n`;
-      });
-    } else {
-      txt += '❌ No hay videos disponibles.\n\n';
-    }
+    txt += `🎬 *Últimos videos:*\n\n`;
+    user.videos.forEach((video, index) => {
+      txt += `📽️ *Video ${index + 1}*\n`;
+      txt += `📌 *Título:* ${video.titulo}\n`;
+      txt += `📝 *Descripción:* ${video.descricao || 'Sin descripción'}\n`;
+      txt += `⏳ *Duración:* ${video.duracao.replace('PT', '').toLowerCase()}\n`;
+      txt += `❤️ *Likes:* ${video.curtidas.toLocaleString()}\n`;
+      txt += `💬 *Comentarios:* ${video.comentarios.toLocaleString()}\n`;
+      txt += `🔄 *Compartidos:* ${video.compartilhamentos.toLocaleString()}\n`;
+      txt += `📌 *Ver video:* ${video.url}\n\n`;
+    });
 
-    await conn.sendMessage(m.chat, {
-      image: { url: user.foto_perfil },
-      caption: txt
-    }, { quoted: m });
-
+    await conn.sendMessage(m.chat, { image: { url: user.foto_perfil }, caption: txt }, { quoted: m });
     await m.react('✅');
   } catch (error) {
     console.error(error);
     await m.react('✖️');
-    await conn.reply(m.chat, 'Hubo un error al procesar la solicitud. Intenta de nuevo más tarde.', m);
+    await conn.reply(m.chat, '⚠️ Hubo un error al procesar la solicitud. Intenta de nuevo más tarde.', m);
   }
 };
 
