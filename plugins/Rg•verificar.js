@@ -58,9 +58,8 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
 
   let dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ іzᥙmі.kz᥊';
 
-  // Enviar mensaje con imagen
   await conn.sendMessage(m.chat, {
-    image: imgBuffer, // Pasar el Buffer directamente
+    image: imgBuffer,
     caption: txt,
     footer: dev,
     buttons: [
