@@ -269,13 +269,13 @@ await conn.sendMessage(m.chat, {
     {
       buttonId: `.ping`,
       buttonText: {
-        displayText: 'ᯓᡣ𐭩 ⍴іᥒg',
+        displayText: '📶 Ping',
       },
     },
     {
       buttonId: `.owner`,
       buttonText: {
-        displayText: 'ᯓᡣ𐭩 ᥆ᥕᥒᥱr',
+        displayText: '📞 Owner',
       },
     },
   ],
