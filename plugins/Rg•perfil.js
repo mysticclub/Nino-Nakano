@@ -40,11 +40,11 @@ await conn.sendMessage(m.chat, {
   footer: dev,
   buttons: [
     {
-      buttonId: `.perfil`,
+      buttonId: `.owner`,
       buttonText: { displayText: '📞 Owner' },
     },
     {
-      buttonId: `.menu`,
+      buttonId: `.grupos`,
       buttonText: { displayText: '🥞 Grupos' },
     },
   ],
