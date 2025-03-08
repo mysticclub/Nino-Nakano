@@ -32,7 +32,33 @@ let handler = async (m, { conn, usedPrefix, command}) => {
       txt += `◦ *Premium* : ${prem ? 'Si' : 'No'}\n`
       txt += `◦ *Registrado* : ${registered ? 'Si': 'No'}`
   let mentionedJid = [who]
-await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m, null, fake)
+// await conn.sendFile(m.chat, img, 'thumbnail.jpg', txt, m, null, fake)
+
+await conn.sendMessage(m.chat, {
+  image: img,
+  caption: txt,
+  footer: dev,
+  buttons: [
+    {
+      buttonId: `.perfil`,
+      buttonText: { displayText: '📞 Owner' },
+    },
+    {
+      buttonId: `.menu`,
+      buttonText: { displayText: '🥞 Grupos' },
+    },
+  ],
+  contextInfo: {
+    isForwarded: true,
+    forwardedNewsletterMessageInfo: {
+      newsletterJid: channelRD.id,
+      newsletterName: channelRD.name,
+    },
+  },
+  viewOnce: true,
+  headerType: 4,
+}, { quoted: m });
+
 }
 handler.help = ['perfil', 'perfil *@user*']
 handler.tags = ['start']
