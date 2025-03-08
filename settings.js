@@ -46,12 +46,17 @@ global.jadi = 'GenesisJadiBot'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.packname = '⪛✰ 𝐀𝐢 𝐎𝐭𝐡𝐨 - 𝐌𝐃 ✰⪜'
-global.botname = 'Genesis 🧇'
-global.wm = 'Genesis Ai 🍮'
-global.author = 'Made By Izumi.kzx ☁️'
-global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ძᥱ᥎ძᥲᥒіᥱᥣ ❀'
-global.textbot = 'Genesis ® Made By Izumi-kzx'
+global.packname = '⪛✰ Genesis Ai - Ultra ✰⪜'
+global.botname = 'gᥱᥒᥱsіs-ᥲі'
+global.wm = 'Genesis-Ultra 🤍'
+global.author = 'mᥲძᥱ ᑲᥡ : іzᥙmі.kz᥊ ☕'
+global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ᥴ᥆ძᥱ 𝗍і𝗍ᥲᥒs'
+global.textbot = 'Genesis Ai : Izumi.kzx 🤍'
+global.namebot = 'Genesis Ai'
+global.stickpack = `© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ᥴ᥆ძᥱ 𝗍і𝗍ᥲᥒs`
+global.titulowm = '-❀ᩙ̈͟༚̮ ⡞᪲=͟͟͞🄶𝚎᪶۫۫𝚗᪶۫۫𝚎᪶۫۫𝚜᪶۫۫𝚒᪶۫۫𝚜᪶۫ 𝚊᪶۫𝚒᪶۫͜ ≼᳞ׄ ᵎ ˚꙳꤬ꨪ'
+global.titulowm2 = '.‧·ீ੭ ¡ ᗃᮢ፝֟͡Gᴇɴᴇsɪs B۵ᴛ ʟᴀ ᴍᴇᴊ꧔ʀ !˚̩̩̥͙°̩̥༅˚'
+global.stickauth = `© Genesis Ai By Izumi.kzx`
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
