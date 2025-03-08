@@ -1,70 +1,49 @@
-<h1 align="center">‧ 🍭 Ai Otho - MD 🍭 ‧
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Oswald&weight=300&size=37&duration=3000&pause=100&color=000000&background=601D6E00&center=true&vCenter=true&repeat=true&random=FALSO&width=560&height=90&lines=Izumi-kzx+lanzó+la mejor+versión;De+Genesis Ai - 2.0.7;Con+nuevos+comandos+y+mejoras;Genesis+El+Mejor Bot+De+WhatsApp" alt="Typing SVG"/></a>
+![img](https://i.ibb.co/txJZyLv/file.jpg)
+
+[![GROUP OFFICIAL](https://img.shields.io/badge/WhatsApp%20grupo-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX) [![GROUP OFFICIAL](https://img.shields.io/badge/WhatsApp%20channel-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y)
+
+<a href="https://api.whatsapp.com/send/?phone=+59897246324&text=Hola 👋 soporte de Génesis Bot &type=phone_number&app_absent=0" target="blank"><img src="https://img.shields.io/badge/Whatsapp-30302f?style=flat&logo=whatsapp" /></a>
+ <a href="http://www.instagram.com/angelito.kzx" target="blank"><img src="https://img.shields.io/badge/Instagram-30302f?style=flat&logo=instagram" /></a>
+<a href="https://www.threads.net/@angelito.kzx" target="blank"><img src="https://img.shields.io/badge/Threads-30302f?style=flat&logo=threads" /></a>
+<a href="https://x.com/usxr_angelito0" target="blank"><img src="https://img.shields.io/badge/Twitter-30302f?style=flat&logo=x" /></a>
+
+<a href="https://github.com/Izumi-kzx/Genesis-AI/watchers"><img title="espectadores" src="https://img.shields.io/github/watchers/Izumi-kzx/Genesis-AI?label=Espectadores&style=social"></a>
 </p>
-<p>
-        <img src= "https://telegra.ph/file/96fa8ef1653b6bb3d1f88.jpg">
-    </p>
-    <p align="center">
-        <a href="#"><img title="simple-whatsapp-bot" src="https://img.shields.io/badge/-SIMPLE--WHATSAPP--BOT-green?colorA=%23ff0000&colorB=%23017e40&style=for-the-badge"></a>
-    </p>
-    <p>
-        <a href="https://github.com/DanielDod"><img title="Author"    src="https://img.shields.io/badge/Author-Daniel-purple.svg?style=for-the-badge&logo=github"></a>
-    </p>
----------  
-        
-## <img src="https://i0.wp.com/i230.photobucket.com/albums/ee124/joaclint/joaclint_istgud/ruedas.gif" alt="Herramientas" width="35" height="35"> Herramientas
 
-```bash
-> Termux
-> WhatsApp
-> 2 celulares o PC
-```
-- Descarga termux dando clic [aqui](https://f-droid.org/repo/com.termux_118.apk)
+</p>
+<p align="center"><img src="https://profile-counter.glitch.me/{Genesis-AI}/count.svg" alt="Izumi-kzx:: Visitor's Count" /></p>
 
----------
+</p>
 
-## <img src="https://i.giphy.com/media/nWGRHBnAl5Kmc/giphy.gif" alt="Instalacion" width="40" height="40"> Instalación en [termux](https://f-droid.org/repo/com.termux_118.apk)
+### **`❕️Información importante`**
 
-```bash
-cd && termux-setup-storage
-```
+<details>
+ <summary><b> 🤍 Nota Importante </b></summary>
 
-```bash
-apt-get update -y && apt-get upgrade -y
-```
+Este proyecto **no está afiliado de ninguna manera** con `WhatsApp`, `Inc. WhatsApp` es una marca registrada de `WhatsApp LLC`, y este bot es un **desarrollo independiente** que **no tiene ninguna relación oficial con la companía**.
 
-```bash
-pkg install -y git nodejs ffmpeg imagemagick && pkg install yarn 
-```
+</details>
 
-```bash
-git clone https://github.com/DanielDiod/Ai-Otho && cd Ai-Otho
-```
+<details>
+ <summary><b> 🤍 Importante </b></summary>
 
-```bash
-yarn install
-```
+GenesisBot-MD recibe **soporte semanal** si llegas a ver un error **repetitivamente o presenta fallos** solo repórtelo para que lo solucionemos
 
-```bash
-npm install
-```
+</details>
 
-```bash
-npm update
-```
+<details>
+ <summary><b> 🤍 Versión 2.0.0</b></summary>
 
-```bash
-npm start
-```
+* **Este proyecto no ofrece soporte oficial para su uso en Termux.** Termux es una aplicación de terminal para Android y, aunque puede ser utilizada para ejecutar diversos programas, **este proyecto no está diseñado ni probado específicamente para funcionar en Termux**. Por lo tanto, **no garantizamos compatibilidad ni soporte técnico en este entorno**.
 
-- Después de eso te aparecerά un código **QR** lo escaneas con el Whatsapp web y listo
+</details>
 
------
+### <img src="https://i.pinimg.com/originals/19/80/6e/19806e91932e6054965fc83b85241270.gif" alt="Prueba La Bot Aqui" width="42" height="42"> **`Instala Genesis Aqui`**
+
 
 ### ☁️ SKY ULTRA PLUS
 <a href="https://dash.corinplus.com"><img src="https://qu.ax/zFzXF.png" height="125px"></a>
-
-<details>
- <summary><b>:paperclip: Enlaces Importantes</b></summary>
 
 - **Dashboard:** [`Aquí`](https://dash.skyultraplus.com)
 - **Panel:** [`Aquí`](https://panel.skyultraplus.com)
@@ -73,65 +52,26 @@ npm start
 - **Contacto(s):** 
 [`Gata Dios`](https://wa.me/message/B3KTM5XN2JMRD1)  [`Russell`](https://api.whatsapp.com/send/?phone=15167096032&text&type=phone_number&app_absent=0)
 - **Discord:** [`SkyUltraPlus`](https://discord.gg/Ph4eWsZ8)
+
+<details>
+<summary>☁️ Ajustes del Servidor - Genesis</summary><img src="https://qu.ax/CepDu.jpg">
+
 </details>
 
-------------------------
+</details>
 
-### `𝐎𝐁𝐓𝐄𝐍𝐄𝐑 𝐎𝐓𝐑𝐎 𝐂𝐎𝐃𝐈𝐆𝐎 𝐐𝐑 👀
-```bash
-𝐄𝐒𝐂𝐑𝐈𝐁𝐄 𝐋𝐎𝐒 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄𝐒 𝐂𝐎𝐌𝐀𝐍𝐃𝐎𝐒 𝐔𝐍𝐎 𝐏𝐎𝐑 𝐔𝐍𝐎:
-> cd Ai-Otho 
-> rm -rf OthoSession
-> npm start
-```
+> [!IMPORTANT]
+> **Si planeas instalar o extraer el bot, recuerda que su venta está estrictamente prohibida bajo cualquier circunstancia. El uso del bot con fines de venta constituye una violación de los términos de nuestro repositorio y se tomarán las medidas necesarias contra quienes incumplan estas condiciones.**
 
--------
+***
+### ☁️ COLABORADORES
 
-### `𝐀𝐂𝐓𝐈𝐕𝐀𝐑 𝐄𝐍 𝐂𝐀𝐒𝐎 𝐃𝐄 𝐃𝐄𝐓𝐄𝐍𝐄𝐑𝐒𝐄 🧿`
-```bash
-𝐄𝐒𝐂𝐑𝐈𝐁𝐄 𝐋𝐎𝐒 𝐒𝐈𝐆𝐔𝐈𝐄𝐍𝐓𝐄𝐒 𝐂𝐎𝐌𝐀𝐍𝐃𝐎𝐒 𝐔𝐍𝐎 𝐏𝐎𝐑 𝐔𝐍𝐎:
-> cd 
-> cd Ai-Otho
-> npm start
-```
--------
+<a href="https://github.com/Manuel12yt"><img src="https://github.com/Manuel12yt.png" width="100" height="100" alt="DarkCore"/></a>
 
-## <img src="https://i.pinimg.com/originals/73/69/6e/73696e022df7cd5cb3d999c6875361dd.gif" alt="Características" width="42" height="42"> Características
+### **`🤍 CREADOR`**
+<a
+href="https://github.com/Izumi-kzx"><img src="https://github.com/Izumi-kzx.png" width="130" height="130" alt="Angelito"/></a>
 
-> Bot en creación pronto se agregaran más cosas 
+> Copyright (c) 2025 **[Angelito-OFC](https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y)**.
 
-- [x] Interacción con voz y texto
-- [x] Configuración de grupo
-- [x] antidelete, antilink, antispam, etc
-- [x] Bienvenida personalizada
-- [x] Juegos, tictactoe, mate, etc
-- [x] Chatbot (simsimi)
-- [x] Crear sticker de image/video/gif/url
-- [x] SubBot (Jadibot)
-- [ ] Juego RPG
-- [x] Descarga de música y video de YT
-- [ ] Otros
-
----------
-
-## <img src="https://i.pinimg.com/originals/19/80/6e/19806e91932e6054965fc83b85241270.gif" alt="Contacto" width="42" height="42"> Contacto
-
-- Si tiene algún problema la bot contactame ฅ^•ﻌ•^ฅ
-
-* <a href="https://wa.me/51955918117"><img alt="WhatsApp" src="https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/></a>
-
----------
-
-## <img src="https://static.wikia.nocookie.net/nyancat/images/d/d3/Nyan-cat.gif/revision/latest/scale-to-width-down/400?cb=20131231222500&path-prefix=es" alt="Grupo" width="45" height="43"> Grupo de WhatsApp
-
-
-- Grupo Oficial Del Bot
-
-* <a href="https://chat.whatsapp.com/G9MpDVmJtbiIpItEZpg70s"><img alt="Group" src="https://img.shields.io/badge/Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/></a>
----------
-<div align="center">
-  <h1 align="center">Editor y Propietario del Bot</h1>
-
-<a href="https://github.com/DanielDiod"><img src="https://github.com/DanielDiod.png" width="300" height="300" alt="Daniel🇦🇱"/></a>
-
-`© Ai - Otho / By Daniel 🇦🇱`
+**`¡GRACIAS POR PREFERIR ESTE PROYECTO!` ☕**
