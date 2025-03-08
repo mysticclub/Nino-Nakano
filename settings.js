@@ -64,17 +64,17 @@ global.catalogo = fs.readFileSync('./src/catalogo.png')
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.grupo = 'https://chat.whatsapp.com/G9MpDVmJtbiIpItEZpg70s'
-global.channel = 'https://whatsapp.com/channel/0029VaBpO8M3rZZdwkGFIP33'
-global.channel2 = 'https://whatsapp.com/channel/0029VaBpO8M3rZZdwkGFIP33'
-global.md = 'https://panel.skyultraplus.com' 
-global.yt = 'https://www.youtube.com/@'
-global.tiktok = 'https://tiktok.com/@'
-global.correo = 'danieldevelop3@gmail.com'
+global.group = 'https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX'
+global.group2 = 'https://chat.whatsapp.com/Fn5Ipyxu6mE6qEQlwWZTwU'
+global.canal = 'https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y'
+global.github = 'https://github.com/Izumi-kzx/Genesis-AI' 
+global.instagram = 'https://www.instagram.com/angelito.kzx' 
+global.whatsApp = 'https://wa.me/59168683798'
+global.correo = 'izumipluss@gmail.com'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "5219992095479-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: 'Ai Otho - MD', orderTitle: 'Bang', thumbnail: catalogo, sellerJid: '0@s.whatsapp.net'}}}
+global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "5219992095479-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: 'ᰔᩚ gᥱᥒᥱsіs ᥕһᥲ𝗍sᥲ⍴⍴ ᑲ᥆𝗍', orderTitle: 'Bang', thumbnail: catalogo, sellerJid: '0@s.whatsapp.net'}}};
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
