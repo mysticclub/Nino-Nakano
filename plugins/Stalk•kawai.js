@@ -49,7 +49,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
 };
 
 handler.help = ['kwaistalk *<nombre>*'];
-handler.tags = ['Información'];
+handler.tags = ['stalk'];
 handler.command = ['kwaistalk', 'kwstalk'];
 handler.register = true;
 
