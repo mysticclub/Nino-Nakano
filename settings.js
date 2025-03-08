@@ -17,7 +17,7 @@ global.confirmCode = ''
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.owner = [
-   ['51923300039', 'Creador 👑', true],
+   ['59168683798', 'Izumi 🥞', true],
    ['51994143761', 'Owner 🍭', true],
    ['51923300039'],
    ['51923300039'],
@@ -39,10 +39,10 @@ global.libreria = 'Baileys'
 global.baileys = 'V 6.7.8'
 global.vs = '2.0.7'
 global.languaje = 'Español'
-global.nameqr = 'Ai Otho'
-global.namebot = 'Ai Otho - MD'
-global.sessions = 'OthoSession'
-global.jadi = 'OthoJadiBot'
+global.nameqr = 'Ai Genesis'
+global.namebot = 'Genesis - Plus'
+global.sessions = 'GenesisSession'
+global.jadi = 'GenesisJadiBot'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
@@ -55,14 +55,7 @@ global.textbot = 'Ai Otho : DevDanielu 🚩'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.imagen1 = fs.readFileSync('./src/img/Menu.jpg')
-global.imagen2 = fs.readFileSync('./src/img/Menu2.jpg')
-global.imagen3 = fs.readFileSync('./src/img/Menu3.jpg')
-global.welcome = fs.readFileSync('./src/img/welcome.jpg')
-global.adios = fs.readFileSync('./src/img/adios.jpg')
-global.catalogo = fs.readFileSync('./src/img/catalogo.jpg')
-global.miniurl = fs.readFileSync('./src/img/miniurl.jpg')
-global.avatar = fs.readFileSync('./src/img/avatar_contact.jpg')
+global.catalogo = fs.readFileSync('./src/catalogo.jpg')
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
