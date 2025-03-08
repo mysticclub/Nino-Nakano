@@ -58,8 +58,6 @@ const defaultMenu = {
 🍫 *𝖯𝗋𝖾𝖿𝗂𝗃𝗈 ➫* _\`< %_p >\`_  
 🍩 *𝖴𝗌𝗎𝖺𝗋𝗂𝗈𝗌 ➫* _\`[ %totalreg ]\`_  
 🍜 *𝖢𝗈𝗆𝖺𝗇𝖽𝗈𝗌 ➫*  _\`[ %totalf ]\`_
-
-Crea un *Sub-Bot* con tu número utilizando *#serbot* o *#code*
  %readmore
   `.trimStart(),
   header: '%category\n',
