@@ -58,23 +58,30 @@ let handler = async function (m, { conn, text, usedPrefix, command }) {
 
   let dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ іzᥙmі.kz᥊';
 
-  await conn.sendMessage(m.chat, {
-    image: imgBuffer,
-    caption: txt,
-    footer: dev,
-    buttons: [
-      {
-        buttonId: `.perfil`,
-        buttonText: { displayText: '👤 Perfil' },
-      },
-      {
-        buttonId: `.menu`,
-        buttonText: { displayText: '🧇 Menu' },
-      },
-    ],
-    viewOnce: true,
-    headerType: 4,
-  }, { quoted: m });
+await conn.sendMessage(m.chat, {
+  image: imgBuffer,
+  caption: txt,
+  footer: dev,
+  buttons: [
+    {
+      buttonId: `.perfil`,
+      buttonText: { displayText: '👤 Perfil' },
+    },
+    {
+      buttonId: `.menu`,
+      buttonText: { displayText: '🧇 Menu' },
+    },
+  ],
+  contextInfo: {
+    isForwarded: true,
+    forwardedNewsletterMessageInfo: {
+      newsletterJid: channelRD.id,
+      newsletterName: channelRD.name,
+    },
+  },
+  viewOnce: true,
+  headerType: 4,
+}, { quoted: m });
 
   await m.react('✅');
 };
