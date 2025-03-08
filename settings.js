@@ -47,11 +47,11 @@ global.jadi = 'GenesisJadiBot'
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.packname = '⪛✰ 𝐀𝐢 𝐎𝐭𝐡𝐨 - 𝐌𝐃 ✰⪜'
-global.botname = 'Ai Otho ✨️'
-global.wm = 'Otho 🌸'
-global.author = 'Made By DevDaniel 👑'
+global.botname = 'Genesis 🧇'
+global.wm = 'Genesis Ai 🍮'
+global.author = 'Made By Izumi.kzx ☁️'
 global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ძᥱ᥎ძᥲᥒіᥱᥣ ❀'
-global.textbot = 'Ai Otho : DevDanielu 🚩'
+global.textbot = 'Genesis ® Made By Izumi-kzx'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
