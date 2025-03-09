@@ -12,7 +12,19 @@ let handler = async (m, { conn, text, command }) => {
     // Extraemos el ID del grupo del enlace
     let groupId = groupLink.split('chat.whatsapp.com/')[1];
     
-    // Intentamos que el bot deje el grupo
+    // Obtenemos los metadatos del grupo con el ID extraído
+    let group = await conn.groupMetadata(groupId);
+    if (!group) {
+      return await m.reply('No pude obtener información sobre el grupo. Verifica el enlace proporcionado.');
+    }
+
+    // Verificamos si el bot es miembro del grupo
+    let isBotMember = group.participants.some(p => p.id === conn.user.id);
+    if (!isBotMember) {
+      return await m.reply('No soy miembro del grupo al que intentas que me retire. No puedo realizar la acción.');
+    }
+
+    // Si es miembro, el bot se retira del grupo
     await conn.reply(groupLink, `🍟 *Ai Genesis* Abandona El Grupo, Fue Genial Estar Aquí`);
     await conn.groupLeave(groupId);
 
@@ -20,11 +32,11 @@ let handler = async (m, { conn, text, command }) => {
 
   } catch (e) {
     console.log(e);
-    await m.reply('Ocurrió un error al intentar salir del grupo.');
+    await m.reply('Ocurrió un error al intentar salir del grupo. Asegúrate de que el enlace sea válido y que el bot sea miembro del grupo.');
   }
 }
 
-handler.command = ['salir2']
+handler.command = ['salir']
 handler.private = true
 handler.rowner = true
 export default handler;
