@@ -3,7 +3,7 @@ let handler = async (m, { conn, text, command }) => {
     return await m.reply('Este comando debe ser enviado en privado.');
   }
 
-  let [commandText, groupLink] = text.split(" ");
+  let groupLink = text.trim();
   if (!groupLink) {
     return await m.reply('Debes proporcionar el enlace del grupo después del comando. Ejemplo: .salir <enlace del grupo>');
   }
