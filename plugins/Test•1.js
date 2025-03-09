@@ -25,7 +25,7 @@ let handler = async (m, { conn, text, command }) => {
   }
 }
 
-handler.command = ['salir']
+handler.command = ['salir2']
 handler.private = true
 handler.rowner = true
 export default handler;
