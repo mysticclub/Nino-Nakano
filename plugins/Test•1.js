@@ -9,16 +9,22 @@ let handler = async (m, { conn, text, command }) => {
   }
 
   try {
-    await conn.reply(groupLink, `🍟 *Ai Genesis* Abandona El Grupo, Fue Genial Estar Aquí`);
-    await conn.groupLeave(groupLink.split('chat.whatsapp.com/')[1]);
+    // Obtenemos el ID del grupo del enlace
+    let groupId = groupLink.split('chat.whatsapp.com/')[1];
+    
+    // Intentamos que el bot deje el grupo
+    await conn.groupLeave(groupId);
+
+    // Confirmamos que la acción se realizó correctamente
     await conn.reply(m.chat, 'Orden cumplida, me retiro del grupo ✅', m);
+
   } catch (e) {
     console.log(e);
-    await m.reply('Ocurrió un error al intentar salir del grupo. Asegúrate de que el enlace sea válido y que el bot sea miembro del grupo.');
+    await m.reply('Ocurrió un error al intentar salir del grupo. Verifica que el enlace sea válido y que el bot esté en el grupo.');
   }
 }
 
-handler.command = ['salir2']
+handler.command = ['salirv2']
 handler.private = true
 handler.rowner = true
 export default handler;
