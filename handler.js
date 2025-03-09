@@ -38,7 +38,7 @@ if (user) {
 if (!isNumber(user.exp))
 user.exp = 0
 if (!isNumber(user.cookies))
-user.cookies = 10
+user.corazones = 10
 if (!('muto' in user))
 user.muto = false
 if (!('premium' in user)) 
@@ -70,7 +70,7 @@ user.bank = 0
 } else
                 global.db.data.users[m.sender] = {
 exp: 0,
-cookies: 10,
+corazones: 10,
 muto: false,
 registered: false,
 name: m.name,
@@ -358,8 +358,8 @@ if (xp > 200)
 m.reply('chirrido -_-')
 else
 m.exp += xp
-if (!isPrems && plugin.cookies && global.db.data.users[m.sender].cookies < plugin.cookies * 1) {
-conn.reply(m.chat, `Se agotaron tus *🍪 Cookies*`, m, fake)
+if (!isPrems && plugin.corazones && global.db.data.users[m.sender].corazones < plugin.corazones * 1) {
+conn.reply(m.chat, `Se agotaron tus *🤍 Corazones*`, m, fake)
 continue
 }
 let extra = {
@@ -388,7 +388,7 @@ __filename
 try {
 await plugin.call(this, m, extra)
 if (!isPrems)
-m.cookies = m.cookies || plugin.cookies || false
+m.cookies = m.corazones || plugin.corazones || false
 } catch (e) {
 m.error = e
 console.error(e)
@@ -405,8 +405,8 @@ await plugin.after.call(this, m, extra)
 } catch (e) {
 console.error(e)
 }}
-if (m.cookies)
-conn.reply(m.chat, `Utilizaste *${+m.cookies}* 🍪`, m, fake)
+if (m.corazones)
+conn.reply(m.chat, `Utilizaste *${+m.corazones}* 🤍`, m)
 }
 break
 }}
@@ -427,7 +427,7 @@ await conn.sendMessage(m.chat, { delete: { remoteJid: m.chat, fromMe: false, id:
 }
 if (m.sender && (user = global.db.data.users[m.sender])) {
 user.exp += m.exp
-user.cookies -= m.cookies * 1
+user.corazones -= m.corazones * 1
 }
 
 let stat
