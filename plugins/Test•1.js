@@ -12,12 +12,7 @@ let handler = async (m, { conn, text, command }) => {
     // Extraemos el ID del grupo del enlace
     let groupId = groupLink.split('chat.whatsapp.com/')[1];
     
-    // Verificamos si el bot es miembro del grupo
-    let group = await conn.groupMetadata(groupId);
-    if (!group || !group.participants.some(p => p.id === conn.user.id)) {
-      return await m.reply('No soy miembro del grupo al que intentas que me retire. No puedo realizar la acción.');
-    }
-
+    // Intentamos que el bot deje el grupo
     await conn.reply(groupLink, `🍟 *Ai Genesis* Abandona El Grupo, Fue Genial Estar Aquí`);
     await conn.groupLeave(groupId);
 
