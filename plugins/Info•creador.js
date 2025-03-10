@@ -14,7 +14,38 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
         vcard: `BEGIN:VCARD\nVERSION:3.0\nFN: Izumi-kzx\nitem1.TEL;waid=59897246324:59897246324\nitem1.X-ABLabel:Número\nitem2.EMAIL;type=INTERNET: izumipluss@gmail.com\nitem2.X-ABLabel:Email\nitem3.URL:https://genesis-support.vercel.app/\nitem3.X-ABLabel:Internet\nitem4.ADR:;; Argentina;;;;\nitem4.X-ABLabel:Region\nEND:VCARD`,
     }];
 
-    await conn.sendMessage(m.chat, {
+await conn.sendMessage(m.chat, {
+    contacts: {
+        displayName: `${list.length} Contacto`,
+        contacts: list
+    },
+    contextInfo: {
+        externalAdReply: {
+            showAdAttribution: true,
+            title: 'һ᥆ᥣᥲ s᥆ᥡ іzᥙmі-kz᥊ ᥱᥣ mᥱȷ᥆r',
+            body: dev,
+            thumbnailUrl: 'https://i.ibb.co/44XMFDQ/file.jpg',
+            sourceUrl: canal,
+            mediaType: 1,
+            renderLargerThumbnail: true
+        }
+    },
+    text: txt,
+    footer: '© ᥴrᥱᥲძ᥆r ᥆𝖿іᥴіᥲᥣ іzᥙmі.kz᥊',
+    buttons: [
+        {
+            buttonId: ".menu",
+            buttonText: {
+                displayText: '⊹₊ ⋆ᯓᡣ𐭩 mᥱᥒᥙ ᥴ᥆m⍴ᥣᥱ𝗍᥆'
+            },
+            type: 1
+        }
+    ],
+    viewOnce: true,
+    headerType: 1
+}, { quoted: m });
+
+/*    await conn.sendMessage(m.chat, {
         contacts: {
             displayName: `${list.length} Contacto`,
             contacts: list
@@ -50,7 +81,7 @@ let handler = async (m, { conn, usedPrefix, text, args, command }) => {
         ],
         viewOnce: true,
         headerType: 1
-    }, { quoted: m });
+    }, { quoted: m }); */
 };
 
 handler.help = ['owner', 'creator'];
