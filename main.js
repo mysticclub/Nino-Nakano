@@ -130,8 +130,7 @@ creds: state.creds,
 keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
 },
 markOnlineOnConnect: true, 
-generateHighQualityLinkPreview: true, 
-syncFullHistory: false,
+generateHighQualityLinkPreview: true,
 
 /* const connectionOptions = {
 logger: pino({ level: 'silent' }),
