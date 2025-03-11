@@ -46,7 +46,7 @@ const emojis = {
   "internet": "🍟",
   "anime": "🥞",
   "ephoto": "🍦",
-  "group": "☕",
+  "grupo": "☕",
   "owner": "🧇",
   "nsfw": "🪼",
 };
@@ -89,7 +89,7 @@ let handler = async (m, { conn, usedPrefix: _p, __dirname, args, command }) => {
     "internet": "𓂂𓏸  𐅹੭੭   *`𝖨𝗇ƚᧉꭇ𝗇ᧉƚ`* 🍟 ᦡᦡ",
     "anime": "𓂂𓏸  𐅹੭੭   *`𝖠𝗇ı𝗆ᧉ`* 🥞 ᦡᦡ",
     "ephoto": "𓂂𓏸  𐅹੭੭   *`𝖨𝗆𝗀-ƚᧉ𝗑ƚᨣ`* 🍦ᦡᦡ",
-    "group": "𓂂𓏸  𐅹੭੭   *`Gꭇ𝗎𝗉ᨣ𝗌`* ☕ ᦡᦡ",
+    "grupo": "𓂂𓏸  𐅹੭੭   *`Gꭇ𝗎𝗉ᨣ𝗌`* ☕ ᦡᦡ",
     "owner": "𓂂𓏸  𐅹੭੭   *`Oɯ𝗇ᧉꭇ`* 🧇 ᦡᦡ",
     "nsfw": "𓂂𓏸  𐅹੭੭   *`𝖭𝗌ẜɯ`* 🪼 ᦡᦡ",
   }
