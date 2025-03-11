@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+/* import fetch from 'node-fetch';
 
 let handler = async (m, { conn, text }) => {
     if (!text) {
@@ -51,4 +51,4 @@ handler.help = ['ytmp3 *<url>*']
 handler.tags = ['dl']
 handler.command = ['ytmp3', 'fgmp3', 'yta'];
 
-export default handler;
+export default handler; */
