@@ -263,11 +263,11 @@ await conn.sendMessage(m.chat, {
   buttons: [
     { 
       buttonId: isEnable ? `.off ${type}` : `.on ${type}`, 
-      buttonText: { displayText: isEnable ? 'ᯓᡣ𐭩 ᥆𝖿𝖿' : 'ᯓᡣ𐭩 ᥆ᥒ' } 
+      buttonText: { displayText: isEnable ? '🔴 Off' : '🟢 On' } 
     },
     { 
       buttonId: ".menu", 
-      buttonText: { displayText: 'ᯓᡣ𐭩 mᥱᥒᥙ' } 
+      buttonText: { displayText: 'Menu 🧇' } 
     }
   ],
   viewOnce: true,
