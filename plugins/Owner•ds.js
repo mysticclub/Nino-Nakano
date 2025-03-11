@@ -6,7 +6,7 @@ const handler = async (m, { conn, usedPrefix }) => {
     return conn.sendMessage(m.chat, {text: '🍭 Este comando solo puede ser utilizado en el bot principal.'}, {quoted: m});
   }
   await conn.sendMessage(m.chat, {text: '🍭 Iniciando...'}, {quoted: m});
-  const sessionPath = './OthoSession'
+  const sessionPath = './GenesisSession'
   try {
     if (!existsSync(sessionPath)) {
       return await conn.sendMessage(m.chat, {text: '🍭 La carpeta sessions no existe o está vacía.'}, {quoted: m});
