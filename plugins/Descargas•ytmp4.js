@@ -30,11 +30,11 @@ const savetube = {
         const iv = data.slice(0, 16);
         const content = data.slice(16);
         const key = savetube.crypto.hexToBuffer(secretKey);
-        
+
         const decipher = crypto.createDecipheriv('aes-128-cbc', key, iv);
         let decrypted = decipher.update(content);
         decrypted = Buffer.concat([decrypted, decipher.final()]);
-        
+
         return JSON.parse(decrypted.toString());
       } catch (error) {
         throw new Error(`${error.message}`);
@@ -104,7 +104,7 @@ const savetube = {
       return {
         status: false,
         code: 400,
-        error: "Linknya mana? Yakali download kagak ada linknya 🗿"
+        error: "¿Dónde está el link? No puedes descargar sin un link 🗿"
       };
     }
 
@@ -112,7 +112,7 @@ const savetube = {
       return {
         status: false,
         code: 400,
-        error: "Lu masukin link apaan sih 🗿 Link Youtube aja bree, kan lu mau download youtube 👍🏻"
+        error: "¡Pon un link de YouTube válido, por favor! 🗿"
       };
     }
 
@@ -120,7 +120,7 @@ const savetube = {
       return {
         status: false,
         code: 400,
-        error: "Formatnya kagak ada bree, pilih yang udah disediain aja yak, jangan nyari yang gak ada 🗿",
+        error: "Formato no disponible, elige uno de los que están listados 🗿",
         available_fmt: savetube.formats
       };
     }
@@ -130,7 +130,7 @@ const savetube = {
       return {
         status: false,
         code: 400,
-        error: "Kagak bisa ekstrak link youtubenya nih, btw link youtubenya yang bener yak.. biar kagak kejadian begini lagi 😂"
+        error: "No se puede extraer el link de YouTube, verifica el link y prueba de nuevo 😂"
       };
     }
 
@@ -156,7 +156,7 @@ const savetube = {
         status: true,
         code: 200,
         result: {
-          title: decrypted.title || "Gak tau 🤷🏻",
+          title: decrypted.title || "Desconocido 🤷🏻",
           type: format === 'mp3' ? 'audio' : 'video',
           format: format,
           thumbnail: decrypted.thumbnail || `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`,
@@ -180,16 +180,20 @@ const savetube = {
 };
 
 const handler = async (m, { conn, args, command }) => {
-  if (args.length < 1) return m.reply(`Format:\n- *ytv <url> [quality]* (untuk video)\n- *yta <url>* (untuk audio)\n\n*Quality tersedia:* 144, 240, 360, 480, 720, 1080 (default: 720p untuk video)`);
+  if (args.length < 1) return m.reply(`Formato:\n- *ytmp4 <url> [calidad]* (para video)\n- *ytmp3 <url>* (para audio)\n\n*Calidades disponibles:* 144, 240, 360, 480, 720, 1080 (por defecto: 720p para video)`);
 
   let url = args[0];
-  let format = command === 'yta' ? 'mp3' : args[1] || '720';
+  let format = command === 'ytmp3' ? 'mp3' : args[1] || '720';
 
-  if (!savetube.isUrl(url)) return m.reply("Masukkan link YouTube yang valid.");
+  if (!savetube.isUrl(url)) return m.reply("Por favor, ingresa un link válido de YouTube.");
 
   try {
+    await m.react('🕒');
     let res = await savetube.download(url, format);
-    if (!res.status) return m.reply(`*Error:* ${res.error}`);
+    if (!res.status) {
+      await m.react('✖️');
+      return m.reply(`*Error:* ${res.error}`);
+    }
 
     let { title, download, type } = res.result;
 
@@ -204,13 +208,15 @@ const handler = async (m, { conn, args, command }) => {
         fileName: `${title}.mp3` 
       }, { quoted: m });
     }
+    await m.react('✅');
   } catch (e) {
-    m.reply(`*Gagal mengunduh!*`);
+    await m.react('✖️');
+    m.reply(`*¡Fallo en la descarga!*`);
   }
 };
 
-handler.help = ['ytv', 'yta'];
-handler.command = ['ytv', 'yta'];
+handler.help = ['ytmp4', 'ytmp3'];
+handler.command = ['ytmp4', 'ytmp3'];
 handler.tags = ['downloader']
 
 export default handler;
