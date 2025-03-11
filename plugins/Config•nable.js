@@ -254,7 +254,25 @@ ${usedPrefix + command} modoadmin
 ${usedPrefix + command} antilink`, m)
       throw false
   }
-  conn.reply(m.chat, `🍭 La función *${type}* se *${isEnable ? 'activó' : 'desactivó'}* ${isAll ? 'para este Bot' : isUser ? '' : 'para este chat'}`, m)
+await conn.sendMessage(m.chat, { 
+  text: `` +
+        `*» 𝗢𝗣𝗖𝗜𝗢𝗡 |* ${type.toUpperCase()}\n` +
+        `*» 𝗘𝗦𝗧𝗔𝗗𝗢 |* ${isEnable ? 'ON' : 'OFF'}\n` +
+        `*» 𝗣𝗔𝗥𝗔 |* ${isAll ? 'ESTE BOT' : isUser ? '' : 'ESTE CHAT'}`, 
+  footer: dev, 
+  buttons: [
+    { 
+      buttonId: isEnable ? `.off ${type}` : `.on ${type}`, 
+      buttonText: { displayText: isEnable ? 'ᯓᡣ𐭩 ᥆𝖿𝖿' : 'ᯓᡣ𐭩 ᥆ᥒ' } 
+    },
+    { 
+      buttonId: ".menu", 
+      buttonText: { displayText: 'ᯓᡣ𐭩 mᥱᥒᥙ' } 
+    }
+  ],
+  viewOnce: true,
+  headerType: 1
+}, { quoted: estilo });
 }
 
 handler.help = ['enable', 'disable']
