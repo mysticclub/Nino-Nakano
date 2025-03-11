@@ -5,14 +5,14 @@ let handler  = async (m, { conn, usedPrefix, command }) => {
 let grupos = `*Hola!, te invito a unirte a los grupos oficiales de del Bot para convivir con la comunidad :D* 🍂
 
 1- Ai Otho 🍭
-*✰* ${grupo}
+*✰* ${group}
 
 *─ׄ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׅ─ׄ⭒─ׄ─ׄ*
 
 ➠ Enlace anulado? entre aquí! 
 
 ♡ Canal :
-*✰* ${channel}
+*✰* ${canal}
 
 > ${dev}`
 
