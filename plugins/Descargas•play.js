@@ -60,12 +60,12 @@ const handler = async (m, { conn, args, usedPrefix }) => {
             },
             buttons: [
                 {
-                    buttonId: `${usedPrefix}ytmp3 ${video.url}`,
+                    buttonId: `${usedPrefix}yta ${video.url}`,
                     buttonText: { displayText: 'ᯓᡣ𐭩 ᥲᥙძі᥆' },
                     type: 1,
                 },
                 {
-                    buttonId: `${usedPrefix}ytmp4 ${video.url}`,
+                    buttonId: `${usedPrefix}ytv ${video.url}`,
                     buttonText: { displayText: 'ᯓᡣ𐭩 ᥎іძᥱ᥆' },
                     type: 1,
                 },
