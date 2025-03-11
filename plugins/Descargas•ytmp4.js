@@ -180,7 +180,7 @@ const savetube = {
 };
 
 const handler = async (m, { conn, args, command }) => {
-  if (args.length < 1) return m.reply(`Formato:\n- *ytmp4 <url> [calidad]* (para video)\n- *ytmp3 <url>* (para audio)\n\n*Calidades disponibles:* 144, 240, 360, 480, 720, 1080 (por defecto: 720p para video)`);
+  if (args.length < 1) return m.reply(`🧇 *Ingresa una URL de un video o audio de YouTube*`);
 
   let url = args[0];
   let format = command === 'ytmp3' ? 'mp3' : args[1] || '720';
