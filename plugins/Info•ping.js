@@ -7,11 +7,13 @@ let handler = async (m, { conn }) => {
          exec(`neofetch --stdout`, (error, stdout, stderr) => {
           let child = stdout.toString("utf-8");
           let ssd = child.replace(/Memory:/, "Ram:");
-          m.reply('🌵 Mi Velocidad es de:' +  ` ${latensi.toFixed(4)} _ms_`);
+
+          conn.reply(m.chat, `*Pong* 🏓 ${latensi.toFixed(4)} ms`, m, rcanal);
             });
 }
 handler.help = ['ping']
-handler.tags = ['main']
-handler.command = ['velocidad', 'speed', 'p']
+handler.tags = ['info']
+handler.command = ['ping', 'p']
+handler.register = true
 
 export default handler
