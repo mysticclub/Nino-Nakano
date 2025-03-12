@@ -6,6 +6,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
 
   let chat = global.db.data.chats[m.chat];
+  let titu = 'GΞИΞSIS | WhatsApp Ai';
   let web = 'https://genesis-support.vercel.app/';
   let webb = 'https://izumikzx.vercel.app/';
   let who = m.messageStubParameters[0] + '@s.whatsapp.net';
@@ -51,7 +52,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/1fVJfvxk/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, bienvenida, img, img, null, null);
+    await conn.sendMini(m.chat, titu, dev, bienvenida, img, img, null, null);
   }
 
   if (chat.welcome && m.messageStubType == 28) {
@@ -63,7 +64,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/Kcf0xdrQ/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, bye, img, img, null, null);
+    await conn.sendMini(m.chat, titu, dev, bye, img, img, null, null);
   }
 
   if (chat.welcome && m.messageStubType == 32) {
@@ -75,6 +76,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/Kcf0xdrQ/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, kick, img, img, null, null);
+    await conn.sendMini(m.chat, titu, dev, kick, img, img, null, null);
   }
 }
