@@ -28,18 +28,19 @@ export async function before(m, { conn, participants, groupMetadata }) {
   const generateImage = async (title, subtitle, backgroundImage) => {
     const userAvatar = await getUserAvatar();
 
-    const welcomer = new canvacard.Welcomer()
-      .setAvatar(userAvatar)
-      .setBackground('IMAGE', backgroundImage)
-      .setTitulo(title)
-      .setSubtitulo(subtitle)
-      .setColorTitulo('#FFFFFF')
-      .setColorSubtitulo('#5865f2')
-      .setColorCircle('#FFFFFF')
-      .setColorOverlay('#000000')
-      .setOpacityOverlay('0.4');
+    const img = await canvacard.welcome({
+      avatar: userAvatar,
+      background: backgroundImage,
+      title: title,
+      subtitle: subtitle,
+      titleColor: '#FFFFFF',
+      subtitleColor: '#5865f2',
+      circleColor: '#FFFFFF',
+      overlayColor: '#000000',
+      overlayOpacity: 0.4
+    });
 
-    return await welcomer.build();
+    return img;
   };
 
   let groupSize = participants.length;
