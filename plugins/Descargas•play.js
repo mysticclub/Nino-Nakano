@@ -15,12 +15,12 @@ const handler = async (m, { conn, args, usedPrefix }) => {
         let video = searchResults[0];
         let thumbnail = await (await fetch(video.miniatura)).buffer();
 
-        let messageText = `> *YouTube Play 🧇.*\n\n`;
+        let messageText = `> *𝖸𝗈𝗎𝖳𝗎𝖻𝖾 𝖯𝗅𝖺𝗒 🧇.*\n\n`;
         messageText += `${video.titulo}\n\n`;
-        messageText += `• *Duración:* ${video.duracion || 'No disponible'}\n`;
-        messageText += `• *Autor:* ${video.canal || 'Desconocido'}\n`;
-        messageText += `• *Publicado:* ${convertTimeToSpanish(video.publicado)}\n`;
-        messageText += `• *Enlace:* ${video.url}\n`;
+        messageText += `• *𝖣𝗎𝗋𝖺𝖼𝗂𝗈𝗇:* ${video.duracion || 'No disponible'}\n`;
+        messageText += `• *𝖠𝗎𝗍𝗈𝗋:* ${video.canal || 'Desconocido'}\n`;
+        messageText += `• *𝖯𝗎𝖻𝗅𝗂𝖼𝖺𝖽𝗈:* ${convertTimeToSpanish(video.publicado)}\n`;
+        messageText += `• *𝖫𝗂𝗇𝗄:* ${video.url}\n`;
 
         let ytSections = searchResults.slice(1, 11).map((v, index) => ({
             title: `${index + 1}┃ ${v.titulo}`,
