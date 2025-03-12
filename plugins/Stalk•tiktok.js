@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let handler = async (m, { usedPrefix, command, conn, text }) => {
-  if (!text) throw `Error! Ingresa un usuario. *Ejemplo:* ${usedPrefix + command} mrbeast`
+  if (!text) return m.reply('Error! Ingresa un usuario. *Ejemplo:* ${usedPrefix + command} mrbeast');
 
   try {
     m.reply('⏳ Buscando información...')
