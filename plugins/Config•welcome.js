@@ -20,12 +20,12 @@ export async function before(m, { conn, participants, groupMetadata }) {
     }  
   };  
 
-  const generateImage = async (title, subtitle, backgroundImage) => {  
+  const generateImage = async (title, subtitle) => {  
     const userAvatar = await getUserAvatar();  
 
     const welcomer = new canvacard.WelcomeLeave()  
       .setAvatar(userAvatar)  
-      .setBackground('image', backgroundImage)  // Fondo personalizado
+      .setBackground('image', 'https://i.ibb.co/1fVJfvxk/file.jpg')  // Usamos el fondo común para todos
       .setTitulo(title, '#FFFFFF')  
       .setSubtitulo(subtitle, '#FFFFFF')  
       .setOpacityOverlay(0.5)  // Ajusta la opacidad del fondo
@@ -55,8 +55,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
     let imgData = await generateImage(  
       '¡BIENVENIDO/A!',  
-      `Disfruta de tu estadía. Ahora somos ${groupSize} miembros.`,  
-      'https://i.ibb.co/1fVJfvxk/file.jpg'  // Fondo personalizado para bienvenida
+      `Disfruta de tu estadía. Ahora somos ${groupSize} miembros.`  
     );  
 
     if (imgData) {  
@@ -70,8 +69,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
     let imgData = await generateImage(  
       '¡HASTA LUEGO!',  
-      `Nos vemos pronto. Ahora somos ${groupSize} miembros.`,  
-      'https://i.ibb.co/Kcf0xdrQ/file.jpg'  // Fondo personalizado para despedida
+      `Nos vemos pronto. Ahora somos ${groupSize} miembros.`  
     );  
 
     if (imgData) {  
@@ -85,8 +83,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
     let imgData = await generateImage(  
       '¡HASTA LUEGO!',  
-      `Nos vemos pronto. Ahora somos ${groupSize} miembros.`,  
-      'https://i.ibb.co/Kcf0xdrQ/file.jpg'  // Fondo personalizado para expulsión
+      `Nos vemos pronto. Ahora somos ${groupSize} miembros.`  
     );  
 
     if (imgData) {  
