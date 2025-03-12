@@ -5,7 +5,8 @@
 */
 import { WAMessageStubType } from '@whiskeysockets/baileys';
 import fetch from 'node-fetch';
-import canvacard from 'canvacard';
+import canvacard from 'canvacard'; // Asegúrate de usar import
+import { AttachmentBuilder } from 'discord.js'; // Importa el AttachmentBuilder si usas Discord.js
 
 export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
