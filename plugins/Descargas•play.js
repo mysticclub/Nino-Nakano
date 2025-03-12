@@ -61,12 +61,12 @@ const handler = async (m, { conn, args, usedPrefix }) => {
             buttons: [
                 {
                     buttonId: `${usedPrefix}ytmp3 ${video.url}`,
-                    buttonText: { displayText: 'ᯓᡣ𐭩 ᥲᥙძі᥆' },
+                    buttonText: { displayText: '🎧 𝖠𝗎𝖽𝗂𝗈' },
                     type: 1,
                 },
                 {
                     buttonId: `${usedPrefix}ytmp4 ${video.url}`,
-                    buttonText: { displayText: 'ᯓᡣ𐭩 ᥎іძᥱ᥆' },
+                    buttonText: { displayText: '𝖵𝗂𝖽𝖾𝗈 🎥' },
                     type: 1,
                 },
                 {
@@ -74,7 +74,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
                     nativeFlowInfo: {
                         name: 'single_select',
                         paramsJson: JSON.stringify({
-                            title: '⊹₊ ⋆ᯓᡣ𐭩 rᥱsᥙᥣ𝗍ᥲძ᥆s ᥡ᥆ᥙ𝗍ᥙᑲᥱ',
+                            title: '𝖱𝖾𝗌𝗎𝗅𝗍𝖺𝖽𝗈𝗌  𝖸𝗈𝗎𝖳𝗎𝖻𝖾 🔍',
                             sections: ytSections,
                         }),
                     },
@@ -84,7 +84,7 @@ const handler = async (m, { conn, args, usedPrefix }) => {
                     nativeFlowInfo: {
                         name: 'single_select',
                         paramsJson: JSON.stringify({
-                            title: '⊹₊ ⋆ᯓᡣ𐭩 rᥱsᥙᥣ𝗍ᥲძ᥆s s⍴᥆𝗍і𝖿ᥡ',
+                            title: '𝖱𝖾𝗌𝗎𝗅𝗍𝖺𝖽𝗈𝗌  𝖲𝗉𝗈𝗍𝗂𝖿𝗒 🔍',
                             sections: spotifySections,
                         }),
                     },
