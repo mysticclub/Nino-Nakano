@@ -5,8 +5,7 @@
 */
 import { WAMessageStubType } from '@whiskeysockets/baileys';
 import fetch from 'node-fetch';
-import canvacard from 'canvacard'; // Asegúrate de usar import
-import { AttachmentBuilder } from 'discord.js'; // Importa el AttachmentBuilder si usas Discord.js
+import canvacard from 'canvacard';
 
 export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
@@ -29,7 +28,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
   const generateImage = async (title, subtitle, backgroundColor) => {
     const userAvatar = await getUserAvatar();
 
-    // Crear la tarjeta de bienvenida usando canvacard
     const welcomer = new canvacard.WelcomeLeave()
       .setAvatar(userAvatar)
       .setBackground('COLOR', backgroundColor)
@@ -66,8 +64,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
     );
 
     if (imgData) {
-      const attachment = new AttachmentBuilder(imgData, { name: 'WelcomeCard.png' });
-      await conn.sendMini(m.chat, botname, dev, bienvenida, attachment, attachment, web, null);
+      await conn.sendMessage(m.chat, { image: imgData, caption: bienvenida });
     }
   }
 
@@ -81,8 +78,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
     );
 
     if (imgData) {
-      const attachment = new AttachmentBuilder(imgData, { name: 'WelcomeCard.png' });
-      await conn.sendMini(m.chat, botname, dev, bye, attachment, attachment, webb, null);
+      await conn.sendMessage(m.chat, { image: imgData, caption: bye });
     }
   }
 
@@ -96,8 +92,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
     );
 
     if (imgData) {
-      const attachment = new AttachmentBuilder(imgData, { name: 'WelcomeCard.png' });
-      await conn.sendMini(m.chat, botname, dev, kick, attachment, attachment, web, null);
+      await conn.sendMessage(m.chat, { image: imgData, caption: kick });
     }
   }
 }
