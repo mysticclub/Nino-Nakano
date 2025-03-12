@@ -5,7 +5,7 @@
 */
 import { WAMessageStubType } from '@whiskeysockets/baileys';
 import fetch from 'node-fetch';
-import canvafy from 'canvafy';
+import canvacard from 'canvacard';
 
 export async function before(m, { conn, participants, groupMetadata }) {
   if (!m.messageStubType || !m.isGroup) return !0;
@@ -25,19 +25,21 @@ export async function before(m, { conn, participants, groupMetadata }) {
     }
   };
 
-  const generateImage = async (title, description, backgroundImage) => {
+  const generateImage = async (title, subtitle, backgroundImage) => {
     const userAvatar = await getUserAvatar();
-    const img = await new canvafy.WelcomeLeave()
-      .setAvatar(userAvatar)
-      .setBackground('image', backgroundImage)
-      .setTitle(title)
-      .setDescription(description)
-      .setBorder('#2a2e35')
-      .setAvatarBorder('#2a2e35')
-      .setOverlayOpacity(0.1)
-      .build();
 
-    return img;
+    const welcomer = new canvacard.Welcomer()
+      .setAvatar(userAvatar)
+      .setBackground('IMAGE', backgroundImage)
+      .setTitulo(title)
+      .setSubtitulo(subtitle)
+      .setColorTitulo('#FFFFFF')
+      .setColorSubtitulo('#5865f2')
+      .setColorCircle('#FFFFFF')
+      .setColorOverlay('#000000')
+      .setOpacityOverlay('0.4');
+
+    return await welcomer.build();
   };
 
   let groupSize = participants.length;
@@ -56,7 +58,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/1fVJfvxk/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, bienvenida, img, img, web, null);
+    const attachment = new Discord.MessageAttachment(img, 'WelcomerCard.png');
+    await conn.sendMini(m.chat, botname, dev, bienvenida, attachment, attachment, web, null);
   }
 
   if (chat.welcome && m.messageStubType == 28) {
@@ -68,7 +71,8 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/Kcf0xdrQ/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, bye, img, img, webb, null);
+    const attachment = new Discord.MessageAttachment(img, 'WelcomerCard.png');
+    await conn.sendMini(m.chat, botname, dev, bye, attachment, attachment, webb, null);
   }
 
   if (chat.welcome && m.messageStubType == 32) {
@@ -80,6 +84,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
       'https://i.ibb.co/Kcf0xdrQ/file.jpg'
     );
 
-    await conn.sendMini(m.chat, botname, dev, kick, img, img, web, null);
+    const attachment = new Discord.MessageAttachment(img, 'WelcomerCard.png');
+    await conn.sendMini(m.chat, botname, dev, kick, attachment, attachment, web, null);
   }
 }
