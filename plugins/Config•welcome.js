@@ -25,7 +25,7 @@ export async function before(m, { conn, participants, groupMetadata }) {
 
     const welcomer = new canvacard.WelcomeLeave()  
       .setAvatar(userAvatar)  
-      .setBackground('https://i.ibb.co/1fVJfvxk/file.jpg')  // Usamos directamente la URL del fondo
+      .setBackground({ url: 'https://i.ibb.co/1fVJfvxk/file.jpg' })  // Usar el formato correcto con 'url' 
       .setTitulo(title, '#FFFFFF')  
       .setSubtitulo(subtitle, '#FFFFFF')  
       .setOpacityOverlay(0.5)  // Ajusta la opacidad del fondo
