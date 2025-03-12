@@ -8,8 +8,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
   let chat = global.db.data.chats[m.chat];
   let titu = 'GΞИΞSIS | WhatsApp Ai';
   let grupo = 'https://chat.whatsapp.com/H5ueOzVRAzhBolt3lczDfG';
-  let web = 'https://genesis-support.vercel.app/';
-  let webb = 'https://izumikzx.vercel.app/';
   let who = m.messageStubParameters[0] + '@s.whatsapp.net';
   let user = global.db.data.users[who];
   let userName = user ? user.name : await conn.getName(who);
