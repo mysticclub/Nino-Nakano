@@ -25,22 +25,27 @@ export async function before(m, { conn, participants, groupMetadata }) {
     }
   };
 
-  const generateImage = async (title, subtitle, backgroundImage) => {
+  const generateImage = async (title, subtitle, backgroundColor) => {
     const userAvatar = await getUserAvatar();
 
-    const img = await canvacard.welcome({
-      avatar: userAvatar,
-      background: backgroundImage,
-      title: title,
-      subtitle: subtitle,
-      titleColor: '#FFFFFF',
-      subtitleColor: '#5865f2',
-      circleColor: '#FFFFFF',
-      overlayColor: '#000000',
-      overlayOpacity: 0.4
-    });
+    // Crear la tarjeta de bienvenida usando canvacard
+    const welcomer = new canvacard.WelcomeLeave()
+      .setAvatar(userAvatar)
+      .setBackground('COLOR', backgroundColor)
+      .setTitulo(title, '#FFFFFF')
+      .setSubtitulo(subtitle, '#FFFFFF')
+      .setOpacityOverlay(1)
+      .setColorCircle('#FFFFFF')
+      .setColorOverlay('#5865F2')
+      .setTypeOverlay('ROUNDED');
 
-    return img;
+    try {
+      const data = await welcomer.build('Cascadia Code PL, Noto Color Emoji');
+      return data;
+    } catch (err) {
+      console.error("Error creating welcome card:", err);
+      return null;
+    }
   };
 
   let groupSize = participants.length;
@@ -53,39 +58,45 @@ export async function before(m, { conn, participants, groupMetadata }) {
   if (chat.welcome && m.messageStubType == 27) {
     let bienvenida = `❀ *Se unió* al grupo *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]} \n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Bienvenido! ¡Esperamos que tengas un excelente día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 ¡Disfruta de tu tiempo con nosotros!`;
 
-    let img = await generateImage(
+    let imgData = await generateImage(
       '¡BIENVENIDO/A!',
       `Disfruta de tu estadía. Ahora somos ${groupSize} miembros.`,
-      'https://i.ibb.co/1fVJfvxk/file.jpg'
+      '#000000'
     );
 
-    const attachment = new Discord.MessageAttachment(img, 'WelcomerCard.png');
-    await conn.sendMini(m.chat, botname, dev, bienvenida, attachment, attachment, web, null);
+    if (imgData) {
+      const attachment = new AttachmentBuilder(imgData, { name: 'WelcomeCard.png' });
+      await conn.sendMini(m.chat, botname, dev, bienvenida, attachment, attachment, web, null);
+    }
   }
 
   if (chat.welcome && m.messageStubType == 28) {
     let bye = `❀ *Se salió* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Próximamente...`;
 
-    let img = await generateImage(
+    let imgData = await generateImage(
       '¡HASTA LUEGO!',
       `Nos vemos pronto. Ahora somos ${groupSize} miembros.`,
-      'https://i.ibb.co/Kcf0xdrQ/file.jpg'
+      '#000000'
     );
 
-    const attachment = new Discord.MessageAttachment(img, 'WelcomerCard.png');
-    await conn.sendMini(m.chat, botname, dev, bye, attachment, attachment, webb, null);
+    if (imgData) {
+      const attachment = new AttachmentBuilder(imgData, { name: 'WelcomeCard.png' });
+      await conn.sendMini(m.chat, botname, dev, bye, attachment, attachment, webb, null);
+    }
   }
 
   if (chat.welcome && m.messageStubType == 32) {
     let kick = `❀ *Se salió* del grupo  *${groupMetadata.subject.trim()}*\n    ✰ @${m.messageStubParameters[0].split`@`[0]}\n\n    Ꮚ⁠˘⁠ ⁠ꈊ⁠ ⁠˘⁠ ⁠Ꮚ ¡Nos vemos pronto! ¡Que tengas un buen día!\n\n> ✐ No olvides usar *#help* si necesitas algo.\n> 🜸 Próximamente...`;
 
-    let img = await generateImage(
+    let imgData = await generateImage(
       '¡HASTA LUEGO!',
       `Nos vemos pronto. Ahora somos ${groupSize} miembros.`,
-      'https://i.ibb.co/Kcf0xdrQ/file.jpg'
+      '#000000'
     );
 
-    const attachment = new Discord.MessageAttachment(img, 'WelcomerCard.png');
-    await conn.sendMini(m.chat, botname, dev, kick, attachment, attachment, web, null);
+    if (imgData) {
+      const attachment = new AttachmentBuilder(imgData, { name: 'WelcomeCard.png' });
+      await conn.sendMini(m.chat, botname, dev, kick, attachment, attachment, web, null);
+    }
   }
 }
