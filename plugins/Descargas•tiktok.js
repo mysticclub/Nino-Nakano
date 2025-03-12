@@ -20,7 +20,7 @@ let handler = async (m, { conn, text, usedPrefix, command }) => {
       audioUrl 
     } = videoResult;
 
-    let message = `*✔️🍟Downloader tiktok.*
+    let message = `*✔️🍟 𝖣𝗈𝗐𝗇𝗅𝗈𝖺𝖽𝖾𝗋 𝖳𝗂𝗄𝖳𝗈𝗄.*
 
 > • *Nombre*: ${nickname || "-"}
 > • *Usuario*: ${username || "-"}
