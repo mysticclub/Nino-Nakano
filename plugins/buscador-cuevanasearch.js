@@ -25,4 +25,4 @@ console.error(error)
 handler.command = ['cuevanasearch', 'cuevana']
 
 export default handler
-handler.group = true
+handler.group = true;
