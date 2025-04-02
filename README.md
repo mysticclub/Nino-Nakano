@@ -1,6 +1,6 @@
 <h1 align="center">✦ Nino Nakano ✦</h1>
 
- <img src= "https://qu.ax/BKfGO.jpg">
+ <img src= "https://qu.ax/HDRSk.jpg">
     </p>
 
 ### **`❕️ Información importante`**
