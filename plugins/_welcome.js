@@ -21,6 +21,6 @@ export async function before(m, { conn, participants, groupMetadata }) {
     }
 
     if (chat.welcome && m.messageStubType === WAMessageStubType.GROUP_PARTICIPANT_REMOVE) { 
-      let kick = `❀ *Adiós* de ${groupMetadata.subject}\n ✰ ${taguser}\n${global.welcom2}\n •(=^●ω●^=)• Te esperamos pronto!\n> ✐ Puedes usar *#help* para ver la lista de comandos.`
+      let kick = `❀ *Adiós* de ${groupMetadata.subject}\n ✰ ${taguser}\n${global.welcom2}\n •(=^●ω●^=)• Te esperamos pronto!\n> ✐ Ahora Somos >> ${participants.length} Miembros.`
       await conn.sendMessage(m.chat, { image: img, caption: kick, mentions: [who] })
   }}
