@@ -24,7 +24,7 @@ await conn.reply(m.chat, '⚠︎ *Error:* ' + e, m)
 handler.help = ['tourl']
 handler.tags = ['tools']
 handler.command = ['tourl', 'quax']
-handler.group = true
+handler.group = true;
 export default handler
 
 function formatBytes(bytes) {
