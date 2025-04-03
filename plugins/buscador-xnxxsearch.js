@@ -47,7 +47,6 @@ const handler = async (m, {text, usedPrefix, command}) => {
 handler.help = ['xnxxsearch'].map((v) => v + ' <query>');
 handler.tags = ['buscador'];
 handler.command = ['xnxxsearch', 'xnxxs'];
-handler.register = true;
 handler.group = true;
 
 export default handler;
