@@ -58,7 +58,7 @@ global.done = '✅'
 global.error = '✖️'
 global.msm = '⚠︎'
 
-//Emojis determinado de Yuki Bot
+//Emojis determinado 
 global.emoji = '❀'
 global.emoji2 = '✧'
 global.emoji3 = '✦'
