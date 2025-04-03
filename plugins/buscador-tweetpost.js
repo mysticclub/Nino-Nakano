@@ -63,5 +63,6 @@ console.error(error)
 handler.help = ['tweetposts']
 handler.tags = ['buscador']
 handler.command = ['tweetposts']
+handler.group = true
 
 export default handler;
