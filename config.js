@@ -17,35 +17,35 @@ global.confirmCode = ''
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.owner = [
-['393715279301', 'ⁱᵃᵐ|LeonelOFC𒆜', true],
-['59169739411'],
-['559296077349','Undefined',true],
-['50558124470', 'zaphkiel',true],
-['5218211111111', 'Papi Chulo',true]
+['51920227615', 'ᴬⁿᵍᵉˡⁱᵗʰᵒ ᵒᶠⁱᶜⁱᵃˡ', true],
+[''],
+['','/name',true],
+['', '/name',true],
+['', '/name',true]
 ];
 
 global.ownersDisabled = false; // Establece si los comandos de owners están desactivados
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.mods = ['559296077349', '50558124470']
-global.suittag = ['393715279301']
-global.prems = ['559296077349']
+global.mods = ['', '']
+global.suittag = ['51920227615']
+global.prems = ['']
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.libreria = 'Baileys'
 global.baileys = 'V 6.7.9' 
 global.vs = '2.1.5'
-global.nameqr = 'Sumi-Zakurasawa'
-global.namebot = '✿◟Sumi-Zakurasawa◞✿'
+global.nameqr = 'ᬁ💞ŅÏŅÖ ŅÄĶÄŅÖ 💞乂❤'
+global.namebot = '✿◟Nino Nakano✿'
 global.sessions = 'Sessions'
 global.jadi = 'JadiBots' 
 global.sumiJadibts = true
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.packsticker =`┊🌸Chanel♥︎star‘tin
+global.packsticker =`┊🌸Chanel♥︎star
      ╰https://Sumi.online 
 ┊🍁Info:
 ╰➣https://channel Sumi.likes`
@@ -54,14 +54,14 @@ global.packsticker2 = `━━━━━━━━━♾\
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.packname = `🌸ܾ݉𝘚𝗎ࣼｍ͑͡i ٞ 𝘚َٙ͜ɑ𝚔𝗎͡𝔯ɑ𝘇゙ɑ͜𝑤ɑ🌸◞˚ₓ`
-global.botname = '🌸sumi sakurazawa🌸'
-global.wm = '🌸sumi sakurazawa🌸 • starting team '
-global.author = 'Made By ৎ୭࠭͢𓆩𝕷͢𝖊𝖔፝֟፝֟፝֟፝֟፝֟፝֟𝖓𝖊𝖑𓆪͟͞ '
-global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ৎ୭࠭͢𓆩𝕷͢𝖊𝖔፝֟፝֟፝֟፝֟፝֟፝֟𝖓𝖊𝖑𓆪͟͞  '
-global.textbot = '🌸sumi sakurazawa🌸 • Powered By ৎ୭࠭͢𓆩𝕷͢𝖊𝖔፝֟፝֟፝֟፝֟፝֟፝֟𝖓𝖊𝖑𓆪͟͞ '
+global.packname = `🌸ܾ݉Nino Nakano🌸◞˚ₓ`
+global.botname = '💕Nino Nakano💕'
+global.wm = '💞 Nino Nakano • ༆ᴺᵉˣᵘˢ乂ᴛᴇᴀᴍ숬'
+global.author = 'Made By ᴬⁿᵍᵉˡⁱᵗʰᵒ ᵒᶠⁱᶜⁱᵃˡ'
+global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ᴬⁿᵍᵉˡⁱᵗʰᵒ ᵒᶠⁱᶜⁱᵃˡ'
+global.textbot = '💞Nino Nakano • Powered By ᴬⁿᵍᵉˡⁱᵗʰᵒ ᵒᶠⁱᶜⁱᵃˡ'
 
-global.moneda = 'coin'
+global.moneda = 'Dolares'
 global.welcom1 = 'Edita Con #setwelcome'
 global.welcom2 = 'Edita Con #setbye'
 global.banner = 'https://files.catbox.moe/2sqkr3.jpg'
