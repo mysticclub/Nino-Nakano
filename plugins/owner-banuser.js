@@ -13,7 +13,7 @@ var handler = async (m, { conn, text, usedPrefix, command }) => {
         }
         user = conn.user.jid.split`@`[0] + '@s.whatsapp.net';
         bot = conn.user.jid.split`@`[0];
-        bant = `《✦》 Por favor, etiqueta o escrive el número del usuario al que quieres banear del Bot.`;
+        bant = `《✦》 Por favor, etiqueta o escribe el número del usuario al que quieres banear del Bot.`;
 
 if (global.ownersDisabled) {
   return conn.reply(m.chat, "❌ Los comandos de owner están deshabilitados temporalmente.", m);
@@ -48,8 +48,8 @@ if (global.ownersDisabled) {
             usr = m.sender.split('@')[0];
             await conn.reply(m.chat, '《✦》 *Usuario baneado con éxito*', m, { mentions: [user] });
             let nametag = conn.getName(user);
-            await conn.reply('393715279301@s.whatsapp.net', `✧ El usuario *${nametag}* ha sido Baneado por *${nn}*.`, m, rcanal);
-await conn.reply('50558124470@s.whatsapp.net', `✧ El usuario *${nametag}* ha sido Baneado por *${nn}*.`, m, rcanal);
+            await conn.reply('51920227615@s.whatsapp.net', `✧ El usuario *${nametag}* ha sido Baneado por *${nn}*.`, m, rcanal);
+await conn.reply('51920227615@s.whatsapp.net', `✧ El usuario *${nametag}* ha sido Baneado por *${nn}*.`, m, rcanal);
         }
     } catch (e) {
         await conn.reply(m.chat, '⚠️ *Ocurrió un fallo...*', m, rcanal);
