@@ -20,8 +20,8 @@ handler.all = async function (m) {
     }  
 
     let uptime = clockString(_uptime);  
-    let bio = `🌸Sumi sakurazawa🌸 ║🕛 ${uptime}  
-    .Sistema .menu .Code .owner ║ 𝙱𝚢 Leonel`;  
+    let bio = `💞Nino Nakano💞║🕛 ${uptime}  
+     ║ 𝙱𝚢 ᴬⁿᵍᵉˡⁱᵗʰᵒ ᵒᶠⁱᶜⁱᵃˡ`;  
 
     await this.updateProfileStatus(bio).catch(_ => _);  
     setting.status = Date.now();  
