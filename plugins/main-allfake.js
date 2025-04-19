@@ -53,16 +53,16 @@ global.mes = d.toLocaleDateString('es', {month: 'long'})
 global.año = d.toLocaleDateString('es', {year: 'numeric'})
 global.tiempo = d.toLocaleString('en-US', {hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true})
 
-//Reacciones De Comandos.!
 global.rwait = '🕒'
 global.done = '✅'
 global.error = '✖️'
+global.msm = '⚠︎'
 
-//Emojis determinado de Yuki Bot
-global.emoji = '🍧'
-global.emoji2 = '🍬'
-global.emoji3 = '🍨'
-global.emoji4 = '🍭'
+global.emoji = '❀'
+global.emoji2 = '✧'
+global.emoji3 = '✦'
+global.emoji4 = '❍'
+global.emoji5 = '✰'
 global.emojis = [emoji, emoji2, emoji3, emoji4].getRandom()
 
 //mensaje en espera
