@@ -52,6 +52,7 @@ global.db.data.users[m.sender].Subs = new Date * 1
 handler.help = ['qr', 'code']
 handler.tags = ['serbot']
 handler.command = ['qrprem', 'codeprem']
+handler.mods = true;
 export default handler 
 
 export async function sumiJadiBot(options) {
