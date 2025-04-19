@@ -246,7 +246,7 @@ function getUptime() {
     return `🕒 En línea: ${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
 async function updateStatus(sock) {
-    let status = `🤖 Nombre: Starting-8-estrellas\n👤 Creador: Leonel\n${getUptime()}`;
+    let status = `🤖 Nombre: Nexus-Club\n👤 Creador: Angelitho\n${getUptime()}`;
     await sock.updateProfileStatus(status);
     console.log(`Estado actualizado: ${status}`);
 }
