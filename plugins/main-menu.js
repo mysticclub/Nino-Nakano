@@ -15,7 +15,7 @@ Aquí tienes la lista de comandos
 ╭┈ ↷
 │ᰔᩚ Cliente » @${userId.split('@')[0]}
 │✿ Modo » privado
-│✦ Bot » ${(conn.user.jid == global.conn.user.jid ? 'Principal 🅥' : 'Prem Bot 🅑')}
+│✦ Bot » ${(conn.user.jid == global.conn.user.jid ? 'Owner/Principal 🅥' : 'Prem Bot 🅑')}
 │ⴵ Activada » ${uptime}
 │✰ Usuarios » ${totalreg}
 │✧ Comandos » ${totalCommands}
@@ -31,16 +31,12 @@ Aquí tienes la lista de comandos
 > ✦ Ver la lista de comandos de la Bot.
 ❀ *#uptime • #runtime*
 > ✦ Ver tiempo activo o en linea de la Bot.
-❀ *#sc • #script*
-> ✦ Link del repositorio oficial de la Bot
 ❀ *#staff • #colaboradores*
 > ✦ Ver la lista de desarrolladores de la Bot.
-❀ *#serbot • #serbot code*
+❀ *#qr • #code*
 > ✦ Crea una sesión de Sub-Bot.
 ❀ *#bots • #sockets*
 > ✦ Ver la lista de Sub-Bots activos.
-❀ *#creador*
-> ✦ Contacto del creador de la Bot.
 ❀ *#status • #estado*
 > ✦ Ver el estado actual de la Bot.
 ❀ *#links • #grupos*
