@@ -2,7 +2,7 @@ import axios from 'axios'
 const {proto, generateWAMessageFromContent, prepareWAMessageMedia, generateWAMessageContent, getDevice} = (await import("@whiskeysockets/baileys")).default
 
 let handler = async (message, { conn, text, usedPrefix, command }) => {
-if (!text) return conn.reply(message.chat, '《✦》 Ingresa el texto de lo que quieras buscar', message, rcanal)
+if (!text) return conn.reply(message.chat, `${emoji} Por favor, ingrese lo que desea buscar en tiktok.`, message)
 async function createVideoMessage(url) {
 const { videoMessage } = await generateWAMessageContent({ video: { url } }, { upload: conn.waUploadToServer })
 return videoMessage
@@ -15,12 +15,7 @@ const j = Math.floor(Math.random() * (i + 1));
 }
 try {
 await message.react(rwait)
-conn.reply(message.chat, '「✿」 *𝗘𝘀𝗽𝗲𝗿𝗮 𝗨𝗻 𝗠𝗼𝗺𝗲𝗻𝘁𝗼, 𝗦𝗼𝘆 𝗟𝗲𝗻𝘁𝗮 ...* ', message, {
-contextInfo: { externalAdReply :{ mediaUrl: null, mediaType: 1, showAdAttribution: true,
-title: packname,
-body: dev,
-previewType: 0, thumbnail: icons,
-sourceUrl: channel }}})
+conn.reply(message.chat, `${emoji2} Descargando Su Video, espere un momento...`, message)
 let results = []
 let { data: response } = await axios.get('https://apis-starlights-team.koyeb.app/starlight/tiktoksearch?text=' + text)
 let searchResults = response.data
@@ -44,8 +39,8 @@ deviceListMetadata: {},
 deviceListMetadataVersion: 2
 },
 interactiveMessage: proto.Message.InteractiveMessage.fromObject({
-body: proto.Message.InteractiveMessage.Body.create({ text: '✿ Resultado de: ' + text }),
-footer: proto.Message.InteractiveMessage.Footer.create({ text: '✿ Tiktok - Busquedas' }),
+body: proto.Message.InteractiveMessage.Body.create({ text: `${emoji} Resultado de: ` + text }),
+footer: proto.Message.InteractiveMessage.Footer.create({ text: '⪛✰ Tiktok - Busquedas ✰⪜' }),
 header: proto.Message.InteractiveMessage.Header.create({ hasMediaAttachment: false }),
 carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({ cards: [...results] })})}}
 }, { quoted: message })
@@ -56,8 +51,10 @@ await conn.reply(message.chat, error.toString(), message)
 }}
 
 handler.help = ['tiktoksearch <txt>']
-handler.cookies = 1
-handler.register = true
 handler.tags = ['buscador']
-handler.command = ['tiktoksearch', 'tiktoks']
+handler.command = ['tiktoksearch', 'ttss', 'tiktoks']
+handler.group = true
+handler.register = true
+handler.coin = 2
+
 export default handler
