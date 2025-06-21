@@ -36,9 +36,9 @@ global.listo = '✨️ *Aquí tienes ฅ^•ﻌ•^ฅ*'
 global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://qu.ax/QGAVS.jpg')
 
 //ids channel
-global.channelid = '120363220939514640@newsletter'
-global.canalIdYL = ["120363220939514640@newsletter", "120363371366801178@newsletter", "120363323775906071@newsletter", "120363343366246815@newsletter", "120363377833048768@newsletter"]
-global.canalNombreYL = ["✿ ɢᴇɴᴇꜱɪꜱ • ᴄʜᴀɴɴᴇʟ ᴏꜰᴄ ✿", "ᴄᴀɴᴀʟ • ᴛᴇᴀᴍ ᴄᴏᴅᴇ ᴛɪᴛᴀɴꜱ 🍃", "ᴄᴀɴᴀʟ • ꜰʀᴇᴇ ᴄᴏᴅᴇ ᴛɪᴛᴀɴꜱ 🍧", "ᴄᴀɴᴀʟ • ɪᴢᴜᴍɪ-ᴋᴢx ᴏꜰɪᴄɪᴀʟ ☁️", "ᴄᴀɴᴀʟ • ɴɪɴᴏ ɴᴀᴋᴀɴᴏ ʙᴏᴛ 🧇"]
+global.channelid = '120363415670808219@newsletter'
+global.canalIdYL = ["120363374826926142@newsletter", "120363415670808219@newsletter", "120363338297109389@newsletter", "120363374826926142@newsletter", "120363338297109389@newsletter"]
+global.canalNombreYL = ["✿𝙽𝙸𝙽𝙾 𝙾𝙵𝙸𝙲𝙸𝙰𝙻 𝙲𝙷𝙰𝙽𝙽𝙴𝙻✿", "𝙸.𝙰𝙼 𝙳𝙴𝚅 𝙰𝙽𝙶𝙴𝙻", "𝙻𝙾𝙻𝙸 𝙲𝙻𝚄𝙱", "𝙸.𝙰𝙼 𝙳𝙴𝚅 𝙰𝙽𝙶𝙴𝙻", "ᴄᴀɴᴀʟ • ɴɪɴᴏ ɴᴀᴋᴀɴᴏ ʙᴏᴛ"]
 global.channelRD = await getRandomChannel()
 
 //fechas
@@ -64,11 +64,11 @@ global.wait = '🚀 Cargando...'
 global.emojis = [emoji, emoji2, emoji3, emoji4, emoji5].getRandom()
 
 //Enlaces
-var canal = 'https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y'
-var canal2 = 'https://whatsapp.com/channel/0029VaGGynJLY6d43krQYR2g'
-var canal3 = 'https://whatsapp.com/channel/0029VawMIXi2P59oaQ2H1j0O'
-var canal4 = 'https://whatsapp.com/channel/0029VaS4zeE72WTyg5et571r'
-var canal5 = 'https://whatsapp.com/channel/0029VavYQDTBlHpcishJCZ0k'
+var canal = 'https://whatsapp.com/channel/0029Vaz6RTR0LKZIKwudX32x'
+var canal2 = 'https://whatsapp.com/channel/0029VapUpsT9mrGcypZy141s'
+var canal3 = 'https://whatsapp.com/channel/0029Vaz6RTR0LKZIKwudX32x'
+var canal4 = 'https://whatsapp.com/channel/0029Vb9xYU9EwEjv6fBq9P2m'
+var canal5 = 'https://whatsapp.com/channel/0029VapUpsT9mrGcypZy141s'
 var github = 'https://github.com/Angelito-OFC/Genesis-AI'  
 var insta = 'https://www.instagram.com/angelito.kzx'
 
@@ -98,7 +98,7 @@ global.taguser = '@' + m.sender.split("@s.whatsapp.net")
 var more = String.fromCharCode(8206)
 global.readMore = more.repeat(850)
 global.sticker1 = `☁️Usuario: ${nombre}
-☁️ Creador: Izumi-kzx • ☁️ Fecha: ${fecha}`;
+☁️ Creador: 𝙰𝚗𝚐𝚎𝚕𝚒𝚝𝚑𝚘 𝙾𝙵𝙲 • ☁️ Fecha: ${fecha}`;
 global.sticker2 = `☁️Bot: ${botname}`
 
 //Fakes
