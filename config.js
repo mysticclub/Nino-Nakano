@@ -18,7 +18,7 @@ global.confirmCode = ''
 
 global.owner = [
    ['51901930696', 'ᴬⁿᵍᵉˡⁱᵗʰᵒ ᵒᶠⁱᶜⁱᵃˡ', true],
-   ['51928616320', 'Dark Core', true],
+   ['51928616320', 'DarkCore', true],
    [''],
    [''],
    [''],
