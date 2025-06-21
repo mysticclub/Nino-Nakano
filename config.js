@@ -64,12 +64,12 @@ global.catalogo = fs.readFileSync('./src/catalogo.png')
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.group = 'https://chat.whatsapp.com/GqKwwoV2JJaJDP2SL7SddX'
-global.group2 = 'https://chat.whatsapp.com/Fn5Ipyxu6mE6qEQlwWZTwU'
-global.canal = 'https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y'
-global.channel = 'https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y'
+global.group = 'https://chat.whatsapp.com/Hk7LRLL4uJP5pHYAaxusLn'
+global.group2 = 'https://chat.whatsapp.com/ItBEef1YsmB4BH78UMIsfQ'
+global.canal = 'https://whatsapp.com/channel/0029VapUpsT9mrGcypZy141s'
+global.channel = 'https://whatsapp.com/channel/0029Vaz6RTR0LKZIKwudX32x'
 global.github = 'https://github.com/Izumi-kzx/Genesis-AI' 
-global.instagram = 'https://www.instagram.com/angelito.kzx' 
+global.instagram = 'https://www.instagram.com/angel_dev_ofc' 
 global.whatsApp = 'https://wa.me/51901930696'
 global.correo = 'nexuscluboficial@gmail.com'
 
