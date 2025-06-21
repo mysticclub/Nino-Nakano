@@ -124,7 +124,7 @@ const connectionOptions = {
 logger: pino({ level: 'silent' }),
 printQRInTerminal: opcion == '1' ? true : methodCodeQR ? true : false,
 mobile: MethodMobile, 
-browser: opcion == '1' ? ['Genesis-Plus', 'Edge', '20.0.04'] : methodCodeQR ? ['Genesis-Plus', 'Edge', '20.0.04'] : ["Ubuntu", "Chrome", "20.0.04"],
+browser: opcion == '1' ? ['Genesis-Plus', 'Edge', '20.0.04'] : methodCodeQR ? ['Nino-Nakano', 'Windows', '20.0.04'] : ["Google", "Chrome", "20.0.04"],
 auth: {
 creds: state.creds,
 keys: makeCacheableSignalKeyStore(state.keys, Pino({ level: "fatal" }).child({ level: "fatal" })),
