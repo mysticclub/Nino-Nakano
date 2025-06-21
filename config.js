@@ -17,13 +17,13 @@ global.confirmCode = ''
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
 global.owner = [
-   ['59168683798', 'Izumi 🥞', true],
-   ['59897246324', 'Owner 🍭', true],
-   ['51923300039'],
-   ['51923300039'],
-   ['593968263524'],
-   ['573012482597'],
-   ['5218713339906']
+   ['51901930696', 'ᴬⁿᵍᵉˡⁱᵗʰᵒ ᵒᶠⁱᶜⁱᵃˡ', true],
+   ['51928616320', 'Dark Core', true],
+   [''],
+   [''],
+   [''],
+   [''],
+   ['']
 ]
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
@@ -39,24 +39,24 @@ global.libreria = 'Baileys'
 global.baileys = 'V 6.7.8'
 global.vs = '2.0.7'
 global.languaje = 'Español'
-global.nameqr = 'Ai Genesis'
-global.namebot = 'Genesis - Plus'
+global.nameqr = '𝙽𝙸𝙽𝙾.𝙽𝙰𝙺𝙰𝙽𝙾'
+global.namebot = '𝙽𝙸𝙽𝙾 𝙽𝙰𝙺𝙰𝙽𝙾'
 global.sessions = 'GenesisSession'
 global.jadi = 'GenesisJadiBot'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.packname = '⪛✰ Genesis Ai - Ultra ✰⪜'
-global.botname = 'gᥱᥒᥱsіs-ᥲі'
-global.wm = 'Genesis-Ultra 🤍'
-global.author = 'mᥲძᥱ ᑲᥡ : іzᥙmі.kz᥊ ☕'
-global.dev = '© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ᥴ᥆ძᥱ 𝗍і𝗍ᥲᥒs'
-global.textbot = 'Genesis Ai : Izumi.kzx 🤍'
-global.namebot = 'Genesis Ai'
-global.stickpack = `© ⍴᥆ᥕᥱrᥱძ ᑲᥡ ᥴ᥆ძᥱ 𝗍і𝗍ᥲᥒs`
-global.titulowm = '-❀ᩙ̈͟༚̮ ⡞᪲=͟͟͞🄶𝚎᪶۫۫𝚗᪶۫۫𝚎᪶۫۫𝚜᪶۫۫𝚒᪶۫۫𝚜᪶۫ 𝚊᪶۫𝚒᪶۫͜ ≼᳞ׄ ᵎ ˚꙳꤬ꨪ'
-global.titulowm2 = '.‧·ீ੭ ¡ ᗃᮢ፝֟͡Gᴇɴᴇsɪs B۵ᴛ ʟᴀ ᴍᴇᴊ꧔ʀ !˚̩̩̥͙°̩̥༅˚'
-global.stickauth = `© Genesis Ai By Izumi.kzx`
+global.packname = '⪛✰ 𝙽𝙸𝙽𝙾-𝙽𝙰𝙺𝙰𝙽𝙾✰⪜'
+global.botname = '✦𝙽𝙸𝙽𝙾 𝙽𝙰𝙺𝙰𝙽𝙾♥︎'
+global.wm = '𝖓ⅈ𝖓օ 𝖓ɑ𝚔ɑ𝖓օ'
+global.author = 'mᥲძᥱ ᑲᥡ : 𝑙𝑜𝑙𝑖 𝑐𝑙𝑢𝑏'
+global.dev = '© 𝑚𝑎𝑑𝑒 𝑤𝑖𝑡ℎ 𝑏𝑦 𝑙𝑜𝑙𝑖 𝑐𝑙𝑢𝑏'
+global.textbot = '𝑁𝑖𝑛𝑜 𝑁𝑎𝑘𝑎𝑛𝑜 𝑀𝑎𝑑𝑒 𝑊𝑖𝑡ℎ 𝐵𝑦 𝐿𝑜𝑙𝑖 𝐶𝑙𝑢𝑏'
+global.namebot = '𝑵𝒊𝒏𝒐 𝑵𝒂𝒌𝒂𝒏𝒐'
+global.stickpack = `© 𝙼𝚊𝚍𝚎 𝚆𝚒𝚝𝚑 𝙱𝚢 𝙻𝚘𝚕𝚒 𝙲𝚕𝚞𝚋`
+global.titulowm = '-❀ᩙ̈͟༚̮ ⡞᪲=͟͟͞N̬̂î̬n̬̂ô̬-N̬̂â̬k̬̂â̬n̬̂ô̬≼᳞ׄ ᵎ ˚꙳꤬ꨪ'
+global.titulowm2 = '.‧·ீ੭ ¡ ᗃᮢ፝֟͡Î̬n̬̂ô̬-B̬̂ô̬t̬̂ ᴍᴇᴊ꧔ʀ !˚̩̩̥͙°̩̥༅˚'
+global.stickauth = `© 𝙽𝚒𝚗𝚘 𝙽𝚊𝚔𝚊𝚗𝚘 𝙼𝚊𝚍𝚎 𝚆𝚒𝚝𝚑 𝙱𝚢 𝙻𝚘𝚕𝚒 𝙲𝚕𝚞𝚋`
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
@@ -70,12 +70,12 @@ global.canal = 'https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y'
 global.channel = 'https://whatsapp.com/channel/0029VaJxgcB0bIdvuOwKTM2Y'
 global.github = 'https://github.com/Izumi-kzx/Genesis-AI' 
 global.instagram = 'https://www.instagram.com/angelito.kzx' 
-global.whatsApp = 'https://wa.me/59168683798'
-global.correo = 'izumipluss@gmail.com'
+global.whatsApp = 'https://wa.me/51901930696'
+global.correo = 'nexuscluboficial@gmail.com'
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
-global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "5219992095479-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: 'ᰔᩚ gᥱᥒᥱsіs ᥕһᥲ𝗍sᥲ⍴⍴ ᑲ᥆𝗍', orderTitle: 'Bang', thumbnail: catalogo, sellerJid: '0@s.whatsapp.net'}}};
+global.estilo = { key: {  fromMe: false, participant: `0@s.whatsapp.net`, ...(false ? { remoteJid: "5219992095479-1625305606@g.us" } : {}) }, message: { orderMessage: { itemCount : -999999, status: 1, surface : 1, message: 'ᰔᩚ 𝙽𝚒𝚗𝚘 ᥕһᥲ𝗍sᥲ⍴⍴ ᑲ᥆𝗍', orderTitle: 'Bang', thumbnail: catalogo, sellerJid: '0@s.whatsapp.net'}}};
 
 //*─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─⭒─ׄ─ׅ─ׄ─*
 
