@@ -28,12 +28,12 @@ console.log(`Error : ${e}`)
 }}
 
 //creador y otros
-global.creador = 'Wa.me/5493876432076'
+global.creador = 'Wa.me/51901930696'
 global.ofcbot = `${conn.user.jid.split('@')[0]}`
-global.asistencia = 'https://wa.me/message/O4QPPHZOFDOJI1'
-global.namechannel = '© All Rightd Reserved • GenesisAi'
+global.asistencia = 'https://wa.me/51928616320'
+global.namechannel = '© All Rightd Reserved • Nino Nakano'
 global.listo = '✨️ *Aquí tienes ฅ^•ﻌ•^ฅ*'
-global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://qu.ax/QGAVS.jpg')
+global.fotoperfil = await conn.profilePictureUrl(m.sender, 'image').catch(_ => 'https://files.catbox.moe/ntbjj3.jpg')
 
 //ids channel
 global.channelid = '120363415670808219@newsletter'
@@ -69,14 +69,15 @@ var canal2 = 'https://whatsapp.com/channel/0029VapUpsT9mrGcypZy141s'
 var canal3 = 'https://whatsapp.com/channel/0029Vaz6RTR0LKZIKwudX32x'
 var canal4 = 'https://whatsapp.com/channel/0029Vb9xYU9EwEjv6fBq9P2m'
 var canal5 = 'https://whatsapp.com/channel/0029VapUpsT9mrGcypZy141s'
-var github = 'https://github.com/Angelito-OFC/Genesis-AI'  
-var insta = 'https://www.instagram.com/angelito.kzx'
-
-global.redes = [canal, canal2, canal3, canal4, github, insta].getRandom()
+var github = 'https://github.com/mysticclub/Nino-Nakano'  
+var insta = 'https://www.instagram.com/angel_dev_ofc'
+var web = 'https://loli-club.vercel.app/'
+var web2 = 'https://angel-dev.vercel.app/'
+global.redes = [canal, canal2, canal3, canal4, github, insta, web, web2].getRandom()
 
 global.channels = [canal, canal5].getRandom()
 
-global.redeshost = [canal, canal2, github, insta].getRandom()
+global.redeshost = [canal, canal2, github, insta, web, web2].getRandom()
 
 //Imagen
 let category = "imagen"
